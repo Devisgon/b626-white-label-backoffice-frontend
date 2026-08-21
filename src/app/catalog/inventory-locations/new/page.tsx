@@ -1,20 +1,20 @@
 import Link from "next/link";
 import {
   ArrowLeft,
-  Box,
+  Warehouse,
 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import { CartonMappingsList } from "@/features/catalogue/components";
+import { InventoryLocationForm } from "@/features/catalogue/components";
 
-export default function CartonMappingsPage() {
+export default function NewInventoryLocationPage() {
   return (
     <AppShell>
-      <div className="mx-auto max-w-[1200px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <section className="flex items-start gap-4">
           <Link
-            href="/catalog"
-            aria-label="Return to catalogue"
+            href="/catalog/inventory-locations"
+            aria-label="Return to inventory locations"
             className="
               flex size-10 shrink-0 items-center
               justify-center rounded-xl border
@@ -33,7 +33,7 @@ export default function CartonMappingsPage() {
               bg-primary-light text-primary sm:flex
             "
           >
-            <Box className="size-4" />
+            <Warehouse className="size-4" />
           </span>
 
           <div>
@@ -42,18 +42,18 @@ export default function CartonMappingsPage() {
             </p>
 
             <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-              Carton mappings
+              Add inventory location
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Configure carton products and the unit
-              products contained inside them.
+              Create a warehouse, stock room or
+              another inventory storage location.
             </p>
           </div>
         </section>
 
         <div className="mt-8">
-          <CartonMappingsList />
+          <InventoryLocationForm />
         </div>
       </div>
     </AppShell>

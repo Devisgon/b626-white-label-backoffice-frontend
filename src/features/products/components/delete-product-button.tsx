@@ -23,28 +23,36 @@ export function DeleteProductButton({
   const [isSubmitting, setIsSubmitting] =
     useState(false);
 
-  async function handleDelete() {
-    setIsSubmitting(true);
+async function handleDelete() {
+  setIsSubmitting(true);
 
-    /*
-     * Temporary frontend testing.
-     * Backend connect honay par:
-     *
-     * await deleteProduct(productId);
-     */
-    await new Promise((resolve) => {
-      window.setTimeout(resolve, 700);
-    });
+  /*
+   * Temporary frontend testing.
+   * Backend connect honay par:
+   *
+   * await deleteProduct(productId);
+   */
 
-    setIsSubmitting(false);
-    setIsOpen(false);
+  console.log({
+    action: "delete-product",
+    productId,
+    productName,
+  });
 
-    window.alert(
-      `${productName} has been prepared for deletion.`,
-    );
+  await new Promise<void>((resolve) => {
+    window.setTimeout(resolve, 700);
+  });
 
-    router.push("/products");
-  }
+  setIsSubmitting(false);
+  setIsOpen(false);
+
+  window.alert(
+    `${productName} has been prepared for deletion.`,
+  );
+
+  router.push("/products");
+  router.refresh();
+}
 
   return (
     <>

@@ -91,7 +91,6 @@ export function CatalogueCard({
   if (comingSoon) {
     return (
       <article
-        aria-disabled="true"
         className={`${className} cursor-not-allowed opacity-70`}
       >
         {content}

@@ -48,7 +48,7 @@ export const dashboardModules: DashboardModule[] = [
       INVENTORY_USER,
       FINANCE_USER,
     ],
-    actionCount: 7,
+    actionCount: 5,
   },
   {
     title: "Products",
@@ -61,7 +61,7 @@ export const dashboardModules: DashboardModule[] = [
       STORE_MANAGER,
       INVENTORY_USER,
     ],
-    actionCount: 7,
+    actionCount: 5,
   },
   {
     title: "Bank",
@@ -86,6 +86,6 @@ export const dashboardModules: DashboardModule[] = [
       STORE_MANAGER,
       INVENTORY_USER,
     ],
-    actionCount: 8,
+    actionCount: 10,
   },
 ];

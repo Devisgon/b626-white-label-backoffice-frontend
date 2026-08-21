@@ -1,20 +1,17 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Box,
-} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import { CartonMappingsList } from "@/features/catalogue/components";
+import { PriceBookForm } from "@/features/catalogue/components";
 
-export default function CartonMappingsPage() {
+export default function NewPriceBookPage() {
   return (
     <AppShell>
-      <div className="mx-auto max-w-[1200px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <section className="flex items-start gap-4">
           <Link
-            href="/catalog"
-            aria-label="Return to catalogue"
+            href="/catalog/price-books"
+            aria-label="Return to price books"
             className="
               flex size-10 shrink-0 items-center
               justify-center rounded-xl border
@@ -26,34 +23,24 @@ export default function CartonMappingsPage() {
             <ArrowLeft className="size-4" />
           </Link>
 
-          <span
-            className="
-              hidden size-10 shrink-0 items-center
-              justify-center rounded-xl
-              bg-primary-light text-primary sm:flex
-            "
-          >
-            <Box className="size-4" />
-          </span>
-
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
               Catalogue management
             </p>
 
             <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-              Carton mappings
+              Create price book
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Configure carton products and the unit
-              products contained inside them.
+              Create a new price list for your
+              products.
             </p>
           </div>
         </section>
 
         <div className="mt-8">
-          <CartonMappingsList />
+          <PriceBookForm />
         </div>
       </div>
     </AppShell>
