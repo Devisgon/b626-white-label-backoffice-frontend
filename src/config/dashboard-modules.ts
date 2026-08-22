@@ -73,7 +73,7 @@ export const dashboardModules: DashboardModule[] = [
       OWNER_ADMIN,
       FINANCE_USER,
     ],
-    actionCount: 9,
+    actionCount: 7,
   },
   {
     title: "Catalog",
