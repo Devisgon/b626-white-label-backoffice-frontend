@@ -41,3 +41,24 @@ export type {
   TransactionType,
   VoidTransactionPayload,
 } from "./transaction";
+
+export type {
+  CreateTransferPayload,
+  FundTransfer,
+  TransferFilters,
+  TransfersResponse,
+  TransferStatus,
+  VoidTransferPayload,
+} from "./transfer";
+
+export type {
+  BankReconciliation,
+  CreateReconciliationPayload,
+  MatchReconciliationLinePayload,
+  ReconciliationDetails,
+  ReconciliationFilters,
+  ReconciliationLine,
+  ReconciliationsResponse,
+  ReconciliationStatus,
+  UnmatchReconciliationResponse,
+} from "./reconciliation";

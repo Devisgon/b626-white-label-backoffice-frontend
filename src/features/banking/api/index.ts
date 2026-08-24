@@ -36,3 +36,20 @@ export {
   type BankRegisterResponse,
   type TransactionsResponse,
 } from "./transactions";
+
+export {
+  createTransfer,
+  getTransferById,
+  getTransfers,
+  voidTransfer,
+} from "./transfers";
+
+export {
+  completeReconciliation,
+  createReconciliation,
+  getReconciliationById,
+  getReconciliations,
+  getUnmatchedTransactions,
+  matchReconciliationLine,
+  unmatchReconciliationLine,
+} from "./reconciliations";

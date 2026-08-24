@@ -87,7 +87,7 @@ export const bankModules: BankModule[] = [
     title: "Reconciliation",
     description:
       "Match bank records and verify balances",
-    href: "/bank/reconciliation",
+    href: "/bank/reconciliations",
     icon: ClipboardCheck,
     color: "red",
     allowedRoles: BANK_ROLES,
