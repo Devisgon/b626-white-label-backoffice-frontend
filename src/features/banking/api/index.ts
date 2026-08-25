@@ -53,3 +53,7 @@ export {
   matchReconciliationLine,
   unmatchReconciliationLine,
 } from "./reconciliations";
+
+export {
+  getAuditLogs,
+} from "./audit-logs";

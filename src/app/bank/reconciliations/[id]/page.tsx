@@ -6,6 +6,7 @@ import {
   Clock3,
   Landmark,
   XCircle,
+  type LucideIcon,
 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
@@ -36,64 +37,74 @@ interface ReconciliationRecord {
   createdBy: string;
 }
 
-const reconciliationRecords: ReconciliationRecord[] =
-  [
-    {
-      id: "b1111111-1111-4111-8111-111111111111",
-      bankAccountName:
-        "HBL Main Operating Account",
-      bankAccountNumber: "**** 2343",
-      statementStartDate: "2026-08-01",
-      statementEndDate: "2026-08-31",
-      statementEndingBalance: 1850000,
-      openingSystemBalance: 1600000,
-      status: "in_progress",
-      completedAt: null,
-      createdAt: "2026-08-23T10:30:00.000Z",
-      createdBy: "Amna",
-    },
-    {
-      id: "b2222222-2222-4222-8222-222222222222",
-      bankAccountName:
-        "Meezan Business Account",
-      bankAccountNumber: "**** 7812",
-      statementStartDate: "2026-07-01",
-      statementEndDate: "2026-07-31",
-      statementEndingBalance: 1275000,
-      openingSystemBalance: 1025000,
-      status: "completed",
-      completedAt: "2026-08-02T15:20:00.000Z",
-      createdAt: "2026-08-01T09:15:00.000Z",
-      createdBy: "Amna",
-    },
-    {
-      id: "b3333333-3333-4333-8333-333333333333",
-      bankAccountName:
-        "UBL Petty Cash Account",
-      bankAccountNumber: "**** 4590",
-      statementStartDate: "2026-07-01",
-      statementEndDate: "2026-07-31",
-      statementEndingBalance: 95000,
-      openingSystemBalance: -155000,
-      status: "completed",
-      completedAt: "2026-08-01T12:45:00.000Z",
-      createdAt: "2026-07-31T11:40:00.000Z",
-      createdBy: "Amna",
-    },
-    {
-      id: "b4444444-4444-4444-8444-444444444444",
-      bankAccountName:
-        "HBL Main Operating Account",
-      bankAccountNumber: "**** 2343",
-      statementStartDate: "2026-06-01",
-      statementEndDate: "2026-06-30",
-      statementEndingBalance: 1690000,
-      openingSystemBalance: 1440000,
-      status: "cancelled",
-      completedAt: null,
-      createdAt: "2026-07-01T08:30:00.000Z",
-      createdBy: "Amna",
-    },
+const reconciliationRecords: Record<
+  string,
+  ReconciliationRecord
+> = {
+  "b1111111-1111-4111-8111-111111111111": {
+    id: "b1111111-1111-4111-8111-111111111111",
+    bankAccountName:
+      "HBL Main Operating Account",
+    bankAccountNumber: "**** 2343",
+    statementStartDate: "2026-08-01",
+    statementEndDate: "2026-08-31",
+    statementEndingBalance: 1850000,
+    openingSystemBalance: 1600000,
+    status: "in_progress",
+    completedAt: null,
+    createdAt: "2026-08-23T10:30:00.000Z",
+    createdBy: "Amna",
+  },
+
+  "b2222222-2222-4222-8222-222222222222": {
+    id: "b2222222-2222-4222-8222-222222222222",
+    bankAccountName:
+      "Meezan Business Account",
+    bankAccountNumber: "**** 7812",
+    statementStartDate: "2026-07-01",
+    statementEndDate: "2026-07-31",
+    statementEndingBalance: 1275000,
+    openingSystemBalance: 1025000,
+    status: "completed",
+    completedAt: "2026-08-02T15:20:00.000Z",
+    createdAt: "2026-08-01T09:15:00.000Z",
+    createdBy: "Amna",
+  },
+
+  "b3333333-3333-4333-8333-333333333333": {
+    id: "b3333333-3333-4333-8333-333333333333",
+    bankAccountName:
+      "UBL Petty Cash Account",
+    bankAccountNumber: "**** 4590",
+    statementStartDate: "2026-07-01",
+    statementEndDate: "2026-07-31",
+    statementEndingBalance: 95000,
+    openingSystemBalance: -155000,
+    status: "completed",
+    completedAt: "2026-08-01T12:45:00.000Z",
+    createdAt: "2026-07-31T11:40:00.000Z",
+    createdBy: "Amna",
+  },
+
+  "b4444444-4444-4444-8444-444444444444": {
+    id: "b4444444-4444-4444-8444-444444444444",
+    bankAccountName:
+      "HBL Main Operating Account",
+    bankAccountNumber: "**** 2343",
+    statementStartDate: "2026-06-01",
+    statementEndDate: "2026-06-30",
+    statementEndingBalance: 1690000,
+    openingSystemBalance: 1440000,
+    status: "cancelled",
+    completedAt: null,
+    createdAt: "2026-07-01T08:30:00.000Z",
+    createdBy: "Amna",
+  },
+};
+
+const fallbackReconciliation =
+  reconciliationRecords[
+    "b1111111-1111-4111-8111-111111111111"
   ];
 
 function formatCurrency(value: number) {
@@ -128,82 +139,68 @@ export default async function ReconciliationDetailsPage({
   const { id } = await params;
 
   const reconciliation =
-    reconciliationRecords.find(
-      (record) => record.id === id,
-    ) ?? reconciliationRecords[0];
+    reconciliationRecords[id] ??
+    fallbackReconciliation;
 
   return (
     <AppShell>
       <div className="mx-auto max-w-[1480px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
-        <section
-          className="
-            flex flex-col justify-between gap-5
-            sm:flex-row sm:items-start
-          "
-        >
-          <div className="flex items-start gap-4">
-            <Link
-              href="/bank/reconciliations"
-              aria-label="Return to reconciliations"
-              className="
-                flex size-10 shrink-0 items-center
-                justify-center rounded-xl border
-                border-border bg-white text-muted
-                transition hover:border-primary
-                hover:bg-primary-light hover:text-primary
-              "
-            >
-              <ArrowLeft className="size-4" />
-            </Link>
+        <section className="flex items-start gap-4">
+          <Link
+            href="/bank/reconciliations"
+            aria-label="Return to reconciliations"
+            className="
+              flex size-10 shrink-0 items-center
+              justify-center rounded-xl border
+              border-border bg-white text-muted
+              transition hover:border-primary
+              hover:bg-primary-light hover:text-primary
+            "
+          >
+            <ArrowLeft className="size-4" />
+          </Link>
 
-            <span
-              className="
-                flex size-10 shrink-0 items-center
-                justify-center rounded-xl
-                bg-primary-light text-primary
-              "
-            >
-              <CalendarRange className="size-4" />
-            </span>
+          <span
+            className="
+              flex size-10 shrink-0 items-center
+              justify-center rounded-xl
+              bg-primary-light text-primary
+            "
+          >
+            <CalendarRange className="size-4" />
+          </span>
 
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
-                Reconciliation details
-              </p>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
+              Reconciliation details
+            </p>
 
-              <div className="mt-2 flex flex-wrap items-center gap-3">
-                <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                  {
-                    reconciliation.bankAccountName
-                  }
-                </h1>
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                {reconciliation.bankAccountName}
+              </h1>
 
-                <ReconciliationStatusBadge
-                  status={
-                    reconciliation.status
-                  }
-                />
-              </div>
-
-              <p className="mt-2 text-sm text-muted">
-                {formatDate(
-                  reconciliation.statementStartDate,
-                )}{" "}
-                to{" "}
-                {formatDate(
-                  reconciliation.statementEndDate,
-                )}
-              </p>
+              <ReconciliationStatusBadge
+                status={reconciliation.status}
+              />
             </div>
+
+            <p className="mt-2 text-sm text-muted">
+              {formatDate(
+                reconciliation.statementStartDate,
+              )}{" "}
+              to{" "}
+              {formatDate(
+                reconciliation.statementEndDate,
+              )}
+            </p>
           </div>
         </section>
 
         <section className="mt-8 grid gap-4 sm:grid-cols-3">
           <InfoCard
             title="Bank account"
-            value={
-              reconciliation.bankAccountName
-            }
+            value={reconciliation.bankAccountName}
             helper={
               reconciliation.bankAccountNumber
             }
@@ -215,7 +212,7 @@ export default async function ReconciliationDetailsPage({
             value={formatCurrency(
               reconciliation.statementEndingBalance,
             )}
-            helper="Closing bank statement balance"
+            helper="Closing statement balance"
             icon={CalendarRange}
           />
 
@@ -239,15 +236,7 @@ export default async function ReconciliationDetailsPage({
             "
           >
             <div className="flex items-start gap-3">
-              <span
-                className="
-                  flex size-10 shrink-0 items-center
-                  justify-center rounded-xl
-                  bg-emerald-100 text-emerald-700
-                "
-              >
-                <CheckCircle2 className="size-5" />
-              </span>
+              <CheckCircle2 className="mt-0.5 size-5 text-emerald-700" />
 
               <div>
                 <h2 className="font-bold text-emerald-800">
@@ -261,8 +250,7 @@ export default async function ReconciliationDetailsPage({
                         reconciliation.completedAt,
                       )
                     : "Not available"}
-                  . Matched transactions can no
-                  longer be changed.
+                  . This record is now locked.
                 </p>
               </div>
             </div>
@@ -278,15 +266,7 @@ export default async function ReconciliationDetailsPage({
             "
           >
             <div className="flex items-start gap-3">
-              <span
-                className="
-                  flex size-10 shrink-0 items-center
-                  justify-center rounded-xl
-                  bg-red-100 text-red-700
-                "
-              >
-                <XCircle className="size-5" />
-              </span>
+              <XCircle className="mt-0.5 size-5 text-red-700" />
 
               <div>
                 <h2 className="font-bold text-red-800">
@@ -294,8 +274,8 @@ export default async function ReconciliationDetailsPage({
                 </h2>
 
                 <p className="mt-1 text-xs text-red-700">
-                  This reconciliation is locked and
-                  cannot be modified.
+                  This record is locked and cannot
+                  be modified.
                 </p>
               </div>
             </div>
@@ -304,9 +284,7 @@ export default async function ReconciliationDetailsPage({
 
         <div className="mt-6">
           <ReconciliationWorkspace
-            reconciliationId={
-              reconciliation.id
-            }
+            reconciliationId={reconciliation.id}
             status={reconciliation.status}
             openingSystemBalance={
               reconciliation.openingSystemBalance
@@ -325,7 +303,7 @@ interface InfoCardProps {
   title: string;
   value: string;
   helper: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
 }
 
 function InfoCard({
@@ -381,12 +359,14 @@ function ReconciliationStatusBadge({
         "bg-orange-50 text-orange-700",
       icon: Clock3,
     },
+
     completed: {
       label: "Completed",
       className:
         "bg-emerald-50 text-emerald-700",
       icon: CheckCircle2,
     },
+
     cancelled: {
       label: "Cancelled",
       className: "bg-red-50 text-red-700",

@@ -62,3 +62,10 @@ export type {
   ReconciliationStatus,
   UnmatchReconciliationResponse,
 } from "./reconciliation";
+
+export type {
+  AuditJsonValue,
+  AuditLogFilters,
+  AuditLogsResponse,
+  BankingAuditLog,
+} from "./audit-log";

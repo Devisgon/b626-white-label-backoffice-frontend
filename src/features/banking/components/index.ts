@@ -30,3 +30,6 @@ export {
 export {
   ReconciliationWorkspace,
 } from "./reconciliation-workspace";
+export {
+  AuditLogsList,
+} from "./audit-logs-list";
