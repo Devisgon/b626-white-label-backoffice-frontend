@@ -3,6 +3,7 @@ import {
   BookOpen,
   ShoppingCart,
   Warehouse,
+  Fuel,
   type LucideIcon,
 } from "lucide-react";
 
@@ -88,4 +89,20 @@ export const dashboardModules: DashboardModule[] = [
     ],
     actionCount: 10,
   },
+  {
+  title: "Fuel",
+  description:
+    "Manage tanks, pumps, prices, deliveries and sales",
+  href: "/fuel",
+  icon: Fuel,
+  color: "blue",
+  allowedRoles: [
+    OWNER_ADMIN,
+    STORE_MANAGER,
+    INVENTORY_USER,
+    FINANCE_USER,
+  ],
+  actionCount: 5,
+  comingSoon: false,
+},
 ];
