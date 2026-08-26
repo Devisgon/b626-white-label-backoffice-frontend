@@ -1,13 +1,17 @@
 import {
   Banknote,
   BookOpen,
-  ShoppingCart,
-  Warehouse,
   Fuel,
+  ShoppingCart,
+  Ticket,
+  Warehouse,
   type LucideIcon,
 } from "lucide-react";
 
-import { USER_ROLES, type UserRole } from "@/types/role";
+import {
+  USER_ROLES,
+  type UserRole,
+} from "@/types/role";
 
 export type ModuleColor =
   | "green"
@@ -39,7 +43,8 @@ const {
 export const dashboardModules: DashboardModule[] = [
   {
     title: "Sales",
-    description: "Manage sales, receipts and refunds",
+    description:
+      "Manage sales, receipts and refunds",
     href: "/sales",
     icon: ShoppingCart,
     color: "green",
@@ -53,7 +58,8 @@ export const dashboardModules: DashboardModule[] = [
   },
   {
     title: "Products",
-    description: "Manage products and inventory",
+    description:
+      "Manage products and inventory",
     href: "/products",
     icon: Warehouse,
     color: "blue",
@@ -66,7 +72,8 @@ export const dashboardModules: DashboardModule[] = [
   },
   {
     title: "Bank",
-    description: "Manage accounts and transactions",
+    description:
+      "Manage accounts and transactions",
     href: "/bank",
     icon: Banknote,
     color: "red",
@@ -78,7 +85,8 @@ export const dashboardModules: DashboardModule[] = [
   },
   {
     title: "Catalog",
-    description: "Manage categories, brands and suppliers",
+    description:
+      "Manage categories, brands and suppliers",
     href: "/catalog",
     icon: BookOpen,
     color: "orange",
@@ -90,19 +98,31 @@ export const dashboardModules: DashboardModule[] = [
     actionCount: 10,
   },
   {
-  title: "Fuel",
-  description:
-    "Manage tanks, pumps, prices, deliveries and sales",
-  href: "/fuel",
-  icon: Fuel,
-  color: "blue",
-  allowedRoles: [
-    OWNER_ADMIN,
-    STORE_MANAGER,
-    INVENTORY_USER,
-    FINANCE_USER,
-  ],
-  actionCount: 5,
-  comingSoon: false,
-},
+    title: "Fuel",
+    description:
+      "Manage tanks, pumps, prices, deliveries and sales",
+    href: "/fuel",
+    icon: Fuel,
+    color: "blue",
+    allowedRoles: [
+      OWNER_ADMIN,
+      STORE_MANAGER,
+      INVENTORY_USER,
+      FINANCE_USER,
+    ],
+    actionCount: 5,
+  },
+  {
+    title: "Lottery",
+    description:
+      "Manage lottery games, packs, sales and settlements",
+    href: "/lottery",
+    icon: Ticket,
+    color: "purple",
+    allowedRoles: [
+      OWNER_ADMIN,
+      STORE_MANAGER,
+    ],
+    actionCount: 4,
+  },
 ];

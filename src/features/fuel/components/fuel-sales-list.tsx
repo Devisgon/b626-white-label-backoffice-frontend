@@ -1,0 +1,17 @@
+"use client";
+import Link from "next/link";
+import { Eye, Pencil, Plus, Search } from "lucide-react";
+import { useMemo, useState } from "react";
+import type { FuelSale } from "../types";
+
+const data: FuelSale[] = [
+  { id: 1, pump_id: 1, pump_name: "Pump 01", tank_id: 1, tank_name: "Regular Tank", opening_reading: 12000, closing_reading: 12450, liters_sold: 450, price_per_liter: 272.95, total_amount: 122827.5, payment_method: "Cash", shift: "Morning", sale_date: "2026-08-25", status: "Completed" },
+  { id: 2, pump_id: 3, pump_name: "Pump 03", tank_id: 3, tank_name: "Diesel Tank", opening_reading: 8300, closing_reading: 8520, liters_sold: 220, price_per_liter: 278.5, total_amount: 61270, payment_method: "Card", shift: "Evening", sale_date: "2026-08-24", status: "Pending" },
+];
+
+export function FuelSalesList() {
+  const [search, setSearch] = useState(""); const [status, setStatus] = useState("all");
+  const rows = useMemo(() => data.filter((item) => (status === "all" || item.status === status) && `${item.pump_name} ${item.tank_name} ${item.shift}`.toLowerCase().includes(search.toLowerCase())), [search, status]);
+  return <section className="overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-sm)]"><div className="flex items-center justify-between border-b border-border p-5"><div><h2 className="font-bold">Fuel sales</h2><p className="mt-1 text-xs text-muted">Track pump readings, liters sold and sale totals.</p></div><Link href="/fuel/sales/new" className="inline-flex h-10 items-center gap-2 rounded-xl bg-primary px-4 text-sm font-semibold text-white"><Plus className="size-4"/>Add sale</Link></div><div className="flex gap-3 border-b border-border p-4"><div className="relative flex-1"><Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted"/><input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search pump, tank or shift..." className="h-11 w-full rounded-xl border border-border pl-11 pr-4 text-sm outline-none"/></div><select value={status} onChange={(e)=>setStatus(e.target.value)} className="h-11 rounded-xl border border-border px-4"><option value="all">All statuses</option><option>Completed</option><option>Pending</option><option>Cancelled</option></select></div><div className="overflow-x-auto"><table className="w-full min-w-[900px] text-left text-sm"><thead className="bg-surface-secondary text-xs uppercase text-muted"><tr><th className="p-4">Pump</th><th>Tank</th><th>Liters</th><th>Price/L</th><th>Total</th><th>Date</th><th>Status</th><th className="pr-4 text-right">Actions</th></tr></thead><tbody className="divide-y divide-border">{rows.map((item)=><tr key={item.id}><td className="p-4 font-semibold">{item.pump_name}</td><td>{item.tank_name}</td><td>{item.liters_sold.toLocaleString()} L</td><td>PKR {item.price_per_liter.toLocaleString()}</td><td className="font-semibold">PKR {item.total_amount.toLocaleString()}</td><td>{item.sale_date}</td><td><span className="rounded-full bg-primary-light px-2.5 py-1 text-xs font-semibold text-primary">{item.status}</span></td><td className="pr-4"><div className="flex justify-end gap-2"><Link href={`/fuel/sales/${item.id}`} className="grid size-9 place-items-center rounded-lg border border-border"><Eye className="size-4"/></Link><Link href={`/fuel/sales/${item.id}/edit`} className="grid size-9 place-items-center rounded-lg border border-border"><Pencil className="size-4"/></Link></div></td></tr>)}</tbody></table></div></section>;
+}
+

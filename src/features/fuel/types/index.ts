@@ -38,3 +38,6 @@ export type {
   FuelPricesResponse,
   UpdateFuelPricePayload,
 } from "./fuel-price";
+
+export * from "./fuel-delivery";
+export * from "./fuel-sale";

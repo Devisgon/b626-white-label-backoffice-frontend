@@ -25,3 +25,5 @@ export type {
   FuelPriceFormInput,
   FuelPriceFormValues,
 } from "./fuel-price-schema";
+export * from "./fuel-delivery-schema";
+export * from "./fuel-sale-schema";

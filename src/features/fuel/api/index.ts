@@ -27,3 +27,6 @@ export {
   restoreFuelPrice,
   updateFuelPrice,
 } from "./fuel-prices";
+
+export * from "./fuel-deliveries";
+export * from "./fuel-sales";

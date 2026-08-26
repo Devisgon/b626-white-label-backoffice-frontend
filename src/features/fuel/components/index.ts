@@ -36,3 +36,7 @@ export {
 export {
   FuelPricesList,
 } from "./fuel-prices-list";
+export { FuelDeliveryForm } from "./fuel-delivery-form";
+export { FuelDeliveriesList } from "./fuel-deliveries-list";
+export { FuelSaleForm } from "./fuel-sale-form";
+export { FuelSalesList } from "./fuel-sales-list";
