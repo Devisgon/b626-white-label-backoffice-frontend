@@ -69,3 +69,4 @@ export type {
   AuditLogsResponse,
   BankingAuditLog,
 } from "./audit-log";
+export * from "./e-print";

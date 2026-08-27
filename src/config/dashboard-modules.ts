@@ -4,6 +4,7 @@ import {
   Fuel,
   ShoppingCart,
   Ticket,
+  Workflow,
   Warehouse,
   type LucideIcon,
 } from "lucide-react";
@@ -81,7 +82,7 @@ export const dashboardModules: DashboardModule[] = [
       OWNER_ADMIN,
       FINANCE_USER,
     ],
-    actionCount: 7,
+    actionCount: 8,
   },
   {
     title: "Catalog",
@@ -122,6 +123,21 @@ export const dashboardModules: DashboardModule[] = [
     allowedRoles: [
       OWNER_ADMIN,
       STORE_MANAGER,
+    ],
+    actionCount: 4,
+  },
+  {
+    title: "Operations",
+    description:
+      "Manage checklists, expenses, maintenance and shifts",
+    href: "/operations",
+    icon: Workflow,
+    color: "cyan",
+    allowedRoles: [
+      OWNER_ADMIN,
+      STORE_MANAGER,
+      INVENTORY_USER,
+      FINANCE_USER,
     ],
     actionCount: 4,
   },

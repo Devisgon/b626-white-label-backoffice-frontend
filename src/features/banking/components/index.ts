@@ -33,3 +33,4 @@ export {
 export {
   AuditLogsList,
 } from "./audit-logs-list";
+export { EPrintWorkspace } from "./e-print-workspace";

@@ -4,6 +4,7 @@ import {
   Building2,
   ClipboardCheck,
   FileClock,
+  Printer,
   ReceiptText,
   UsersRound,
   type LucideIcon,
@@ -90,6 +91,15 @@ export const bankModules: BankModule[] = [
     href: "/bank/reconciliations",
     icon: ClipboardCheck,
     color: "red",
+    allowedRoles: BANK_ROLES,
+  },
+  {
+    title: "Bank e-Print",
+    description:
+      "Print eligible checks and review print batches",
+    href: "/bank/e-print",
+    icon: Printer,
+    color: "cyan",
     allowedRoles: BANK_ROLES,
   },
   {
