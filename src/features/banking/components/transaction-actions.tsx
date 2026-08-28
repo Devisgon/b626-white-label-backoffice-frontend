@@ -1,41 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Ban,
-  Send,
-} from "lucide-react";
+import { Ban, Send } from "lucide-react";
 
-import type {
-  TransactionStatus,
-} from "@/features/banking/types";
+import type { TransactionStatus } from "@/features/banking/types";
 
 interface TransactionActionsProps {
   transactionId: string;
   initialStatus: TransactionStatus;
 }
 
-function formatStatus(
-  status: TransactionStatus,
-) {
-  return (
-    status.charAt(0).toUpperCase() +
-    status.slice(1)
-  );
+function formatStatus(status: TransactionStatus) {
+  return status.charAt(0).toUpperCase() + status.slice(1);
 }
 
 export function TransactionActions({
   transactionId,
   initialStatus,
 }: TransactionActionsProps) {
-  const [status, setStatus] =
-    useState(initialStatus);
+  const [status, setStatus] = useState(initialStatus);
 
-  const [message, setMessage] =
-    useState("");
+  const [message, setMessage] = useState("");
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handlePost() {
     const confirmed = window.confirm(
@@ -62,9 +49,7 @@ export function TransactionActions({
     });
 
     setStatus("posted");
-    setMessage(
-      "Transaction posted successfully.",
-    );
+    setMessage("Transaction posted successfully.");
     setIsSubmitting(false);
   }
 
@@ -96,9 +81,7 @@ export function TransactionActions({
     });
 
     setStatus("voided");
-    setMessage(
-      "Transaction voided successfully.",
-    );
+    setMessage("Transaction voided successfully.");
     setIsSubmitting(false);
   }
 
@@ -140,9 +123,7 @@ export function TransactionActions({
           >
             <Send className="size-4" />
 
-            {isSubmitting
-              ? "Processing..."
-              : "Post transaction"}
+            {isSubmitting ? "Processing..." : "Post transaction"}
           </button>
         )}
 

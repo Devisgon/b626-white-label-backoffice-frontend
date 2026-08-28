@@ -15,13 +15,11 @@ import { useAuthStore } from "@/store";
 import { USER_ROLES } from "@/types/role";
 
 export default function DashboardPage() {
-  const [isSidebarOpen, setIsSidebarOpen] =
-    useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const user = useAuthStore((state) => state.user);
 
-  const currentRole =
-    user?.role ?? USER_ROLES.OWNER_ADMIN;
+  const currentRole = user?.role ?? USER_ROLES.OWNER_ADMIN;
 
   const availableModules = useMemo(
     () =>
@@ -33,9 +31,7 @@ export default function DashboardPage() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Topbar
-        onMenuClick={() => setIsSidebarOpen(true)}
-      />
+      <Topbar onMenuClick={() => setIsSidebarOpen(true)} />
 
       <Sidebar
         isOpen={isSidebarOpen}
@@ -54,8 +50,7 @@ export default function DashboardPage() {
           </h1>
 
           <p className="mt-2 text-sm text-muted">
-            Here&apos;s what&apos;s happening across your
-            store today.
+            Here&apos;s what&apos;s happening across your store today.
           </p>
         </section>
 
@@ -83,13 +78,9 @@ export default function DashboardPage() {
             </span>
 
             <div>
-              <p className="text-xs text-muted">
-                Today&apos;s sales
-              </p>
+              <p className="text-xs text-muted">Today&apos;s sales</p>
 
-              <p className="mt-1 text-xl font-bold">
-                PKR 284,650
-              </p>
+              <p className="mt-1 text-xl font-bold">PKR 284,650</p>
 
               <p className="mt-1 flex items-center gap-1 text-[10px] font-medium text-success">
                 <ArrowUpRight className="size-3" />
@@ -115,13 +106,9 @@ export default function DashboardPage() {
             </span>
 
             <div>
-              <p className="text-xs text-muted">
-                Transactions
-              </p>
+              <p className="text-xs text-muted">Transactions</p>
 
-              <p className="mt-1 text-xl font-bold">
-                1,284
-              </p>
+              <p className="mt-1 text-xl font-bold">1,284</p>
 
               <p className="mt-1 text-[10px] text-muted">
                 Across all registers
@@ -146,13 +133,9 @@ export default function DashboardPage() {
             </span>
 
             <div>
-              <p className="text-xs text-muted">
-                Low stock
-              </p>
+              <p className="text-xs text-muted">Low stock</p>
 
-              <p className="mt-1 text-xl font-bold">
-                18 items
-              </p>
+              <p className="mt-1 text-xl font-bold">18 items</p>
 
               <p className="mt-1 text-[10px] font-medium text-warning">
                 5 need attention today
@@ -164,13 +147,10 @@ export default function DashboardPage() {
         <section className="dashboard-workspace mt-10">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-lg font-bold">
-                Your workspace
-              </h2>
+              <h2 className="text-lg font-bold">Your workspace</h2>
 
               <p className="mt-1 text-xs text-muted">
-                Quick access based on your role and
-                permissions
+                Quick access based on your role and permissions
               </p>
             </div>
 

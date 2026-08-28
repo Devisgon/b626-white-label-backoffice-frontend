@@ -1,15 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Boxes,
-} from "lucide-react";
+import { ArrowLeft, Boxes } from "lucide-react";
 
-import {
-  AppShell,
-} from "@/components/layout";
-import {
-  LotteryPackForm,
-} from "@/features/lottery/components";
+import { AppShell } from "@/components/layout";
+import { LotteryPackForm } from "@/features/lottery/components";
 
 export default function NewLotteryPackPage() {
   return (
@@ -71,16 +64,13 @@ export default function NewLotteryPackPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Create a ticket pack and assign it to
-              a lottery game and location.
+              Create a ticket pack and assign it to a lottery game and location.
             </p>
           </div>
         </section>
 
         <div className="mt-8">
-          <LotteryPackForm
-            mode="create"
-          />
+          <LotteryPackForm mode="create" />
         </div>
       </div>
     </AppShell>

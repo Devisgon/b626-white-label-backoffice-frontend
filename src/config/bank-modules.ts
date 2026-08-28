@@ -10,19 +10,10 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import {
-  USER_ROLES,
-  type UserRole,
-} from "@/types/role";
+import { USER_ROLES, type UserRole } from "@/types/role";
 
 export type BankModuleColor =
-  | "green"
-  | "blue"
-  | "purple"
-  | "orange"
-  | "red"
-  | "cyan"
-  | "slate";
+  "green" | "blue" | "purple" | "orange" | "red" | "cyan" | "slate";
 
 export interface BankModule {
   title: string;
@@ -41,8 +32,7 @@ const BANK_ROLES: UserRole[] = [
 export const bankModules: BankModule[] = [
   {
     title: "Bank Accounts",
-    description:
-      "Manage company bank accounts and balances",
+    description: "Manage company bank accounts and balances",
     href: "/bank/accounts",
     icon: Building2,
     color: "green",
@@ -50,8 +40,7 @@ export const bankModules: BankModule[] = [
   },
   {
     title: "Chart of Accounts",
-    description:
-      "Manage financial account categories and codes",
+    description: "Manage financial account categories and codes",
     href: "/bank/chart-of-accounts",
     icon: BookOpenCheck,
     color: "blue",
@@ -59,8 +48,7 @@ export const bankModules: BankModule[] = [
   },
   {
     title: "Payees",
-    description:
-      "Manage suppliers and payment recipients",
+    description: "Manage suppliers and payment recipients",
     href: "/bank/payees",
     icon: UsersRound,
     color: "purple",
@@ -68,8 +56,7 @@ export const bankModules: BankModule[] = [
   },
   {
     title: "Transactions",
-    description:
-      "View and manage bank transactions",
+    description: "View and manage bank transactions",
     href: "/bank/transactions",
     icon: ReceiptText,
     color: "orange",
@@ -77,8 +64,7 @@ export const bankModules: BankModule[] = [
   },
   {
     title: "Transfers",
-    description:
-      "Transfer funds between bank accounts",
+    description: "Transfer funds between bank accounts",
     href: "/bank/transfers",
     icon: ArrowLeftRight,
     color: "cyan",
@@ -86,8 +72,7 @@ export const bankModules: BankModule[] = [
   },
   {
     title: "Reconciliation",
-    description:
-      "Match bank records and verify balances",
+    description: "Match bank records and verify balances",
     href: "/bank/reconciliations",
     icon: ClipboardCheck,
     color: "red",
@@ -95,8 +80,7 @@ export const bankModules: BankModule[] = [
   },
   {
     title: "Bank e-Print",
-    description:
-      "Print eligible checks and review print batches",
+    description: "Print eligible checks and review print batches",
     href: "/bank/e-print",
     icon: Printer,
     color: "cyan",
@@ -104,8 +88,7 @@ export const bankModules: BankModule[] = [
   },
   {
     title: "Audit",
-    description:
-      "Review financial activity and audit history",
+    description: "Review financial activity and audit history",
     href: "/bank/audit",
     icon: FileClock,
     color: "slate",

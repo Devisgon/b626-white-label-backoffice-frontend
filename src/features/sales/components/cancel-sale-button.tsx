@@ -1,11 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Ban,
-  LoaderCircle,
-  X,
-} from "lucide-react";
+import { Ban, LoaderCircle, X } from "lucide-react";
 
 interface CancelSaleButtonProps {
   saleId: string;
@@ -18,8 +14,7 @@ export function CancelSaleButton({
 }: CancelSaleButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [reason, setReason] = useState("");
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isValid = reason.trim().length >= 5;
 
@@ -94,16 +89,11 @@ export function CancelSaleButton({
                 </span>
 
                 <div>
-                  <h2
-                    id="cancel-sale-title"
-                    className="font-bold"
-                  >
+                  <h2 id="cancel-sale-title" className="font-bold">
                     Cancel sale
                   </h2>
 
-                  <p className="mt-1 text-xs text-muted">
-                    {saleNumber}
-                  </p>
+                  <p className="mt-1 text-xs text-muted">{saleNumber}</p>
                 </div>
               </div>
 
@@ -124,8 +114,8 @@ export function CancelSaleButton({
 
             <div className="p-5">
               <p className="text-sm leading-6 text-muted">
-                Cancelling this sale will remove it from
-                completed sales and update its status.
+                Cancelling this sale will remove it from completed sales and
+                update its status.
               </p>
 
               <div className="mt-5">
@@ -140,9 +130,7 @@ export function CancelSaleButton({
                   id="cancellation-reason"
                   rows={4}
                   value={reason}
-                  onChange={(event) =>
-                    setReason(event.target.value)
-                  }
+                  onChange={(event) => setReason(event.target.value)}
                   placeholder="Enter the reason for cancellation..."
                   className="
                     mt-2 w-full resize-none rounded-xl
@@ -159,8 +147,8 @@ export function CancelSaleButton({
               </div>
 
               <div className="mt-5 rounded-xl bg-red-50 px-4 py-3 text-xs leading-5 text-red-700">
-                Please review this action carefully before
-                confirming the cancellation.
+                Please review this action carefully before confirming the
+                cancellation.
               </div>
             </div>
 
@@ -198,9 +186,7 @@ export function CancelSaleButton({
                   <Ban className="size-4" />
                 )}
 
-                {isSubmitting
-                  ? "Cancelling..."
-                  : "Confirm cancellation"}
+                {isSubmitting ? "Cancelling..." : "Confirm cancellation"}
               </button>
             </div>
           </div>

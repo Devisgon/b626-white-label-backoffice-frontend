@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  type ReactNode,
-} from "react";
+import { useEffect, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
 
@@ -20,17 +17,11 @@ export function AuthGuard({
 }: AuthGuardProps) {
   const router = useRouter();
 
-  const user = useAuthStore(
-    (state) => state.user,
-  );
+  const user = useAuthStore((state) => state.user);
 
-  const isAuthenticated = useAuthStore(
-    (state) => state.isAuthenticated,
-  );
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  const hasHydrated = useAuthStore(
-    (state) => state.hasHydrated,
-  );
+  const hasHydrated = useAuthStore((state) => state.hasHydrated);
 
   useEffect(() => {
     if (!hasHydrated) {
@@ -42,19 +33,10 @@ export function AuthGuard({
       return;
     }
 
-    if (
-      requireOnboarding &&
-      user.onboardingStatus !== "ONBOARDED"
-    ) {
+    if (requireOnboarding && user.onboardingStatus !== "ONBOARDED") {
       router.replace("/onboarding/location");
     }
-  }, [
-    hasHydrated,
-    isAuthenticated,
-    requireOnboarding,
-    router,
-    user,
-  ]);
+  }, [hasHydrated, isAuthenticated, requireOnboarding, router, user]);
 
   if (!hasHydrated) {
     return <LoadingScreen />;
@@ -64,10 +46,7 @@ export function AuthGuard({
     return <LoadingScreen />;
   }
 
-  if (
-    requireOnboarding &&
-    user.onboardingStatus !== "ONBOARDED"
-  ) {
+  if (requireOnboarding && user.onboardingStatus !== "ONBOARDED") {
     return <LoadingScreen />;
   }
 

@@ -16,10 +16,7 @@ import {
 import { AppShell } from "@/components/layout";
 import { Button } from "@/components/ui";
 import { SaleStatusBadge } from "@/features/sales/components";
-import type {
-  PaymentMethod,
-  SaleStatus,
-} from "@/features/sales/types";
+import type { PaymentMethod, SaleStatus } from "@/features/sales/types";
 
 interface SaleRow {
   id: number;
@@ -113,8 +110,9 @@ function formatDate(value: string) {
 export default function SalesPage() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<"all" | SaleStatus>("all");
-  const [paymentMethod, setPaymentMethod] =
-    useState<"all" | PaymentMethod>("all");
+  const [paymentMethod, setPaymentMethod] = useState<"all" | PaymentMethod>(
+    "all",
+  );
 
   const filteredSales = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
@@ -125,18 +123,12 @@ export default function SalesPage() {
         sale.saleNumber.toLowerCase().includes(normalizedSearch) ||
         sale.customerName.toLowerCase().includes(normalizedSearch);
 
-      const matchesStatus =
-        status === "all" || sale.status === status;
+      const matchesStatus = status === "all" || sale.status === status;
 
       const matchesPayment =
-        paymentMethod === "all" ||
-        sale.paymentMethod === paymentMethod;
+        paymentMethod === "all" || sale.paymentMethod === paymentMethod;
 
-      return (
-        matchesSearch &&
-        matchesStatus &&
-        matchesPayment
-      );
+      return matchesSearch && matchesStatus && matchesPayment;
     });
   }, [search, status, paymentMethod]);
 
@@ -164,18 +156,18 @@ export default function SalesPage() {
             </p>
           </div>
 
-        <Link
-  href="/sales/new"
-  className="
+          <Link
+            href="/sales/new"
+            className="
     inline-flex h-10 items-center justify-center gap-2
     rounded-xl bg-primary px-4
     text-sm font-semibold text-white
     transition-colors hover:bg-primary-hover
   "
->
-  <Plus className="size-4" />
-  Create sale
-</Link>
+          >
+            <Plus className="size-4" />
+            Create sale
+          </Link>
         </section>
 
         <section className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -224,9 +216,7 @@ export default function SalesPage() {
                 <input
                   type="search"
                   value={search}
-                  onChange={(event) =>
-                    setSearch(event.target.value)
-                  }
+                  onChange={(event) => setSearch(event.target.value)}
                   placeholder="Search by sale number or customer..."
                   className="h-11 w-full rounded-xl border border-border bg-white pl-10 pr-4 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10"
                 />
@@ -236,11 +226,7 @@ export default function SalesPage() {
                 aria-label="Filter by status"
                 value={status}
                 onChange={(event) =>
-                  setStatus(
-                    event.target.value as
-                      | "all"
-                      | SaleStatus,
-                  )
+                  setStatus(event.target.value as "all" | SaleStatus)
                 }
                 className="h-11 rounded-xl border border-border bg-white px-3 text-sm outline-none focus:border-primary focus:ring-4 focus:ring-primary/10"
               >
@@ -248,41 +234,25 @@ export default function SalesPage() {
                 <option value="completed">Completed</option>
                 <option value="cancelled">Cancelled</option>
                 <option value="refunded">Refunded</option>
-                <option value="partially_refunded">
-                  Partially refunded
-                </option>
+                <option value="partially_refunded">Partially refunded</option>
               </select>
 
               <select
                 aria-label="Filter by payment method"
                 value={paymentMethod}
                 onChange={(event) =>
-                  setPaymentMethod(
-                    event.target.value as
-                      | "all"
-                      | PaymentMethod,
-                  )
+                  setPaymentMethod(event.target.value as "all" | PaymentMethod)
                 }
                 className="h-11 rounded-xl border border-border bg-white px-3 text-sm outline-none focus:border-primary focus:ring-4 focus:ring-primary/10"
               >
-                <option value="all">
-                  All payment methods
-                </option>
+                <option value="all">All payment methods</option>
                 <option value="cash">Cash</option>
                 <option value="card">Card</option>
-                <option value="bank_transfer">
-                  Bank transfer
-                </option>
-                <option value="mobile_wallet">
-                  Mobile wallet
-                </option>
+                <option value="bank_transfer">Bank transfer</option>
+                <option value="mobile_wallet">Mobile wallet</option>
               </select>
 
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={resetFilters}
-              >
+              <Button type="button" variant="secondary" onClick={resetFilters}>
                 <RotateCcw className="size-4" />
                 Reset
               </Button>
@@ -300,9 +270,7 @@ export default function SalesPage() {
                   <th className="px-5 py-4">Total</th>
                   <th className="px-5 py-4">Status</th>
                   <th className="px-5 py-4">Date</th>
-                  <th className="px-5 py-4 text-right">
-                    Action
-                  </th>
+                  <th className="px-5 py-4 text-right">Action</th>
                 </tr>
               </thead>
 
@@ -324,18 +292,14 @@ export default function SalesPage() {
                       {paymentLabels[sale.paymentMethod]}
                     </td>
 
-                    <td className="px-5 py-4 text-muted">
-                      {sale.itemCount}
-                    </td>
+                    <td className="px-5 py-4 text-muted">{sale.itemCount}</td>
 
                     <td className="px-5 py-4 font-semibold">
                       {formatCurrency(sale.total)}
                     </td>
 
                     <td className="px-5 py-4">
-                      <SaleStatusBadge
-                        status={sale.status}
-                      />
+                      <SaleStatusBadge status={sale.status} />
                     </td>
 
                     <td className="px-5 py-4 text-xs text-muted">
@@ -356,13 +320,8 @@ export default function SalesPage() {
 
                 {filteredSales.length === 0 && (
                   <tr>
-                    <td
-                      colSpan={8}
-                      className="px-5 py-14 text-center"
-                    >
-                      <p className="font-semibold">
-                        No sales found
-                      </p>
+                    <td colSpan={8} className="px-5 py-14 text-center">
+                      <p className="font-semibold">No sales found</p>
 
                       <p className="mt-1 text-xs text-muted">
                         Change or reset the selected filters.
@@ -376,8 +335,7 @@ export default function SalesPage() {
 
           <div className="flex flex-col gap-3 border-t border-border px-5 py-4 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
             <p>
-              Showing {filteredSales.length} of{" "}
-              {sampleSales.length} sales
+              Showing {filteredSales.length} of {sampleSales.length} sales
             </p>
 
             <div className="flex gap-2">
@@ -421,12 +379,8 @@ function SummaryCard({
 
       <div className="min-w-0">
         <p className="text-xs text-muted">{label}</p>
-        <p className="mt-1 truncate text-xl font-bold">
-          {value}
-        </p>
-        <p className="mt-1 text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-xl font-bold">{value}</p>
+        <p className="mt-1 text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );

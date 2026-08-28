@@ -12,29 +12,20 @@ import {
 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  lotteryModules,
-} from "@/config/lottery-modules";
-import {
-  LotteryModuleCard,
-} from "@/features/lottery/components";
+import { lotteryModules } from "@/config/lottery-modules";
+import { LotteryModuleCard } from "@/features/lottery/components";
 import { useAuthStore } from "@/store";
 import { USER_ROLES } from "@/types/role";
 
 export default function LotteryPage() {
-  const user = useAuthStore(
-    (state) => state.user,
-  );
+  const user = useAuthStore((state) => state.user);
 
-  const currentRole =
-    user?.role ?? USER_ROLES.OWNER_ADMIN;
+  const currentRole = user?.role ?? USER_ROLES.OWNER_ADMIN;
 
   const availableModules = useMemo(
     () =>
       lotteryModules.filter((module) =>
-        module.allowedRoles.includes(
-          currentRole,
-        ),
+        module.allowedRoles.includes(currentRole),
       ),
     [currentRole],
   );
@@ -94,8 +85,7 @@ export default function LotteryPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage games, ticket packs, sales and
-              daily lottery settlements.
+              Manage games, ticket packs, sales and daily lottery settlements.
             </p>
           </div>
         </section>
@@ -111,9 +101,7 @@ export default function LotteryPage() {
             title="Active games"
             value="12"
             helper="Available for sale"
-            icon={
-              <Gamepad2 className="size-5" />
-            }
+            icon={<Gamepad2 className="size-5" />}
             color="purple"
           />
 
@@ -129,9 +117,7 @@ export default function LotteryPage() {
             title="Today's sales"
             value="PKR 45,850"
             helper="184 tickets sold"
-            icon={
-              <BadgeDollarSign className="size-5" />
-            }
+            icon={<BadgeDollarSign className="size-5" />}
             color="green"
           />
 
@@ -139,9 +125,7 @@ export default function LotteryPage() {
             title="Pending settlement"
             value="PKR 8,450"
             helper="Requires review"
-            icon={
-              <CircleDollarSign className="size-5" />
-            }
+            icon={<CircleDollarSign className="size-5" />}
             color="orange"
           />
         </section>
@@ -153,13 +137,10 @@ export default function LotteryPage() {
             "
           >
             <div>
-              <h2 className="text-lg font-bold">
-                Lottery workspace
-              </h2>
+              <h2 className="text-lg font-bold">Lottery workspace</h2>
 
               <p className="mt-1 text-xs text-muted">
-                Quick access based on your role and
-                permissions.
+                Quick access based on your role and permissions.
               </p>
             </div>
 
@@ -171,8 +152,7 @@ export default function LotteryPage() {
                 sm:inline-flex
               "
             >
-              {availableModules.length} sections
-              available
+              {availableModules.length} sections available
             </span>
           </div>
 
@@ -199,11 +179,7 @@ export default function LotteryPage() {
   );
 }
 
-type OverviewColor =
-  | "green"
-  | "blue"
-  | "purple"
-  | "orange";
+type OverviewColor = "green" | "blue" | "purple" | "orange";
 
 function OverviewCard({
   title,
@@ -218,18 +194,11 @@ function OverviewCard({
   icon: React.ReactNode;
   color: OverviewColor;
 }) {
-  const colorClasses: Record<
-    OverviewColor,
-    string
-  > = {
-    green:
-      "bg-emerald-50 text-emerald-700",
-    blue:
-      "bg-blue-50 text-blue-700",
-    purple:
-      "bg-purple-50 text-purple-700",
-    orange:
-      "bg-orange-50 text-orange-700",
+  const colorClasses: Record<OverviewColor, string> = {
+    green: "bg-emerald-50 text-emerald-700",
+    blue: "bg-blue-50 text-blue-700",
+    purple: "bg-purple-50 text-purple-700",
+    orange: "bg-orange-50 text-orange-700",
   };
 
   return (
@@ -254,17 +223,11 @@ function OverviewCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate text-xl font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate text-xl font-bold">{value}</p>
 
-        <p className="mt-1 text-[10px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 text-[10px] text-muted">{helper}</p>
       </div>
     </article>
   );

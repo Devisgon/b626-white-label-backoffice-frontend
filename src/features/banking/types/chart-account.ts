@@ -1,17 +1,9 @@
 export type ChartAccountCategory =
-  | "asset"
-  | "liability"
-  | "equity"
-  | "revenue"
-  | "expense";
+  "asset" | "liability" | "equity" | "revenue" | "expense";
 
-export type NormalBalance =
-  | "debit"
-  | "credit";
+export type NormalBalance = "debit" | "credit";
 
-export type ChartAccountStatus =
-  | "active"
-  | "inactive";
+export type ChartAccountStatus = "active" | "inactive";
 
 export interface ChartAccount {
   id: string;
@@ -35,8 +27,7 @@ export interface CreateChartAccountPayload {
   description?: string;
 }
 
-export interface UpdateChartAccountPayload
-  extends Partial<CreateChartAccountPayload> {
+export interface UpdateChartAccountPayload extends Partial<CreateChartAccountPayload> {
   status?: ChartAccountStatus;
 }
 

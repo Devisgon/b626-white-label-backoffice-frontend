@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  RotateCcw,
-  Trash2,
-  X,
-} from "lucide-react";
+import { RotateCcw, Trash2, X } from "lucide-react";
 
 interface FuelTankActionButtonProps {
   tankId: number;
@@ -24,8 +20,7 @@ export function FuelTankActionButton({
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleAction() {
     setIsSubmitting(true);
@@ -68,11 +63,7 @@ export function FuelTankActionButton({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        aria-label={
-          deleted
-            ? `Restore ${tankName}`
-            : `Delete ${tankName}`
-        }
+        aria-label={deleted ? `Restore ${tankName}` : `Delete ${tankName}`}
         className="
           inline-flex h-10 items-center justify-center
           gap-2 rounded-xl border border-border
@@ -105,9 +96,7 @@ export function FuelTankActionButton({
             <div className="flex items-start justify-between gap-4 border-b border-border p-5">
               <div>
                 <h2 className="font-bold">
-                  {deleted
-                    ? "Restore fuel tank"
-                    : "Delete fuel tank"}
+                  {deleted ? "Restore fuel tank" : "Delete fuel tank"}
                 </h2>
 
                 <p className="mt-1 text-xs leading-5 text-muted">

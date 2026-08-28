@@ -36,14 +36,10 @@ const unitRecords = {
   },
 };
 
-export default async function EditUnitPage({
-  params,
-}: EditUnitPageProps) {
+export default async function EditUnitPage({ params }: EditUnitPageProps) {
   const { id } = await params;
 
-  const unit =
-    unitRecords[id as keyof typeof unitRecords] ??
-    unitRecords["1"];
+  const unit = unitRecords[id as keyof typeof unitRecords] ?? unitRecords["1"];
 
   return (
     <AppShell>
@@ -72,18 +68,13 @@ export default async function EditUnitPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update {unit.name} information and
-              availability.
+              Update {unit.name} information and availability.
             </p>
           </div>
         </section>
 
         <div className="mt-8">
-          <UnitForm
-            mode="edit"
-            unitId={Number(id)}
-            initialValues={unit}
-          />
+          <UnitForm mode="edit" unitId={Number(id)} initialValues={unit} />
         </div>
       </div>
     </AppShell>

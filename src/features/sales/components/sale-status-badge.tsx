@@ -19,9 +19,7 @@ const statusLabels: Record<SaleStatus, string> = {
   partially_refunded: "Partially refunded",
 };
 
-export function SaleStatusBadge({
-  status,
-}: SaleStatusBadgeProps) {
+export function SaleStatusBadge({ status }: SaleStatusBadgeProps) {
   return (
     <span
       className={cn(

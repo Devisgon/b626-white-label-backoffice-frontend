@@ -1,8 +1,5 @@
 export type LotteryPackStatus =
-  | "In Stock"
-  | "Active"
-  | "Completed"
-  | "Inactive";
+  "In Stock" | "Active" | "Completed" | "Inactive";
 
 export interface LotteryPack {
   id: number;
@@ -29,8 +26,7 @@ export interface CreateLotteryPackPayload {
   status?: LotteryPackStatus;
 }
 
-export type UpdateLotteryPackPayload =
-  Partial<CreateLotteryPackPayload>;
+export type UpdateLotteryPackPayload = Partial<CreateLotteryPackPayload>;
 
 export interface LotteryPackStats {
   total: number;

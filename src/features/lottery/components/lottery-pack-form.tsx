@@ -1,14 +1,8 @@
 "use client";
 
-import {
-  useState,
-  type ReactNode,
-} from "react";
+import { useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import {
-  PackagePlus,
-  Save,
-} from "lucide-react";
+import { PackagePlus, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -17,9 +11,7 @@ import {
   type LotteryPackFormInput,
   type LotteryPackFormOutput,
 } from "@/features/lottery/schemas";
-import type {
-  CreateLotteryPackPayload,
-} from "@/features/lottery/types";
+import type { CreateLotteryPackPayload } from "@/features/lottery/types";
 
 interface LotteryPackFormProps {
   mode?: "create" | "edit";
@@ -34,88 +26,57 @@ export function LotteryPackForm({
 }: LotteryPackFormProps) {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
-  } = useForm<
-    LotteryPackFormInput,
-    unknown,
-    LotteryPackFormOutput
-  >({
-    resolver: zodResolver(
-      lotteryPackSchema,
-    ),
+    formState: { errors, isSubmitting },
+  } = useForm<LotteryPackFormInput, unknown, LotteryPackFormOutput>({
+    resolver: zodResolver(lotteryPackSchema),
 
     defaultValues: {
-      game_id:
-        initialValues?.game_id ?? "",
+      game_id: initialValues?.game_id ?? "",
 
-      pack_number:
-        initialValues?.pack_number ?? "",
+      pack_number: initialValues?.pack_number ?? "",
 
-      start_ticket_no:
-        initialValues?.start_ticket_no ?? "",
+      start_ticket_no: initialValues?.start_ticket_no ?? "",
 
-      end_ticket_no:
-        initialValues?.end_ticket_no ?? "",
+      end_ticket_no: initialValues?.end_ticket_no ?? "",
 
-      activated_at:
-        initialValues?.activated_at ?? "",
+      activated_at: initialValues?.activated_at ?? "",
 
-      location_id:
-        initialValues?.location_id ?? "",
+      location_id: initialValues?.location_id ?? "",
 
-      status:
-        initialValues?.status ?? "",
+      status: initialValues?.status ?? "",
     },
   });
 
-  async function onSubmit(
-    values: LotteryPackFormOutput,
-  ): Promise<void> {
+  async function onSubmit(values: LotteryPackFormOutput): Promise<void> {
     setServerError("");
     setSuccessMessage("");
 
     try {
       const payload: CreateLotteryPackPayload = {
-        game_id: Number(
-          values.game_id,
-        ),
+        game_id: Number(values.game_id),
 
-        pack_number:
-          values.pack_number.trim(),
+        pack_number: values.pack_number.trim(),
 
-        start_ticket_no: Number(
-          values.start_ticket_no,
-        ),
+        start_ticket_no: Number(values.start_ticket_no),
 
-        end_ticket_no: Number(
-          values.end_ticket_no,
-        ),
+        end_ticket_no: Number(values.end_ticket_no),
 
         status: values.status,
       };
 
       if (values.activated_at) {
-        payload.activated_at =
-          new Date(
-            values.activated_at,
-          ).toISOString();
+        payload.activated_at = new Date(values.activated_at).toISOString();
       }
 
       if (values.location_id) {
-        payload.location_id =
-          values.location_id;
+        payload.location_id = values.location_id;
       }
 
       /*
@@ -138,14 +99,9 @@ export function LotteryPackForm({
        * }
        */
 
-      await new Promise<void>(
-        (resolve) => {
-          window.setTimeout(
-            resolve,
-            700,
-          );
-        },
-      );
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, 700);
+      });
 
       console.log({
         mode,
@@ -160,16 +116,12 @@ export function LotteryPackForm({
       );
 
       window.setTimeout(() => {
-        router.push(
-          "/lottery/packs",
-        );
+        router.push("/lottery/packs");
 
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the lottery pack. Please try again.",
-      );
+      setServerError("Unable to save the lottery pack. Please try again.");
     }
   }
 
@@ -186,9 +138,7 @@ export function LotteryPackForm({
   return (
     <form
       noValidate
-      onSubmit={handleSubmit(
-        onSubmit,
-      )}
+      onSubmit={handleSubmit(onSubmit)}
       className="
         rounded-2xl border border-border
         bg-white p-5
@@ -208,13 +158,10 @@ export function LotteryPackForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Pack information
-          </h2>
+          <h2 className="text-lg font-bold">Pack information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Enter the game, ticket range and pack
-            activation information.
+            Enter the game, ticket range and pack activation information.
           </p>
         </div>
       </div>
@@ -253,55 +200,30 @@ export function LotteryPackForm({
           sm:grid-cols-2
         "
       >
-        <Field
-          label="Lottery game"
-          required
-          error={
-            errors.game_id?.message
-          }
-        >
+        <Field label="Lottery game" required error={errors.game_id?.message}>
           <select
             id="game_id"
             {...register("game_id")}
             className={inputClassName}
           >
-            <option value="">
-              Select lottery game
-            </option>
+            <option value="">Select lottery game</option>
 
-            <option value="1">
-              Lucky 7 Scratch
-            </option>
+            <option value="1">Lucky 7 Scratch</option>
 
-            <option value="2">
-              Golden Cash
-            </option>
+            <option value="2">Golden Cash</option>
 
-            <option value="3">
-              Mega Winner
-            </option>
+            <option value="3">Mega Winner</option>
 
-            <option value="4">
-              Quick Fortune
-            </option>
+            <option value="4">Quick Fortune</option>
           </select>
         </Field>
 
-        <Field
-          label="Pack number"
-          required
-          error={
-            errors.pack_number
-              ?.message
-          }
-        >
+        <Field label="Pack number" required error={errors.pack_number?.message}>
           <input
             id="pack_number"
             type="text"
             placeholder="For example: PK-000123"
-            {...register(
-              "pack_number",
-            )}
+            {...register("pack_number")}
             className={inputClassName}
           />
         </Field>
@@ -309,10 +231,7 @@ export function LotteryPackForm({
         <Field
           label="Starting ticket number"
           required
-          error={
-            errors.start_ticket_no
-              ?.message
-          }
+          error={errors.start_ticket_no?.message}
         >
           <input
             id="start_ticket_no"
@@ -320,9 +239,7 @@ export function LotteryPackForm({
             min="0"
             step="1"
             placeholder="For example: 1"
-            {...register(
-              "start_ticket_no",
-            )}
+            {...register("start_ticket_no")}
             className={inputClassName}
           />
         </Field>
@@ -330,10 +247,7 @@ export function LotteryPackForm({
         <Field
           label="Ending ticket number"
           required
-          error={
-            errors.end_ticket_no
-              ?.message
-          }
+          error={errors.end_ticket_no?.message}
         >
           <input
             id="end_ticket_no"
@@ -341,47 +255,30 @@ export function LotteryPackForm({
             min="0"
             step="1"
             placeholder="For example: 100"
-            {...register(
-              "end_ticket_no",
-            )}
+            {...register("end_ticket_no")}
             className={inputClassName}
           />
         </Field>
 
         <Field
           label="Activation date and time"
-          error={
-            errors.activated_at
-              ?.message
-          }
+          error={errors.activated_at?.message}
         >
           <input
             id="activated_at"
             type="datetime-local"
-            {...register(
-              "activated_at",
-            )}
+            {...register("activated_at")}
             className={inputClassName}
           />
         </Field>
 
-        <Field
-          label="Location"
-          error={
-            errors.location_id
-              ?.message
-          }
-        >
+        <Field label="Location" error={errors.location_id?.message}>
           <select
             id="location_id"
-            {...register(
-              "location_id",
-            )}
+            {...register("location_id")}
             className={inputClassName}
           >
-            <option value="">
-              Select location
-            </option>
+            <option value="">Select location</option>
 
             <option value="b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d">
               Phoenix Store
@@ -396,9 +293,7 @@ export function LotteryPackForm({
         <Field
           label="Status"
           required
-          error={
-            errors.status?.message
-          }
+          error={errors.status?.message}
           className="sm:col-span-2"
         >
           <select
@@ -406,25 +301,15 @@ export function LotteryPackForm({
             {...register("status")}
             className={inputClassName}
           >
-            <option value="">
-              Select status
-            </option>
+            <option value="">Select status</option>
 
-            <option value="In Stock">
-              In Stock
-            </option>
+            <option value="In Stock">In Stock</option>
 
-            <option value="Active">
-              Active
-            </option>
+            <option value="Active">Active</option>
 
-            <option value="Completed">
-              Completed
-            </option>
+            <option value="Completed">Completed</option>
 
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="Inactive">Inactive</option>
           </select>
         </Field>
       </div>
@@ -438,9 +323,7 @@ export function LotteryPackForm({
       >
         <button
           type="button"
-          onClick={() =>
-            router.back()
-          }
+          onClick={() => router.back()}
           disabled={isSubmitting}
           className="
             inline-flex h-11 items-center
@@ -503,20 +386,12 @@ function Field({
       <label className="text-sm font-semibold">
         {label}
 
-        {required && (
-          <span className="text-danger">
-            {" "}*
-          </span>
-        )}
+        {required && <span className="text-danger"> *</span>}
       </label>
 
       {children}
 
-      {error && (
-        <p className="mt-1.5 text-xs text-danger">
-          {error}
-        </p>
-      )}
+      {error && <p className="mt-1.5 text-xs text-danger">{error}</p>}
     </div>
   );
 }

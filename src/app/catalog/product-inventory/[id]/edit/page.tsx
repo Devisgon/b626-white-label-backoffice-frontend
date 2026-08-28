@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Warehouse,
-} from "lucide-react";
+import { ArrowLeft, Warehouse } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { ProductInventoryForm } from "@/features/catalogue/components";
@@ -69,9 +66,7 @@ export default async function EditProductInventoryPage({
   const { id } = await params;
 
   const inventory =
-    productInventoryRecords[
-      id as keyof typeof productInventoryRecords
-    ];
+    productInventoryRecords[id as keyof typeof productInventoryRecords];
 
   if (!inventory) {
     return (
@@ -84,13 +79,10 @@ export default async function EditProductInventoryPage({
               shadow-[var(--shadow-sm)]
             "
           >
-            <h1 className="text-xl font-bold">
-              Product inventory not found
-            </h1>
+            <h1 className="text-xl font-bold">Product inventory not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested product inventory record
-              does not exist.
+              The requested product inventory record does not exist.
             </p>
 
             <Link
@@ -148,8 +140,7 @@ export default async function EditProductInventoryPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update {inventory.productName} stock at{" "}
-              {inventory.locationName}.
+              Update {inventory.productName} stock at {inventory.locationName}.
             </p>
           </div>
         </section>
@@ -159,20 +150,13 @@ export default async function EditProductInventoryPage({
             mode="edit"
             productInventoryId={Number(id)}
             initialValues={{
-              product_id:
-                inventory.product_id,
-              location_id:
-                inventory.location_id,
-              on_hand_quantity:
-                inventory.on_hand_quantity,
-              reserved_quantity:
-                inventory.reserved_quantity,
-              reorder_level:
-                inventory.reorder_level,
-              minimum_stock:
-                inventory.minimum_stock,
-              maximum_stock:
-                inventory.maximum_stock,
+              product_id: inventory.product_id,
+              location_id: inventory.location_id,
+              on_hand_quantity: inventory.on_hand_quantity,
+              reserved_quantity: inventory.reserved_quantity,
+              reorder_level: inventory.reorder_level,
+              minimum_stock: inventory.minimum_stock,
+              maximum_stock: inventory.maximum_stock,
             }}
           />
         </div>

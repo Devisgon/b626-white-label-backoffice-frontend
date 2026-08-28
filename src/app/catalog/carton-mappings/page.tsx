@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Box,
-} from "lucide-react";
+import { ArrowLeft, Box } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { CartonMappingsList } from "@/features/catalogue/components";
@@ -46,8 +43,8 @@ export default function CartonMappingsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Configure carton products and the unit
-              products contained inside them.
+              Configure carton products and the unit products contained inside
+              them.
             </p>
           </div>
         </section>

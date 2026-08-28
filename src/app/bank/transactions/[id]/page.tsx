@@ -8,9 +8,7 @@ import {
 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  TransactionActions,
-} from "@/features/banking/components";
+import { TransactionActions } from "@/features/banking/components";
 import type {
   TransactionDirection,
   TransactionLineType,
@@ -50,10 +48,7 @@ interface TransactionDetails {
   lines: TransactionLedgerLine[];
 }
 
-const transactions: Record<
-  string,
-  TransactionDetails
-> = {
+const transactions: Record<string, TransactionDetails> = {
   "4f39e6ab-a8d3-4ab9-9000-100000000001": {
     transactionType: "deposit",
     direction: "inflow",
@@ -74,8 +69,7 @@ const transactions: Record<
         accountName: "Assets",
         lineType: "debit",
         amount: 284650,
-        description:
-          "Deposit into operating bank account",
+        description: "Deposit into operating bank account",
       },
       {
         id: "line-002",
@@ -83,8 +77,7 @@ const transactions: Record<
         accountName: "Sales Revenue",
         lineType: "credit",
         amount: 284650,
-        description:
-          "Revenue from daily store sales",
+        description: "Revenue from daily store sales",
       },
     ],
   },
@@ -109,8 +102,7 @@ const transactions: Record<
         accountName: "Inventory Expense",
         lineType: "debit",
         amount: 125000,
-        description:
-          "Nestle supplier invoice",
+        description: "Nestle supplier invoice",
       },
       {
         id: "line-004",
@@ -118,8 +110,7 @@ const transactions: Record<
         accountName: "Assets",
         lineType: "credit",
         amount: 125000,
-        description:
-          "Payment from operating account",
+        description: "Payment from operating account",
       },
     ],
   },
@@ -130,8 +121,7 @@ const transactions: Record<
     transactionDate: "20 Aug 2026",
     bankAccountName: "HBL Main Operating",
     bankAccountLastFour: "2343",
-    payeeName:
-      "Lahore Electric Supply Company",
+    payeeName: "Lahore Electric Supply Company",
     referenceNumber: "LESCO-AUG-26",
     memo: "August electricity bill",
     amount: 48500,
@@ -144,8 +134,7 @@ const transactions: Record<
         accountName: "Utilities Expense",
         lineType: "debit",
         amount: 48500,
-        description:
-          "August electricity expense",
+        description: "August electricity expense",
       },
       {
         id: "line-006",
@@ -153,8 +142,7 @@ const transactions: Record<
         accountName: "Assets",
         lineType: "credit",
         amount: 48500,
-        description:
-          "Payment from operating account",
+        description: "Payment from operating account",
       },
     ],
   },
@@ -179,8 +167,7 @@ const transactions: Record<
         accountName: "Assets",
         lineType: "debit",
         amount: 7500,
-        description:
-          "Petty cash adjustment",
+        description: "Petty cash adjustment",
       },
       {
         id: "line-008",
@@ -188,8 +175,7 @@ const transactions: Record<
         accountName: "Owner Equity",
         lineType: "credit",
         amount: 7500,
-        description:
-          "Balance correction",
+        description: "Balance correction",
       },
     ],
   },
@@ -204,10 +190,7 @@ function formatCurrency(value: number) {
 }
 
 function formatLabel(value: string) {
-  return (
-    value.charAt(0).toUpperCase() +
-    value.slice(1)
-  );
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 export default async function TransactionDetailsPage({
@@ -221,13 +204,10 @@ export default async function TransactionDetailsPage({
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-[var(--shadow-sm)]">
-            <h1 className="text-xl font-bold">
-              Transaction not found
-            </h1>
+            <h1 className="text-xl font-bold">Transaction not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested transaction does not
-              exist.
+              The requested transaction does not exist.
             </p>
 
             <Link
@@ -248,26 +228,12 @@ export default async function TransactionDetailsPage({
   }
 
   const totalDebits = transaction.lines
-    .filter(
-      (line) =>
-        line.lineType === "debit",
-    )
-    .reduce(
-      (total, line) =>
-        total + line.amount,
-      0,
-    );
+    .filter((line) => line.lineType === "debit")
+    .reduce((total, line) => total + line.amount, 0);
 
   const totalCredits = transaction.lines
-    .filter(
-      (line) =>
-        line.lineType === "credit",
-    )
-    .reduce(
-      (total, line) =>
-        total + line.amount,
-      0,
-    );
+    .filter((line) => line.lineType === "credit")
+    .reduce((total, line) => total + line.amount, 0);
 
   return (
     <AppShell>
@@ -312,9 +278,7 @@ export default async function TransactionDetailsPage({
                 {transaction.referenceNumber}
               </h1>
 
-              <p className="mt-2 text-sm text-muted">
-                Transaction ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Transaction ID: {id}</p>
             </div>
           </div>
 
@@ -327,20 +291,14 @@ export default async function TransactionDetailsPage({
         <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <InfoCard
             title="Transaction"
-            value={formatLabel(
-              transaction.transactionType,
-            )}
-            helper={formatLabel(
-              transaction.direction,
-            )}
+            value={formatLabel(transaction.transactionType)}
+            helper={formatLabel(transaction.direction)}
             icon={ReceiptText}
           />
 
           <InfoCard
             title="Amount"
-            value={formatCurrency(
-              transaction.amount,
-            )}
+            value={formatCurrency(transaction.amount)}
             helper="Transaction total"
             icon={CreditCard}
           />
@@ -348,9 +306,7 @@ export default async function TransactionDetailsPage({
           <InfoCard
             title="Payee"
             value={transaction.payeeName}
-            helper={
-              transaction.bankAccountName
-            }
+            helper={transaction.bankAccountName}
             icon={UserRound}
           />
 
@@ -369,23 +325,17 @@ export default async function TransactionDetailsPage({
             sm:p-6
           "
         >
-          <h2 className="font-bold">
-            Transaction information
-          </h2>
+          <h2 className="font-bold">Transaction information</h2>
 
           <dl className="mt-5 divide-y divide-border">
             <DetailsRow
               label="Transaction type"
-              value={formatLabel(
-                transaction.transactionType,
-              )}
+              value={formatLabel(transaction.transactionType)}
             />
 
             <DetailsRow
               label="Direction"
-              value={formatLabel(
-                transaction.direction,
-              )}
+              value={formatLabel(transaction.direction)}
             />
 
             <DetailsRow
@@ -393,10 +343,7 @@ export default async function TransactionDetailsPage({
               value={`${transaction.bankAccountName} •••• ${transaction.bankAccountLastFour}`}
             />
 
-            <DetailsRow
-              label="Payee"
-              value={transaction.payeeName}
-            />
+            <DetailsRow label="Payee" value={transaction.payeeName} />
 
             <DetailsRow
               label="Reference number"
@@ -405,26 +352,17 @@ export default async function TransactionDetailsPage({
 
             <DetailsRow
               label="Memo"
-              value={
-                transaction.memo ||
-                "Not provided"
-              }
+              value={transaction.memo || "Not provided"}
             />
 
             <DetailsRow
               label="Posted at"
-              value={
-                transaction.postedAt ||
-                "Not posted"
-              }
+              value={transaction.postedAt || "Not posted"}
             />
 
             <DetailsRow
               label="Voided at"
-              value={
-                transaction.voidedAt ||
-                "Not voided"
-              }
+              value={transaction.voidedAt || "Not voided"}
             />
           </dl>
         </section>
@@ -437,13 +375,10 @@ export default async function TransactionDetailsPage({
           "
         >
           <div className="border-b border-border p-5">
-            <h2 className="font-bold">
-              Ledger entries
-            </h2>
+            <h2 className="font-bold">Ledger entries</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Debit and credit entries for this
-              transaction.
+              Debit and credit entries for this transaction.
             </p>
           </div>
 
@@ -451,43 +386,28 @@ export default async function TransactionDetailsPage({
             <table className="w-full min-w-[750px] text-left">
               <thead className="bg-surface-secondary">
                 <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                  <th className="px-5 py-4">
-                    Account
-                  </th>
+                  <th className="px-5 py-4">Account</th>
 
-                  <th className="px-5 py-4">
-                    Description
-                  </th>
+                  <th className="px-5 py-4">Description</th>
 
-                  <th className="px-5 py-4">
-                    Type
-                  </th>
+                  <th className="px-5 py-4">Type</th>
 
-                  <th className="px-5 py-4 text-right">
-                    Amount
-                  </th>
+                  <th className="px-5 py-4 text-right">Amount</th>
                 </tr>
               </thead>
 
               <tbody className="divide-y divide-border">
                 {transaction.lines.map((line) => (
-                  <tr
-                    key={line.id}
-                    className="text-sm"
-                  >
+                  <tr key={line.id} className="text-sm">
                     <td className="px-5 py-4">
-                      <p className="font-semibold">
-                        {line.accountName}
-                      </p>
+                      <p className="font-semibold">{line.accountName}</p>
 
                       <p className="mt-1 text-xs text-muted">
                         {line.accountCode}
                       </p>
                     </td>
 
-                    <td className="px-5 py-4 text-muted">
-                      {line.description}
-                    </td>
+                    <td className="px-5 py-4 text-muted">{line.description}</td>
 
                     <td className="px-5 py-4">
                       <span
@@ -502,9 +422,7 @@ export default async function TransactionDetailsPage({
                           }
                         `}
                       >
-                        {formatLabel(
-                          line.lineType,
-                        )}
+                        {formatLabel(line.lineType)}
                       </span>
                     </td>
 
@@ -517,21 +435,16 @@ export default async function TransactionDetailsPage({
 
               <tfoot className="border-t border-border bg-surface-secondary">
                 <tr className="text-sm font-bold">
-                  <td
-                    colSpan={2}
-                    className="px-5 py-4"
-                  >
+                  <td colSpan={2} className="px-5 py-4">
                     Ledger totals
                   </td>
 
                   <td className="px-5 py-4">
-                    Debit:{" "}
-                    {formatCurrency(totalDebits)}
+                    Debit: {formatCurrency(totalDebits)}
                   </td>
 
                   <td className="px-5 py-4 text-right">
-                    Credit:{" "}
-                    {formatCurrency(totalCredits)}
+                    Credit: {formatCurrency(totalCredits)}
                   </td>
                 </tr>
               </tfoot>
@@ -550,12 +463,7 @@ interface InfoCardProps {
   icon: React.ElementType;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon: Icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon: Icon }: InfoCardProps) {
   return (
     <article className="flex items-center gap-4 rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
       <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
@@ -563,38 +471,22 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid gap-2 py-4 text-sm sm:grid-cols-[180px_minmax(0,1fr)]">
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium text-foreground">
-        {value}
-      </dd>
+      <dd className="font-medium text-foreground">{value}</dd>
     </div>
   );
 }

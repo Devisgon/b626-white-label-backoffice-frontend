@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Box,
-  CalendarDays,
-  Package,
-  Pencil,
-} from "lucide-react";
+import { ArrowLeft, Box, CalendarDays, Package, Pencil } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 
@@ -27,10 +21,7 @@ interface MappingDetails {
   updatedAt: string;
 }
 
-const cartonMappings: Record<
-  string,
-  MappingDetails
-> = {
+const cartonMappings: Record<string, MappingDetails> = {
   "1": {
     cartonProductId: 1,
     cartonName: "Mineral Water Carton",
@@ -98,13 +89,10 @@ export default async function CartonMappingDetailsPage({
               shadow-[var(--shadow-sm)]
             "
           >
-            <h1 className="text-xl font-bold">
-              Carton mapping not found
-            </h1>
+            <h1 className="text-xl font-bold">Carton mapping not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested carton mapping does not
-              exist.
+              The requested carton mapping does not exist.
             </p>
 
             <Link
@@ -158,8 +146,7 @@ export default async function CartonMappingDetailsPage({
               </h1>
 
               <p className="mt-2 text-sm text-muted">
-                Mapping ID: {id} ·{" "}
-                {mapping.quantity} units per carton
+                Mapping ID: {id} · {mapping.quantity} units per carton
               </p>
             </div>
           </div>
@@ -222,52 +209,31 @@ export default async function CartonMappingDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Mapping information
-              </h2>
+              <h2 className="font-bold">Mapping information</h2>
 
               <p className="text-xs text-muted">
-                Carton and child product relationship
-                details.
+                Carton and child product relationship details.
               </p>
             </div>
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Carton product"
-              value={mapping.cartonName}
-            />
+            <DetailsRow label="Carton product" value={mapping.cartonName} />
 
-            <DetailsRow
-              label="Carton SKU"
-              value={mapping.cartonSku}
-            />
+            <DetailsRow label="Carton SKU" value={mapping.cartonSku} />
 
-            <DetailsRow
-              label="Child product"
-              value={mapping.childName}
-            />
+            <DetailsRow label="Child product" value={mapping.childName} />
 
-            <DetailsRow
-              label="Child SKU"
-              value={mapping.childSku}
-            />
+            <DetailsRow label="Child SKU" value={mapping.childSku} />
 
             <DetailsRow
               label="Units per carton"
               value={String(mapping.quantity)}
             />
 
-            <DetailsRow
-              label="Created"
-              value={mapping.createdAt}
-            />
+            <DetailsRow label="Created" value={mapping.createdAt} />
 
-            <DetailsRow
-              label="Last updated"
-              value={mapping.updatedAt}
-            />
+            <DetailsRow label="Last updated" value={mapping.updatedAt} />
           </dl>
         </section>
 
@@ -282,10 +248,7 @@ export default async function CartonMappingDetailsPage({
 
           <p className="text-xs leading-5">
             One {mapping.cartonName} represents{" "}
-            <strong>
-              {mapping.quantity} units
-            </strong>{" "}
-            of {mapping.childName}.
+            <strong>{mapping.quantity} units</strong> of {mapping.childName}.
           </p>
         </section>
       </div>
@@ -300,12 +263,7 @@ interface InfoCardProps {
   icon: React.ReactNode;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon }: InfoCardProps) {
   return (
     <article
       className="
@@ -327,29 +285,17 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -357,13 +303,9 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium text-foreground">
-        {value}
-      </dd>
+      <dd className="font-medium text-foreground">{value}</dd>
     </div>
   );
 }

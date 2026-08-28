@@ -51,73 +51,51 @@ export function SalePaymentPanel({
   subtotal,
   itemCount,
 }: SalePaymentPanelProps) {
-  const [showPaymentForm, setShowPaymentForm] =
-    useState(false);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
 
-  const [customerName, setCustomerName] =
-    useState("");
+  const [customerName, setCustomerName] = useState("");
 
-  const [customerPhone, setCustomerPhone] =
-    useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
 
-  const [paymentMethod, setPaymentMethod] =
-    useState<PaymentMethod>("cash");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cash");
 
   const [tax, setTax] = useState(0);
   const [discount, setDiscount] = useState(0);
 
   // Cash
-  const [amountReceived, setAmountReceived] =
-    useState(0);
+  const [amountReceived, setAmountReceived] = useState(0);
 
   // Card
   const [cardType, setCardType] = useState("Visa");
-  const [cardLastFour, setCardLastFour] =
-    useState("");
-  const [cardReference, setCardReference] =
-    useState("");
+  const [cardLastFour, setCardLastFour] = useState("");
+  const [cardReference, setCardReference] = useState("");
 
   // Bank transfer
   const [bankName, setBankName] = useState("");
-  const [transferReference, setTransferReference] =
-    useState("");
+  const [transferReference, setTransferReference] = useState("");
 
   // Mobile wallet
-  const [walletProvider, setWalletProvider] =
-    useState("JazzCash");
-  const [walletReference, setWalletReference] =
-    useState("");
+  const [walletProvider, setWalletProvider] = useState("JazzCash");
+  const [walletReference, setWalletReference] = useState("");
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const total = Math.max(
-    0,
-    subtotal + tax - discount,
-  );
+  const total = Math.max(0, subtotal + tax - discount);
 
-  const changeDue = Math.max(
-    0,
-    amountReceived - total,
-  );
+  const changeDue = Math.max(0, amountReceived - total);
 
   const isPaymentDetailsComplete =
     paymentMethod === "cash"
       ? amountReceived >= total
       : paymentMethod === "card"
-        ? /^\d{4}$/.test(cardLastFour) &&
-          cardReference.trim().length > 0
+        ? /^\d{4}$/.test(cardLastFour) && cardReference.trim().length > 0
         : paymentMethod === "bank_transfer"
-          ? bankName.trim().length > 0 &&
-            transferReference.trim().length > 0
+          ? bankName.trim().length > 0 && transferReference.trim().length > 0
           : walletProvider.trim().length > 0 &&
             walletReference.trim().length > 0;
 
   async function handleCompleteSale() {
-    if (
-      itemCount === 0 ||
-      !isPaymentDetailsComplete
-    ) {
+    if (itemCount === 0 || !isPaymentDetailsComplete) {
       return;
     }
 
@@ -136,18 +114,14 @@ export function SalePaymentPanel({
     window.alert(
       `Sale ready!\nCustomer: ${
         customerName || "Walk-in customer"
-      }\nPayment: ${paymentMethod}\nTotal: ${formatCurrency(
-        total,
-      )}`,
+      }\nPayment: ${paymentMethod}\nTotal: ${formatCurrency(total)}`,
     );
   }
 
   if (!showPaymentForm) {
     return (
       <aside className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)] xl:sticky xl:top-24">
-        <h2 className="font-bold">
-          Payment summary
-        </h2>
+        <h2 className="font-bold">Payment summary</h2>
 
         <p className="mt-1 text-xs text-muted">
           Review sale totals before payment.
@@ -167,9 +141,7 @@ export function SalePaymentPanel({
           <div className="flex justify-between border-t border-border pt-4 text-lg font-bold">
             <span>Total</span>
 
-            <span className="text-primary">
-              {formatCurrency(subtotal)}
-            </span>
+            <span className="text-primary">{formatCurrency(subtotal)}</span>
           </div>
         </div>
 
@@ -215,9 +187,7 @@ export function SalePaymentPanel({
         </span>
 
         <div>
-          <h2 className="font-bold">
-            Payment details
-          </h2>
+          <h2 className="font-bold">Payment details</h2>
 
           <p className="text-xs text-muted">
             Complete the customer transaction.
@@ -244,10 +214,7 @@ export function SalePaymentPanel({
         />
 
         <div>
-          <label
-            htmlFor="payment-method"
-            className="text-xs font-semibold"
-          >
+          <label htmlFor="payment-method" className="text-xs font-semibold">
             Payment method
           </label>
 
@@ -255,9 +222,7 @@ export function SalePaymentPanel({
             id="payment-method"
             value={paymentMethod}
             onChange={(event) =>
-              setPaymentMethod(
-                event.target.value as PaymentMethod,
-              )
+              setPaymentMethod(event.target.value as PaymentMethod)
             }
             className="
               mt-2 h-11 w-full rounded-xl border
@@ -268,10 +233,7 @@ export function SalePaymentPanel({
             "
           >
             {paymentMethods.map((method) => (
-              <option
-                key={method.value}
-                value={method.value}
-              >
+              <option key={method.value} value={method.value}>
                 {method.label}
               </option>
             ))}
@@ -310,9 +272,7 @@ export function SalePaymentPanel({
             bankName={bankName}
             setBankName={setBankName}
             transferReference={transferReference}
-            setTransferReference={
-              setTransferReference
-            }
+            setTransferReference={setTransferReference}
             walletProvider={walletProvider}
             setWalletProvider={setWalletProvider}
             walletReference={walletReference}
@@ -340,26 +300,19 @@ export function SalePaymentPanel({
         <div className="flex justify-between border-t border-border pt-4 text-lg font-bold">
           <span>Total</span>
 
-          <span className="text-primary">
-            {formatCurrency(total)}
-          </span>
+          <span className="text-primary">{formatCurrency(total)}</span>
         </div>
       </div>
 
       {!isPaymentDetailsComplete && (
         <p className="mt-4 rounded-xl bg-orange-50 px-3 py-2 text-[11px] font-medium text-orange-700">
-          Complete the required payment details to
-          continue.
+          Complete the required payment details to continue.
         </p>
       )}
 
       <button
         type="button"
-        disabled={
-          isSubmitting ||
-          itemCount === 0 ||
-          !isPaymentDetailsComplete
-        }
+        disabled={isSubmitting || itemCount === 0 || !isPaymentDetailsComplete}
         onClick={handleCompleteSale}
         className="
           mt-5 inline-flex h-11 w-full
@@ -373,9 +326,7 @@ export function SalePaymentPanel({
       >
         <CheckCircle2 className="size-4" />
 
-        {isSubmitting
-          ? "Completing sale..."
-          : "Complete sale"}
+        {isSubmitting ? "Completing sale..." : "Complete sale"}
       </button>
     </aside>
   );
@@ -434,9 +385,7 @@ function PaymentMethodFields({
         <PaymentHeading
           icon={Banknote}
           title="Cash payment"
-          description={`Amount due: ${formatCurrency(
-            total,
-          )}`}
+          description={`Amount due: ${formatCurrency(total)}`}
         />
 
         <div className="mt-4">
@@ -449,9 +398,7 @@ function PaymentMethodFields({
         </div>
 
         <div className="mt-3 flex justify-between rounded-xl bg-primary-light px-3 py-3 text-sm">
-          <span className="text-muted">
-            Change due
-          </span>
+          <span className="text-muted">Change due</span>
 
           <span className="font-bold text-primary">
             {formatCurrency(changeDue)}
@@ -472,19 +419,14 @@ function PaymentMethodFields({
 
         <div className="mt-4 space-y-4">
           <div>
-            <label
-              htmlFor="card-type"
-              className="text-xs font-semibold"
-            >
+            <label htmlFor="card-type" className="text-xs font-semibold">
               Card type
             </label>
 
             <select
               id="card-type"
               value={cardType}
-              onChange={(event) =>
-                setCardType(event.target.value)
-              }
+              onChange={(event) => setCardType(event.target.value)}
               className="
                 mt-2 h-11 w-full rounded-xl
                 border border-border bg-white px-3
@@ -493,12 +435,8 @@ function PaymentMethodFields({
               "
             >
               <option value="Visa">Visa</option>
-              <option value="Mastercard">
-                Mastercard
-              </option>
-              <option value="UnionPay">
-                UnionPay
-              </option>
+              <option value="Mastercard">Mastercard</option>
+              <option value="UnionPay">UnionPay</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -509,9 +447,7 @@ function PaymentMethodFields({
             placeholder="1234"
             value={cardLastFour}
             onChange={(value) =>
-              setCardLastFour(
-                value.replace(/\D/g, "").slice(0, 4),
-              )
+              setCardLastFour(value.replace(/\D/g, "").slice(0, 4))
             }
             inputMode="numeric"
             maxLength={4}
@@ -526,8 +462,8 @@ function PaymentMethodFields({
           />
 
           <p className="rounded-xl bg-blue-50 px-3 py-2 text-[11px] text-blue-700">
-            Full card number, expiry date aur CVV
-            backoffice mein enter ya store nahi karna.
+            Full card number, expiry date aur CVV backoffice mein enter ya store
+            nahi karna.
           </p>
         </div>
       </div>
@@ -574,19 +510,14 @@ function PaymentMethodFields({
 
       <div className="mt-4 space-y-4">
         <div>
-          <label
-            htmlFor="wallet-provider"
-            className="text-xs font-semibold"
-          >
+          <label htmlFor="wallet-provider" className="text-xs font-semibold">
             Wallet provider
           </label>
 
           <select
             id="wallet-provider"
             value={walletProvider}
-            onChange={(event) =>
-              setWalletProvider(event.target.value)
-            }
+            onChange={(event) => setWalletProvider(event.target.value)}
             className="
               mt-2 h-11 w-full rounded-xl
               border border-border bg-white px-3
@@ -594,21 +525,13 @@ function PaymentMethodFields({
               focus:border-primary
             "
           >
-            <option value="JazzCash">
-              JazzCash
-            </option>
+            <option value="JazzCash">JazzCash</option>
 
-            <option value="Easypaisa">
-              Easypaisa
-            </option>
+            <option value="Easypaisa">Easypaisa</option>
 
-            <option value="NayaPay">
-              NayaPay
-            </option>
+            <option value="NayaPay">NayaPay</option>
 
-            <option value="SadaPay">
-              SadaPay
-            </option>
+            <option value="SadaPay">SadaPay</option>
 
             <option value="Other">Other</option>
           </select>
@@ -634,13 +557,7 @@ interface FormFieldProps {
   onChange: (value: string) => void;
   type?: string;
   inputMode?:
-    | "text"
-    | "numeric"
-    | "tel"
-    | "email"
-    | "decimal"
-    | "search"
-    | "url";
+    "text" | "numeric" | "tel" | "email" | "decimal" | "search" | "url";
   maxLength?: number;
 }
 
@@ -656,10 +573,7 @@ function FormField({
 }: FormFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="text-xs font-semibold"
-      >
+      <label htmlFor={id} className="text-xs font-semibold">
         {label}
       </label>
 
@@ -669,9 +583,7 @@ function FormField({
         value={value}
         inputMode={inputMode}
         maxLength={maxLength}
-        onChange={(event) =>
-          onChange(event.target.value)
-        }
+        onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         className="
           mt-2 h-11 w-full rounded-xl border
@@ -692,18 +604,10 @@ interface NumberFieldProps {
   onChange: (value: number) => void;
 }
 
-function NumberField({
-  id,
-  label,
-  value,
-  onChange,
-}: NumberFieldProps) {
+function NumberField({ id, label, value, onChange }: NumberFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="text-xs font-semibold"
-      >
+      <label htmlFor={id} className="text-xs font-semibold">
         {label}
       </label>
 
@@ -712,14 +616,7 @@ function NumberField({
         type="number"
         min="0"
         value={value}
-        onChange={(event) =>
-          onChange(
-            Math.max(
-              0,
-              Number(event.target.value),
-            ),
-          )
-        }
+        onChange={(event) => onChange(Math.max(0, Number(event.target.value)))}
         className="
           mt-2 h-11 w-full rounded-xl border
           border-border bg-white px-3 text-sm
@@ -750,13 +647,9 @@ function PaymentHeading({
       </span>
 
       <div>
-        <h3 className="text-sm font-semibold">
-          {title}
-        </h3>
+        <h3 className="text-sm font-semibold">{title}</h3>
 
-        <p className="text-[11px] text-muted">
-          {description}
-        </p>
+        <p className="text-[11px] text-muted">{description}</p>
       </div>
     </div>
   );

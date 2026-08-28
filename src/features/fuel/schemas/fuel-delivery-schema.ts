@@ -1,7 +1,11 @@
 import { z } from "zod";
 
 const positiveNumber = (message: string) =>
-  z.string().trim().min(1, message).refine((value) => Number(value) > 0, message);
+  z
+    .string()
+    .trim()
+    .min(1, message)
+    .refine((value) => Number(value) > 0, message);
 
 export const fuelDeliverySchema = z.object({
   tank_id: positiveNumber("Please select a tank."),
@@ -14,4 +18,3 @@ export const fuelDeliverySchema = z.object({
 
 export type FuelDeliveryFormInput = z.input<typeof fuelDeliverySchema>;
 export type FuelDeliveryFormValues = z.output<typeof fuelDeliverySchema>;
-

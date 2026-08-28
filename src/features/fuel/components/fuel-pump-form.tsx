@@ -2,10 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Fuel,
-  Save,
-} from "lucide-react";
+import { Fuel, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -57,37 +54,25 @@ export function FuelPumpForm({
 }: FuelPumpFormProps) {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
-  } = useForm<
-    FuelPumpFormInput,
-    unknown,
-    FuelPumpFormValues
-  >({
+    formState: { errors, isSubmitting },
+  } = useForm<FuelPumpFormInput, unknown, FuelPumpFormValues>({
     resolver: zodResolver(fuelPumpSchema),
     defaultValues: {
       name: initialValues?.name ?? "",
       tank_id: initialValues?.tank_id ?? "",
-      location_id:
-        initialValues?.location_id ?? "",
+      location_id: initialValues?.location_id ?? "",
       status: initialValues?.status ?? "",
     },
   });
 
-  async function onSubmit(
-    values: FuelPumpFormValues,
-  ) {
+  async function onSubmit(values: FuelPumpFormValues) {
     setServerError("");
     setSuccessMessage("");
 
@@ -123,9 +108,7 @@ export function FuelPumpForm({
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the fuel pump. Please try again.",
-      );
+      setServerError("Unable to save the fuel pump. Please try again.");
     }
   }
 
@@ -145,13 +128,10 @@ export function FuelPumpForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Pump information
-          </h2>
+          <h2 className="text-lg font-bold">Pump information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Enter the pump, connected tank and
-            location details.
+            Enter the pump, connected tank and location details.
           </p>
         </div>
       </div>
@@ -176,12 +156,8 @@ export function FuelPumpForm({
 
       <div className="mt-7 grid gap-5 sm:grid-cols-2">
         <div>
-          <label
-            htmlFor="name"
-            className="text-sm font-semibold"
-          >
-            Pump name{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="name" className="text-sm font-semibold">
+            Pump name <span className="text-danger">*</span>
           </label>
 
           <input
@@ -194,28 +170,18 @@ export function FuelPumpForm({
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.name
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.name ? "border-red-300" : "border-border"}
             `}
           />
 
           {errors.name?.message && (
-            <p className="mt-1.5 text-xs text-danger">
-              {errors.name.message}
-            </p>
+            <p className="mt-1.5 text-xs text-danger">{errors.name.message}</p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor="tank_id"
-            className="text-sm font-semibold"
-          >
-            Connected fuel tank{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="tank_id" className="text-sm font-semibold">
+            Connected fuel tank <span className="text-danger">*</span>
           </label>
 
           <select
@@ -226,22 +192,13 @@ export function FuelPumpForm({
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.tank_id
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.tank_id ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="">
-              Select fuel tank
-            </option>
+            <option value="">Select fuel tank</option>
 
             {tankOptions.map((tank) => (
-              <option
-                key={tank.id}
-                value={String(tank.id)}
-              >
+              <option key={tank.id} value={String(tank.id)}>
                 {tank.name} — {tank.fuelType}
               </option>
             ))}
@@ -255,10 +212,7 @@ export function FuelPumpForm({
         </div>
 
         <div>
-          <label
-            htmlFor="location_id"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="location_id" className="text-sm font-semibold">
             Location
           </label>
 
@@ -270,22 +224,13 @@ export function FuelPumpForm({
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.location_id
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.location_id ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="">
-              Select location
-            </option>
+            <option value="">Select location</option>
 
             {locationOptions.map((location) => (
-              <option
-                key={location.id}
-                value={location.id}
-              >
+              <option key={location.id} value={location.id}>
                 {location.name}
               </option>
             ))}
@@ -299,10 +244,7 @@ export function FuelPumpForm({
         </div>
 
         <div>
-          <label
-            htmlFor="status"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="status" className="text-sm font-semibold">
             Status
           </label>
 
@@ -314,22 +256,12 @@ export function FuelPumpForm({
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.status
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.status ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="">
-              Select status
-            </option>
-            <option value="Active">
-              Active
-            </option>
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="">Select status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           {errors.status?.message && (

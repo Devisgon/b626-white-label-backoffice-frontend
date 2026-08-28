@@ -32,8 +32,7 @@ export default function BrandsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage product brands and their
-              availability.
+              Manage product brands and their availability.
             </p>
           </div>
         </section>

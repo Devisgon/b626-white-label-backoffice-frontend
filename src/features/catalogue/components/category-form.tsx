@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  CheckCircle2,
-  LoaderCircle,
-  Save,
-} from "lucide-react";
+import { CheckCircle2, LoaderCircle, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -28,36 +24,27 @@ export function CategoryForm({
 }: CategoryFormProps) {
   const router = useRouter();
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<CategoryFormValues>({
     resolver: zodResolver(categorySchema),
 
-    defaultValues:
-      initialValues ?? {
-        name: "",
-        description: "",
-        status: "Active",
-      },
+    defaultValues: initialValues ?? {
+      name: "",
+      description: "",
+      status: "Active",
+    },
   });
 
-  async function onSubmit(
-    values: CategoryFormValues,
-  ) {
+  async function onSubmit(values: CategoryFormValues) {
     setSuccessMessage("");
 
     // Temporary delay for frontend testing.
-    await new Promise((resolve) =>
-      setTimeout(resolve, 700),
-    );
+    await new Promise((resolve) => setTimeout(resolve, 700));
 
     if (mode === "edit") {
       console.log("Update category:", {
@@ -65,15 +52,11 @@ export function CategoryForm({
         ...values,
       });
 
-      setSuccessMessage(
-        "Category updated successfully.",
-      );
+      setSuccessMessage("Category updated successfully.");
     } else {
       console.log("Create category:", values);
 
-      setSuccessMessage(
-        "Category created successfully.",
-      );
+      setSuccessMessage("Category created successfully.");
     }
 
     // Backend integration ke baad successful
@@ -94,13 +77,10 @@ export function CategoryForm({
       "
     >
       <div className="border-b border-border p-5 sm:p-6">
-        <h2 className="font-bold">
-          Category information
-        </h2>
+        <h2 className="font-bold">Category information</h2>
 
         <p className="mt-1 text-xs text-muted">
-          Enter the category name, description and current
-          status.
+          Enter the category name, description and current status.
         </p>
       </div>
 
@@ -122,12 +102,8 @@ export function CategoryForm({
         )}
 
         <div>
-          <label
-            htmlFor="category-name"
-            className="text-sm font-semibold"
-          >
-            Category name{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="category-name" className="text-sm font-semibold">
+            Category name <span className="text-danger">*</span>
           </label>
 
           <input
@@ -150,10 +126,7 @@ export function CategoryForm({
           />
 
           {errors.name && (
-            <p
-              role="alert"
-              className="mt-2 text-xs font-medium text-danger"
-            >
+            <p role="alert" className="mt-2 text-xs font-medium text-danger">
               {errors.name.message}
             </p>
           )}
@@ -188,31 +161,20 @@ export function CategoryForm({
 
           <div className="mt-2 flex justify-between gap-4">
             {errors.description ? (
-              <p
-                role="alert"
-                className="text-xs font-medium text-danger"
-              >
+              <p role="alert" className="text-xs font-medium text-danger">
                 {errors.description.message}
               </p>
             ) : (
-              <p className="text-xs text-muted">
-                Optional category details.
-              </p>
+              <p className="text-xs text-muted">Optional category details.</p>
             )}
 
-            <span className="text-xs text-muted">
-              Maximum 500 characters
-            </span>
+            <span className="text-xs text-muted">Maximum 500 characters</span>
           </div>
         </div>
 
         <div>
-          <label
-            htmlFor="category-status"
-            className="text-sm font-semibold"
-          >
-            Status{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="category-status" className="text-sm font-semibold">
+            Status <span className="text-danger">*</span>
           </label>
 
           <select
@@ -226,18 +188,13 @@ export function CategoryForm({
               focus:ring-4 focus:ring-primary/10
             "
           >
-            <option value="Active">
-              Active
-            </option>
+            <option value="Active">Active</option>
 
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           <p className="mt-2 text-xs text-muted">
-            Inactive categories will not be available
-            during product selection.
+            Inactive categories will not be available during product selection.
           </p>
         </div>
       </div>
@@ -252,9 +209,7 @@ export function CategoryForm({
       >
         <button
           type="button"
-          onClick={() =>
-            router.push("/catalog/categories")
-          }
+          onClick={() => router.push("/catalog/categories")}
           disabled={isSubmitting}
           className="
             inline-flex h-11 items-center justify-center
@@ -290,9 +245,7 @@ export function CategoryForm({
             <>
               <Save className="size-4" />
 
-              {mode === "edit"
-                ? "Save changes"
-                : "Create category"}
+              {mode === "edit" ? "Save changes" : "Create category"}
             </>
           )}
         </button>

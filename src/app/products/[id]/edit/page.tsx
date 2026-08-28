@@ -79,21 +79,15 @@ export default async function EditProductPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update product information, pricing and
-              inventory settings.
+              Update product information, pricing and inventory settings.
             </p>
 
-            <p className="mt-1 text-xs text-muted">
-              Product ID: {id}
-            </p>
+            <p className="mt-1 text-xs text-muted">Product ID: {id}</p>
           </div>
         </section>
 
         <div className="mt-8">
-          <ProductForm
-            mode="edit"
-            initialValues={sampleProductValues}
-          />
+          <ProductForm mode="edit" initialValues={sampleProductValues} />
         </div>
       </div>
     </AppShell>

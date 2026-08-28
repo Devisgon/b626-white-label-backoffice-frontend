@@ -1,5 +1,130 @@
 "use client";
 import { useMemo, useState } from "react";
 import { History, Printer } from "lucide-react";
-const checks = [{ id: "a3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d", payee: "City Utilities", amount: 12500, transactionDate: "2026-08-26", type: "Expense" }, { id: "b4f2c3d1-2345-4b6c-8d7e-8f9a0b1c2d3e", payee: "Ali Raza", amount: 48000, transactionDate: "2026-08-27", type: "Payroll" }];
-export function EPrintWorkspace() { const [selected, setSelected] = useState<string[]>([]); const [starting, setStarting] = useState(""); const [payroll, setPayroll] = useState(false); const visible = useMemo(() => checks.filter((item) => payroll ? item.type === "Payroll" : item.type !== "Payroll"), [payroll]); return <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]"><section className="overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-sm)]"><div className="flex flex-col justify-between gap-4 border-b border-border p-5 sm:flex-row"><div><h2 className="font-bold">Eligible checks</h2><p className="mt-1 text-xs text-muted">Select transactions and assign sequential check numbers.</p></div><label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={payroll} onChange={(event) => { setPayroll(event.target.checked); setSelected([]); }} />Payroll only</label></div><div className="overflow-x-auto"><table className="w-full min-w-[650px] text-left"><thead className="bg-surface-secondary"><tr className="text-[11px] font-bold uppercase text-muted"><th className="px-5 py-4">Select</th><th className="px-5 py-4">Payee</th><th className="px-5 py-4">Type</th><th className="px-5 py-4">Date</th><th className="px-5 py-4">Amount</th></tr></thead><tbody className="divide-y divide-border">{visible.map((item) => <tr key={item.id} className="text-sm"><td className="px-5 py-4"><input type="checkbox" checked={selected.includes(item.id)} onChange={() => setSelected((current) => current.includes(item.id) ? current.filter((id) => id !== item.id) : [...current, item.id])} /></td><td className="px-5 py-4 font-semibold">{item.payee}</td><td className="px-5 py-4">{item.type}</td><td className="px-5 py-4">{item.transactionDate}</td><td className="px-5 py-4">PKR {item.amount.toLocaleString()}</td></tr>)}</tbody></table></div><div className="flex flex-col gap-4 border-t border-border p-5 sm:flex-row sm:items-end"><label className="flex-1"><span className="text-sm font-semibold">Starting check number</span><input value={starting} onChange={(event) => setStarting(event.target.value)} className="mt-2 h-11 w-full rounded-xl border border-border px-4 text-sm" /></label><button type="button" disabled={!selected.length || !starting} onClick={() => window.alert(`${selected.length} checks prepared from ${starting}`)} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-white disabled:opacity-50"><Printer className="size-4" />Print checks</button></div></section><section className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]"><div className="flex items-center gap-3"><History className="size-5 text-primary" /><div><h2 className="font-bold">Print history</h2><p className="text-xs text-muted">Previous print batches</p></div></div><article className="mt-5 rounded-xl border border-border p-4"><p className="font-semibold">Starting #12560</p><p className="mt-1 text-xs text-muted">4 checks · 25 Aug 2026</p></article></section></div>; }
+const checks = [
+  {
+    id: "a3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d",
+    payee: "City Utilities",
+    amount: 12500,
+    transactionDate: "2026-08-26",
+    type: "Expense",
+  },
+  {
+    id: "b4f2c3d1-2345-4b6c-8d7e-8f9a0b1c2d3e",
+    payee: "Ali Raza",
+    amount: 48000,
+    transactionDate: "2026-08-27",
+    type: "Payroll",
+  },
+];
+export function EPrintWorkspace() {
+  const [selected, setSelected] = useState<string[]>([]);
+  const [starting, setStarting] = useState("");
+  const [payroll, setPayroll] = useState(false);
+  const visible = useMemo(
+    () =>
+      checks.filter((item) =>
+        payroll ? item.type === "Payroll" : item.type !== "Payroll",
+      ),
+    [payroll],
+  );
+  return (
+    <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+      <section className="overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-sm)]">
+        <div className="flex flex-col justify-between gap-4 border-b border-border p-5 sm:flex-row">
+          <div>
+            <h2 className="font-bold">Eligible checks</h2>
+            <p className="mt-1 text-xs text-muted">
+              Select transactions and assign sequential check numbers.
+            </p>
+          </div>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={payroll}
+              onChange={(event) => {
+                setPayroll(event.target.checked);
+                setSelected([]);
+              }}
+            />
+            Payroll only
+          </label>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[650px] text-left">
+            <thead className="bg-surface-secondary">
+              <tr className="text-[11px] font-bold uppercase text-muted">
+                <th className="px-5 py-4">Select</th>
+                <th className="px-5 py-4">Payee</th>
+                <th className="px-5 py-4">Type</th>
+                <th className="px-5 py-4">Date</th>
+                <th className="px-5 py-4">Amount</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {visible.map((item) => (
+                <tr key={item.id} className="text-sm">
+                  <td className="px-5 py-4">
+                    <input
+                      type="checkbox"
+                      checked={selected.includes(item.id)}
+                      onChange={() =>
+                        setSelected((current) =>
+                          current.includes(item.id)
+                            ? current.filter((id) => id !== item.id)
+                            : [...current, item.id],
+                        )
+                      }
+                    />
+                  </td>
+                  <td className="px-5 py-4 font-semibold">{item.payee}</td>
+                  <td className="px-5 py-4">{item.type}</td>
+                  <td className="px-5 py-4">{item.transactionDate}</td>
+                  <td className="px-5 py-4">
+                    PKR {item.amount.toLocaleString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="flex flex-col gap-4 border-t border-border p-5 sm:flex-row sm:items-end">
+          <label className="flex-1">
+            <span className="text-sm font-semibold">Starting check number</span>
+            <input
+              value={starting}
+              onChange={(event) => setStarting(event.target.value)}
+              className="mt-2 h-11 w-full rounded-xl border border-border px-4 text-sm"
+            />
+          </label>
+          <button
+            type="button"
+            disabled={!selected.length || !starting}
+            onClick={() =>
+              window.alert(
+                `${selected.length} checks prepared from ${starting}`,
+              )
+            }
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-white disabled:opacity-50"
+          >
+            <Printer className="size-4" />
+            Print checks
+          </button>
+        </div>
+      </section>
+      <section className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
+        <div className="flex items-center gap-3">
+          <History className="size-5 text-primary" />
+          <div>
+            <h2 className="font-bold">Print history</h2>
+            <p className="text-xs text-muted">Previous print batches</p>
+          </div>
+        </div>
+        <article className="mt-5 rounded-xl border border-border p-4">
+          <p className="font-semibold">Starting #12560</p>
+          <p className="mt-1 text-xs text-muted">4 checks · 25 Aug 2026</p>
+        </article>
+      </section>
+    </div>
+  );
+}

@@ -77,9 +77,7 @@ function formatCurrency(value: number) {
 
 export default function CreateSalePage() {
   const [search, setSearch] = useState("");
-  const [cartItems, setCartItems] = useState<CartItem[]>(
-    [],
-  );
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const filteredProducts = useMemo(() => {
     const value = search.trim().toLowerCase();
@@ -96,25 +94,17 @@ export default function CreateSalePage() {
   }, [search]);
 
   const subtotal = useMemo(
-    () =>
-      cartItems.reduce(
-        (sum, item) =>
-          sum + item.price * item.quantity,
-        0,
-      ),
+    () => cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
     [cartItems],
   );
 
   function addProduct(product: SaleProduct) {
     setCartItems((currentItems) => {
-      const existingItem = currentItems.find(
-        (item) => item.id === product.id,
-      );
+      const existingItem = currentItems.find((item) => item.id === product.id);
 
       if (existingItem) {
         return currentItems.map((item) =>
-          item.id === product.id &&
-          item.quantity < item.stock
+          item.id === product.id && item.quantity < item.stock
             ? {
                 ...item,
                 quantity: item.quantity + 1,
@@ -133,10 +123,7 @@ export default function CreateSalePage() {
     });
   }
 
-  function changeQuantity(
-    productId: number,
-    change: number,
-  ) {
+  function changeQuantity(productId: number, change: number) {
     setCartItems((currentItems) =>
       currentItems
         .map((item) => {
@@ -146,10 +133,7 @@ export default function CreateSalePage() {
 
           return {
             ...item,
-            quantity: Math.min(
-              item.stock,
-              item.quantity + change,
-            ),
+            quantity: Math.min(item.stock, item.quantity + change),
           };
         })
         .filter((item) => item.quantity > 0),
@@ -158,9 +142,7 @@ export default function CreateSalePage() {
 
   function removeProduct(productId: number) {
     setCartItems((currentItems) =>
-      currentItems.filter(
-        (item) => item.id !== productId,
-      ),
+      currentItems.filter((item) => item.id !== productId),
     );
   }
 
@@ -192,8 +174,7 @@ export default function CreateSalePage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Add products and complete the customer
-              transaction.
+              Add products and complete the customer transaction.
             </p>
           </div>
         </section>
@@ -201,9 +182,7 @@ export default function CreateSalePage() {
         <div className="mt-8 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_390px]">
           <div className="space-y-6">
             <section className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
-              <h2 className="font-bold">
-                Select products
-              </h2>
+              <h2 className="font-bold">Select products</h2>
 
               <p className="mt-1 text-xs text-muted">
                 Search and add products to this sale.
@@ -215,9 +194,7 @@ export default function CreateSalePage() {
                 <input
                   type="search"
                   value={search}
-                  onChange={(event) =>
-                    setSearch(event.target.value)
-                  }
+                  onChange={(event) => setSearch(event.target.value)}
                   placeholder="Search products by name or SKU..."
                   className="
                     h-11 w-full rounded-xl border
@@ -240,9 +217,7 @@ export default function CreateSalePage() {
 
                 {filteredProducts.length === 0 && (
                   <div className="col-span-full py-12 text-center">
-                    <p className="text-sm font-semibold">
-                      No products found
-                    </p>
+                    <p className="text-sm font-semibold">No products found</p>
 
                     <p className="mt-1 text-xs text-muted">
                       Try another product name or SKU.
@@ -254,9 +229,7 @@ export default function CreateSalePage() {
 
             <section className="overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-sm)]">
               <div className="border-b border-border p-5">
-                <h2 className="font-bold">
-                  Sale items
-                </h2>
+                <h2 className="font-bold">Sale items</h2>
 
                 <p className="mt-1 text-xs text-muted">
                   {cartItems.length} different products added
@@ -289,13 +262,10 @@ export default function CreateSalePage() {
                       "
                     >
                       <div>
-                        <h3 className="text-sm font-semibold">
-                          {item.name}
-                        </h3>
+                        <h3 className="text-sm font-semibold">{item.name}</h3>
 
                         <p className="mt-1 text-xs text-muted">
-                          {item.sku} ·{" "}
-                          {formatCurrency(item.price)} each
+                          {item.sku} · {formatCurrency(item.price)} each
                         </p>
                       </div>
 
@@ -303,9 +273,7 @@ export default function CreateSalePage() {
                         <div className="flex items-center rounded-xl border border-border">
                           <button
                             type="button"
-                            onClick={() =>
-                              changeQuantity(item.id, -1)
-                            }
+                            onClick={() => changeQuantity(item.id, -1)}
                             className="flex size-9 items-center justify-center text-muted hover:text-primary"
                           >
                             <Minus className="size-3.5" />
@@ -317,12 +285,8 @@ export default function CreateSalePage() {
 
                           <button
                             type="button"
-                            disabled={
-                              item.quantity >= item.stock
-                            }
-                            onClick={() =>
-                              changeQuantity(item.id, 1)
-                            }
+                            disabled={item.quantity >= item.stock}
+                            onClick={() => changeQuantity(item.id, 1)}
                             className="
                               flex size-9 items-center
                               justify-center text-muted
@@ -335,16 +299,12 @@ export default function CreateSalePage() {
                         </div>
 
                         <p className="min-w-24 text-right text-sm font-bold">
-                          {formatCurrency(
-                            item.price * item.quantity,
-                          )}
+                          {formatCurrency(item.price * item.quantity)}
                         </p>
 
                         <button
                           type="button"
-                          onClick={() =>
-                            removeProduct(item.id)
-                          }
+                          onClick={() => removeProduct(item.id)}
                           aria-label={`Remove ${item.name}`}
                           className="
                             flex size-9 items-center
@@ -365,8 +325,7 @@ export default function CreateSalePage() {
           <SalePaymentPanel
             subtotal={subtotal}
             itemCount={cartItems.reduce(
-              (total, item) =>
-                total + item.quantity,
+              (total, item) => total + item.quantity,
               0,
             )}
           />

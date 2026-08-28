@@ -31,34 +31,29 @@ export interface DeleteCartonMappingResponse {
   message: string;
 }
 
-const CARTON_MAPPINGS_ENDPOINT =
-  "/catalogue/carton-mappings";
+const CARTON_MAPPINGS_ENDPOINT = "/catalogue/carton-mappings";
 
 export async function getCartonMappings(
   filters?: CartonMappingFilters,
 ): Promise<CartonMappingsListResponse> {
-  const response =
-    await apiClient.get<CartonMappingsListResponse>(
-      CARTON_MAPPINGS_ENDPOINT,
-      {
-        params: {
-          carton_product_id:
-            filters?.carton_product_id,
-          page: filters?.page,
-          limit: filters?.limit,
-        },
+  const response = await apiClient.get<CartonMappingsListResponse>(
+    CARTON_MAPPINGS_ENDPOINT,
+    {
+      params: {
+        carton_product_id: filters?.carton_product_id,
+        page: filters?.page,
+        limit: filters?.limit,
       },
-    );
+    },
+  );
 
   return response.data;
 }
 
-export async function getCartonMapping(
-  id: number,
-): Promise<CartonMapping> {
-  const response = await apiClient.get<
-    ApiResponse<CartonMapping>
-  >(`${CARTON_MAPPINGS_ENDPOINT}/${id}`);
+export async function getCartonMapping(id: number): Promise<CartonMapping> {
+  const response = await apiClient.get<ApiResponse<CartonMapping>>(
+    `${CARTON_MAPPINGS_ENDPOINT}/${id}`,
+  );
 
   return response.data.data;
 }
@@ -66,9 +61,10 @@ export async function getCartonMapping(
 export async function createCartonMapping(
   payload: CreateCartonMappingPayload,
 ): Promise<CartonMapping> {
-  const response = await apiClient.post<
-    ApiResponse<CartonMapping>
-  >(CARTON_MAPPINGS_ENDPOINT, payload);
+  const response = await apiClient.post<ApiResponse<CartonMapping>>(
+    CARTON_MAPPINGS_ENDPOINT,
+    payload,
+  );
 
   return response.data.data;
 }
@@ -77,9 +73,7 @@ export async function updateCartonMapping(
   id: number,
   payload: UpdateCartonMappingPayload,
 ): Promise<CartonMapping> {
-  const response = await apiClient.patch<
-    ApiResponse<CartonMapping>
-  >(
+  const response = await apiClient.patch<ApiResponse<CartonMapping>>(
     `${CARTON_MAPPINGS_ENDPOINT}/${id}`,
     payload,
   );
@@ -90,10 +84,9 @@ export async function updateCartonMapping(
 export async function deleteCartonMapping(
   id: number,
 ): Promise<DeleteCartonMappingResponse> {
-  const response =
-    await apiClient.delete<DeleteCartonMappingResponse>(
-      `${CARTON_MAPPINGS_ENDPOINT}/${id}`,
-    );
+  const response = await apiClient.delete<DeleteCartonMappingResponse>(
+    `${CARTON_MAPPINGS_ENDPOINT}/${id}`,
+  );
 
   return response.data;
 }

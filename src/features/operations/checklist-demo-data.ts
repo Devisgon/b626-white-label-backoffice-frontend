@@ -1,5 +1,97 @@
 import { checklistSchema } from "./schemas";
 import type { CrudResourceConfig } from "@/types/crud-resource";
-export const checklistConfig: CrudResourceConfig = { title: "Operations Checklists", singular: "checklist item", description: "Manage opening, closing and routine operational tasks.", route: "/operations/checklists", endpoint: "/operations/checklists", statuses: ["Pending","Completed","Skipped"], searchKeys: ["item_name","checklist_type","completed_by","status"], schema: checklistSchema, fields: [{ key: "item_name", label: "Checklist item", type: "text", required: true, table: true }, { key: "checklist_type", label: "Checklist type", type: "select", required: false, table: true, options: ["Opening","Closing","Routine"] }, { key: "location_id", label: "Location", type: "select", required: false, table: false, options: ["b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d"] }, { key: "checklist_date", label: "Checklist date", type: "datetime-local", required: true, table: true }, { key: "completed_by", label: "Completed by", type: "text", required: false, table: true }, { key: "completed_at", label: "Completed at", type: "datetime-local", required: false, table: false }, { key: "status", label: "Status", type: "select", required: true, table: true, options: ["Pending","Completed","Skipped"] }], records: [{"id":1,"item_name":"Turn on lights and POS","checklist_type":"Opening","location_id":"b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d","checklist_date":"2026-08-27T07:30:00.000Z","completed_by":"Ali Raza","completed_at":"2026-08-27T07:45:00.000Z","status":"Completed","created_at":"2026-08-27T10:00:00.000Z","updated_at":"2026-08-27T10:00:00.000Z","deleted_at":null}, {"id":2,"item_name":"Verify closing cash","checklist_type":"Closing","location_id":"b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d","checklist_date":"2026-08-27T22:00:00.000Z","completed_by":"","completed_at":"","status":"Pending","created_at":"2026-08-27T10:00:00.000Z","updated_at":"2026-08-27T10:00:00.000Z","deleted_at":null}] };
-export function findDemoChecklist(id: number) { return checklistConfig.records.find((item) => item.id === id); }
-
+export const checklistConfig: CrudResourceConfig = {
+  title: "Operations Checklists",
+  singular: "checklist item",
+  description: "Manage opening, closing and routine operational tasks.",
+  route: "/operations/checklists",
+  endpoint: "/operations/checklists",
+  statuses: ["Pending", "Completed", "Skipped"],
+  searchKeys: ["item_name", "checklist_type", "completed_by", "status"],
+  schema: checklistSchema,
+  fields: [
+    {
+      key: "item_name",
+      label: "Checklist item",
+      type: "text",
+      required: true,
+      table: true,
+    },
+    {
+      key: "checklist_type",
+      label: "Checklist type",
+      type: "select",
+      required: false,
+      table: true,
+      options: ["Opening", "Closing", "Routine"],
+    },
+    {
+      key: "location_id",
+      label: "Location",
+      type: "select",
+      required: false,
+      table: false,
+      options: ["b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d"],
+    },
+    {
+      key: "checklist_date",
+      label: "Checklist date",
+      type: "datetime-local",
+      required: true,
+      table: true,
+    },
+    {
+      key: "completed_by",
+      label: "Completed by",
+      type: "text",
+      required: false,
+      table: true,
+    },
+    {
+      key: "completed_at",
+      label: "Completed at",
+      type: "datetime-local",
+      required: false,
+      table: false,
+    },
+    {
+      key: "status",
+      label: "Status",
+      type: "select",
+      required: true,
+      table: true,
+      options: ["Pending", "Completed", "Skipped"],
+    },
+  ],
+  records: [
+    {
+      id: 1,
+      item_name: "Turn on lights and POS",
+      checklist_type: "Opening",
+      location_id: "b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d",
+      checklist_date: "2026-08-27T07:30:00.000Z",
+      completed_by: "Ali Raza",
+      completed_at: "2026-08-27T07:45:00.000Z",
+      status: "Completed",
+      created_at: "2026-08-27T10:00:00.000Z",
+      updated_at: "2026-08-27T10:00:00.000Z",
+      deleted_at: null,
+    },
+    {
+      id: 2,
+      item_name: "Verify closing cash",
+      checklist_type: "Closing",
+      location_id: "b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d",
+      checklist_date: "2026-08-27T22:00:00.000Z",
+      completed_by: "",
+      completed_at: "",
+      status: "Pending",
+      created_at: "2026-08-27T10:00:00.000Z",
+      updated_at: "2026-08-27T10:00:00.000Z",
+      deleted_at: null,
+    },
+  ],
+};
+export function findDemoChecklist(id: number) {
+  return checklistConfig.records.find((item) => item.id === id);
+}

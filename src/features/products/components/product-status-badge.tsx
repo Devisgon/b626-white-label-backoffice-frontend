@@ -5,9 +5,7 @@ interface ProductStatusBadgeProps {
   status: ProductStatus;
 }
 
-export function ProductStatusBadge({
-  status,
-}: ProductStatusBadgeProps) {
+export function ProductStatusBadge({ status }: ProductStatusBadgeProps) {
   return (
     <span
       className={cn(

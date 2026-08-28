@@ -46,103 +46,96 @@ interface BankAccountDetails {
   transactions: StatementTransaction[];
 }
 
-const bankAccounts: Record<
-  string,
-  BankAccountDetails
-> = {
-  "1f83751c-54b1-4d50-85cd-100000000001":
-    {
-      accountName: "Main Operating Account",
-      institution: "HBL",
-      accountType: "checking",
-      lastFour: "2343",
-      openingBalance: 1500000,
-      currentBalance: 1850000,
-      openingDate: "01 Jan 2026",
-      status: "active",
-      createdAt: "01 Jan 2026",
-      updatedAt: "21 Aug 2026",
-      transactions: [
-        {
-          id: "TXN-1001",
-          description: "Daily sales deposit",
-          date: "21 Aug 2026, 10:30",
-          direction: "inflow",
-          amount: 284650,
-          status: "posted",
-        },
-        {
-          id: "TXN-1002",
-          description: "Supplier payment",
-          date: "20 Aug 2026, 15:15",
-          direction: "outflow",
-          amount: 125000,
-          status: "posted",
-        },
-        {
-          id: "TXN-1003",
-          description: "Utility payment",
-          date: "19 Aug 2026, 13:00",
-          direction: "outflow",
-          amount: 28600,
-          status: "pending",
-        },
-      ],
-    },
+const bankAccounts: Record<string, BankAccountDetails> = {
+  "1f83751c-54b1-4d50-85cd-100000000001": {
+    accountName: "Main Operating Account",
+    institution: "HBL",
+    accountType: "checking",
+    lastFour: "2343",
+    openingBalance: 1500000,
+    currentBalance: 1850000,
+    openingDate: "01 Jan 2026",
+    status: "active",
+    createdAt: "01 Jan 2026",
+    updatedAt: "21 Aug 2026",
+    transactions: [
+      {
+        id: "TXN-1001",
+        description: "Daily sales deposit",
+        date: "21 Aug 2026, 10:30",
+        direction: "inflow",
+        amount: 284650,
+        status: "posted",
+      },
+      {
+        id: "TXN-1002",
+        description: "Supplier payment",
+        date: "20 Aug 2026, 15:15",
+        direction: "outflow",
+        amount: 125000,
+        status: "posted",
+      },
+      {
+        id: "TXN-1003",
+        description: "Utility payment",
+        date: "19 Aug 2026, 13:00",
+        direction: "outflow",
+        amount: 28600,
+        status: "pending",
+      },
+    ],
+  },
 
-  "1f83751c-54b1-4d50-85cd-100000000002":
-    {
-      accountName: "Business Savings",
-      institution: "Meezan Bank",
-      accountType: "savings",
-      lastFour: "7812",
-      openingBalance: 2000000,
-      currentBalance: 2250000,
-      openingDate: "15 Feb 2026",
-      status: "active",
-      createdAt: "15 Feb 2026",
-      updatedAt: "20 Aug 2026",
-      transactions: [
-        {
-          id: "TXN-2001",
-          description: "Monthly savings transfer",
-          date: "20 Aug 2026, 12:00",
-          direction: "inflow",
-          amount: 250000,
-          status: "posted",
-        },
-      ],
-    },
+  "1f83751c-54b1-4d50-85cd-100000000002": {
+    accountName: "Business Savings",
+    institution: "Meezan Bank",
+    accountType: "savings",
+    lastFour: "7812",
+    openingBalance: 2000000,
+    currentBalance: 2250000,
+    openingDate: "15 Feb 2026",
+    status: "active",
+    createdAt: "15 Feb 2026",
+    updatedAt: "20 Aug 2026",
+    transactions: [
+      {
+        id: "TXN-2001",
+        description: "Monthly savings transfer",
+        date: "20 Aug 2026, 12:00",
+        direction: "inflow",
+        amount: 250000,
+        status: "posted",
+      },
+    ],
+  },
 
-  "1f83751c-54b1-4d50-85cd-100000000003":
-    {
-      accountName: "Petty Cash Account",
-      institution: "Cash",
-      accountType: "cash",
-      lastFour: "0001",
-      openingBalance: 100000,
-      currentBalance: 85600,
-      openingDate: "01 Mar 2026",
-      status: "active",
-      createdAt: "01 Mar 2026",
-      updatedAt: "20 Aug 2026",
-      transactions: [],
-    },
+  "1f83751c-54b1-4d50-85cd-100000000003": {
+    accountName: "Petty Cash Account",
+    institution: "Cash",
+    accountType: "cash",
+    lastFour: "0001",
+    openingBalance: 100000,
+    currentBalance: 85600,
+    openingDate: "01 Mar 2026",
+    status: "active",
+    createdAt: "01 Mar 2026",
+    updatedAt: "20 Aug 2026",
+    transactions: [],
+  },
 
-  "1f83751c-54b1-4d50-85cd-100000000004":
-    {
-      accountName: "Previous Credit Account",
-      institution: "UBL",
-      accountType: "credit",
-      lastFour: "4590",
-      openingBalance: 50000,
-      currentBalance: 100000,
-      openingDate: "20 Oct 2025",
-      status: "inactive",
-      createdAt: "20 Oct 2025",
-      updatedAt: "18 Aug 2026",
-      transactions: [],
-    },
+  "1f83751c-54b1-4d50-85cd-100000000004": {
+    accountName: "Previous Credit Account",
+    institution: "UBL",
+    accountType: "credit",
+    lastFour: "4590",
+    openingBalance: 50000,
+    currentBalance: 100000,
+    openingDate: "20 Oct 2025",
+    status: "inactive",
+    createdAt: "20 Oct 2025",
+    updatedAt: "18 Aug 2026",
+    transactions: [],
+  },
 };
 
 export default async function BankAccountDetailsPage({
@@ -157,13 +150,10 @@ export default async function BankAccountDetailsPage({
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-[var(--shadow-sm)]">
-            <h1 className="text-xl font-bold">
-              Bank account not found
-            </h1>
+            <h1 className="text-xl font-bold">Bank account not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested bank account does not
-              exist.
+              The requested bank account does not exist.
             </p>
 
             <Link
@@ -183,31 +173,19 @@ export default async function BankAccountDetailsPage({
     );
   }
 
-  const totalInflow =
-    account.transactions
-      .filter(
-        (transaction) =>
-          transaction.direction === "inflow" &&
-          transaction.status === "posted",
-      )
-      .reduce(
-        (total, transaction) =>
-          total + transaction.amount,
-        0,
-      );
+  const totalInflow = account.transactions
+    .filter(
+      (transaction) =>
+        transaction.direction === "inflow" && transaction.status === "posted",
+    )
+    .reduce((total, transaction) => total + transaction.amount, 0);
 
-  const totalOutflow =
-    account.transactions
-      .filter(
-        (transaction) =>
-          transaction.direction === "outflow" &&
-          transaction.status === "posted",
-      )
-      .reduce(
-        (total, transaction) =>
-          total + transaction.amount,
-        0,
-      );
+  const totalOutflow = account.transactions
+    .filter(
+      (transaction) =>
+        transaction.direction === "outflow" && transaction.status === "posted",
+    )
+    .reduce((total, transaction) => total + transaction.amount, 0);
 
   return (
     <AppShell>
@@ -238,14 +216,11 @@ export default async function BankAccountDetailsPage({
                   {account.accountName}
                 </h1>
 
-                <StatusBadge
-                  status={account.status}
-                />
+                <StatusBadge status={account.status} />
               </div>
 
               <p className="mt-2 text-sm text-muted">
-                {account.institution} · ••••{" "}
-                {account.lastFour}
+                {account.institution} · •••• {account.lastFour}
               </p>
             </div>
           </div>
@@ -269,22 +244,16 @@ export default async function BankAccountDetailsPage({
         <section className="mt-8 grid gap-4 sm:grid-cols-3">
           <InfoCard
             title="Current balance"
-            value={formatCurrency(
-              account.currentBalance,
-            )}
+            value={formatCurrency(account.currentBalance)}
             helper="Available account balance"
-            icon={
-              <WalletCards className="size-5" />
-            }
+            icon={<WalletCards className="size-5" />}
           />
 
           <InfoCard
             title="Statement inflow"
             value={formatCurrency(totalInflow)}
             helper="Posted recent inflows"
-            icon={
-              <ArrowDownLeft className="size-5" />
-            }
+            icon={<ArrowDownLeft className="size-5" />}
             color="green"
           />
 
@@ -292,9 +261,7 @@ export default async function BankAccountDetailsPage({
             title="Statement outflow"
             value={formatCurrency(totalOutflow)}
             helper="Posted recent outflows"
-            icon={
-              <ArrowUpRight className="size-5" />
-            }
+            icon={<ArrowUpRight className="size-5" />}
             color="orange"
           />
         </section>
@@ -306,33 +273,22 @@ export default async function BankAccountDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Account information
-              </h2>
+              <h2 className="font-bold">Account information</h2>
 
               <p className="text-xs text-muted">
-                General bank account and balance
-                details.
+                General bank account and balance details.
               </p>
             </div>
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Account name"
-              value={account.accountName}
-            />
+            <DetailsRow label="Account name" value={account.accountName} />
 
-            <DetailsRow
-              label="Institution"
-              value={account.institution}
-            />
+            <DetailsRow label="Institution" value={account.institution} />
 
             <DetailsRow
               label="Account type"
-              value={capitalize(
-                account.accountType,
-              )}
+              value={capitalize(account.accountType)}
             />
 
             <DetailsRow
@@ -342,32 +298,19 @@ export default async function BankAccountDetailsPage({
 
             <DetailsRow
               label="Opening balance"
-              value={formatCurrency(
-                account.openingBalance,
-              )}
+              value={formatCurrency(account.openingBalance)}
             />
 
             <DetailsRow
               label="Current balance"
-              value={formatCurrency(
-                account.currentBalance,
-              )}
+              value={formatCurrency(account.currentBalance)}
             />
 
-            <DetailsRow
-              label="Opening date"
-              value={account.openingDate}
-            />
+            <DetailsRow label="Opening date" value={account.openingDate} />
 
-            <DetailsRow
-              label="Status"
-              value={capitalize(account.status)}
-            />
+            <DetailsRow label="Status" value={capitalize(account.status)} />
 
-            <DetailsRow
-              label="Last updated"
-              value={account.updatedAt}
-            />
+            <DetailsRow label="Last updated" value={account.updatedAt} />
           </dl>
         </section>
 
@@ -378,13 +321,10 @@ export default async function BankAccountDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Recent statement
-              </h2>
+              <h2 className="font-bold">Recent statement</h2>
 
               <p className="text-xs text-muted">
-                Recent transactions associated with
-                this account.
+                Recent transactions associated with this account.
               </p>
             </div>
           </div>
@@ -394,91 +334,72 @@ export default async function BankAccountDetailsPage({
               <table className="w-full min-w-[750px] text-left">
                 <thead className="bg-surface-secondary">
                   <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                    <th className="px-5 py-4">
-                      Transaction
-                    </th>
+                    <th className="px-5 py-4">Transaction</th>
 
-                    <th className="px-5 py-4">
-                      Date
-                    </th>
+                    <th className="px-5 py-4">Date</th>
 
-                    <th className="px-5 py-4">
-                      Status
-                    </th>
+                    <th className="px-5 py-4">Status</th>
 
-                    <th className="px-5 py-4 text-right">
-                      Amount
-                    </th>
+                    <th className="px-5 py-4 text-right">Amount</th>
                   </tr>
                 </thead>
 
                 <tbody className="divide-y divide-border">
-                  {account.transactions.map(
-                    (transaction) => (
-                      <tr
-                        key={transaction.id}
-                        className="text-sm transition hover:bg-surface-secondary/50"
-                      >
-                        <td className="px-5 py-4">
-                          <p className="font-semibold">
-                            {
-                              transaction.description
-                            }
-                          </p>
+                  {account.transactions.map((transaction) => (
+                    <tr
+                      key={transaction.id}
+                      className="text-sm transition hover:bg-surface-secondary/50"
+                    >
+                      <td className="px-5 py-4">
+                        <p className="font-semibold">
+                          {transaction.description}
+                        </p>
 
-                          <p className="mt-1 text-[10px] text-muted">
-                            {transaction.id}
-                          </p>
-                        </td>
+                        <p className="mt-1 text-[10px] text-muted">
+                          {transaction.id}
+                        </p>
+                      </td>
 
-                        <td className="px-5 py-4 text-muted">
-                          <span className="flex items-center gap-2">
-                            <CalendarDays className="size-3.5" />
-                            {transaction.date}
-                          </span>
-                        </td>
+                      <td className="px-5 py-4 text-muted">
+                        <span className="flex items-center gap-2">
+                          <CalendarDays className="size-3.5" />
+                          {transaction.date}
+                        </span>
+                      </td>
 
-                        <td className="px-5 py-4">
-                          <span
-                            className={`
+                      <td className="px-5 py-4">
+                        <span
+                          className={`
                               rounded-full px-2.5
                               py-1 text-[10px]
                               font-semibold capitalize
                               ${
-                                transaction.status ===
-                                "posted"
+                                transaction.status === "posted"
                                   ? "bg-emerald-50 text-emerald-700"
                                   : "bg-orange-50 text-orange-700"
                               }
                             `}
-                          >
-                            {transaction.status}
-                          </span>
-                        </td>
+                        >
+                          {transaction.status}
+                        </span>
+                      </td>
 
-                        <td
-                          className={`
+                      <td
+                        className={`
                             px-5 py-4 text-right
                             font-bold
                             ${
-                              transaction.direction ===
-                              "inflow"
+                              transaction.direction === "inflow"
                                 ? "text-emerald-700"
                                 : "text-red-600"
                             }
                           `}
-                        >
-                          {transaction.direction ===
-                          "inflow"
-                            ? "+"
-                            : "−"}{" "}
-                          {formatCurrency(
-                            transaction.amount,
-                          )}
-                        </td>
-                      </tr>
-                    ),
-                  )}
+                      >
+                        {transaction.direction === "inflow" ? "+" : "−"}{" "}
+                        {formatCurrency(transaction.amount)}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -486,13 +407,10 @@ export default async function BankAccountDetailsPage({
             <div className="p-10 text-center">
               <CreditCard className="mx-auto size-8 text-muted" />
 
-              <p className="mt-3 font-semibold">
-                No recent transactions
-              </p>
+              <p className="mt-3 font-semibold">No recent transactions</p>
 
               <p className="mt-1 text-xs text-muted">
-                Account transactions will appear
-                here.
+                Account transactions will appear here.
               </p>
             </div>
           )}
@@ -511,24 +429,14 @@ function formatCurrency(value: number) {
 }
 
 function capitalize(value: string) {
-  return (
-    value.charAt(0).toUpperCase() +
-    value.slice(1)
-  );
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: BankAccountStatus;
-}) {
+function StatusBadge({ status }: { status: BankAccountStatus }) {
   const classes = {
-    active:
-      "bg-emerald-50 text-emerald-700",
-    inactive:
-      "bg-orange-50 text-orange-700",
-    closed:
-      "bg-red-50 text-red-700",
+    active: "bg-emerald-50 text-emerald-700",
+    inactive: "bg-orange-50 text-orange-700",
+    closed: "bg-red-50 text-red-700",
   };
 
   return (
@@ -559,10 +467,8 @@ function InfoCard({
 }) {
   const classes = {
     blue: "bg-blue-50 text-blue-700",
-    green:
-      "bg-emerald-50 text-emerald-700",
-    orange:
-      "bg-orange-50 text-orange-700",
+    green: "bg-emerald-50 text-emerald-700",
+    orange: "bg-orange-50 text-orange-700",
   };
 
   return (
@@ -578,38 +484,22 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 text-[10px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 text-[10px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid gap-2 py-4 text-sm sm:grid-cols-[180px_minmax(0,1fr)]">
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium">
-        {value}
-      </dd>
+      <dd className="font-medium">{value}</dd>
     </div>
   );
 }

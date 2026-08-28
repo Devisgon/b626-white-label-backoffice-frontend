@@ -9,9 +9,7 @@ import { useForm } from "react-hook-form";
 
 import { priceBookSchema } from "@/features/catalogue/schemas";
 
-type PriceBookFormValues = z.infer<
-  typeof priceBookSchema
->;
+type PriceBookFormValues = z.infer<typeof priceBookSchema>;
 
 interface PriceBookFormProps {
   mode?: "create" | "edit";
@@ -26,33 +24,24 @@ export function PriceBookForm({
 }: PriceBookFormProps) {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<PriceBookFormValues>({
     resolver: zodResolver(priceBookSchema),
     defaultValues: {
       name: initialValues?.name ?? "",
-      description:
-        initialValues?.description ?? "",
-      status:
-        initialValues?.status ?? "Active",
+      description: initialValues?.description ?? "",
+      status: initialValues?.status ?? "Active",
     },
   });
 
-  async function onSubmit(
-    values: PriceBookFormValues,
-  ): Promise<void> {
+  async function onSubmit(values: PriceBookFormValues): Promise<void> {
     setServerError("");
     setSuccessMessage("");
 
@@ -79,9 +68,7 @@ export function PriceBookForm({
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the price book. Please try again.",
-      );
+      setServerError("Unable to save the price book. Please try again.");
     }
   }
 
@@ -96,13 +83,11 @@ export function PriceBookForm({
       "
     >
       <div>
-        <h2 className="text-lg font-bold">
-          Price book information
-        </h2>
+        <h2 className="text-lg font-bold">Price book information</h2>
 
         <p className="mt-1 text-xs text-muted">
-          Enter the name, description and current
-          availability of this price book.
+          Enter the name, description and current availability of this price
+          book.
         </p>
       </div>
 
@@ -135,14 +120,8 @@ export function PriceBookForm({
 
       <div className="mt-6 space-y-5">
         <div>
-          <label
-            htmlFor="name"
-            className="text-sm font-semibold"
-          >
-            Price book name{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="name" className="text-sm font-semibold">
+            Price book name <span className="text-danger">*</span>
           </label>
 
           <input
@@ -155,26 +134,17 @@ export function PriceBookForm({
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.name
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.name ? "border-red-300" : "border-border"}
             `}
           />
 
           {errors.name?.message && (
-            <p className="mt-1.5 text-xs text-danger">
-              {errors.name.message}
-            </p>
+            <p className="mt-1.5 text-xs text-danger">{errors.name.message}</p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor="description"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="description" className="text-sm font-semibold">
             Description
           </label>
 
@@ -189,11 +159,7 @@ export function PriceBookForm({
               outline-none transition
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.description
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.description ? "border-red-300" : "border-border"}
             `}
           />
 
@@ -205,14 +171,8 @@ export function PriceBookForm({
         </div>
 
         <div>
-          <label
-            htmlFor="status"
-            className="text-sm font-semibold"
-          >
-            Status{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="status" className="text-sm font-semibold">
+            Status <span className="text-danger">*</span>
           </label>
 
           <select
@@ -223,20 +183,12 @@ export function PriceBookForm({
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.status
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.status ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="Active">
-              Active
-            </option>
+            <option value="Active">Active</option>
 
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           {errors.status?.message && (

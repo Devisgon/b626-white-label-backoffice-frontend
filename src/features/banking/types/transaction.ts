@@ -1,20 +1,10 @@
-export type TransactionType =
-  | "deposit"
-  | "payment"
-  | "adjustment";
+export type TransactionType = "deposit" | "payment" | "adjustment";
 
-export type TransactionDirection =
-  | "inflow"
-  | "outflow";
+export type TransactionDirection = "inflow" | "outflow";
 
-export type TransactionStatus =
-  | "draft"
-  | "posted"
-  | "voided";
+export type TransactionStatus = "draft" | "posted" | "voided";
 
-export type TransactionLineType =
-  | "debit"
-  | "credit";
+export type TransactionLineType = "debit" | "credit";
 
 export interface TransactionLine {
   id?: string;

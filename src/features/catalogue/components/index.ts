@@ -15,27 +15,11 @@ export {
   PriceBookItemsManager,
   type PriceBookManagerItem,
 } from "./price-book-items-manager";
-export {
-  InventoryLocationForm,
-} from "./inventory-location-form";
-export {
-  InventoryLocationsList,
-} from "./inventory-locations-list";
-export {
-  CartonMappingForm,
-} from "./carton-mapping-form";
-export {
-  CartonMappingsList,
-} from "./carton-mappings-list";
-export {
-  InventoryForm,
-} from "./inventory-form";
-export {
-  InventoryList,
-} from "./inventory-list";
-export {
-  ProductInventoryForm,
-} from "./product-inventory-form";
-export {
-  ProductInventoryList,
-} from "./product-inventory-list";
+export { InventoryLocationForm } from "./inventory-location-form";
+export { InventoryLocationsList } from "./inventory-locations-list";
+export { CartonMappingForm } from "./carton-mapping-form";
+export { CartonMappingsList } from "./carton-mappings-list";
+export { InventoryForm } from "./inventory-form";
+export { InventoryList } from "./inventory-list";
+export { ProductInventoryForm } from "./product-inventory-form";
+export { ProductInventoryList } from "./product-inventory-list";

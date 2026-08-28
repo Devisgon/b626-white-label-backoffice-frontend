@@ -2,22 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import {
-  Eye,
-  Fuel,
-  Pencil,
-  Plus,
-  RotateCcw,
-  Search,
-} from "lucide-react";
+import { Eye, Fuel, Pencil, Plus, RotateCcw, Search } from "lucide-react";
 
-import {
-  FuelPumpActionButton,
-} from "./fuel-pump-action-button";
-import type {
-  FuelPump,
-  FuelPumpStatus,
-} from "@/features/fuel/types";
+import { FuelPumpActionButton } from "./fuel-pump-action-button";
+import type { FuelPump, FuelPumpStatus } from "@/features/fuel/types";
 
 interface FuelPumpListItem extends FuelPump {
   tankName: string;
@@ -33,8 +21,7 @@ const fuelPumps: FuelPumpListItem[] = [
     tankName: "Tank 1 - Premium",
     fuelType: "Premium Petrol",
     locationName: "Phoenix Store",
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active",
     created_at: "2026-08-20T09:00:00.000Z",
     updated_at: "2026-08-24T11:30:00.000Z",
@@ -48,8 +35,7 @@ const fuelPumps: FuelPumpListItem[] = [
     tankName: "Tank 2 - Diesel",
     fuelType: "Diesel",
     locationName: "Phoenix Store",
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active",
     created_at: "2026-08-19T10:00:00.000Z",
     updated_at: "2026-08-23T12:20:00.000Z",
@@ -63,8 +49,7 @@ const fuelPumps: FuelPumpListItem[] = [
     tankName: "Tank 3 - Regular",
     fuelType: "Petrol",
     locationName: "Central Fuel Station",
-    location_id:
-      "22222222-2222-4222-8222-222222222222",
+    location_id: "22222222-2222-4222-8222-222222222222",
     status: "Inactive",
     created_at: "2026-08-18T08:30:00.000Z",
     updated_at: "2026-08-22T14:20:00.000Z",
@@ -75,9 +60,7 @@ const fuelPumps: FuelPumpListItem[] = [
 
 export function FuelPumpsList() {
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState<
-    FuelPumpStatus | "all"
-  >("all");
+  const [status, setStatus] = useState<FuelPumpStatus | "all">("all");
 
   const filteredPumps = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -86,16 +69,10 @@ export function FuelPumpsList() {
       const matchesSearch =
         !query ||
         pump.name.toLowerCase().includes(query) ||
-        pump.tankName
-          .toLowerCase()
-          .includes(query) ||
-        pump.fuelType
-          .toLowerCase()
-          .includes(query);
+        pump.tankName.toLowerCase().includes(query) ||
+        pump.fuelType.toLowerCase().includes(query);
 
-      const matchesStatus =
-        status === "all" ||
-        pump.status === status;
+      const matchesStatus = status === "all" || pump.status === status;
 
       return matchesSearch && matchesStatus;
     });
@@ -105,9 +82,7 @@ export function FuelPumpsList() {
     (pump) => pump.status === "Active",
   ).length;
 
-  const uniqueTanks = new Set(
-    fuelPumps.map((pump) => pump.tank_id),
-  ).size;
+  const uniqueTanks = new Set(fuelPumps.map((pump) => pump.tank_id)).size;
 
   function resetFilters() {
     setSearch("");
@@ -139,9 +114,7 @@ export function FuelPumpsList() {
       <section className="mt-6 overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-sm)]">
         <div className="flex flex-col justify-between gap-4 border-b border-border p-5 sm:flex-row sm:items-center">
           <div>
-            <h2 className="font-bold">
-              Fuel pumps
-            </h2>
+            <h2 className="font-bold">Fuel pumps</h2>
             <p className="mt-1 text-xs text-muted">
               Manage pumps and connected tanks.
             </p>
@@ -163,9 +136,7 @@ export function FuelPumpsList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search pump, tank or fuel type..."
               className="h-11 w-full rounded-xl border border-border bg-white pl-11 pr-4 text-sm outline-none focus:border-primary focus:ring-4 focus:ring-primary/10"
             />
@@ -174,23 +145,13 @@ export function FuelPumpsList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | FuelPumpStatus
-                  | "all",
-              )
+              setStatus(event.target.value as FuelPumpStatus | "all")
             }
             className="h-11 rounded-xl border border-border bg-white px-4 text-sm lg:min-w-44"
           >
-            <option value="all">
-              All statuses
-            </option>
-            <option value="Active">
-              Active
-            </option>
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="all">All statuses</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           <button
@@ -207,24 +168,12 @@ export function FuelPumpsList() {
           <table className="w-full min-w-[950px] text-left">
             <thead className="bg-surface-secondary">
               <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                <th className="px-5 py-4">
-                  Pump
-                </th>
-                <th className="px-5 py-4">
-                  Connected tank
-                </th>
-                <th className="px-5 py-4">
-                  Fuel type
-                </th>
-                <th className="px-5 py-4">
-                  Location
-                </th>
-                <th className="px-5 py-4">
-                  Status
-                </th>
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4">Pump</th>
+                <th className="px-5 py-4">Connected tank</th>
+                <th className="px-5 py-4">Fuel type</th>
+                <th className="px-5 py-4">Location</th>
+                <th className="px-5 py-4">Status</th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -241,9 +190,7 @@ export function FuelPumpsList() {
                       </span>
 
                       <div>
-                        <p className="font-semibold">
-                          {pump.name}
-                        </p>
+                        <p className="font-semibold">{pump.name}</p>
                         <p className="mt-1 text-xs text-muted">
                           Pump ID: {pump.id}
                         </p>
@@ -251,17 +198,11 @@ export function FuelPumpsList() {
                     </div>
                   </td>
 
-                  <td className="px-5 py-4 font-medium">
-                    {pump.tankName}
-                  </td>
+                  <td className="px-5 py-4 font-medium">{pump.tankName}</td>
 
-                  <td className="px-5 py-4">
-                    {pump.fuelType}
-                  </td>
+                  <td className="px-5 py-4">{pump.fuelType}</td>
 
-                  <td className="px-5 py-4 text-muted">
-                    {pump.locationName}
-                  </td>
+                  <td className="px-5 py-4 text-muted">{pump.locationName}</td>
 
                   <td className="px-5 py-4">
                     <span
@@ -309,15 +250,12 @@ export function FuelPumpsList() {
 
         {filteredPumps.length === 0 && (
           <div className="px-5 py-16 text-center">
-            <p className="font-semibold">
-              No fuel pumps found
-            </p>
+            <p className="font-semibold">No fuel pumps found</p>
           </div>
         )}
 
         <div className="border-t border-border px-5 py-4 text-xs text-muted">
-          Showing {filteredPumps.length} of{" "}
-          {fuelPumps.length} fuel pumps
+          Showing {filteredPumps.length} of {fuelPumps.length} fuel pumps
         </div>
       </section>
     </div>
@@ -335,15 +273,9 @@ function SummaryCard({
 }) {
   return (
     <article className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
-      <p className="text-xs text-muted">
-        {title}
-      </p>
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="text-xs text-muted">{title}</p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }

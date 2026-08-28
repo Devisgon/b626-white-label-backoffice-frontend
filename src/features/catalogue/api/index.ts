@@ -64,9 +64,7 @@ export {
   updatePriceBookItem,
 } from "./price-books";
 
-export type {
-  PriceBooksListResponse,
-} from "./price-books";
+export type { PriceBooksListResponse } from "./price-books";
 
 export {
   createInventoryLocation,

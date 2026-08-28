@@ -1,6 +1,4 @@
-export type InventoryStatus =
-  | "Active"
-  | "Inactive";
+export type InventoryStatus = "Active" | "Inactive";
 
 export interface InventoryProduct {
   id: number;
@@ -49,8 +47,7 @@ export interface CreateInventoryPayload {
   status?: InventoryStatus;
 }
 
-export type UpdateInventoryPayload =
-  Partial<CreateInventoryPayload>;
+export type UpdateInventoryPayload = Partial<CreateInventoryPayload>;
 
 export interface InventoryFilters {
   page?: number;

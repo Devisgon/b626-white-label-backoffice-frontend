@@ -53,53 +53,35 @@ export function ChartAccountForm({
 }: ChartAccountFormProps) {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
-  } = useForm<
-    ChartAccountFormInput,
-    unknown,
-    ChartAccountFormValues
-  >({
+    formState: { errors, isSubmitting },
+  } = useForm<ChartAccountFormInput, unknown, ChartAccountFormValues>({
     resolver: zodResolver(chartAccountSchema),
 
     defaultValues: {
-      accountCode:
-        initialValues?.accountCode ?? "",
+      accountCode: initialValues?.accountCode ?? "",
 
-      accountName:
-        initialValues?.accountName ?? "",
+      accountName: initialValues?.accountName ?? "",
 
-      accountCategory:
-        initialValues?.accountCategory ?? "",
+      accountCategory: initialValues?.accountCategory ?? "",
 
-      normalBalance:
-        initialValues?.normalBalance ?? "",
+      normalBalance: initialValues?.normalBalance ?? "",
 
-      parentAccountId:
-        initialValues?.parentAccountId ?? "",
+      parentAccountId: initialValues?.parentAccountId ?? "",
 
-      description:
-        initialValues?.description ?? "",
+      description: initialValues?.description ?? "",
 
-      status:
-        initialValues?.status ?? "active",
+      status: initialValues?.status ?? "active",
     },
   });
 
-  async function onSubmit(
-    values: ChartAccountFormValues,
-  ) {
+  async function onSubmit(values: ChartAccountFormValues) {
     setServerError("");
     setSuccessMessage("");
 
@@ -107,16 +89,12 @@ export function ChartAccountForm({
       const payload = {
         accountCode: values.accountCode,
         accountName: values.accountName,
-        accountCategory:
-          values.accountCategory,
-        normalBalance:
-          values.normalBalance,
+        accountCategory: values.accountCategory,
+        normalBalance: values.normalBalance,
 
-        parentAccountId:
-          values.parentAccountId || undefined,
+        parentAccountId: values.parentAccountId || undefined,
 
-        description:
-          values.description || undefined,
+        description: values.description || undefined,
 
         ...(mode === "edit"
           ? {
@@ -143,15 +121,11 @@ export function ChartAccountForm({
       );
 
       window.setTimeout(() => {
-        router.push(
-          "/bank/chart-of-accounts",
-        );
+        router.push("/bank/chart-of-accounts");
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the account. Please try again.",
-      );
+      setServerError("Unable to save the account. Please try again.");
     }
   }
 
@@ -166,13 +140,10 @@ export function ChartAccountForm({
       "
     >
       <div>
-        <h2 className="text-lg font-bold">
-          Account information
-        </h2>
+        <h2 className="text-lg font-bold">Account information</h2>
 
         <p className="mt-1 text-xs text-muted">
-          Enter the financial account details and
-          classification.
+          Enter the financial account details and classification.
         </p>
       </div>
 
@@ -215,9 +186,7 @@ export function ChartAccountForm({
             type="text"
             placeholder="Enter account code"
             {...register("accountCode")}
-            className={getInputClass(
-              Boolean(errors.accountCode),
-            )}
+            className={getInputClass(Boolean(errors.accountCode))}
           />
         </FormField>
 
@@ -232,9 +201,7 @@ export function ChartAccountForm({
             type="text"
             placeholder="Enter account name"
             {...register("accountName")}
-            className={getInputClass(
-              Boolean(errors.accountName),
-            )}
+            className={getInputClass(Boolean(errors.accountName))}
           />
         </FormField>
 
@@ -242,42 +209,26 @@ export function ChartAccountForm({
           label="Account category"
           htmlFor="accountCategory"
           required
-          error={
-            errors.accountCategory?.message
-          }
+          error={errors.accountCategory?.message}
         >
           <select
             id="accountCategory"
             {...register("accountCategory")}
-            className={getInputClass(
-              Boolean(
-                errors.accountCategory,
-              ),
-            )}
+            className={getInputClass(Boolean(errors.accountCategory))}
           >
             <option value="" disabled>
               Select account category
             </option>
 
-            <option value="asset">
-              Asset
-            </option>
+            <option value="asset">Asset</option>
 
-            <option value="liability">
-              Liability
-            </option>
+            <option value="liability">Liability</option>
 
-            <option value="equity">
-              Equity
-            </option>
+            <option value="equity">Equity</option>
 
-            <option value="revenue">
-              Revenue
-            </option>
+            <option value="revenue">Revenue</option>
 
-            <option value="expense">
-              Expense
-            </option>
+            <option value="expense">Expense</option>
           </select>
         </FormField>
 
@@ -285,62 +236,40 @@ export function ChartAccountForm({
           label="Normal balance"
           htmlFor="normalBalance"
           required
-          error={
-            errors.normalBalance?.message
-          }
+          error={errors.normalBalance?.message}
         >
           <select
             id="normalBalance"
             {...register("normalBalance")}
-            className={getInputClass(
-              Boolean(errors.normalBalance),
-            )}
+            className={getInputClass(Boolean(errors.normalBalance))}
           >
             <option value="" disabled>
               Select normal balance
             </option>
 
-            <option value="debit">
-              Debit
-            </option>
+            <option value="debit">Debit</option>
 
-            <option value="credit">
-              Credit
-            </option>
+            <option value="credit">Credit</option>
           </select>
         </FormField>
 
         <FormField
           label="Parent account"
           htmlFor="parentAccountId"
-          error={
-            errors.parentAccountId?.message
-          }
+          error={errors.parentAccountId?.message}
         >
           <select
             id="parentAccountId"
             {...register("parentAccountId")}
-            className={getInputClass(
-              Boolean(
-                errors.parentAccountId,
-              ),
-            )}
+            className={getInputClass(Boolean(errors.parentAccountId))}
           >
-            <option value="">
-              Select parent account (optional)
-            </option>
+            <option value="">Select parent account (optional)</option>
 
-            {parentAccounts.map(
-              (account) => (
-                <option
-                  key={account.id}
-                  value={account.id}
-                >
-                  {account.code} —{" "}
-                  {account.name}
-                </option>
-              ),
-            )}
+            {parentAccounts.map((account) => (
+              <option key={account.id} value={account.id}>
+                {account.code} — {account.name}
+              </option>
+            ))}
           </select>
         </FormField>
 
@@ -354,17 +283,11 @@ export function ChartAccountForm({
             <select
               id="status"
               {...register("status")}
-              className={getInputClass(
-                Boolean(errors.status),
-              )}
+              className={getInputClass(Boolean(errors.status))}
             >
-              <option value="active">
-                Active
-              </option>
+              <option value="active">Active</option>
 
-              <option value="inactive">
-                Inactive
-              </option>
+              <option value="inactive">Inactive</option>
             </select>
           </FormField>
         )}
@@ -373,9 +296,7 @@ export function ChartAccountForm({
           <FormField
             label="Description"
             htmlFor="description"
-            error={
-              errors.description?.message
-            }
+            error={errors.description?.message}
           >
             <textarea
               id="description"
@@ -383,11 +304,7 @@ export function ChartAccountForm({
               placeholder="Enter account description (optional)"
               {...register("description")}
               className={`
-                ${getInputClass(
-                  Boolean(
-                    errors.description,
-                  ),
-                )}
+                ${getInputClass(Boolean(errors.description))}
                 h-auto resize-none py-3
               `}
             />
@@ -464,33 +381,20 @@ function FormField({
 }: FormFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={htmlFor}
-        className="text-sm font-semibold text-black"
-      >
+      <label htmlFor={htmlFor} className="text-sm font-semibold text-black">
         {label}
 
-        {required && (
-          <span className="ml-1 text-danger">
-            *
-          </span>
-        )}
+        {required && <span className="ml-1 text-danger">*</span>}
       </label>
 
       {children}
 
-      {error && (
-        <p className="mt-1.5 text-xs text-danger">
-          {error}
-        </p>
-      )}
+      {error && <p className="mt-1.5 text-xs text-danger">{error}</p>}
     </div>
   );
 }
 
-function getInputClass(
-  hasError: boolean,
-) {
+function getInputClass(hasError: boolean) {
   return `
     mt-2 h-11 w-full rounded-xl border
     bg-white px-4 text-sm text-black
@@ -498,10 +402,6 @@ function getInputClass(
     outline-none transition
     focus:border-primary
     focus:ring-4 focus:ring-primary/10
-    ${
-      hasError
-        ? "border-red-300"
-        : "border-border"
-    }
+    ${hasError ? "border-red-300" : "border-border"}
   `;
 }

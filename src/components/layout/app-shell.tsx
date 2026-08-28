@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useState,
-  type ReactNode,
-} from "react";
+import { useState, type ReactNode } from "react";
 
 import { Sidebar } from "./sidebar";
 import { Topbar } from "./topbar";
@@ -15,32 +12,20 @@ interface AppShellProps {
   children: ReactNode;
 }
 
-export function AppShell({
-  children,
-}: AppShellProps) {
-  const [isSidebarOpen, setIsSidebarOpen] =
-    useState(false);
+export function AppShell({ children }: AppShellProps) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const user = useAuthStore(
-    (state) => state.user,
-  );
+  const user = useAuthStore((state) => state.user);
 
-  const currentRole =
-    user?.role ?? USER_ROLES.OWNER_ADMIN;
+  const currentRole = user?.role ?? USER_ROLES.OWNER_ADMIN;
 
   return (
     <main className="min-h-screen bg-background">
-      <Topbar
-        onMenuClick={() =>
-          setIsSidebarOpen(true)
-        }
-      />
+      <Topbar onMenuClick={() => setIsSidebarOpen(true)} />
 
       <Sidebar
         isOpen={isSidebarOpen}
-        onClose={() =>
-          setIsSidebarOpen(false)
-        }
+        onClose={() => setIsSidebarOpen(false)}
         role={currentRole}
       />
 

@@ -42,10 +42,7 @@ interface InventoryDetails {
   history: InventoryHistoryItem[];
 }
 
-const inventoryRecords: Record<
-  string,
-  InventoryDetails
-> = {
+const inventoryRecords: Record<string, InventoryDetails> = {
   "1": {
     productId: 1,
     productName: "Premium Mineral Water",
@@ -162,13 +159,10 @@ export default async function InventoryDetailsPage({
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-[var(--shadow-sm)]">
-            <h1 className="text-xl font-bold">
-              Inventory record not found
-            </h1>
+            <h1 className="text-xl font-bold">Inventory record not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested inventory record does not
-              exist.
+              The requested inventory record does not exist.
             </p>
 
             <Link
@@ -188,9 +182,7 @@ export default async function InventoryDetailsPage({
     );
   }
 
-  const isLowStock =
-    inventory.quantity <=
-    inventory.reorderLevel;
+  const isLowStock = inventory.quantity <= inventory.reorderLevel;
 
   return (
     <AppShell>
@@ -221,9 +213,7 @@ export default async function InventoryDetailsPage({
                   {inventory.productName}
                 </h1>
 
-                <StatusBadge
-                  status={inventory.status}
-                />
+                <StatusBadge status={inventory.status} />
 
                 {isLowStock && (
                   <span className="rounded-full bg-orange-50 px-2.5 py-1 text-[10px] font-semibold text-orange-700">
@@ -233,8 +223,7 @@ export default async function InventoryDetailsPage({
               </div>
 
               <p className="mt-2 text-sm text-muted">
-                Inventory ID: {id} ·{" "}
-                {inventory.sku}
+                Inventory ID: {id} · {inventory.sku}
               </p>
             </div>
           </div>
@@ -265,18 +254,14 @@ export default async function InventoryDetailsPage({
 
           <InfoCard
             title="Reserved"
-            value={String(
-              inventory.reservedQuantity,
-            )}
+            value={String(inventory.reservedQuantity)}
             helper="Reserved units"
             icon={<Package className="size-5" />}
           />
 
           <InfoCard
             title="Available"
-            value={String(
-              inventory.availableQuantity,
-            )}
+            value={String(inventory.availableQuantity)}
             helper="Available for sale"
             icon={<Warehouse className="size-5" />}
           />
@@ -296,32 +281,20 @@ export default async function InventoryDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Stock information
-              </h2>
+              <h2 className="font-bold">Stock information</h2>
 
               <p className="text-xs text-muted">
-                Current inventory levels and
-                configuration.
+                Current inventory levels and configuration.
               </p>
             </div>
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Product"
-              value={inventory.productName}
-            />
+            <DetailsRow label="Product" value={inventory.productName} />
 
-            <DetailsRow
-              label="SKU"
-              value={inventory.sku}
-            />
+            <DetailsRow label="SKU" value={inventory.sku} />
 
-            <DetailsRow
-              label="Warehouse"
-              value={inventory.warehouse}
-            />
+            <DetailsRow label="Warehouse" value={inventory.warehouse} />
 
             <DetailsRow
               label="Total quantity"
@@ -330,48 +303,32 @@ export default async function InventoryDetailsPage({
 
             <DetailsRow
               label="Reserved quantity"
-              value={String(
-                inventory.reservedQuantity,
-              )}
+              value={String(inventory.reservedQuantity)}
             />
 
             <DetailsRow
               label="Available quantity"
-              value={String(
-                inventory.availableQuantity,
-              )}
+              value={String(inventory.availableQuantity)}
             />
 
             <DetailsRow
               label="Minimum stock"
-              value={String(
-                inventory.minimumStock,
-              )}
+              value={String(inventory.minimumStock)}
             />
 
             <DetailsRow
               label="Maximum stock"
-              value={String(
-                inventory.maximumStock,
-              )}
+              value={String(inventory.maximumStock)}
             />
 
             <DetailsRow
               label="Reorder level"
-              value={String(
-                inventory.reorderLevel,
-              )}
+              value={String(inventory.reorderLevel)}
             />
 
-            <DetailsRow
-              label="Status"
-              value={inventory.status}
-            />
+            <DetailsRow label="Status" value={inventory.status} />
 
-            <DetailsRow
-              label="Last updated"
-              value={inventory.updatedAt}
-            />
+            <DetailsRow label="Last updated" value={inventory.updatedAt} />
           </dl>
         </section>
 
@@ -382,66 +339,54 @@ export default async function InventoryDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Inventory history
-              </h2>
+              <h2 className="font-bold">Inventory history</h2>
 
               <p className="text-xs text-muted">
-                Previous quantity changes for this
-                inventory record.
+                Previous quantity changes for this inventory record.
               </p>
             </div>
           </div>
 
           {inventory.history.length > 0 ? (
             <div className="divide-y divide-border">
-              {inventory.history.map(
-                (historyItem) => (
-                  <article
-                    key={historyItem.id}
-                    className="
+              {inventory.history.map((historyItem) => (
+                <article
+                  key={historyItem.id}
+                  className="
                       flex flex-col justify-between
                       gap-4 p-5 sm:flex-row
                       sm:items-center
                     "
-                  >
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="rounded-full bg-primary-light px-2.5 py-1 text-[10px] font-semibold text-primary">
-                          {historyItem.action}
-                        </span>
+                >
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="rounded-full bg-primary-light px-2.5 py-1 text-[10px] font-semibold text-primary">
+                        {historyItem.action}
+                      </span>
 
-                        <p className="text-sm font-semibold">
-                          {
-                            historyItem.previousQuantity
-                          }{" "}
-                          →{" "}
-                          {
-                            historyItem.newQuantity
-                          }
-                        </p>
-                      </div>
-
-                      <p className="mt-2 text-xs text-muted">
-                        {historyItem.reason}
+                      <p className="text-sm font-semibold">
+                        {historyItem.previousQuantity} →{" "}
+                        {historyItem.newQuantity}
                       </p>
                     </div>
 
-                    <span className="flex items-center gap-2 text-xs text-muted">
-                      <CalendarDays className="size-3.5" />
-                      {historyItem.date}
-                    </span>
-                  </article>
-                ),
-              )}
+                    <p className="mt-2 text-xs text-muted">
+                      {historyItem.reason}
+                    </p>
+                  </div>
+
+                  <span className="flex items-center gap-2 text-xs text-muted">
+                    <CalendarDays className="size-3.5" />
+                    {historyItem.date}
+                  </span>
+                </article>
+              ))}
             </div>
           ) : (
             <div className="p-10 text-center">
               <History className="mx-auto size-8 text-muted" />
 
-              <p className="mt-3 font-semibold">
-                No history available
-              </p>
+              <p className="mt-3 font-semibold">No history available</p>
 
               <p className="mt-1 text-xs text-muted">
                 Inventory changes will appear here.
@@ -454,11 +399,7 @@ export default async function InventoryDetailsPage({
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: "Active" | "Inactive";
-}) {
+function StatusBadge({ status }: { status: "Active" | "Inactive" }) {
   return (
     <span
       className={`
@@ -494,38 +435,22 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[10px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[10px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid gap-2 py-4 text-sm sm:grid-cols-[190px_minmax(0,1fr)]">
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium">
-        {value}
-      </dd>
+      <dd className="font-medium">{value}</dd>
     </div>
   );
 }

@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Warehouse,
-} from "lucide-react";
+import { ArrowLeft, Warehouse } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { InventoryList } from "@/features/catalogue/components";
@@ -46,8 +43,7 @@ export default function InventoryPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage product stock, reserved
-              quantities and warehouse levels.
+              Manage product stock, reserved quantities and warehouse levels.
             </p>
           </div>
         </section>

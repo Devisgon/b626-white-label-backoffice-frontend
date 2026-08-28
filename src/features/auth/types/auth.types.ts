@@ -1,9 +1,7 @@
 import type { UserRole } from "@/types/role";
 
 export type OnboardingStatus =
-  | "PENDING_EMAIL_VERIFICATION"
-  | "EMAIL_VERIFIED"
-  | "ONBOARDED";
+  "PENDING_EMAIL_VERIFICATION" | "EMAIL_VERIFIED" | "ONBOARDED";
 
 export interface AuthUser {
   id: string;

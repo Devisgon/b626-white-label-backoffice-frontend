@@ -1,11 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  LoaderCircle,
-  RotateCcw,
-  X,
-} from "lucide-react";
+import { LoaderCircle, RotateCcw, X } from "lucide-react";
 
 interface RestoreSaleButtonProps {
   saleId: string;
@@ -17,8 +13,7 @@ export function RestoreSaleButton({
   saleNumber,
 }: RestoreSaleButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleRestoreSale() {
     setIsSubmitting(true);
@@ -77,16 +72,11 @@ export function RestoreSaleButton({
                 </span>
 
                 <div>
-                  <h2
-                    id="restore-sale-title"
-                    className="font-bold"
-                  >
+                  <h2 id="restore-sale-title" className="font-bold">
                     Restore sale
                   </h2>
 
-                  <p className="mt-1 text-xs text-muted">
-                    {saleNumber}
-                  </p>
+                  <p className="mt-1 text-xs text-muted">{saleNumber}</p>
                 </div>
               </div>
 
@@ -108,13 +98,12 @@ export function RestoreSaleButton({
 
             <div className="p-5">
               <p className="text-sm leading-6 text-muted">
-                This sale will be restored and returned to
-                the active sales records.
+                This sale will be restored and returned to the active sales
+                records.
               </p>
 
               <div className="mt-5 rounded-xl bg-primary-light px-4 py-3 text-xs leading-5 text-primary">
-                Review the sale details before confirming
-                restoration.
+                Review the sale details before confirming restoration.
               </div>
             </div>
 
@@ -153,9 +142,7 @@ export function RestoreSaleButton({
                   <RotateCcw className="size-4" />
                 )}
 
-                {isSubmitting
-                  ? "Restoring..."
-                  : "Confirm restore"}
+                {isSubmitting ? "Restoring..." : "Confirm restore"}
               </button>
             </div>
           </div>

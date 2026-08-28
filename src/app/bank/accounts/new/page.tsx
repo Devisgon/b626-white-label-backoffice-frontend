@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Building2,
-} from "lucide-react";
+import { ArrowLeft, Building2 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { BankAccountForm } from "@/features/banking/components";
@@ -46,8 +43,7 @@ export default function NewBankAccountPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Create a bank account and enter its
-              opening balance information.
+              Create a bank account and enter its opening balance information.
             </p>
           </div>
         </section>

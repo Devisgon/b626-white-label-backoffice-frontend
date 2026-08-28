@@ -1,18 +1,9 @@
-import {
-  forwardRef,
-  type ButtonHTMLAttributes,
-  type ReactNode,
-} from "react";
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { LoaderCircle } from "lucide-react";
 
 import { cn } from "@/utils";
 
-type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "outline"
-  | "ghost"
-  | "danger";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "danger";
 
 type ButtonSize = "sm" | "md" | "lg" | "icon";
 
@@ -80,11 +71,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {...props}
       >
-        {loading ? (
-          <LoaderCircle className="size-4 animate-spin" />
-        ) : (
-          leftIcon
-        )}
+        {loading ? <LoaderCircle className="size-4 animate-spin" /> : leftIcon}
 
         {children}
 

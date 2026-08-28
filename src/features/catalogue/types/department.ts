@@ -1,6 +1,4 @@
-export type DepartmentStatus =
-  | "Active"
-  | "Inactive";
+export type DepartmentStatus = "Active" | "Inactive";
 
 export interface Department {
   id: number;
@@ -27,8 +25,7 @@ export interface CreateDepartmentPayload {
   status?: DepartmentStatus;
 }
 
-export type UpdateDepartmentPayload =
-  Partial<CreateDepartmentPayload>;
+export type UpdateDepartmentPayload = Partial<CreateDepartmentPayload>;
 
 export interface DepartmentFilters {
   search?: string;

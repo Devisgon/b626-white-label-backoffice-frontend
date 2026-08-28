@@ -33,8 +33,7 @@ export default function NewPriceBookPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Create a new price list for your
-              products.
+              Create a new price list for your products.
             </p>
           </div>
         </section>

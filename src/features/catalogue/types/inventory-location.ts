@@ -1,6 +1,4 @@
-export type InventoryLocationStatus =
-  | "Active"
-  | "Inactive";
+export type InventoryLocationStatus = "Active" | "Inactive";
 
 export interface InventoryLocation {
   id: number;

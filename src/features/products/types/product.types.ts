@@ -1,11 +1,6 @@
-export type ProductStatus =
-  | "Active"
-  | "Inactive";
+export type ProductStatus = "Active" | "Inactive";
 
-export type ProductSaleType =
-  | "Retail"
-  | "Wholesale"
-  | "Both";
+export type ProductSaleType = "Retail" | "Wholesale" | "Both";
 
 export type ProductSortField =
   | "id"
@@ -102,8 +97,7 @@ export interface CreateProductInput {
   status?: ProductStatus;
 }
 
-export type UpdateProductInput =
-  Partial<CreateProductInput>;
+export type UpdateProductInput = Partial<CreateProductInput>;
 
 export interface ProductQuery {
   search?: string;
@@ -142,9 +136,7 @@ export interface CursorPagination {
 
 export interface ProductListResponse {
   success: boolean;
-  pagination:
-    | OffsetPagination
-    | CursorPagination;
+  pagination: OffsetPagination | CursorPagination;
   data: Product[];
 }
 

@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  Box,
-  Package,
-  Save,
-} from "lucide-react";
+import { Box, Package, Save } from "lucide-react";
 import { useRouter } from "next/navigation";
-import {
-  type FormEvent,
-  useState,
-} from "react";
+import { type FormEvent, useState } from "react";
 
 import {
   cartonMappingSchema,
@@ -72,41 +65,27 @@ export function CartonMappingForm({
 }: CartonMappingFormProps) {
   const router = useRouter();
 
-  const [cartonProductId, setCartonProductId] =
-    useState(
-      String(
-        initialValues?.carton_product_id ?? "",
-      ),
-    );
+  const [cartonProductId, setCartonProductId] = useState(
+    String(initialValues?.carton_product_id ?? ""),
+  );
 
-  const [childProductId, setChildProductId] =
-    useState(
-      String(
-        initialValues?.child_product_id ?? "",
-      ),
-    );
+  const [childProductId, setChildProductId] = useState(
+    String(initialValues?.child_product_id ?? ""),
+  );
 
-  const [quantity, setQuantity] =
-    useState(
-      String(initialValues?.quantity ?? ""),
-    );
+  const [quantity, setQuantity] = useState(
+    String(initialValues?.quantity ?? ""),
+  );
 
-  const [errors, setErrors] = useState<
-    Record<string, string>
-  >({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>,
-  ) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setErrors({});
@@ -114,10 +93,8 @@ export function CartonMappingForm({
     setSuccessMessage("");
 
     const values = {
-      carton_product_id:
-        Number(cartonProductId),
-      child_product_id:
-        Number(childProductId),
+      carton_product_id: Number(cartonProductId),
+      child_product_id: Number(childProductId),
       quantity: Number(quantity),
     };
 
@@ -126,24 +103,16 @@ export function CartonMappingForm({
         ? updateCartonMappingSchema.safeParse({
             quantity: values.quantity,
           })
-        : cartonMappingSchema.safeParse(
-            values,
-          );
+        : cartonMappingSchema.safeParse(values);
 
     if (!result.success) {
-      const nextErrors: Record<
-        string,
-        string
-      > = {};
+      const nextErrors: Record<string, string> = {};
 
       result.error.issues.forEach((issue) => {
-        const field = String(
-          issue.path[0] ?? "form",
-        );
+        const field = String(issue.path[0] ?? "form");
 
         if (!nextErrors[field]) {
-          nextErrors[field] =
-            issue.message;
+          nextErrors[field] = issue.message;
         }
       });
 
@@ -165,8 +134,7 @@ export function CartonMappingForm({
         values:
           mode === "edit"
             ? {
-                quantity:
-                  values.quantity,
+                quantity: values.quantity,
               }
             : values,
       });
@@ -178,15 +146,11 @@ export function CartonMappingForm({
       );
 
       setTimeout(() => {
-        router.push(
-          "/catalog/carton-mappings",
-        );
+        router.push("/catalog/carton-mappings");
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the carton mapping. Please try again.",
-      );
+      setServerError("Unable to save the carton mapping. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -214,13 +178,10 @@ export function CartonMappingForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Carton mapping information
-          </h2>
+          <h2 className="text-lg font-bold">Carton mapping information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Connect a carton product with the unit
-            product stored inside it.
+            Connect a carton product with the unit product stored inside it.
           </p>
         </div>
       </div>
@@ -256,24 +217,14 @@ export function CartonMappingForm({
         {mode === "create" ? (
           <div className="grid gap-5 sm:grid-cols-2">
             <div>
-              <label
-                htmlFor="carton-product"
-                className="text-sm font-semibold"
-              >
-                Carton product{" "}
-                <span className="text-danger">
-                  *
-                </span>
+              <label htmlFor="carton-product" className="text-sm font-semibold">
+                Carton product <span className="text-danger">*</span>
               </label>
 
               <select
                 id="carton-product"
                 value={cartonProductId}
-                onChange={(event) =>
-                  setCartonProductId(
-                    event.target.value,
-                  )
-                }
+                onChange={(event) => setCartonProductId(event.target.value)}
                 className={`
                   mt-2 h-11 w-full rounded-xl
                   border bg-white px-4 text-sm
@@ -288,49 +239,31 @@ export function CartonMappingForm({
                   }
                 `}
               >
-                <option value="">
-                  Select carton product
-                </option>
+                <option value="">Select carton product</option>
 
                 {products.map((product) => (
-                  <option
-                    key={product.id}
-                    value={product.id}
-                  >
-                    {product.name} —{" "}
-                    {product.sku}
+                  <option key={product.id} value={product.id}>
+                    {product.name} — {product.sku}
                   </option>
                 ))}
               </select>
 
               {errors.carton_product_id && (
                 <p className="mt-1.5 text-xs text-danger">
-                  {
-                    errors.carton_product_id
-                  }
+                  {errors.carton_product_id}
                 </p>
               )}
             </div>
 
             <div>
-              <label
-                htmlFor="child-product"
-                className="text-sm font-semibold"
-              >
-                Child product{" "}
-                <span className="text-danger">
-                  *
-                </span>
+              <label htmlFor="child-product" className="text-sm font-semibold">
+                Child product <span className="text-danger">*</span>
               </label>
 
               <select
                 id="child-product"
                 value={childProductId}
-                onChange={(event) =>
-                  setChildProductId(
-                    event.target.value,
-                  )
-                }
+                onChange={(event) => setChildProductId(event.target.value)}
                 className={`
                   mt-2 h-11 w-full rounded-xl
                   border bg-white px-4 text-sm
@@ -339,32 +272,22 @@ export function CartonMappingForm({
                   focus:ring-4
                   focus:ring-primary/10
                   ${
-                    errors.child_product_id
-                      ? "border-red-300"
-                      : "border-border"
+                    errors.child_product_id ? "border-red-300" : "border-border"
                   }
                 `}
               >
-                <option value="">
-                  Select child product
-                </option>
+                <option value="">Select child product</option>
 
                 {products.map((product) => (
-                  <option
-                    key={product.id}
-                    value={product.id}
-                  >
-                    {product.name} —{" "}
-                    {product.sku}
+                  <option key={product.id} value={product.id}>
+                    {product.name} — {product.sku}
                   </option>
                 ))}
               </select>
 
               {errors.child_product_id && (
                 <p className="mt-1.5 text-xs text-danger">
-                  {
-                    errors.child_product_id
-                  }
+                  {errors.child_product_id}
                 </p>
               )}
             </div>
@@ -373,31 +296,19 @@ export function CartonMappingForm({
           <div className="grid gap-4 sm:grid-cols-2">
             <ReadOnlyProduct
               label="Carton product"
-              value={
-                cartonProductName ??
-                "Carton product"
-              }
+              value={cartonProductName ?? "Carton product"}
             />
 
             <ReadOnlyProduct
               label="Child product"
-              value={
-                childProductName ??
-                "Child product"
-              }
+              value={childProductName ?? "Child product"}
             />
           </div>
         )}
 
         <div>
-          <label
-            htmlFor="quantity"
-            className="text-sm font-semibold"
-          >
-            Units per carton{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="quantity" className="text-sm font-semibold">
+            Units per carton <span className="text-danger">*</span>
           </label>
 
           <input
@@ -406,32 +317,23 @@ export function CartonMappingForm({
             min="1"
             step="1"
             value={quantity}
-            onChange={(event) =>
-              setQuantity(event.target.value)
-            }
+            onChange={(event) => setQuantity(event.target.value)}
             placeholder="For example: 12"
             className={`
               mt-2 h-11 w-full rounded-xl border
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.quantity
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.quantity ? "border-red-300" : "border-border"}
             `}
           />
 
           {errors.quantity && (
-            <p className="mt-1.5 text-xs text-danger">
-              {errors.quantity}
-            </p>
+            <p className="mt-1.5 text-xs text-danger">{errors.quantity}</p>
           )}
 
           <p className="mt-2 text-[11px] text-muted">
-            Enter the number of child units contained
-            inside one carton.
+            Enter the number of child units contained inside one carton.
           </p>
         </div>
       </div>
@@ -487,13 +389,7 @@ export function CartonMappingForm({
   );
 }
 
-function ReadOnlyProduct({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function ReadOnlyProduct({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -501,16 +397,12 @@ function ReadOnlyProduct({
         bg-surface-secondary p-4
       "
     >
-      <p className="text-xs text-muted">
-        {label}
-      </p>
+      <p className="text-xs text-muted">{label}</p>
 
       <div className="mt-2 flex items-center gap-2">
         <Package className="size-4 text-primary" />
 
-        <p className="text-sm font-semibold">
-          {value}
-        </p>
+        <p className="text-sm font-semibold">{value}</p>
       </div>
     </div>
   );

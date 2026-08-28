@@ -2,18 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  CheckCircle2,
-  LoaderCircle,
-  Save,
-} from "lucide-react";
+import { CheckCircle2, LoaderCircle, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import {
-  unitSchema,
-  type UnitFormValues,
-} from "@/features/catalogue/schemas";
+import { unitSchema, type UnitFormValues } from "@/features/catalogue/schemas";
 
 interface UnitFormProps {
   mode?: "create" | "edit";
@@ -28,35 +21,26 @@ export function UnitForm({
 }: UnitFormProps) {
   const router = useRouter();
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<UnitFormValues>({
     resolver: zodResolver(unitSchema),
 
-    defaultValues:
-      initialValues ?? {
-        name: "",
-        shortName: "",
-        status: "Active",
-      },
+    defaultValues: initialValues ?? {
+      name: "",
+      shortName: "",
+      status: "Active",
+    },
   });
 
-  async function onSubmit(
-    values: UnitFormValues,
-  ) {
+  async function onSubmit(values: UnitFormValues) {
     setSuccessMessage("");
 
-    await new Promise((resolve) =>
-      setTimeout(resolve, 700),
-    );
+    await new Promise((resolve) => setTimeout(resolve, 700));
 
     if (mode === "edit") {
       console.log("Update unit:", {
@@ -64,15 +48,11 @@ export function UnitForm({
         ...values,
       });
 
-      setSuccessMessage(
-        "Unit updated successfully.",
-      );
+      setSuccessMessage("Unit updated successfully.");
     } else {
       console.log("Create unit:", values);
 
-      setSuccessMessage(
-        "Unit created successfully.",
-      );
+      setSuccessMessage("Unit created successfully.");
     }
 
     setTimeout(() => {
@@ -91,9 +71,7 @@ export function UnitForm({
       "
     >
       <div className="border-b border-border p-5 sm:p-6">
-        <h2 className="font-bold">
-          Unit information
-        </h2>
+        <h2 className="font-bold">Unit information</h2>
 
         <p className="mt-1 text-xs text-muted">
           Enter the unit name, short name and status.
@@ -117,12 +95,8 @@ export function UnitForm({
         )}
 
         <div>
-          <label
-            htmlFor="unit-name"
-            className="text-sm font-semibold"
-          >
-            Unit name{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="unit-name" className="text-sm font-semibold">
+            Unit name <span className="text-danger">*</span>
           </label>
 
           <input
@@ -130,19 +104,14 @@ export function UnitForm({
             type="text"
             placeholder="For example: Kilogram"
             {...register("name")}
-            className={getInputClass(
-              Boolean(errors.name),
-            )}
+            className={getInputClass(Boolean(errors.name))}
           />
 
           <FieldError message={errors.name?.message} />
         </div>
 
         <div>
-          <label
-            htmlFor="unit-short-name"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="unit-short-name" className="text-sm font-semibold">
             Short name
           </label>
 
@@ -151,30 +120,21 @@ export function UnitForm({
             type="text"
             placeholder="For example: kg"
             {...register("shortName")}
-            className={getInputClass(
-              Boolean(errors.shortName),
-            )}
+            className={getInputClass(Boolean(errors.shortName))}
           />
 
           {errors.shortName ? (
-            <FieldError
-              message={errors.shortName.message}
-            />
+            <FieldError message={errors.shortName.message} />
           ) : (
             <p className="mt-2 text-xs text-muted">
-              A short abbreviation displayed with product
-              quantities.
+              A short abbreviation displayed with product quantities.
             </p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor="unit-status"
-            className="text-sm font-semibold"
-          >
-            Status{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="unit-status" className="text-sm font-semibold">
+            Status <span className="text-danger">*</span>
           </label>
 
           <select
@@ -193,8 +153,7 @@ export function UnitForm({
           </select>
 
           <p className="mt-2 text-xs text-muted">
-            Inactive units will not be available during
-            product creation.
+            Inactive units will not be available during product creation.
           </p>
         </div>
       </div>
@@ -209,9 +168,7 @@ export function UnitForm({
       >
         <button
           type="button"
-          onClick={() =>
-            router.push("/catalog/units")
-          }
+          onClick={() => router.push("/catalog/units")}
           disabled={isSubmitting}
           className="
             inline-flex h-11 items-center justify-center
@@ -245,9 +202,7 @@ export function UnitForm({
             <>
               <Save className="size-4" />
 
-              {mode === "edit"
-                ? "Save changes"
-                : "Create unit"}
+              {mode === "edit" ? "Save changes" : "Create unit"}
             </>
           )}
         </button>
@@ -256,20 +211,13 @@ export function UnitForm({
   );
 }
 
-function FieldError({
-  message,
-}: {
-  message?: string;
-}) {
+function FieldError({ message }: { message?: string }) {
   if (!message) {
     return null;
   }
 
   return (
-    <p
-      role="alert"
-      className="mt-2 text-xs font-medium text-danger"
-    >
+    <p role="alert" className="mt-2 text-xs font-medium text-danger">
       {message}
     </p>
   );

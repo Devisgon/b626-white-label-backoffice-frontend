@@ -11,10 +11,7 @@ import {
   Search,
 } from "lucide-react";
 
-import type {
-  FundTransfer,
-  TransferStatus,
-} from "@/features/banking/types";
+import type { FundTransfer, TransferStatus } from "@/features/banking/types";
 
 interface TransferListItem extends FundTransfer {
   sourceAccountName: string;
@@ -26,21 +23,15 @@ const transfers: TransferListItem[] = [
     id: "a1111111-1111-4111-8111-111111111111",
     tenantId: "tenant-1",
     locationId: "location-1",
-    sourceAccountId:
-      "11111111-1111-4111-8111-111111111111",
-    destinationAccountId:
-      "22222222-2222-4222-8222-222222222222",
-    sourceAccountName:
-      "HBL Main Operating Account",
-    destinationAccountName:
-      "Meezan Business Account",
+    sourceAccountId: "11111111-1111-4111-8111-111111111111",
+    destinationAccountId: "22222222-2222-4222-8222-222222222222",
+    sourceAccountName: "HBL Main Operating Account",
+    destinationAccountName: "Meezan Business Account",
     amount: 250000,
     transferDate: "2026-08-23",
     memo: "Monthly operating fund allocation",
-    sourceTransactionId:
-      "61111111-1111-4111-8111-111111111111",
-    destinationTransactionId:
-      "71111111-1111-4111-8111-111111111111",
+    sourceTransactionId: "61111111-1111-4111-8111-111111111111",
+    destinationTransactionId: "71111111-1111-4111-8111-111111111111",
     status: "posted",
     voidedAt: null,
     voidReason: null,
@@ -53,21 +44,15 @@ const transfers: TransferListItem[] = [
     id: "a2222222-2222-4222-8222-222222222222",
     tenantId: "tenant-1",
     locationId: "location-1",
-    sourceAccountId:
-      "22222222-2222-4222-8222-222222222222",
-    destinationAccountId:
-      "33333333-3333-4333-8333-333333333333",
-    sourceAccountName:
-      "Meezan Business Account",
-    destinationAccountName:
-      "UBL Petty Cash Account",
+    sourceAccountId: "22222222-2222-4222-8222-222222222222",
+    destinationAccountId: "33333333-3333-4333-8333-333333333333",
+    sourceAccountName: "Meezan Business Account",
+    destinationAccountName: "UBL Petty Cash Account",
     amount: 75000,
     transferDate: "2026-08-22",
     memo: "Weekly petty cash allocation",
-    sourceTransactionId:
-      "62222222-2222-4222-8222-222222222222",
-    destinationTransactionId:
-      "72222222-2222-4222-8222-222222222222",
+    sourceTransactionId: "62222222-2222-4222-8222-222222222222",
+    destinationTransactionId: "72222222-2222-4222-8222-222222222222",
     status: "posted",
     voidedAt: null,
     voidReason: null,
@@ -80,25 +65,18 @@ const transfers: TransferListItem[] = [
     id: "a3333333-3333-4333-8333-333333333333",
     tenantId: "tenant-1",
     locationId: "location-1",
-    sourceAccountId:
-      "11111111-1111-4111-8111-111111111111",
-    destinationAccountId:
-      "33333333-3333-4333-8333-333333333333",
-    sourceAccountName:
-      "HBL Main Operating Account",
-    destinationAccountName:
-      "UBL Petty Cash Account",
+    sourceAccountId: "11111111-1111-4111-8111-111111111111",
+    destinationAccountId: "33333333-3333-4333-8333-333333333333",
+    sourceAccountName: "HBL Main Operating Account",
+    destinationAccountName: "UBL Petty Cash Account",
     amount: 50000,
     transferDate: "2026-08-20",
     memo: "Transfer entered with incorrect amount",
-    sourceTransactionId:
-      "63333333-3333-4333-8333-333333333333",
-    destinationTransactionId:
-      "73333333-3333-4333-8333-333333333333",
+    sourceTransactionId: "63333333-3333-4333-8333-333333333333",
+    destinationTransactionId: "73333333-3333-4333-8333-333333333333",
     status: "voided",
     voidedAt: "2026-08-20T13:45:00.000Z",
-    voidReason:
-      "Incorrect amount entered during transfer.",
+    voidReason: "Incorrect amount entered during transfer.",
     createdAt: "2026-08-20T12:40:00.000Z",
     updatedAt: "2026-08-20T13:45:00.000Z",
     createdBy: "user-1",
@@ -108,21 +86,15 @@ const transfers: TransferListItem[] = [
     id: "a4444444-4444-4444-8444-444444444444",
     tenantId: "tenant-1",
     locationId: "location-1",
-    sourceAccountId:
-      "22222222-2222-4222-8222-222222222222",
-    destinationAccountId:
-      "11111111-1111-4111-8111-111111111111",
-    sourceAccountName:
-      "Meezan Business Account",
-    destinationAccountName:
-      "HBL Main Operating Account",
+    sourceAccountId: "22222222-2222-4222-8222-222222222222",
+    destinationAccountId: "11111111-1111-4111-8111-111111111111",
+    sourceAccountName: "Meezan Business Account",
+    destinationAccountName: "HBL Main Operating Account",
     amount: 125000,
     transferDate: "2026-08-18",
     memo: "Balance consolidation",
-    sourceTransactionId:
-      "64444444-4444-4444-8444-444444444444",
-    destinationTransactionId:
-      "74444444-4444-4444-8444-444444444444",
+    sourceTransactionId: "64444444-4444-4444-8444-444444444444",
+    destinationTransactionId: "74444444-4444-4444-8444-444444444444",
     status: "posted",
     voidedAt: null,
     voidReason: null,
@@ -151,33 +123,22 @@ function formatDate(value: string) {
 
 export function TransfersList() {
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState<
-    TransferStatus | "all"
-  >("all");
+  const [status, setStatus] = useState<TransferStatus | "all">("all");
 
   const filteredTransfers = useMemo(() => {
-    const normalizedSearch =
-      search.trim().toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
 
     return transfers.filter((transfer) => {
       const matchesSearch =
         normalizedSearch.length === 0 ||
-        transfer.sourceAccountName
-          .toLowerCase()
-          .includes(normalizedSearch) ||
+        transfer.sourceAccountName.toLowerCase().includes(normalizedSearch) ||
         transfer.destinationAccountName
           .toLowerCase()
           .includes(normalizedSearch) ||
-        transfer.memo
-          ?.toLowerCase()
-          .includes(normalizedSearch) ||
-        transfer.id
-          .toLowerCase()
-          .includes(normalizedSearch);
+        transfer.memo?.toLowerCase().includes(normalizedSearch) ||
+        transfer.id.toLowerCase().includes(normalizedSearch);
 
-      const matchesStatus =
-        status === "all" ||
-        transfer.status === status;
+      const matchesStatus = status === "all" || transfer.status === status;
 
       return matchesSearch && matchesStatus;
     });
@@ -188,8 +149,7 @@ export function TransfersList() {
   );
 
   const totalTransferred = postedTransfers.reduce(
-    (total, transfer) =>
-      total + Number(transfer.amount),
+    (total, transfer) => total + Number(transfer.amount),
     0,
   );
 
@@ -211,17 +171,13 @@ export function TransfersList() {
             bg-white p-5 shadow-[var(--shadow-sm)]
           "
         >
-          <p className="text-xs text-muted">
-            Total transferred
-          </p>
+          <p className="text-xs text-muted">Total transferred</p>
 
           <p className="mt-2 text-2xl font-bold">
             {formatCurrency(totalTransferred)}
           </p>
 
-          <p className="mt-1 text-[11px] text-muted">
-            Across posted transfers
-          </p>
+          <p className="mt-1 text-[11px] text-muted">Across posted transfers</p>
         </article>
 
         <article
@@ -230,13 +186,9 @@ export function TransfersList() {
             bg-white p-5 shadow-[var(--shadow-sm)]
           "
         >
-          <p className="text-xs text-muted">
-            Posted transfers
-          </p>
+          <p className="text-xs text-muted">Posted transfers</p>
 
-          <p className="mt-2 text-2xl font-bold">
-            {postedTransfers.length}
-          </p>
+          <p className="mt-2 text-2xl font-bold">{postedTransfers.length}</p>
 
           <p className="mt-1 text-[11px] text-success">
             Successfully processed
@@ -249,13 +201,9 @@ export function TransfersList() {
             bg-white p-5 shadow-[var(--shadow-sm)]
           "
         >
-          <p className="text-xs text-muted">
-            Voided transfers
-          </p>
+          <p className="text-xs text-muted">Voided transfers</p>
 
-          <p className="mt-2 text-2xl font-bold">
-            {voidedTransfers}
-          </p>
+          <p className="mt-2 text-2xl font-bold">{voidedTransfers}</p>
 
           <p className="mt-1 text-[11px] text-muted">
             Reversed transfer records
@@ -278,13 +226,10 @@ export function TransfersList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Fund transfers
-            </h2>
+            <h2 className="font-bold">Fund transfers</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Manage transfers between company bank
-              accounts.
+              Manage transfers between company bank accounts.
             </p>
           </div>
 
@@ -321,9 +266,7 @@ export function TransfersList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by account or memo..."
               className="
                 h-11 w-full rounded-xl border
@@ -338,11 +281,7 @@ export function TransfersList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | TransferStatus
-                  | "all",
-              )
+              setStatus(event.target.value as TransferStatus | "all")
             }
             aria-label="Filter transfers by status"
             className="
@@ -353,17 +292,11 @@ export function TransfersList() {
               lg:min-w-44
             "
           >
-            <option value="all">
-              All statuses
-            </option>
+            <option value="all">All statuses</option>
 
-            <option value="posted">
-              Posted
-            </option>
+            <option value="posted">Posted</option>
 
-            <option value="voided">
-              Voided
-            </option>
+            <option value="voided">Voided</option>
           </select>
 
           <button
@@ -391,33 +324,19 @@ export function TransfersList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Transfer
-                </th>
+                <th className="px-5 py-4">Transfer</th>
 
-                <th className="px-5 py-4">
-                  Source account
-                </th>
+                <th className="px-5 py-4">Source account</th>
 
-                <th className="px-5 py-4">
-                  Destination account
-                </th>
+                <th className="px-5 py-4">Destination account</th>
 
-                <th className="px-5 py-4">
-                  Amount
-                </th>
+                <th className="px-5 py-4">Amount</th>
 
-                <th className="px-5 py-4">
-                  Date
-                </th>
+                <th className="px-5 py-4">Date</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4 text-right">
-                  Action
-                </th>
+                <th className="px-5 py-4 text-right">Action</th>
               </tr>
             </thead>
 
@@ -431,9 +350,7 @@ export function TransfersList() {
                   "
                 >
                   <td className="px-5 py-4">
-                    <p className="font-semibold">
-                      Fund transfer
-                    </p>
+                    <p className="font-semibold">Fund transfer</p>
 
                     <p className="mt-1 max-w-48 truncate text-xs text-muted">
                       {transfer.memo || "No memo"}
@@ -471,9 +388,7 @@ export function TransfersList() {
                       </span>
 
                       <span className="font-medium">
-                        {
-                          transfer.destinationAccountName
-                        }
+                        {transfer.destinationAccountName}
                       </span>
                     </div>
                   </td>
@@ -483,15 +398,11 @@ export function TransfersList() {
                   </td>
 
                   <td className="px-5 py-4 text-muted">
-                    {formatDate(
-                      transfer.transferDate,
-                    )}
+                    {formatDate(transfer.transferDate)}
                   </td>
 
                   <td className="px-5 py-4">
-                    <TransferStatusBadge
-                      status={transfer.status}
-                    />
+                    <TransferStatusBadge status={transfer.status} />
                   </td>
 
                   <td className="px-5 py-4">
@@ -521,9 +432,7 @@ export function TransfersList() {
 
         {filteredTransfers.length === 0 && (
           <div className="px-5 py-16 text-center">
-            <p className="font-semibold">
-              No transfers found
-            </p>
+            <p className="font-semibold">No transfers found</p>
 
             <p className="mt-1 text-sm text-muted">
               Try changing or resetting the filters.
@@ -540,25 +449,17 @@ export function TransfersList() {
           "
         >
           <p>
-            Showing {filteredTransfers.length} of{" "}
-            {transfers.length} transfers
+            Showing {filteredTransfers.length} of {transfers.length} transfers
           </p>
 
-          <p>
-            Transfer data is currently used for
-            frontend testing.
-          </p>
+          <p>Transfer data is currently used for frontend testing.</p>
         </div>
       </section>
     </div>
   );
 }
 
-function TransferStatusBadge({
-  status,
-}: {
-  status: TransferStatus;
-}) {
+function TransferStatusBadge({ status }: { status: TransferStatus }) {
   const styles =
     status === "posted"
       ? "bg-emerald-50 text-emerald-700"

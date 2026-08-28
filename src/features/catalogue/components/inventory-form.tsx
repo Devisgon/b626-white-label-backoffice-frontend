@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  Package,
-  Save,
-  Warehouse,
-} from "lucide-react";
+import { Package, Save, Warehouse } from "lucide-react";
 import { useRouter } from "next/navigation";
-import {
-  type FormEvent,
-  useState,
-} from "react";
+import { type FormEvent, useState } from "react";
 
 import {
   inventorySchema,
@@ -62,75 +55,50 @@ export function InventoryForm({
 }: InventoryFormProps) {
   const router = useRouter();
 
-  const [productId, setProductId] =
-    useState(
-      String(initialValues?.product_id ?? ""),
-    );
-
-  const [quantity, setQuantity] =
-    useState(
-      String(initialValues?.quantity ?? 0),
-    );
-
-  const [
-    reservedQuantity,
-    setReservedQuantity,
-  ] = useState(
-    String(
-      initialValues?.reserved_quantity ?? 0,
-    ),
+  const [productId, setProductId] = useState(
+    String(initialValues?.product_id ?? ""),
   );
 
-  const [minimumStock, setMinimumStock] =
-    useState(
-      String(
-        initialValues?.minimum_stock ?? 0,
-      ),
-    );
+  const [quantity, setQuantity] = useState(
+    String(initialValues?.quantity ?? 0),
+  );
 
-  const [maximumStock, setMaximumStock] =
-    useState(
-      String(
-        initialValues?.maximum_stock ?? 0,
-      ),
-    );
+  const [reservedQuantity, setReservedQuantity] = useState(
+    String(initialValues?.reserved_quantity ?? 0),
+  );
 
-  const [reorderLevel, setReorderLevel] =
-    useState(
-      String(
-        initialValues?.reorder_level ?? 0,
-      ),
-    );
+  const [minimumStock, setMinimumStock] = useState(
+    String(initialValues?.minimum_stock ?? 0),
+  );
 
-  const [warehouse, setWarehouse] =
-    useState(initialValues?.warehouse ?? "");
+  const [maximumStock, setMaximumStock] = useState(
+    String(initialValues?.maximum_stock ?? 0),
+  );
 
-  const [status, setStatus] = useState<
-    "Active" | "Inactive"
-  >(initialValues?.status ?? "Active");
+  const [reorderLevel, setReorderLevel] = useState(
+    String(initialValues?.reorder_level ?? 0),
+  );
 
-  const [errors, setErrors] = useState<
-    Record<string, string>
-  >({});
+  const [warehouse, setWarehouse] = useState(initialValues?.warehouse ?? "");
 
-  const [serverError, setServerError] =
-    useState("");
+  const [status, setStatus] = useState<"Active" | "Inactive">(
+    initialValues?.status ?? "Active",
+  );
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [serverError, setServerError] = useState("");
+
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const availableQuantity = Math.max(
     0,
-    Number(quantity || 0) -
-      Number(reservedQuantity || 0),
+    Number(quantity || 0) - Number(reservedQuantity || 0),
   );
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>,
-  ) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setErrors({});
@@ -140,9 +108,7 @@ export function InventoryForm({
     const values = {
       product_id: Number(productId),
       quantity: Number(quantity),
-      reserved_quantity: Number(
-        reservedQuantity,
-      ),
+      reserved_quantity: Number(reservedQuantity),
       minimum_stock: Number(minimumStock),
       maximum_stock: Number(maximumStock),
       reorder_level: Number(reorderLevel),
@@ -150,23 +116,16 @@ export function InventoryForm({
       status,
     };
 
-    const result =
-      inventorySchema.safeParse(values);
+    const result = inventorySchema.safeParse(values);
 
     if (!result.success) {
-      const nextErrors: Record<
-        string,
-        string
-      > = {};
+      const nextErrors: Record<string, string> = {};
 
       result.error.issues.forEach((issue) => {
-        const field = String(
-          issue.path[0] ?? "form",
-        );
+        const field = String(issue.path[0] ?? "form");
 
         if (!nextErrors[field]) {
-          nextErrors[field] =
-            issue.message;
+          nextErrors[field] = issue.message;
         }
       });
 
@@ -199,9 +158,7 @@ export function InventoryForm({
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the inventory record. Please try again.",
-      );
+      setServerError("Unable to save the inventory record. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -229,41 +186,22 @@ export function InventoryForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Inventory information
-          </h2>
+          <h2 className="text-lg font-bold">Inventory information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Enter product stock and warehouse
-            information.
+            Enter product stock and warehouse information.
           </p>
         </div>
       </div>
 
-      {serverError && (
-        <Message
-          type="error"
-          message={serverError}
-        />
-      )}
+      {serverError && <Message type="error" message={serverError} />}
 
-      {successMessage && (
-        <Message
-          type="success"
-          message={successMessage}
-        />
-      )}
+      {successMessage && <Message type="success" message={successMessage} />}
 
       <div className="mt-6 space-y-6">
         <div>
-          <label
-            htmlFor="inventory-product"
-            className="text-sm font-semibold"
-          >
-            Product{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="inventory-product" className="text-sm font-semibold">
+            Product <span className="text-danger">*</span>
           </label>
 
           <div className="relative mt-2">
@@ -278,9 +216,7 @@ export function InventoryForm({
             <select
               id="inventory-product"
               value={productId}
-              onChange={(event) =>
-                setProductId(event.target.value)
-              }
+              onChange={(event) => setProductId(event.target.value)}
               className={`
                 h-11 w-full rounded-xl border
                 bg-white pl-11 pr-4 text-sm
@@ -288,32 +224,20 @@ export function InventoryForm({
                 focus:border-primary
                 focus:ring-4
                 focus:ring-primary/10
-                ${
-                  errors.product_id
-                    ? "border-red-300"
-                    : "border-border"
-                }
+                ${errors.product_id ? "border-red-300" : "border-border"}
               `}
             >
-              <option value="">
-                Select product
-              </option>
+              <option value="">Select product</option>
 
               {products.map((product) => (
-                <option
-                  key={product.id}
-                  value={product.id}
-                >
-                  {product.name} —{" "}
-                  {product.sku}
+                <option key={product.id} value={product.id}>
+                  {product.name} — {product.sku}
                 </option>
               ))}
             </select>
           </div>
 
-          <FieldError
-            message={errors.product_id}
-          />
+          <FieldError message={errors.product_id} />
         </div>
 
         <div className="grid gap-5 sm:grid-cols-3">
@@ -330,9 +254,7 @@ export function InventoryForm({
             label="Reserved quantity"
             value={reservedQuantity}
             onChange={setReservedQuantity}
-            error={
-              errors.reserved_quantity
-            }
+            error={errors.reserved_quantity}
           />
 
           <div
@@ -341,17 +263,13 @@ export function InventoryForm({
               bg-primary-light p-4
             "
           >
-            <p className="text-xs text-muted">
-              Available quantity
-            </p>
+            <p className="text-xs text-muted">Available quantity</p>
 
             <p className="mt-2 text-2xl font-bold text-primary">
               {availableQuantity}
             </p>
 
-            <p className="mt-1 text-[10px] text-muted">
-              Total minus reserved
-            </p>
+            <p className="mt-1 text-[10px] text-muted">Total minus reserved</p>
           </div>
         </div>
 
@@ -383,25 +301,15 @@ export function InventoryForm({
 
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
-            <label
-              htmlFor="warehouse"
-              className="text-sm font-semibold"
-            >
-              Warehouse{" "}
-              <span className="text-danger">
-                *
-              </span>
+            <label htmlFor="warehouse" className="text-sm font-semibold">
+              Warehouse <span className="text-danger">*</span>
             </label>
 
             <input
               id="warehouse"
               type="text"
               value={warehouse}
-              onChange={(event) =>
-                setWarehouse(
-                  event.target.value,
-                )
-              }
+              onChange={(event) => setWarehouse(event.target.value)}
               placeholder="For example: Main Warehouse"
               className={`
                 mt-2 h-11 w-full rounded-xl
@@ -410,39 +318,23 @@ export function InventoryForm({
                 focus:border-primary
                 focus:ring-4
                 focus:ring-primary/10
-                ${
-                  errors.warehouse
-                    ? "border-red-300"
-                    : "border-border"
-                }
+                ${errors.warehouse ? "border-red-300" : "border-border"}
               `}
             />
 
-            <FieldError
-              message={errors.warehouse}
-            />
+            <FieldError message={errors.warehouse} />
           </div>
 
           <div>
-            <label
-              htmlFor="inventory-status"
-              className="text-sm font-semibold"
-            >
-              Status{" "}
-              <span className="text-danger">
-                *
-              </span>
+            <label htmlFor="inventory-status" className="text-sm font-semibold">
+              Status <span className="text-danger">*</span>
             </label>
 
             <select
               id="inventory-status"
               value={status}
               onChange={(event) =>
-                setStatus(
-                  event.target.value as
-                    | "Active"
-                    | "Inactive",
-                )
+                setStatus(event.target.value as "Active" | "Inactive")
               }
               className="
                 mt-2 h-11 w-full rounded-xl
@@ -453,13 +345,9 @@ export function InventoryForm({
                 focus:ring-primary/10
               "
             >
-              <option value="Active">
-                Active
-              </option>
+              <option value="Active">Active</option>
 
-              <option value="Inactive">
-                Inactive
-              </option>
+              <option value="Inactive">Inactive</option>
             </select>
           </div>
         </div>
@@ -524,23 +412,11 @@ interface NumberFieldProps {
   error?: string;
 }
 
-function NumberField({
-  id,
-  label,
-  value,
-  onChange,
-  error,
-}: NumberFieldProps) {
+function NumberField({ id, label, value, onChange, error }: NumberFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="text-sm font-semibold"
-      >
-        {label}{" "}
-        <span className="text-danger">
-          *
-        </span>
+      <label htmlFor={id} className="text-sm font-semibold">
+        {label} <span className="text-danger">*</span>
       </label>
 
       <input
@@ -549,20 +425,14 @@ function NumberField({
         min="0"
         step="1"
         value={value}
-        onChange={(event) =>
-          onChange(event.target.value)
-        }
+        onChange={(event) => onChange(event.target.value)}
         className={`
           mt-2 h-11 w-full rounded-xl
           border bg-white px-4 text-sm
           outline-none transition
           focus:border-primary
           focus:ring-4 focus:ring-primary/10
-          ${
-            error
-              ? "border-red-300"
-              : "border-border"
-          }
+          ${error ? "border-red-300" : "border-border"}
         `}
       />
 
@@ -571,20 +441,12 @@ function NumberField({
   );
 }
 
-function FieldError({
-  message,
-}: {
-  message?: string;
-}) {
+function FieldError({ message }: { message?: string }) {
   if (!message) {
     return null;
   }
 
-  return (
-    <p className="mt-1.5 text-xs text-danger">
-      {message}
-    </p>
-  );
+  return <p className="mt-1.5 text-xs text-danger">{message}</p>;
 }
 
 function Message({
@@ -596,11 +458,7 @@ function Message({
 }) {
   return (
     <div
-      role={
-        type === "error"
-          ? "alert"
-          : "status"
-      }
+      role={type === "error" ? "alert" : "status"}
       className={`
         mt-6 rounded-xl border px-4 py-3
         text-sm font-medium

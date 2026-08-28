@@ -13,41 +13,34 @@ interface EditBrandPageProps {
 const brandRecords = {
   "1": {
     name: "Nestle",
-    description:
-      "Food, beverage and consumer product brand.",
+    description: "Food, beverage and consumer product brand.",
     status: "Active" as const,
   },
 
   "2": {
     name: "Coca-Cola",
-    description:
-      "Soft drinks and beverage products.",
+    description: "Soft drinks and beverage products.",
     status: "Active" as const,
   },
 
   "3": {
     name: "Unilever",
-    description:
-      "Personal care and household products.",
+    description: "Personal care and household products.",
     status: "Active" as const,
   },
 
   "4": {
     name: "Local Choice",
-    description:
-      "Locally sourced store products.",
+    description: "Locally sourced store products.",
     status: "Inactive" as const,
   },
 };
 
-export default async function EditBrandPage({
-  params,
-}: EditBrandPageProps) {
+export default async function EditBrandPage({ params }: EditBrandPageProps) {
   const { id } = await params;
 
   const brand =
-    brandRecords[id as keyof typeof brandRecords] ??
-    brandRecords["1"];
+    brandRecords[id as keyof typeof brandRecords] ?? brandRecords["1"];
 
   return (
     <AppShell>
@@ -77,18 +70,13 @@ export default async function EditBrandPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update {brand.name} information and
-              availability.
+              Update {brand.name} information and availability.
             </p>
           </div>
         </section>
 
         <div className="mt-8">
-          <BrandForm
-            mode="edit"
-            brandId={Number(id)}
-            initialValues={brand}
-          />
+          <BrandForm mode="edit" brandId={Number(id)} initialValues={brand} />
         </div>
       </div>
     </AppShell>

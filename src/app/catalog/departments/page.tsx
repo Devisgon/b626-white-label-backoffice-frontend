@@ -32,8 +32,7 @@ export default function DepartmentsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage store departments, tax and POS
-              defaults.
+              Manage store departments, tax and POS defaults.
             </p>
           </div>
         </section>

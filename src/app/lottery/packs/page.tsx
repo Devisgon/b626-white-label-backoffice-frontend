@@ -1,15 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Boxes,
-} from "lucide-react";
+import { ArrowLeft, Boxes } from "lucide-react";
 
-import {
-  AppShell,
-} from "@/components/layout";
-import {
-  LotteryPacksList,
-} from "@/features/lottery/components";
+import { AppShell } from "@/components/layout";
+import { LotteryPacksList } from "@/features/lottery/components";
 
 export default function LotteryPacksPage() {
   return (
@@ -71,8 +64,7 @@ export default function LotteryPacksPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage ticket packs, number ranges,
-              activation and availability.
+              Manage ticket packs, number ranges, activation and availability.
             </p>
           </div>
         </section>

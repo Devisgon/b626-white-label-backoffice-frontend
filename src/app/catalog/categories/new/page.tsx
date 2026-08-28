@@ -33,8 +33,7 @@ export default function CreateCategoryPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Create a new category for organizing
-              products.
+              Create a new category for organizing products.
             </p>
           </div>
         </section>

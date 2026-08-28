@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  CheckCircle2,
-  LoaderCircle,
-  Save,
-} from "lucide-react";
+import { CheckCircle2, LoaderCircle, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -28,36 +24,27 @@ export function BrandForm({
 }: BrandFormProps) {
   const router = useRouter();
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<BrandFormValues>({
     resolver: zodResolver(brandSchema),
 
-    defaultValues:
-      initialValues ?? {
-        name: "",
-        description: "",
-        status: "Active",
-      },
+    defaultValues: initialValues ?? {
+      name: "",
+      description: "",
+      status: "Active",
+    },
   });
 
-  async function onSubmit(
-    values: BrandFormValues,
-  ) {
+  async function onSubmit(values: BrandFormValues) {
     setSuccessMessage("");
 
     // Temporary delay for frontend testing.
-    await new Promise((resolve) =>
-      setTimeout(resolve, 700),
-    );
+    await new Promise((resolve) => setTimeout(resolve, 700));
 
     if (mode === "edit") {
       console.log("Update brand:", {
@@ -65,15 +52,11 @@ export function BrandForm({
         ...values,
       });
 
-      setSuccessMessage(
-        "Brand updated successfully.",
-      );
+      setSuccessMessage("Brand updated successfully.");
     } else {
       console.log("Create brand:", values);
 
-      setSuccessMessage(
-        "Brand created successfully.",
-      );
+      setSuccessMessage("Brand created successfully.");
     }
 
     // Backend integration ke baad successful
@@ -94,13 +77,10 @@ export function BrandForm({
       "
     >
       <div className="border-b border-border p-5 sm:p-6">
-        <h2 className="font-bold">
-          Brand information
-        </h2>
+        <h2 className="font-bold">Brand information</h2>
 
         <p className="mt-1 text-xs text-muted">
-          Enter the brand name, description and current
-          status.
+          Enter the brand name, description and current status.
         </p>
       </div>
 
@@ -122,12 +102,8 @@ export function BrandForm({
         )}
 
         <div>
-          <label
-            htmlFor="brand-name"
-            className="text-sm font-semibold"
-          >
-            Brand name{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="brand-name" className="text-sm font-semibold">
+            Brand name <span className="text-danger">*</span>
           </label>
 
           <input
@@ -150,20 +126,14 @@ export function BrandForm({
           />
 
           {errors.name && (
-            <p
-              role="alert"
-              className="mt-2 text-xs font-medium text-danger"
-            >
+            <p role="alert" className="mt-2 text-xs font-medium text-danger">
               {errors.name.message}
             </p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor="brand-description"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="brand-description" className="text-sm font-semibold">
             Description
           </label>
 
@@ -188,31 +158,20 @@ export function BrandForm({
 
           <div className="mt-2 flex justify-between gap-4">
             {errors.description ? (
-              <p
-                role="alert"
-                className="text-xs font-medium text-danger"
-              >
+              <p role="alert" className="text-xs font-medium text-danger">
                 {errors.description.message}
               </p>
             ) : (
-              <p className="text-xs text-muted">
-                Optional brand details.
-              </p>
+              <p className="text-xs text-muted">Optional brand details.</p>
             )}
 
-            <span className="text-xs text-muted">
-              Maximum 500 characters
-            </span>
+            <span className="text-xs text-muted">Maximum 500 characters</span>
           </div>
         </div>
 
         <div>
-          <label
-            htmlFor="brand-status"
-            className="text-sm font-semibold"
-          >
-            Status{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="brand-status" className="text-sm font-semibold">
+            Status <span className="text-danger">*</span>
           </label>
 
           <select
@@ -226,18 +185,13 @@ export function BrandForm({
               focus:ring-4 focus:ring-primary/10
             "
           >
-            <option value="Active">
-              Active
-            </option>
+            <option value="Active">Active</option>
 
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           <p className="mt-2 text-xs text-muted">
-            Inactive brands will not be available during
-            product selection.
+            Inactive brands will not be available during product selection.
           </p>
         </div>
       </div>
@@ -252,9 +206,7 @@ export function BrandForm({
       >
         <button
           type="button"
-          onClick={() =>
-            router.push("/catalog/brands")
-          }
+          onClick={() => router.push("/catalog/brands")}
           disabled={isSubmitting}
           className="
             inline-flex h-11 items-center justify-center
@@ -290,9 +242,7 @@ export function BrandForm({
             <>
               <Save className="size-4" />
 
-              {mode === "edit"
-                ? "Save changes"
-                : "Create brand"}
+              {mode === "edit" ? "Save changes" : "Create brand"}
             </>
           )}
         </button>

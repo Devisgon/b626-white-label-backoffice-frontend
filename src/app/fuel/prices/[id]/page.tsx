@@ -1,22 +1,14 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  BadgeDollarSign,
-  Pencil,
-} from "lucide-react";
+import { ArrowLeft, BadgeDollarSign, Pencil } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelPriceActionButton,
-} from "@/features/fuel/components";
+import { FuelPriceActionButton } from "@/features/fuel/components";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
-export default async function FuelPriceDetailsPage({
-  params,
-}: Props) {
+export default async function FuelPriceDetailsPage({ params }: Props) {
   const { id } = await params;
 
   return (
@@ -35,12 +27,8 @@ export default async function FuelPriceDetailsPage({
               <p className="text-xs font-bold uppercase text-primary">
                 Fuel price details
               </p>
-              <h1 className="mt-2 text-3xl font-bold">
-                Petrol
-              </h1>
-              <p className="mt-2 text-sm text-muted">
-                Price ID: {id}
-              </p>
+              <h1 className="mt-2 text-3xl font-bold">Petrol</h1>
+              <p className="mt-2 text-sm text-muted">Price ID: {id}</p>
             </div>
           </div>
 
@@ -66,31 +54,15 @@ export default async function FuelPriceDetailsPage({
             <BadgeDollarSign className="size-5" />
           </span>
 
-          <p className="mt-6 text-sm text-muted">
-            Current price per litre
-          </p>
+          <p className="mt-6 text-sm text-muted">Current price per litre</p>
 
-          <p className="mt-2 text-4xl font-bold text-primary">
-            PKR 272.50
-          </p>
+          <p className="mt-2 text-4xl font-bold text-primary">PKR 272.50</p>
 
           <dl className="mt-8 divide-y divide-border">
-            <Row
-              label="Fuel type"
-              value="Petrol"
-            />
-            <Row
-              label="Effective from"
-              value="25 Aug 2026"
-            />
-            <Row
-              label="Location"
-              value="Phoenix Store"
-            />
-            <Row
-              label="Status"
-              value="Active"
-            />
+            <Row label="Fuel type" value="Petrol" />
+            <Row label="Effective from" value="25 Aug 2026" />
+            <Row label="Location" value="Phoenix Store" />
+            <Row label="Status" value="Active" />
           </dl>
         </section>
       </div>
@@ -98,21 +70,11 @@ export default async function FuelPriceDetailsPage({
   );
 }
 
-function Row({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid gap-2 py-4 sm:grid-cols-[180px_1fr]">
-      <dt className="text-sm text-muted">
-        {label}
-      </dt>
-      <dd className="text-sm font-semibold">
-        {value}
-      </dd>
+      <dt className="text-sm text-muted">{label}</dt>
+      <dd className="text-sm font-semibold">{value}</dd>
     </div>
   );
 }

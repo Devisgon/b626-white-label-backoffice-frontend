@@ -18,7 +18,10 @@ export async function createFuelSale(payload: FuelSalePayload) {
   return response.json();
 }
 
-export async function updateFuelSale(id: number, payload: Partial<FuelSalePayload>) {
+export async function updateFuelSale(
+  id: number,
+  payload: Partial<FuelSalePayload>,
+) {
   const response = await fetch(`${API_URL}/fuel/sales/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -27,4 +30,3 @@ export async function updateFuelSale(id: number, payload: Partial<FuelSalePayloa
   if (!response.ok) throw new Error("Unable to update fuel sale.");
   return response.json();
 }
-

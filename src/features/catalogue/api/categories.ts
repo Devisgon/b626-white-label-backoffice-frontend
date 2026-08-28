@@ -51,9 +51,7 @@ export interface CategoriesResult {
   pagination: CategoriesResponse["pagination"];
 }
 
-function mapCategory(
-  category: BackendCategory,
-): Category {
+function mapCategory(category: BackendCategory): Category {
   return {
     id: Number(category.id),
     name: category.name,
@@ -68,23 +66,19 @@ function mapCategory(
 export async function getCategories(
   filters: CategoryFilters = {},
 ): Promise<CategoriesResult> {
-  const response =
-    await apiClient.get<CategoriesResponse>(
-      "/catalogue/categories",
-      {
-        params: {
-          search: filters.search || undefined,
-          status:
-            filters.status === "all"
-              ? undefined
-              : filters.status,
-          page: filters.page,
-          limit: filters.limit ?? 10,
-          sortBy: filters.sortBy,
-          order: filters.order ?? "asc",
-        },
+  const response = await apiClient.get<CategoriesResponse>(
+    "/catalogue/categories",
+    {
+      params: {
+        search: filters.search || undefined,
+        status: filters.status === "all" ? undefined : filters.status,
+        page: filters.page,
+        limit: filters.limit ?? 10,
+        sortBy: filters.sortBy,
+        order: filters.order ?? "asc",
       },
-    );
+    },
+  );
 
   return {
     categories: response.data.data.map(mapCategory),
@@ -92,22 +86,18 @@ export async function getCategories(
   };
 }
 
-export async function getCategory(
-  id: number,
-): Promise<Category> {
-  const response =
-    await apiClient.get<CategoryResponse>(
-      `/catalogue/categories/${id}`,
-    );
+export async function getCategory(id: number): Promise<Category> {
+  const response = await apiClient.get<CategoryResponse>(
+    `/catalogue/categories/${id}`,
+  );
 
   return mapCategory(response.data.data);
 }
 
 export async function getCategoryStats(): Promise<CategoryStats> {
-  const response =
-    await apiClient.get<CategoryStatsResponse>(
-      "/catalogue/categories/stats",
-    );
+  const response = await apiClient.get<CategoryStatsResponse>(
+    "/catalogue/categories/stats",
+  );
 
   return {
     total: response.data.data.totalCategories,
@@ -119,11 +109,10 @@ export async function getCategoryStats(): Promise<CategoryStats> {
 export async function createCategory(
   payload: CreateCategoryPayload,
 ): Promise<Category> {
-  const response =
-    await apiClient.post<CategoryResponse>(
-      "/catalogue/categories",
-      payload,
-    );
+  const response = await apiClient.post<CategoryResponse>(
+    "/catalogue/categories",
+    payload,
+  );
 
   return mapCategory(response.data.data);
 }
@@ -132,33 +121,26 @@ export async function updateCategory(
   id: number,
   payload: UpdateCategoryPayload,
 ): Promise<Category> {
-  const response =
-    await apiClient.patch<CategoryResponse>(
-      `/catalogue/categories/${id}`,
-      payload,
-    );
+  const response = await apiClient.patch<CategoryResponse>(
+    `/catalogue/categories/${id}`,
+    payload,
+  );
 
   return mapCategory(response.data.data);
 }
 
-export async function deleteCategory(
-  id: number,
-): Promise<Category> {
-  const response =
-    await apiClient.delete<CategoryResponse>(
-      `/catalogue/categories/${id}`,
-    );
+export async function deleteCategory(id: number): Promise<Category> {
+  const response = await apiClient.delete<CategoryResponse>(
+    `/catalogue/categories/${id}`,
+  );
 
   return mapCategory(response.data.data);
 }
 
-export async function restoreCategory(
-  id: number,
-): Promise<Category> {
-  const response =
-    await apiClient.patch<CategoryResponse>(
-      `/catalogue/categories/${id}/restore`,
-    );
+export async function restoreCategory(id: number): Promise<Category> {
+  const response = await apiClient.patch<CategoryResponse>(
+    `/catalogue/categories/${id}/restore`,
+  );
 
   return mapCategory(response.data.data);
 }

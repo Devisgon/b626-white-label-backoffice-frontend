@@ -1,7 +1,11 @@
 import { z } from "zod";
 
 const requiredNumber = (message: string) =>
-  z.string().trim().min(1, message).refine((value) => Number(value) >= 0, message);
+  z
+    .string()
+    .trim()
+    .min(1, message)
+    .refine((value) => Number(value) >= 0, message);
 
 export const fuelSaleSchema = z
   .object({
@@ -16,10 +20,13 @@ export const fuelSaleSchema = z
     status: z.enum(["Completed", "Pending", "Cancelled"]),
   })
   .refine(
-    (values) => Number(values.closing_reading) >= Number(values.opening_reading),
-    { path: ["closing_reading"], message: "Closing reading cannot be lower than opening reading." },
+    (values) =>
+      Number(values.closing_reading) >= Number(values.opening_reading),
+    {
+      path: ["closing_reading"],
+      message: "Closing reading cannot be lower than opening reading.",
+    },
   );
 
 export type FuelSaleFormInput = z.input<typeof fuelSaleSchema>;
 export type FuelSaleFormValues = z.output<typeof fuelSaleSchema>;
-

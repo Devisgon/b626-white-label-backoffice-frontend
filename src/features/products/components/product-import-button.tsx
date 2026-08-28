@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useRef,
-  useState,
-} from "react";
+import { useRef, useState } from "react";
 import {
   Download,
   FileSpreadsheet,
@@ -13,15 +10,12 @@ import {
 } from "lucide-react";
 
 export function ProductImportButton() {
-  const inputRef =
-    useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedFile, setSelectedFile] =
-    useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState("");
-  const [isImporting, setIsImporting] =
-    useState(false);
+  const [isImporting, setIsImporting] = useState(false);
 
   function closeModal() {
     if (isImporting) {
@@ -37,9 +31,7 @@ export function ProductImportButton() {
     }
   }
 
-  function handleFileChange(
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) {
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     setError("");
 
     const file = event.target.files?.[0];
@@ -57,9 +49,7 @@ export function ProductImportButton() {
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      setError(
-        "CSV file must be smaller than 5 MB.",
-      );
+      setError("CSV file must be smaller than 5 MB.");
       setSelectedFile(null);
       event.target.value = "";
       return;
@@ -125,9 +115,7 @@ export function ProductImportButton() {
 
     const csvContent = [
       headers.join(","),
-      example
-        .map((value) => `"${value}"`)
-        .join(","),
+      example.map((value) => `"${value}"`).join(","),
     ].join("\n");
 
     const blob = new Blob([csvContent], {
@@ -168,9 +156,7 @@ export function ProductImportButton() {
 
     setIsImporting(false);
 
-    window.alert(
-      `${selectedFile.name} is ready for import.`,
-    );
+    window.alert(`${selectedFile.name} is ready for import.`);
 
     closeModal();
   }
@@ -212,10 +198,7 @@ export function ProductImportButton() {
                 </span>
 
                 <div>
-                  <h2
-                    id="import-products-title"
-                    className="font-bold"
-                  >
+                  <h2 id="import-products-title" className="font-bold">
                     Import products
                   </h2>
 
@@ -248,8 +231,8 @@ export function ProductImportButton() {
                 </p>
 
                 <p className="mt-2 text-xs leading-5 text-blue-700">
-                  name, sku, barcode and category_id must
-                  be included for every product.
+                  name, sku, barcode and category_id must be included for every
+                  product.
                 </p>
               </div>
 
@@ -311,10 +294,7 @@ export function ProductImportButton() {
                     </p>
 
                     <p className="mt-1 text-[11px] text-muted">
-                      {(
-                        selectedFile.size / 1024
-                      ).toFixed(1)}{" "}
-                      KB
+                      {(selectedFile.size / 1024).toFixed(1)} KB
                     </p>
                   </div>
 
@@ -362,9 +342,7 @@ export function ProductImportButton() {
               <button
                 type="button"
                 onClick={handleImport}
-                disabled={
-                  !selectedFile || isImporting
-                }
+                disabled={!selectedFile || isImporting}
                 className="
                   inline-flex h-10 items-center
                   justify-center gap-2 rounded-xl
@@ -381,9 +359,7 @@ export function ProductImportButton() {
                   <Upload className="size-4" />
                 )}
 
-                {isImporting
-                  ? "Importing..."
-                  : "Import products"}
+                {isImporting ? "Importing..." : "Import products"}
               </button>
             </div>
           </div>

@@ -29,66 +29,50 @@ export interface BankRegisterFilters {
   dateTo?: string;
 }
 
-export async function getTransactions(
-  filters: TransactionFilters = {},
-) {
-  const response =
-    await apiClient.get<TransactionsResponse>(
-      "/bank/transactions",
-      {
-        params: {
-          page: filters.page,
-          limit: filters.limit,
-          status: filters.status || undefined,
+export async function getTransactions(filters: TransactionFilters = {}) {
+  const response = await apiClient.get<TransactionsResponse>(
+    "/bank/transactions",
+    {
+      params: {
+        page: filters.page,
+        limit: filters.limit,
+        status: filters.status || undefined,
 
-          bankAccountId:
-            filters.bankAccountId || undefined,
+        bankAccountId: filters.bankAccountId || undefined,
 
-          direction:
-            filters.direction || undefined,
+        direction: filters.direction || undefined,
 
-          dateFrom:
-            filters.dateFrom || undefined,
+        dateFrom: filters.dateFrom || undefined,
 
-          dateTo:
-            filters.dateTo || undefined,
-        },
+        dateTo: filters.dateTo || undefined,
       },
-    );
+    },
+  );
 
   return response.data;
 }
 
-export async function getTransaction(
-  transactionId: string,
-) {
-  const response =
-    await apiClient.get<BankTransaction>(
-      `/bank/transactions/${transactionId}`,
-    );
+export async function getTransaction(transactionId: string) {
+  const response = await apiClient.get<BankTransaction>(
+    `/bank/transactions/${transactionId}`,
+  );
 
   return response.data;
 }
 
-export async function createTransaction(
-  payload: CreateTransactionPayload,
-) {
-  const response =
-    await apiClient.post<BankTransaction>(
-      "/bank/transactions",
-      payload,
-    );
+export async function createTransaction(payload: CreateTransactionPayload) {
+  const response = await apiClient.post<BankTransaction>(
+    "/bank/transactions",
+    payload,
+  );
 
   return response.data;
 }
 
-export async function postTransaction(
-  transactionId: string,
-) {
-  const response =
-    await apiClient.post<BankTransaction>(
-      `/bank/transactions/${transactionId}/post`,
-    );
+export async function postTransaction(transactionId: string) {
+  const response = await apiClient.post<BankTransaction>(
+    `/bank/transactions/${transactionId}/post`,
+  );
 
   return response.data;
 }
@@ -97,11 +81,10 @@ export async function voidTransaction(
   transactionId: string,
   payload: VoidTransactionPayload,
 ) {
-  const response =
-    await apiClient.post<BankTransaction>(
-      `/bank/transactions/${transactionId}/void`,
-      payload,
-    );
+  const response = await apiClient.post<BankTransaction>(
+    `/bank/transactions/${transactionId}/void`,
+    payload,
+  );
 
   return response.data;
 }
@@ -110,21 +93,18 @@ export async function getBankRegister(
   bankAccountId: string,
   filters: BankRegisterFilters,
 ) {
-  const response =
-    await apiClient.get<BankRegisterResponse>(
-      `/bank/transactions/register/${bankAccountId}`,
-      {
-        params: {
-          view: filters.view,
+  const response = await apiClient.get<BankRegisterResponse>(
+    `/bank/transactions/register/${bankAccountId}`,
+    {
+      params: {
+        view: filters.view,
 
-          dateFrom:
-            filters.dateFrom || undefined,
+        dateFrom: filters.dateFrom || undefined,
 
-          dateTo:
-            filters.dateTo || undefined,
-        },
+        dateTo: filters.dateTo || undefined,
       },
-    );
+    },
+  );
 
   return response.data;
 }

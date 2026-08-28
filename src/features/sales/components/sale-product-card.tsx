@@ -21,10 +21,7 @@ function formatCurrency(value: number) {
   }).format(value);
 }
 
-export function SaleProductCard({
-  product,
-  onAdd,
-}: SaleProductCardProps) {
+export function SaleProductCard({ product, onAdd }: SaleProductCardProps) {
   return (
     <article className="rounded-xl border border-border p-4 transition hover:border-primary/40 hover:shadow-[var(--shadow-sm)]">
       <div className="flex items-start justify-between gap-3">
@@ -37,18 +34,12 @@ export function SaleProductCard({
         </span>
       </div>
 
-      <h3 className="mt-4 text-sm font-semibold">
-        {product.name}
-      </h3>
+      <h3 className="mt-4 text-sm font-semibold">{product.name}</h3>
 
-      <p className="mt-1 text-[11px] text-muted">
-        {product.sku}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{product.sku}</p>
 
       <div className="mt-4 flex items-center justify-between gap-3">
-        <p className="text-sm font-bold">
-          {formatCurrency(product.price)}
-        </p>
+        <p className="text-sm font-bold">{formatCurrency(product.price)}</p>
 
         <button
           type="button"

@@ -33,8 +33,7 @@ export default function CategoriesPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage product categories and their
-              availability.
+              Manage product categories and their availability.
             </p>
           </div>
         </section>

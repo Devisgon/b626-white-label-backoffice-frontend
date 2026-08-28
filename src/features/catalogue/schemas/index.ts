@@ -1,27 +1,15 @@
-export {
-  brandSchema,
-  type BrandFormValues,
-} from "./brand-schema";
+export { brandSchema, type BrandFormValues } from "./brand-schema";
 
-export {
-  categorySchema,
-  type CategoryFormValues,
-} from "./category-schema";
+export { categorySchema, type CategoryFormValues } from "./category-schema";
 
 export {
   departmentSchema,
   type DepartmentFormValues,
 } from "./department-schema";
 
-export {
-  supplierSchema,
-  type SupplierFormValues,
-} from "./supplier-schema";
+export { supplierSchema, type SupplierFormValues } from "./supplier-schema";
 
-export {
-  unitSchema,
-  type UnitFormValues,
-} from "./unit-schema";
+export { unitSchema, type UnitFormValues } from "./unit-schema";
 
 export {
   priceBookItemSchema,
@@ -42,10 +30,7 @@ export {
   type UpdateCartonMappingFormValues,
 } from "./carton-mapping-schema";
 
-export {
-  inventorySchema,
-  type InventoryFormValues,
-} from "./inventory-schema";
+export { inventorySchema, type InventoryFormValues } from "./inventory-schema";
 
 export {
   productInventorySchema,

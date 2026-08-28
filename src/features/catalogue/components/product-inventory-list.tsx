@@ -15,9 +15,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import type {
-  ProductInventory,
-} from "@/features/catalogue/types";
+import type { ProductInventory } from "@/features/catalogue/types";
 
 const initialRecords: ProductInventory[] = [
   {
@@ -103,83 +101,53 @@ const initialRecords: ProductInventory[] = [
 ];
 
 export function ProductInventoryList() {
-  const [records, setRecords] =
-    useState(initialRecords);
+  const [records, setRecords] = useState(initialRecords);
 
-  const [search, setSearch] =
-    useState("");
+  const [search, setSearch] = useState("");
 
-  const [locationFilter, setLocationFilter] =
-    useState("All");
+  const [locationFilter, setLocationFilter] = useState("All");
 
   const locations = useMemo(() => {
     const uniqueLocations = new Map<
       number,
-      NonNullable<
-        ProductInventory["location"]
-      >
+      NonNullable<ProductInventory["location"]>
     >();
 
     records.forEach((record) => {
       if (record.location) {
-        uniqueLocations.set(
-          record.location.id,
-          record.location,
-        );
+        uniqueLocations.set(record.location.id, record.location);
       }
     });
 
-    return Array.from(
-      uniqueLocations.values(),
-    );
+    return Array.from(uniqueLocations.values());
   }, [records]);
 
   const filteredRecords = useMemo(() => {
-    const normalizedSearch = search
-      .trim()
-      .toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
 
     return records.filter((record) => {
       const matchesSearch =
         normalizedSearch.length === 0 ||
-        record.product?.name
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        record.product?.sku
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        record.location?.name
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        record.location?.code
-          .toLowerCase()
-          .includes(normalizedSearch);
+        record.product?.name.toLowerCase().includes(normalizedSearch) ||
+        record.product?.sku.toLowerCase().includes(normalizedSearch) ||
+        record.location?.name.toLowerCase().includes(normalizedSearch) ||
+        record.location?.code.toLowerCase().includes(normalizedSearch);
 
       const matchesLocation =
         locationFilter === "All" ||
-        record.location_id ===
-          Number(locationFilter);
+        record.location_id === Number(locationFilter);
 
-      return (
-        matchesSearch && matchesLocation
-      );
+      return matchesSearch && matchesLocation;
     });
   }, [records, search, locationFilter]);
 
   const lowStockItems = records.filter(
-    (record) =>
-      record.on_hand_quantity <=
-      (record.reorder_level ?? 10),
+    (record) => record.on_hand_quantity <= (record.reorder_level ?? 10),
   ).length;
 
   const availableStock = records.reduce(
     (total, record) =>
-      total +
-      Math.max(
-        0,
-        record.on_hand_quantity -
-          record.reserved_quantity,
-      ),
+      total + Math.max(0, record.on_hand_quantity - record.reserved_quantity),
     0,
   );
 
@@ -188,9 +156,7 @@ export function ProductInventoryList() {
     setLocationFilter("All");
   }
 
-  function removeRecord(
-    record: ProductInventory,
-  ) {
+  function removeRecord(record: ProductInventory) {
     const shouldDelete = window.confirm(
       `Remove "${record.product?.name}" from "${record.location?.name}"? This record can be restored after backend integration.`,
     );
@@ -200,10 +166,7 @@ export function ProductInventoryList() {
     }
 
     setRecords((currentRecords) =>
-      currentRecords.filter(
-        (currentRecord) =>
-          currentRecord.id !== record.id,
-      ),
+      currentRecords.filter((currentRecord) => currentRecord.id !== record.id),
     );
   }
 
@@ -229,22 +192,17 @@ export function ProductInventoryList() {
           value={String(lowStockItems)}
           helper="Items requiring attention"
           warning
-          icon={
-            <AlertTriangle className="size-5" />
-          }
+          icon={<AlertTriangle className="size-5" />}
         />
       </section>
 
       <section className="mt-6 overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-sm)]">
         <div className="flex flex-col justify-between gap-4 border-b border-border p-5 lg:flex-row lg:items-center">
           <div>
-            <h2 className="font-bold">
-              Product inventory
-            </h2>
+            <h2 className="font-bold">Product inventory</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Manage product stock across inventory
-              locations.
+              Manage product stock across inventory locations.
             </p>
           </div>
 
@@ -270,9 +228,7 @@ export function ProductInventoryList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by product, SKU or location..."
               className="
                 h-11 w-full rounded-xl border
@@ -286,11 +242,7 @@ export function ProductInventoryList() {
 
           <select
             value={locationFilter}
-            onChange={(event) =>
-              setLocationFilter(
-                event.target.value,
-              )
-            }
+            onChange={(event) => setLocationFilter(event.target.value)}
             aria-label="Filter by inventory location"
             className="
               h-11 rounded-xl border border-border
@@ -299,15 +251,10 @@ export function ProductInventoryList() {
               focus:ring-4 focus:ring-primary/10
             "
           >
-            <option value="All">
-              All locations
-            </option>
+            <option value="All">All locations</option>
 
             {locations.map((location) => (
-              <option
-                key={location.id}
-                value={location.id}
-              >
+              <option key={location.id} value={location.id}>
                 {location.name}
               </option>
             ))}
@@ -334,121 +281,86 @@ export function ProductInventoryList() {
             <table className="w-full min-w-[1050px] text-left">
               <thead className="bg-surface-secondary">
                 <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                  <th className="px-5 py-4">
-                    Product
-                  </th>
+                  <th className="px-5 py-4">Product</th>
 
-                  <th className="px-5 py-4">
-                    Location
-                  </th>
+                  <th className="px-5 py-4">Location</th>
 
-                  <th className="px-5 py-4">
-                    On hand
-                  </th>
+                  <th className="px-5 py-4">On hand</th>
 
-                  <th className="px-5 py-4">
-                    Reserved
-                  </th>
+                  <th className="px-5 py-4">Reserved</th>
 
-                  <th className="px-5 py-4">
-                    Available
-                  </th>
+                  <th className="px-5 py-4">Available</th>
 
-                  <th className="px-5 py-4">
-                    Stock status
-                  </th>
+                  <th className="px-5 py-4">Stock status</th>
 
-                  <th className="px-5 py-4 text-right">
-                    Actions
-                  </th>
+                  <th className="px-5 py-4 text-right">Actions</th>
                 </tr>
               </thead>
 
               <tbody className="divide-y divide-border">
-                {filteredRecords.map(
-                  (record) => {
-                    const available =
-                      Math.max(
-                        0,
-                        record.on_hand_quantity -
-                          record.reserved_quantity,
-                      );
+                {filteredRecords.map((record) => {
+                  const available = Math.max(
+                    0,
+                    record.on_hand_quantity - record.reserved_quantity,
+                  );
 
-                    const isLowStock =
-                      record.on_hand_quantity <=
-                      (record.reorder_level ??
-                        10);
+                  const isLowStock =
+                    record.on_hand_quantity <= (record.reorder_level ?? 10);
 
-                    return (
-                      <tr
-                        key={record.id}
-                        className="text-sm transition hover:bg-surface-secondary/50"
-                      >
-                        <td className="px-5 py-4">
-                          <div className="flex items-center gap-3">
-                            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-light text-primary">
-                              <Package className="size-4" />
-                            </span>
+                  return (
+                    <tr
+                      key={record.id}
+                      className="text-sm transition hover:bg-surface-secondary/50"
+                    >
+                      <td className="px-5 py-4">
+                        <div className="flex items-center gap-3">
+                          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-light text-primary">
+                            <Package className="size-4" />
+                          </span>
 
-                            <div>
-                              <p className="font-semibold">
-                                {
-                                  record.product
-                                    ?.name
-                                }
-                              </p>
+                          <div>
+                            <p className="font-semibold">
+                              {record.product?.name}
+                            </p>
 
-                              <p className="mt-1 text-[11px] text-muted">
-                                {
-                                  record.product
-                                    ?.sku
-                                }
-                              </p>
-                            </div>
+                            <p className="mt-1 text-[11px] text-muted">
+                              {record.product?.sku}
+                            </p>
                           </div>
-                        </td>
+                        </div>
+                      </td>
 
-                        <td className="px-5 py-4">
-                          <div className="flex items-center gap-2">
-                            <MapPin className="size-3.5 text-muted" />
+                      <td className="px-5 py-4">
+                        <div className="flex items-center gap-2">
+                          <MapPin className="size-3.5 text-muted" />
 
-                            <div>
-                              <p className="font-medium">
-                                {
-                                  record.location
-                                    ?.name
-                                }
-                              </p>
+                          <div>
+                            <p className="font-medium">
+                              {record.location?.name}
+                            </p>
 
-                              <p className="text-[10px] text-muted">
-                                {
-                                  record.location
-                                    ?.code
-                                }
-                              </p>
-                            </div>
+                            <p className="text-[10px] text-muted">
+                              {record.location?.code}
+                            </p>
                           </div>
-                        </td>
+                        </div>
+                      </td>
 
-                        <td className="px-5 py-4 font-semibold">
-                          {
-                            record.on_hand_quantity
-                          }
-                        </td>
+                      <td className="px-5 py-4 font-semibold">
+                        {record.on_hand_quantity}
+                      </td>
 
-                        <td className="px-5 py-4 text-muted">
-                          {
-                            record.reserved_quantity
-                          }
-                        </td>
+                      <td className="px-5 py-4 text-muted">
+                        {record.reserved_quantity}
+                      </td>
 
-                        <td className="px-5 py-4 font-bold text-primary">
-                          {available}
-                        </td>
+                      <td className="px-5 py-4 font-bold text-primary">
+                        {available}
+                      </td>
 
-                        <td className="px-5 py-4">
-                          <span
-                            className={`
+                      <td className="px-5 py-4">
+                        <span
+                          className={`
                               inline-flex rounded-full
                               px-2.5 py-1 text-[10px]
                               font-semibold
@@ -458,49 +370,42 @@ export function ProductInventoryList() {
                                   : "bg-emerald-50 text-emerald-700"
                               }
                             `}
+                        >
+                          {isLowStock ? "Low stock" : "In stock"}
+                        </span>
+                      </td>
+
+                      <td className="px-5 py-4">
+                        <div className="flex justify-end gap-2">
+                          <Link
+                            href={`/catalog/product-inventory/${record.id}`}
+                            aria-label={`View ${record.product?.name}`}
+                            className="flex size-9 items-center justify-center rounded-lg border border-border text-muted transition hover:border-primary hover:bg-primary-light hover:text-primary"
                           >
-                            {isLowStock
-                              ? "Low stock"
-                              : "In stock"}
-                          </span>
-                        </td>
+                            <Eye className="size-4" />
+                          </Link>
 
-                        <td className="px-5 py-4">
-                          <div className="flex justify-end gap-2">
-                            <Link
-                              href={`/catalog/product-inventory/${record.id}`}
-                              aria-label={`View ${record.product?.name}`}
-                              className="flex size-9 items-center justify-center rounded-lg border border-border text-muted transition hover:border-primary hover:bg-primary-light hover:text-primary"
-                            >
-                              <Eye className="size-4" />
-                            </Link>
+                          <Link
+                            href={`/catalog/product-inventory/${record.id}/edit`}
+                            aria-label={`Edit ${record.product?.name}`}
+                            className="flex size-9 items-center justify-center rounded-lg border border-border text-muted transition hover:border-primary hover:bg-primary-light hover:text-primary"
+                          >
+                            <Pencil className="size-4" />
+                          </Link>
 
-                            <Link
-                              href={`/catalog/product-inventory/${record.id}/edit`}
-                              aria-label={`Edit ${record.product?.name}`}
-                              className="flex size-9 items-center justify-center rounded-lg border border-border text-muted transition hover:border-primary hover:bg-primary-light hover:text-primary"
-                            >
-                              <Pencil className="size-4" />
-                            </Link>
-
-                            <button
-                              type="button"
-                              onClick={() =>
-                                removeRecord(
-                                  record,
-                                )
-                              }
-                              aria-label={`Delete ${record.product?.name}`}
-                              className="flex size-9 items-center justify-center rounded-lg border border-border text-muted transition hover:border-red-200 hover:bg-red-50 hover:text-red-600"
-                            >
-                              <Trash2 className="size-4" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  },
-                )}
+                          <button
+                            type="button"
+                            onClick={() => removeRecord(record)}
+                            aria-label={`Delete ${record.product?.name}`}
+                            className="flex size-9 items-center justify-center rounded-lg border border-border text-muted transition hover:border-red-200 hover:bg-red-50 hover:text-red-600"
+                          >
+                            <Trash2 className="size-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -508,21 +413,17 @@ export function ProductInventoryList() {
           <div className="p-12 text-center">
             <Warehouse className="mx-auto size-9 text-muted" />
 
-            <h3 className="mt-3 font-semibold">
-              No product inventory found
-            </h3>
+            <h3 className="mt-3 font-semibold">No product inventory found</h3>
 
             <p className="mt-1 text-xs text-muted">
-              Try changing your search or location
-              filter.
+              Try changing your search or location filter.
             </p>
           </div>
         )}
 
         <div className="flex items-center justify-between border-t border-border px-5 py-4 text-xs text-muted">
           <span>
-            Showing {filteredRecords.length} of{" "}
-            {records.length} records
+            Showing {filteredRecords.length} of {records.length} records
           </span>
 
           <span>Dummy data</span>
@@ -562,17 +463,11 @@ function StatCard({
       </span>
 
       <div>
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 text-xl font-bold">
-          {value}
-        </p>
+        <p className="mt-1 text-xl font-bold">{value}</p>
 
-        <p className="mt-1 text-[10px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 text-[10px] text-muted">{helper}</p>
       </div>
     </article>
   );

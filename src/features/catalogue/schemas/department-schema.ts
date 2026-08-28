@@ -4,22 +4,13 @@ export const departmentSchema = z.object({
   name: z
     .string()
     .trim()
-    .min(
-      2,
-      "Department name must contain at least 2 characters.",
-    )
-    .max(
-      150,
-      "Department name cannot exceed 150 characters.",
-    ),
+    .min(2, "Department name must contain at least 2 characters.")
+    .max(150, "Department name cannot exceed 150 characters."),
 
   description: z
     .string()
     .trim()
-    .max(
-      500,
-      "Description cannot exceed 500 characters.",
-    )
+    .max(500, "Description cannot exceed 500 characters.")
     .optional(),
 
   defaultTaxRate: z
@@ -43,29 +34,18 @@ export const departmentSchema = z.object({
   nacsCode: z
     .string()
     .trim()
-    .max(
-      50,
-      "NACS code cannot exceed 50 characters.",
-    )
+    .max(50, "NACS code cannot exceed 50 characters.")
     .optional(),
 
   posDepartmentNumber: z
     .number({
-      message:
-        "POS department number must be a number.",
+      message: "POS department number must be a number.",
     })
-    .int(
-      "POS department number must be a whole number.",
-    )
-    .min(
-      1,
-      "POS department number must be at least 1.",
-    )
+    .int("POS department number must be a whole number.")
+    .min(1, "POS department number must be at least 1.")
     .optional(),
 
   status: z.enum(["Active", "Inactive"]),
 });
 
-export type DepartmentFormValues = z.infer<
-  typeof departmentSchema
->;
+export type DepartmentFormValues = z.infer<typeof departmentSchema>;

@@ -53,9 +53,7 @@ export interface UnitsResult {
   pagination: UnitsResponse["pagination"];
 }
 
-function mapUnit(
-  unit: BackendUnit,
-): Unit {
+function mapUnit(unit: BackendUnit): Unit {
   return {
     id: Number(unit.id),
     name: unit.name,
@@ -69,26 +67,19 @@ function mapUnit(
 export async function getUnits(
   filters: UnitFilters = {},
 ): Promise<UnitsResult> {
-  const response =
-    await apiClient.get<UnitsResponse>(
-      "/catalogue/units",
-      {
-        params: {
-          search: filters.search || undefined,
+  const response = await apiClient.get<UnitsResponse>("/catalogue/units", {
+    params: {
+      search: filters.search || undefined,
 
-          status:
-            filters.status === "all"
-              ? undefined
-              : filters.status,
+      status: filters.status === "all" ? undefined : filters.status,
 
-          page: filters.page,
-          cursor: filters.cursor,
-          limit: filters.limit ?? 10,
-          sortBy: filters.sortBy,
-          order: filters.order ?? "asc",
-        },
-      },
-    );
+      page: filters.page,
+      cursor: filters.cursor,
+      limit: filters.limit ?? 10,
+      sortBy: filters.sortBy,
+      order: filters.order ?? "asc",
+    },
+  });
 
   return {
     units: response.data.data.map(mapUnit),
@@ -96,22 +87,16 @@ export async function getUnits(
   };
 }
 
-export async function getUnit(
-  id: number,
-): Promise<Unit> {
-  const response =
-    await apiClient.get<UnitResponse>(
-      `/catalogue/units/${id}`,
-    );
+export async function getUnit(id: number): Promise<Unit> {
+  const response = await apiClient.get<UnitResponse>(`/catalogue/units/${id}`);
 
   return mapUnit(response.data.data);
 }
 
 export async function getUnitStats(): Promise<UnitStats> {
-  const response =
-    await apiClient.get<UnitStatsResponse>(
-      "/catalogue/units/stats",
-    );
+  const response = await apiClient.get<UnitStatsResponse>(
+    "/catalogue/units/stats",
+  );
 
   return {
     total: response.data.data.totalUnits,
@@ -120,14 +105,11 @@ export async function getUnitStats(): Promise<UnitStats> {
   };
 }
 
-export async function createUnit(
-  payload: CreateUnitPayload,
-): Promise<Unit> {
-  const response =
-    await apiClient.post<UnitResponse>(
-      "/catalogue/units",
-      payload,
-    );
+export async function createUnit(payload: CreateUnitPayload): Promise<Unit> {
+  const response = await apiClient.post<UnitResponse>(
+    "/catalogue/units",
+    payload,
+  );
 
   return mapUnit(response.data.data);
 }
@@ -136,33 +118,26 @@ export async function updateUnit(
   id: number,
   payload: UpdateUnitPayload,
 ): Promise<Unit> {
-  const response =
-    await apiClient.patch<UnitResponse>(
-      `/catalogue/units/${id}`,
-      payload,
-    );
+  const response = await apiClient.patch<UnitResponse>(
+    `/catalogue/units/${id}`,
+    payload,
+  );
 
   return mapUnit(response.data.data);
 }
 
-export async function deleteUnit(
-  id: number,
-): Promise<Unit> {
-  const response =
-    await apiClient.delete<UnitResponse>(
-      `/catalogue/units/${id}`,
-    );
+export async function deleteUnit(id: number): Promise<Unit> {
+  const response = await apiClient.delete<UnitResponse>(
+    `/catalogue/units/${id}`,
+  );
 
   return mapUnit(response.data.data);
 }
 
-export async function restoreUnit(
-  id: number,
-): Promise<Unit> {
-  const response =
-    await apiClient.patch<UnitResponse>(
-      `/catalogue/units/${id}/restore`,
-    );
+export async function restoreUnit(id: number): Promise<Unit> {
+  const response = await apiClient.patch<UnitResponse>(
+    `/catalogue/units/${id}/restore`,
+  );
 
   return mapUnit(response.data.data);
 }

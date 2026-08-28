@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  CalendarRange,
-  Landmark,
-  Save,
-} from "lucide-react";
+import { CalendarRange, Landmark, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -50,28 +46,17 @@ function formatCurrency(value: number) {
 export function ReconciliationForm() {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: {
-      errors,
-      isSubmitting,
-    },
-  } = useForm<
-    ReconciliationFormInput,
-    unknown,
-    ReconciliationFormValues
-  >({
-    resolver: zodResolver(
-      reconciliationSchema,
-    ),
+    formState: { errors, isSubmitting },
+  } = useForm<ReconciliationFormInput, unknown, ReconciliationFormValues>({
+    resolver: zodResolver(reconciliationSchema),
     defaultValues: {
       bankAccountId: "",
       statementStartDate: "",
@@ -80,19 +65,13 @@ export function ReconciliationForm() {
     },
   });
 
-  const selectedBankAccountId = watch(
-    "bankAccountId",
+  const selectedBankAccountId = watch("bankAccountId");
+
+  const selectedBankAccount = bankAccountOptions.find(
+    (account) => account.id === selectedBankAccountId,
   );
 
-  const selectedBankAccount =
-    bankAccountOptions.find(
-      (account) =>
-        account.id === selectedBankAccountId,
-    );
-
-  async function onSubmit(
-    values: ReconciliationFormValues,
-  ) {
+  async function onSubmit(values: ReconciliationFormValues) {
     setServerError("");
     setSuccessMessage("");
 
@@ -117,23 +96,16 @@ export function ReconciliationForm() {
         window.setTimeout(resolve, 700);
       });
 
-      console.log(
-        "Reconciliation submitted:",
-        values,
-      );
+      console.log("Reconciliation submitted:", values);
 
-      setSuccessMessage(
-        "Reconciliation session started successfully.",
-      );
+      setSuccessMessage("Reconciliation session started successfully.");
 
       window.setTimeout(() => {
         router.push("/bank/reconciliations");
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to start the reconciliation. Please try again.",
-      );
+      setServerError("Unable to start the reconciliation. Please try again.");
     }
   }
 
@@ -159,13 +131,10 @@ export function ReconciliationForm() {
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Statement information
-          </h2>
+          <h2 className="text-lg font-bold">Statement information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Enter the bank statement period and
-            ending balance.
+            Enter the bank statement period and ending balance.
           </p>
         </div>
       </div>
@@ -199,12 +168,8 @@ export function ReconciliationForm() {
 
       <div className="mt-7 space-y-5">
         <div>
-          <label
-            htmlFor="bankAccountId"
-            className="text-sm font-semibold"
-          >
-            Bank account{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="bankAccountId" className="text-sm font-semibold">
+            Bank account <span className="text-danger">*</span>
           </label>
 
           <select
@@ -216,24 +181,14 @@ export function ReconciliationForm() {
               outline-none transition
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.bankAccountId
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.bankAccountId ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="">
-              Select bank account
-            </option>
+            <option value="">Select bank account</option>
 
             {bankAccountOptions.map((account) => (
-              <option
-                key={account.id}
-                value={account.id}
-              >
-                {account.name} —{" "}
-                {account.accountNumber}
+              <option key={account.id} value={account.id}>
+                {account.name} — {account.accountNumber}
               </option>
             ))}
           </select>
@@ -270,9 +225,7 @@ export function ReconciliationForm() {
 
               <p className="mt-1 text-xs text-muted">
                 Current system balance:{" "}
-                {formatCurrency(
-                  selectedBankAccount.currentBalance,
-                )}
+                {formatCurrency(selectedBankAccount.currentBalance)}
               </p>
             </div>
           </div>
@@ -284,18 +237,13 @@ export function ReconciliationForm() {
               htmlFor="statementStartDate"
               className="text-sm font-semibold"
             >
-              Statement start date{" "}
-              <span className="text-danger">
-                *
-              </span>
+              Statement start date <span className="text-danger">*</span>
             </label>
 
             <input
               id="statementStartDate"
               type="date"
-              {...register(
-                "statementStartDate",
-              )}
+              {...register("statementStartDate")}
               className={`
                 mt-2 h-11 w-full rounded-xl
                 border bg-white px-4 text-sm
@@ -304,33 +252,21 @@ export function ReconciliationForm() {
                 focus:ring-4
                 focus:ring-primary/10
                 ${
-                  errors.statementStartDate
-                    ? "border-red-300"
-                    : "border-border"
+                  errors.statementStartDate ? "border-red-300" : "border-border"
                 }
               `}
             />
 
-            {errors.statementStartDate
-              ?.message && (
+            {errors.statementStartDate?.message && (
               <p className="mt-1.5 text-xs text-danger">
-                {
-                  errors.statementStartDate
-                    .message
-                }
+                {errors.statementStartDate.message}
               </p>
             )}
           </div>
 
           <div>
-            <label
-              htmlFor="statementEndDate"
-              className="text-sm font-semibold"
-            >
-              Statement end date{" "}
-              <span className="text-danger">
-                *
-              </span>
+            <label htmlFor="statementEndDate" className="text-sm font-semibold">
+              Statement end date <span className="text-danger">*</span>
             </label>
 
             <input
@@ -344,21 +280,13 @@ export function ReconciliationForm() {
                 transition focus:border-primary
                 focus:ring-4
                 focus:ring-primary/10
-                ${
-                  errors.statementEndDate
-                    ? "border-red-300"
-                    : "border-border"
-                }
+                ${errors.statementEndDate ? "border-red-300" : "border-border"}
               `}
             />
 
-            {errors.statementEndDate
-              ?.message && (
+            {errors.statementEndDate?.message && (
               <p className="mt-1.5 text-xs text-danger">
-                {
-                  errors.statementEndDate
-                    .message
-                }
+                {errors.statementEndDate.message}
               </p>
             )}
           </div>
@@ -369,8 +297,7 @@ export function ReconciliationForm() {
             htmlFor="statementEndingBalance"
             className="text-sm font-semibold"
           >
-            Statement ending balance{" "}
-            <span className="text-danger">*</span>
+            Statement ending balance <span className="text-danger">*</span>
           </label>
 
           <div className="relative mt-2">
@@ -390,9 +317,7 @@ export function ReconciliationForm() {
               step="0.01"
               inputMode="decimal"
               placeholder="0.00"
-              {...register(
-                "statementEndingBalance",
-              )}
+              {...register("statementEndingBalance")}
               className={`
                 h-11 w-full rounded-xl border
                 bg-white pl-14 pr-4 text-sm
@@ -410,17 +335,13 @@ export function ReconciliationForm() {
           </div>
 
           <p className="mt-1.5 text-xs text-muted">
-            Enter the closing balance exactly as
-            displayed on the bank statement.
+            Enter the closing balance exactly as displayed on the bank
+            statement.
           </p>
 
-          {errors.statementEndingBalance
-            ?.message && (
+          {errors.statementEndingBalance?.message && (
             <p className="mt-1.5 text-xs text-danger">
-              {
-                errors.statementEndingBalance
-                  .message
-              }
+              {errors.statementEndingBalance.message}
             </p>
           )}
         </div>
@@ -466,9 +387,7 @@ export function ReconciliationForm() {
         >
           <Save className="size-4" />
 
-          {isSubmitting
-            ? "Starting..."
-            : "Start reconciliation"}
+          {isSubmitting ? "Starting..." : "Start reconciliation"}
         </button>
       </div>
     </form>

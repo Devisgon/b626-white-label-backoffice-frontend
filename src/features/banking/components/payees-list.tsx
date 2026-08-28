@@ -2,20 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import {
-  Eye,
-  Pencil,
-  Plus,
-  Power,
-  RotateCcw,
-  Search,
-} from "lucide-react";
+import { Eye, Pencil, Plus, Power, RotateCcw, Search } from "lucide-react";
 
-import type {
-  Payee,
-  PayeeStatus,
-  PayeeType,
-} from "@/features/banking/types";
+import type { Payee, PayeeStatus, PayeeType } from "@/features/banking/types";
 
 const initialPayees: Payee[] = [
   {
@@ -27,8 +16,7 @@ const initialPayees: Payee[] = [
     city: "Karachi",
     country: "Pakistan",
     taxId: "NTN-PSO-1001",
-    defaultAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000001",
+    defaultAccountId: "1f83751c-54b1-4d50-85cd-100000000001",
     status: "active",
     createdAt: "2026-02-10T09:00:00.000Z",
     updatedAt: "2026-08-20T10:00:00.000Z",
@@ -43,8 +31,7 @@ const initialPayees: Payee[] = [
     state: "Punjab",
     country: "Pakistan",
     taxId: "NTN-NES-2002",
-    defaultAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000001",
+    defaultAccountId: "1f83751c-54b1-4d50-85cd-100000000001",
     status: "active",
     createdAt: "2026-03-12T09:30:00.000Z",
     updatedAt: "2026-08-20T11:15:00.000Z",
@@ -59,8 +46,7 @@ const initialPayees: Payee[] = [
     state: "Punjab",
     country: "Pakistan",
     taxId: "UTILITY-3003",
-    defaultAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000001",
+    defaultAccountId: "1f83751c-54b1-4d50-85cd-100000000001",
     status: "active",
     createdAt: "2026-04-05T10:00:00.000Z",
     updatedAt: "2026-08-19T12:00:00.000Z",
@@ -94,54 +80,33 @@ const initialPayees: Payee[] = [
 ];
 
 function formatPayeeType(type: PayeeType) {
-  return (
-    type.charAt(0).toUpperCase() +
-    type.slice(1)
-  );
+  return type.charAt(0).toUpperCase() + type.slice(1);
 }
 
 export function PayeesList() {
-  const [payees, setPayees] =
-    useState(initialPayees);
+  const [payees, setPayees] = useState(initialPayees);
 
   const [search, setSearch] = useState("");
 
-  const [type, setType] =
-    useState<PayeeType | "all">("all");
+  const [type, setType] = useState<PayeeType | "all">("all");
 
-  const [status, setStatus] =
-    useState<PayeeStatus | "all">("all");
+  const [status, setStatus] = useState<PayeeStatus | "all">("all");
 
   const filteredPayees = useMemo(() => {
-    const normalizedSearch =
-      search.trim().toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
 
     return payees.filter((payee) => {
       const matchesSearch =
         normalizedSearch.length === 0 ||
-        payee.payeeName
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        payee.email
-          ?.toLowerCase()
-          .includes(normalizedSearch) ||
-        payee.phone
-          ?.toLowerCase()
-          .includes(normalizedSearch);
+        payee.payeeName.toLowerCase().includes(normalizedSearch) ||
+        payee.email?.toLowerCase().includes(normalizedSearch) ||
+        payee.phone?.toLowerCase().includes(normalizedSearch);
 
-      const matchesType =
-        type === "all" ||
-        payee.payeeType === type;
+      const matchesType = type === "all" || payee.payeeType === type;
 
-      const matchesStatus =
-        status === "all" ||
-        payee.status === status;
+      const matchesStatus = status === "all" || payee.status === status;
 
-      return (
-        matchesSearch &&
-        matchesType &&
-        matchesStatus
-      );
+      return matchesSearch && matchesType && matchesStatus;
     });
   }, [payees, search, type, status]);
 
@@ -150,9 +115,7 @@ export function PayeesList() {
   ).length;
 
   const supplierPayees = payees.filter(
-    (payee) =>
-      payee.payeeType === "supplier" ||
-      payee.payeeType === "vendor",
+    (payee) => payee.payeeType === "supplier" || payee.payeeType === "vendor",
   ).length;
 
   function resetFilters() {
@@ -161,10 +124,7 @@ export function PayeesList() {
     setStatus("all");
   }
 
-  function deactivatePayee(
-    payeeId: string,
-    payeeName: string,
-  ) {
+  function deactivatePayee(payeeId: string, payeeName: string) {
     const confirmed = window.confirm(
       `Are you sure you want to deactivate ${payeeName}?`,
     );
@@ -188,84 +148,70 @@ export function PayeesList() {
   return (
     <div>
       <section className="grid gap-4 sm:grid-cols-3">
-        <SummaryCard
-          label="Total payees"
-          value={payees.length}
-        />
+        <SummaryCard label="Total payees" value={payees.length} />
 
-        <SummaryCard
-          label="Active payees"
-          value={activePayees}
-        />
+        <SummaryCard label="Active payees" value={activePayees} />
 
-        <SummaryCard
-          label="Vendors and suppliers"
-          value={supplierPayees}
-        />
+        <SummaryCard label="Vendors and suppliers" value={supplierPayees} />
       </section>
-<section
-  className="
+      <section
+        className="
     mt-6 overflow-hidden rounded-2xl
     border border-border bg-white
     shadow-[var(--shadow-sm)]
   "
->
-  <div
-    className="
+      >
+        <div
+          className="
       flex flex-col justify-between gap-4
       border-b border-border p-5
       sm:flex-row sm:items-center
     "
-  >
-    <div>
-      <h2 className="font-bold">
-        Payees
-      </h2>
+        >
+          <div>
+            <h2 className="font-bold">Payees</h2>
 
-      <p className="mt-1 text-xs text-muted">
-        Manage payment recipients and their
-        account details.
-      </p>
-    </div>
+            <p className="mt-1 text-xs text-muted">
+              Manage payment recipients and their account details.
+            </p>
+          </div>
 
-    <Link
-      href="/bank/payees/new"
-      className="
+          <Link
+            href="/bank/payees/new"
+            className="
         inline-flex h-10 items-center
         justify-center gap-2 rounded-xl
         bg-primary px-4 text-sm font-semibold
         text-white transition
         hover:bg-primary-hover
       "
-    >
-      <Plus className="size-4" />
-      Add payee
-    </Link>
-  </div>
+          >
+            <Plus className="size-4" />
+            Add payee
+          </Link>
+        </div>
 
-  <div
-    className="
+        <div
+          className="
       flex flex-col gap-3 border-b
       border-border p-4 lg:flex-row
     "
-  >
-    <div className="relative min-w-0 flex-1">
-      <Search
-        className="
+        >
+          <div className="relative min-w-0 flex-1">
+            <Search
+              className="
           pointer-events-none absolute left-4
           top-1/2 size-4 -translate-y-1/2
           text-muted
         "
-      />
+            />
 
-      <input
-        type="search"
-        value={search}
-        onChange={(event) =>
-          setSearch(event.target.value)
-        }
-        placeholder="Search by name, email or phone..."
-        className="
+            <input
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Search by name, email or phone..."
+              className="
           h-11 w-full rounded-xl border
           border-border bg-white pl-11 pr-4
           text-sm text-black outline-none
@@ -273,20 +219,16 @@ export function PayeesList() {
           focus:border-primary
           focus:ring-4 focus:ring-primary/10
         "
-      />
-    </div>
+            />
+          </div>
 
-    <select
-      value={type}
-      onChange={(event) =>
-        setType(
-          event.target.value as
-            | PayeeType
-            | "all",
-        )
-      }
-      aria-label="Filter by payee type"
-      className="
+          <select
+            value={type}
+            onChange={(event) =>
+              setType(event.target.value as PayeeType | "all")
+            }
+            aria-label="Filter by payee type"
+            className="
         h-11 rounded-xl border border-border
         bg-white px-4 text-sm text-black
         outline-none transition
@@ -294,43 +236,27 @@ export function PayeesList() {
         focus:ring-4 focus:ring-primary/10
         lg:min-w-40
       "
-    >
-      <option value="all">
-        All types
-      </option>
+          >
+            <option value="all">All types</option>
 
-      <option value="vendor">
-        Vendor
-      </option>
+            <option value="vendor">Vendor</option>
 
-      <option value="supplier">
-        Supplier
-      </option>
+            <option value="supplier">Supplier</option>
 
-      <option value="individual">
-        Individual
-      </option>
+            <option value="individual">Individual</option>
 
-      <option value="utility">
-        Utility
-      </option>
+            <option value="utility">Utility</option>
 
-      <option value="other">
-        Other
-      </option>
-    </select>
+            <option value="other">Other</option>
+          </select>
 
-    <select
-      value={status}
-      onChange={(event) =>
-        setStatus(
-          event.target.value as
-            | PayeeStatus
-            | "all",
-        )
-      }
-      aria-label="Filter by payee status"
-      className="
+          <select
+            value={status}
+            onChange={(event) =>
+              setStatus(event.target.value as PayeeStatus | "all")
+            }
+            aria-label="Filter by payee status"
+            className="
         h-11 rounded-xl border border-border
         bg-white px-4 text-sm text-black
         outline-none transition
@@ -338,35 +264,29 @@ export function PayeesList() {
         focus:ring-4 focus:ring-primary/10
         lg:min-w-40
       "
-    >
-      <option value="all">
-        All statuses
-      </option>
+          >
+            <option value="all">All statuses</option>
 
-      <option value="active">
-        Active
-      </option>
+            <option value="active">Active</option>
 
-      <option value="inactive">
-        Inactive
-      </option>
-    </select>
+            <option value="inactive">Inactive</option>
+          </select>
 
-    <button
-      type="button"
-      onClick={resetFilters}
-      className="
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="
         inline-flex h-11 items-center
         justify-center gap-2 rounded-xl
         bg-primary-light px-4 text-sm
         font-semibold text-primary transition
         hover:bg-primary hover:text-white
       "
-    >
-      <RotateCcw className="size-4" />
-      Reset
-    </button>
-  </div>
+          >
+            <RotateCcw className="size-4" />
+            Reset
+          </button>
+        </div>
 
         <div className="overflow-x-auto">
           <table className="w-full min-w-[950px] text-left">
@@ -377,29 +297,17 @@ export function PayeesList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Payee
-                </th>
+                <th className="px-5 py-4">Payee</th>
 
-                <th className="px-5 py-4">
-                  Type
-                </th>
+                <th className="px-5 py-4">Type</th>
 
-                <th className="px-5 py-4">
-                  Contact
-                </th>
+                <th className="px-5 py-4">Contact</th>
 
-                <th className="px-5 py-4">
-                  Location
-                </th>
+                <th className="px-5 py-4">Location</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -413,9 +321,7 @@ export function PayeesList() {
                   "
                 >
                   <td className="px-5 py-4">
-                    <p className="font-semibold">
-                      {payee.payeeName}
-                    </p>
+                    <p className="font-semibold">{payee.payeeName}</p>
 
                     <p className="mt-1 text-[11px] text-muted">
                       ID: {payee.id.slice(0, 8)}...
@@ -431,16 +337,12 @@ export function PayeesList() {
                         text-blue-700
                       "
                     >
-                      {formatPayeeType(
-                        payee.payeeType,
-                      )}
+                      {formatPayeeType(payee.payeeType)}
                     </span>
                   </td>
 
                   <td className="px-5 py-4">
-                    <p>
-                      {payee.email || "Not provided"}
-                    </p>
+                    <p>{payee.email || "Not provided"}</p>
 
                     <p className="mt-1 text-xs text-muted">
                       {payee.phone || "No phone"}
@@ -448,9 +350,7 @@ export function PayeesList() {
                   </td>
 
                   <td className="px-5 py-4 text-muted">
-                    {[payee.city, payee.country]
-                      .filter(Boolean)
-                      .join(", ") ||
+                    {[payee.city, payee.country].filter(Boolean).join(", ") ||
                       "Not provided"}
                   </td>
 
@@ -467,9 +367,7 @@ export function PayeesList() {
                         }
                       `}
                     >
-                      {payee.status === "active"
-                        ? "Active"
-                        : "Inactive"}
+                      {payee.status === "active" ? "Active" : "Inactive"}
                     </span>
                   </td>
 
@@ -492,14 +390,9 @@ export function PayeesList() {
                       <button
                         type="button"
                         onClick={() =>
-                          deactivatePayee(
-                            payee.id,
-                            payee.payeeName,
-                          )
+                          deactivatePayee(payee.id, payee.payeeName)
                         }
-                        disabled={
-                          payee.status === "inactive"
-                        }
+                        disabled={payee.status === "inactive"}
                         aria-label={`Deactivate ${payee.payeeName}`}
                         title="Deactivate payee"
                         className="
@@ -524,9 +417,7 @@ export function PayeesList() {
 
         {filteredPayees.length === 0 && (
           <div className="px-5 py-14 text-center">
-            <p className="font-semibold">
-              No payees found
-            </p>
+            <p className="font-semibold">No payees found</p>
 
             <p className="mt-1 text-xs text-muted">
               Try changing or resetting the filters.
@@ -542,8 +433,7 @@ export function PayeesList() {
           "
         >
           <span>
-            Showing {filteredPayees.length} of{" "}
-            {payees.length} payees
+            Showing {filteredPayees.length} of {payees.length} payees
           </span>
 
           <span>Page 1 of 1</span>
@@ -553,13 +443,7 @@ export function PayeesList() {
   );
 }
 
-function SummaryCard({
-  label,
-  value,
-}: {
-  label: string;
-  value: number;
-}) {
+function SummaryCard({ label, value }: { label: string; value: number }) {
   return (
     <article
       className="
@@ -569,13 +453,9 @@ function SummaryCard({
         hover:shadow-[var(--shadow-md)]
       "
     >
-      <p className="text-xs text-muted">
-        {label}
-      </p>
+      <p className="text-xs text-muted">{label}</p>
 
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
     </article>
   );
 }

@@ -13,8 +13,7 @@ interface EditPriceBookPageProps {
 const priceBooks = {
   "1": {
     name: "Standard Retail Prices",
-    description:
-      "Standard selling prices used for regular retail customers.",
+    description: "Standard selling prices used for regular retail customers.",
     status: "Active" as const,
   },
 
@@ -27,15 +26,13 @@ const priceBooks = {
 
   "3": {
     name: "Ramadan Promotion",
-    description:
-      "Special promotional prices available during Ramadan.",
+    description: "Special promotional prices available during Ramadan.",
     status: "Active" as const,
   },
 
   "4": {
     name: "Previous Promotion",
-    description:
-      "Prices from the previous promotional campaign.",
+    description: "Prices from the previous promotional campaign.",
     status: "Inactive" as const,
   },
 };
@@ -45,8 +42,7 @@ export default async function EditPriceBookPage({
 }: EditPriceBookPageProps) {
   const { id } = await params;
 
-  const priceBook =
-    priceBooks[id as keyof typeof priceBooks];
+  const priceBook = priceBooks[id as keyof typeof priceBooks];
 
   if (!priceBook) {
     return (
@@ -59,13 +55,10 @@ export default async function EditPriceBookPage({
               shadow-[var(--shadow-sm)]
             "
           >
-            <h1 className="text-xl font-bold">
-              Price book not found
-            </h1>
+            <h1 className="text-xl font-bold">Price book not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested price book does not
-              exist.
+              The requested price book does not exist.
             </p>
 
             <Link
@@ -113,8 +106,7 @@ export default async function EditPriceBookPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update the information and availability
-              of {priceBook.name}.
+              Update the information and availability of {priceBook.name}.
             </p>
           </div>
         </section>

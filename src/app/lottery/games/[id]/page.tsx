@@ -8,12 +8,8 @@ import {
   Ticket,
 } from "lucide-react";
 
-import {
-  AppShell,
-} from "@/components/layout";
-import {
-  findDemoLotteryGame,
-} from "@/features/lottery/lottery-demo-data";
+import { AppShell } from "@/components/layout";
+import { findDemoLotteryGame } from "@/features/lottery/lottery-demo-data";
 
 interface LotteryGameDetailsPageProps {
   params: Promise<{
@@ -21,31 +17,21 @@ interface LotteryGameDetailsPageProps {
   }>;
 }
 
-function formatCurrency(
-  value: number,
-) {
-  return new Intl.NumberFormat(
-    "en-PK",
-    {
-      style: "currency",
-      currency: "PKR",
-      maximumFractionDigits: 2,
-    },
-  ).format(value);
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat("en-PK", {
+    style: "currency",
+    currency: "PKR",
+    maximumFractionDigits: 2,
+  }).format(value);
 }
 
-function formatDate(
-  value: string,
-) {
-  return new Intl.DateTimeFormat(
-    "en-GB",
-    {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      timeZone: "Asia/Karachi",
-    },
-  ).format(new Date(value));
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    timeZone: "Asia/Karachi",
+  }).format(new Date(value));
 }
 
 export default async function LotteryGameDetailsPage({
@@ -55,10 +41,7 @@ export default async function LotteryGameDetailsPage({
 
   const numericId = Number(id);
 
-  if (
-    !Number.isInteger(numericId) ||
-    numericId < 1
-  ) {
+  if (!Number.isInteger(numericId) || numericId < 1) {
     notFound();
   }
 
@@ -69,10 +52,7 @@ export default async function LotteryGameDetailsPage({
    *   await getLotteryGame(numericId);
    */
 
-  const game =
-    findDemoLotteryGame(
-      numericId,
-    );
+  const game = findDemoLotteryGame(numericId);
 
   if (!game) {
     notFound();
@@ -149,14 +129,10 @@ export default async function LotteryGameDetailsPage({
                   {game.name}
                 </h1>
 
-                <StatusBadge
-                  status={game.status}
-                />
+                <StatusBadge status={game.status} />
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Game ID: {game.id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Game ID: {game.id}</p>
             </div>
           </div>
 
@@ -186,41 +162,27 @@ export default async function LotteryGameDetailsPage({
         >
           <InfoCard
             title="Ticket price"
-            value={formatCurrency(
-              game.ticket_price,
-            )}
+            value={formatCurrency(game.ticket_price)}
             helper="Price per ticket"
-            icon={
-              <Ticket className="size-5" />
-            }
+            icon={<Ticket className="size-5" />}
           />
 
           <InfoCard
             title="Tickets per pack"
             value={
               game.tickets_per_pack
-                ? String(
-                    game.tickets_per_pack,
-                  )
+                ? String(game.tickets_per_pack)
                 : "Not provided"
             }
             helper="Tickets included in each pack"
-            icon={
-              <Gamepad2 className="size-5" />
-            }
+            icon={<Gamepad2 className="size-5" />}
           />
 
           <InfoCard
             title="Last updated"
-            value={formatDate(
-              game.updated_at,
-            )}
-            helper={`Created ${formatDate(
-              game.created_at,
-            )}`}
-            icon={
-              <CalendarDays className="size-5" />
-            }
+            value={formatDate(game.updated_at)}
+            helper={`Created ${formatDate(game.created_at)}`}
+            icon={<CalendarDays className="size-5" />}
           />
         </section>
 
@@ -233,65 +195,42 @@ export default async function LotteryGameDetailsPage({
           "
         >
           <div>
-            <h2 className="font-bold">
-              Game information
-            </h2>
+            <h2 className="font-bold">Game information</h2>
 
             <p className="mt-1 text-xs text-muted">
-              General ticket and pack information
-              for this game.
+              General ticket and pack information for this game.
             </p>
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Game name"
-              value={game.name}
-            />
+            <DetailsRow label="Game name" value={game.name} />
 
             <DetailsRow
               label="Game number"
-              value={
-                game.game_number ??
-                "Not provided"
-              }
+              value={game.game_number ?? "Not provided"}
             />
 
             <DetailsRow
               label="Ticket price"
-              value={formatCurrency(
-                game.ticket_price,
-              )}
+              value={formatCurrency(game.ticket_price)}
             />
 
             <DetailsRow
               label="Tickets per pack"
               value={
                 game.tickets_per_pack
-                  ? String(
-                      game.tickets_per_pack,
-                    )
+                  ? String(game.tickets_per_pack)
                   : "Not provided"
               }
             />
 
-            <DetailsRow
-              label="Status"
-              value={game.status}
-            />
+            <DetailsRow label="Status" value={game.status} />
 
-            <DetailsRow
-              label="Created"
-              value={formatDate(
-                game.created_at,
-              )}
-            />
+            <DetailsRow label="Created" value={formatDate(game.created_at)} />
 
             <DetailsRow
               label="Last updated"
-              value={formatDate(
-                game.updated_at,
-              )}
+              value={formatDate(game.updated_at)}
             />
           </dl>
         </section>
@@ -300,11 +239,7 @@ export default async function LotteryGameDetailsPage({
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: "Active" | "Inactive";
-}) {
+function StatusBadge({ status }: { status: "Active" | "Inactive" }) {
   return (
     <span
       className={`
@@ -355,29 +290,17 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -385,13 +308,9 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium">
-        {value}
-      </dd>
+      <dd className="font-medium">{value}</dd>
     </div>
   );
 }

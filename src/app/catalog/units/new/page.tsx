@@ -32,8 +32,7 @@ export default function CreateUnitPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Add a measurement or packaging unit for
-              products.
+              Add a measurement or packaging unit for products.
             </p>
           </div>
         </section>

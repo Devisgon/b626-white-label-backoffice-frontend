@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Building2,
-  CalendarDays,
-  Pencil,
-} from "lucide-react";
+import { ArrowLeft, Building2, CalendarDays, Pencil } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 
@@ -17,8 +12,7 @@ interface BrandDetailsPageProps {
 const brandRecords = {
   "1": {
     name: "Nestle",
-    description:
-      "Food, beverage and consumer product brand.",
+    description: "Food, beverage and consumer product brand.",
     status: "Active" as const,
     createdAt: "17 Aug 2026",
     updatedAt: "20 Aug 2026",
@@ -26,8 +20,7 @@ const brandRecords = {
 
   "2": {
     name: "Coca-Cola",
-    description:
-      "Soft drinks and beverage products.",
+    description: "Soft drinks and beverage products.",
     status: "Active" as const,
     createdAt: "17 Aug 2026",
     updatedAt: "19 Aug 2026",
@@ -35,8 +28,7 @@ const brandRecords = {
 
   "3": {
     name: "Unilever",
-    description:
-      "Personal care and household products.",
+    description: "Personal care and household products.",
     status: "Active" as const,
     createdAt: "16 Aug 2026",
     updatedAt: "19 Aug 2026",
@@ -44,8 +36,7 @@ const brandRecords = {
 
   "4": {
     name: "Local Choice",
-    description:
-      "Locally sourced store products.",
+    description: "Locally sourced store products.",
     status: "Inactive" as const,
     createdAt: "15 Aug 2026",
     updatedAt: "18 Aug 2026",
@@ -58,8 +49,7 @@ export default async function BrandDetailsPage({
   const { id } = await params;
 
   const brandDetails =
-    brandRecords[id as keyof typeof brandRecords] ??
-    brandRecords["1"];
+    brandRecords[id as keyof typeof brandRecords] ?? brandRecords["1"];
 
   const statusStyles =
     brandDetails.status === "Active"
@@ -111,9 +101,7 @@ export default async function BrandDetailsPage({
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Brand ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Brand ID: {id}</p>
             </div>
           </div>
 
@@ -173,9 +161,7 @@ export default async function BrandDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Brand information
-              </h2>
+              <h2 className="font-bold">Brand information</h2>
 
               <p className="text-xs text-muted">
                 General information for this brand.
@@ -184,30 +170,15 @@ export default async function BrandDetailsPage({
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Brand name"
-              value={brandDetails.name}
-            />
+            <DetailsRow label="Brand name" value={brandDetails.name} />
 
-            <DetailsRow
-              label="Description"
-              value={brandDetails.description}
-            />
+            <DetailsRow label="Description" value={brandDetails.description} />
 
-            <DetailsRow
-              label="Status"
-              value={brandDetails.status}
-            />
+            <DetailsRow label="Status" value={brandDetails.status} />
 
-            <DetailsRow
-              label="Created"
-              value={brandDetails.createdAt}
-            />
+            <DetailsRow label="Created" value={brandDetails.createdAt} />
 
-            <DetailsRow
-              label="Last updated"
-              value={brandDetails.updatedAt}
-            />
+            <DetailsRow label="Last updated" value={brandDetails.updatedAt} />
           </dl>
         </section>
       </div>
@@ -247,29 +218,17 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -277,13 +236,9 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium text-foreground">
-        {value || "Not provided"}
-      </dd>
+      <dd className="font-medium text-foreground">{value || "Not provided"}</dd>
     </div>
   );
 }

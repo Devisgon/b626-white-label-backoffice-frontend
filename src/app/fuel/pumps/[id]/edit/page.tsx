@@ -2,9 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelPumpForm,
-} from "@/features/fuel/components";
+import { FuelPumpForm } from "@/features/fuel/components";
 
 interface EditFuelPumpPageProps {
   params: Promise<{ id: string }>;
@@ -14,22 +12,19 @@ const pumps = {
   "1": {
     name: "Pump 1",
     tank_id: "1",
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active" as const,
   },
   "2": {
     name: "Pump 2",
     tank_id: "2",
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active" as const,
   },
   "3": {
     name: "Pump 3",
     tank_id: "3",
-    location_id:
-      "22222222-2222-4222-8222-222222222222",
+    location_id: "22222222-2222-4222-8222-222222222222",
     status: "Inactive" as const,
   },
 };
@@ -39,9 +34,7 @@ export default async function EditFuelPumpPage({
 }: EditFuelPumpPageProps) {
   const { id } = await params;
 
-  const pump =
-    pumps[id as keyof typeof pumps] ??
-    pumps["1"];
+  const pump = pumps[id as keyof typeof pumps] ?? pumps["1"];
 
   return (
     <AppShell>
@@ -62,18 +55,13 @@ export default async function EditFuelPumpPage({
               Edit fuel pump
             </h1>
             <p className="mt-2 text-sm text-muted">
-              Update pump and connected tank
-              information.
+              Update pump and connected tank information.
             </p>
           </div>
         </section>
 
         <div className="mt-8">
-          <FuelPumpForm
-            mode="edit"
-            pumpId={Number(id)}
-            initialValues={pump}
-          />
+          <FuelPumpForm mode="edit" pumpId={Number(id)} initialValues={pump} />
         </div>
       </div>
     </AppShell>

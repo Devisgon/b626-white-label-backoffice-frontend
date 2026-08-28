@@ -1,6 +1,4 @@
-export type CategoryStatus =
-  | "Active"
-  | "Inactive";
+export type CategoryStatus = "Active" | "Inactive";
 
 export interface Category {
   id: number;

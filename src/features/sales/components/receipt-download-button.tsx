@@ -41,8 +41,7 @@ export function ReceiptDownloadButton({
   total,
   items,
 }: ReceiptDownloadButtonProps) {
-  const [isDownloading, setIsDownloading] =
-    useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   async function downloadReceipt() {
     try {
@@ -56,8 +55,7 @@ export function ReceiptDownloadButton({
         format: "a4",
       });
 
-      const pageWidth =
-        document.internal.pageSize.getWidth();
+      const pageWidth = document.internal.pageSize.getWidth();
 
       let currentY = 20;
 
@@ -76,14 +74,9 @@ export function ReceiptDownloadButton({
 
       document.setFont("helvetica", "bold");
       document.setFontSize(13);
-      document.text(
-        saleNumber,
-        pageWidth - 15,
-        18,
-        {
-          align: "right",
-        },
-      );
+      document.text(saleNumber, pageWidth - 15, 18, {
+        align: "right",
+      });
 
       currentY = 46;
 
@@ -99,31 +92,15 @@ export function ReceiptDownloadButton({
       document.setFont("helvetica", "normal");
       document.setTextColor(100, 115, 108);
 
-      document.text(
-        `Date: ${date}`,
-        15,
-        currentY,
-      );
+      document.text(`Date: ${date}`, 15, currentY);
 
-      document.text(
-        `Payment: ${paymentMethod}`,
-        110,
-        currentY,
-      );
+      document.text(`Payment: ${paymentMethod}`, 110, currentY);
 
       currentY += 7;
 
-      document.text(
-        `Customer: ${customerName}`,
-        15,
-        currentY,
-      );
+      document.text(`Customer: ${customerName}`, 15, currentY);
 
-      document.text(
-        `Phone: ${customerPhone}`,
-        110,
-        currentY,
-      );
+      document.text(`Phone: ${customerPhone}`, 110, currentY);
 
       currentY += 12;
 
@@ -138,41 +115,25 @@ export function ReceiptDownloadButton({
       document.text("PRODUCT", 19, currentY + 6.5);
       document.text("PRICE", 115, currentY + 6.5);
       document.text("QTY", 145, currentY + 6.5);
-      document.text(
-        "TOTAL",
-        190,
-        currentY + 6.5,
-        {
-          align: "right",
-        },
-      );
+      document.text("TOTAL", 190, currentY + 6.5, {
+        align: "right",
+      });
 
       currentY += 10;
 
       // Products
       items.forEach((item) => {
         document.setDrawColor(225, 231, 228);
-        document.line(
-          15,
-          currentY + 16,
-          195,
-          currentY + 16,
-        );
+        document.line(15, currentY + 16, 195, currentY + 16);
 
         document.setFont("helvetica", "bold");
         document.setFontSize(10);
         document.setTextColor(23, 33, 29);
 
         const productName =
-          item.name.length > 38
-            ? `${item.name.slice(0, 38)}...`
-            : item.name;
+          item.name.length > 38 ? `${item.name.slice(0, 38)}...` : item.name;
 
-        document.text(
-          productName,
-          19,
-          currentY + 6,
-        );
+        document.text(productName, 19, currentY + 6);
 
         document.setFont("helvetica", "normal");
         document.setFontSize(8);
@@ -182,30 +143,16 @@ export function ReceiptDownloadButton({
         document.setFontSize(9);
         document.setTextColor(23, 33, 29);
 
-        document.text(
-          formatAmount(item.price),
-          115,
-          currentY + 8,
-        );
+        document.text(formatAmount(item.price), 115, currentY + 8);
 
-        document.text(
-          String(item.quantity),
-          148,
-          currentY + 8,
-          {
-            align: "center",
-          },
-        );
+        document.text(String(item.quantity), 148, currentY + 8, {
+          align: "center",
+        });
 
         document.setFont("helvetica", "bold");
-        document.text(
-          formatAmount(item.total),
-          190,
-          currentY + 8,
-          {
-            align: "right",
-          },
-        );
+        document.text(formatAmount(item.total), 190, currentY + 8, {
+          align: "right",
+        });
 
         currentY += 17;
       });
@@ -221,48 +168,28 @@ export function ReceiptDownloadButton({
       document.setFont("helvetica", "normal");
 
       document.text("Subtotal", labelX, currentY);
-      document.text(
-        formatAmount(subtotal),
-        valueX,
-        currentY,
-        {
-          align: "right",
-        },
-      );
+      document.text(formatAmount(subtotal), valueX, currentY, {
+        align: "right",
+      });
 
       currentY += 8;
 
       document.text("Tax", labelX, currentY);
-      document.text(
-        formatAmount(tax),
-        valueX,
-        currentY,
-        {
-          align: "right",
-        },
-      );
+      document.text(formatAmount(tax), valueX, currentY, {
+        align: "right",
+      });
 
       currentY += 8;
 
       document.text("Discount", labelX, currentY);
-      document.text(
-        `- ${formatAmount(discount)}`,
-        valueX,
-        currentY,
-        {
-          align: "right",
-        },
-      );
+      document.text(`- ${formatAmount(discount)}`, valueX, currentY, {
+        align: "right",
+      });
 
       currentY += 5;
 
       document.setDrawColor(210, 220, 215);
-      document.line(
-        labelX,
-        currentY,
-        valueX,
-        currentY,
-      );
+      document.line(labelX, currentY, valueX, currentY);
 
       currentY += 9;
 
@@ -271,14 +198,9 @@ export function ReceiptDownloadButton({
       document.setTextColor(8, 122, 91);
 
       document.text("Total", labelX, currentY);
-      document.text(
-        formatAmount(total),
-        valueX,
-        currentY,
-        {
-          align: "right",
-        },
-      );
+      document.text(formatAmount(total), valueX, currentY, {
+        align: "right",
+      });
 
       // Footer
       document.setFont("helvetica", "normal");
@@ -305,14 +227,9 @@ export function ReceiptDownloadButton({
 
       document.save(`${saleNumber}-receipt.pdf`);
     } catch (error) {
-      console.error(
-        "Receipt download failed:",
-        error,
-      );
+      console.error("Receipt download failed:", error);
 
-      window.alert(
-        "Receipt download nahi ho saki. Please dobara try karein.",
-      );
+      window.alert("Receipt download nahi ho saki. Please dobara try karein.");
     } finally {
       setIsDownloading(false);
     }
@@ -323,7 +240,7 @@ export function ReceiptDownloadButton({
       type="button"
       onClick={downloadReceipt}
       disabled={isDownloading}
-    className="
+      className="
   inline-flex h-10 items-center justify-center gap-2
   rounded-xl border border-border bg-white px-4
   text-sm font-semibold text-muted transition
@@ -338,9 +255,7 @@ export function ReceiptDownloadButton({
         <Download className="size-4" />
       )}
 
-      {isDownloading
-        ? "Downloading..."
-        : "Download receipt"}
+      {isDownloading ? "Downloading..." : "Download receipt"}
     </button>
   );
 }

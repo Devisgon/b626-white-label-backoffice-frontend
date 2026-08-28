@@ -2,12 +2,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  PayeeForm,
-} from "@/features/banking/components";
-import type {
-  PayeeFormValues,
-} from "@/features/banking/schemas";
+import { PayeeForm } from "@/features/banking/components";
+import type { PayeeFormValues } from "@/features/banking/schemas";
 
 interface EditPayeePageProps {
   params: Promise<{
@@ -15,27 +11,21 @@ interface EditPayeePageProps {
   }>;
 }
 
-const payees: Record<
-  string,
-  PayeeFormValues
-> = {
+const payees: Record<string, PayeeFormValues> = {
   "3e28d5fa-97c2-4fa9-8000-100000000001": {
     payeeName: "Pakistan State Oil",
     payeeType: "vendor",
     email: "billing@pso.com.pk",
     phone: "+92 21 111 111 776",
-    addressLine1:
-      "PSO House, Khayaban-e-Iqbal",
+    addressLine1: "PSO House, Khayaban-e-Iqbal",
     addressLine2: "Clifton",
     city: "Karachi",
     state: "Sindh",
     postalCode: "75600",
     country: "Pakistan",
     taxId: "NTN-PSO-1001",
-    defaultAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000001",
-    notes:
-      "Primary vendor for fuel supply and related payments.",
+    defaultAccountId: "1f83751c-54b1-4d50-85cd-100000000001",
+    notes: "Primary vendor for fuel supply and related payments.",
     status: "active",
   },
 
@@ -51,16 +41,13 @@ const payees: Record<
     postalCode: "54660",
     country: "Pakistan",
     taxId: "NTN-NES-2002",
-    defaultAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000001",
-    notes:
-      "Supplier for beverages and consumer products.",
+    defaultAccountId: "1f83751c-54b1-4d50-85cd-100000000001",
+    notes: "Supplier for beverages and consumer products.",
     status: "active",
   },
 
   "3e28d5fa-97c2-4fa9-8000-100000000003": {
-    payeeName:
-      "Lahore Electric Supply Company",
+    payeeName: "Lahore Electric Supply Company",
     payeeType: "utility",
     email: "billing@lesco.gov.pk",
     phone: "118",
@@ -71,10 +58,8 @@ const payees: Record<
     postalCode: "54000",
     country: "Pakistan",
     taxId: "UTILITY-3003",
-    defaultAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000001",
-    notes:
-      "Electricity utility payments for the store.",
+    defaultAccountId: "1f83751c-54b1-4d50-85cd-100000000001",
+    notes: "Electricity utility payments for the store.",
     status: "active",
   },
 
@@ -91,14 +76,12 @@ const payees: Record<
     country: "Pakistan",
     taxId: "",
     defaultAccountId: "",
-    notes:
-      "Individual payment recipient.",
+    notes: "Individual payment recipient.",
     status: "active",
   },
 
   "3e28d5fa-97c2-4fa9-8000-100000000005": {
-    payeeName:
-      "Previous Maintenance Service",
+    payeeName: "Previous Maintenance Service",
     payeeType: "other",
     email: "maintenance@example.com",
     phone: "+92 302 5554321",
@@ -110,15 +93,12 @@ const payees: Record<
     country: "Pakistan",
     taxId: "",
     defaultAccountId: "",
-    notes:
-      "Previous maintenance service provider.",
+    notes: "Previous maintenance service provider.",
     status: "inactive",
   },
 };
 
-export default async function EditPayeePage({
-  params,
-}: EditPayeePageProps) {
+export default async function EditPayeePage({ params }: EditPayeePageProps) {
   const { id } = await params;
   const payee = payees[id];
 
@@ -127,9 +107,7 @@ export default async function EditPayeePage({
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-[var(--shadow-sm)]">
-            <h1 className="text-xl font-bold">
-              Payee not found
-            </h1>
+            <h1 className="text-xl font-bold">Payee not found</h1>
 
             <p className="mt-2 text-sm text-muted">
               The requested payee does not exist.
@@ -180,18 +158,13 @@ export default async function EditPayeePage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update payee, contact and payment
-              information.
+              Update payee, contact and payment information.
             </p>
           </div>
         </section>
 
         <div className="mt-8">
-          <PayeeForm
-            mode="edit"
-            payeeId={id}
-            initialValues={payee}
-          />
+          <PayeeForm mode="edit" payeeId={id} initialValues={payee} />
         </div>
       </div>
     </AppShell>

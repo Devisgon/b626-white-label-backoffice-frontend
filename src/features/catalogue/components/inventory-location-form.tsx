@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  MapPin,
-  Save,
-  Warehouse,
-} from "lucide-react";
+import { MapPin, Save, Warehouse } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -28,35 +24,25 @@ export function InventoryLocationForm({
 }: InventoryLocationFormProps) {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<InventoryLocationFormValues>({
-    resolver: zodResolver(
-      inventoryLocationSchema,
-    ),
+    resolver: zodResolver(inventoryLocationSchema),
     defaultValues: {
       name: initialValues?.name ?? "",
       code: initialValues?.code ?? "",
       address: initialValues?.address ?? "",
-      status:
-        initialValues?.status ?? "Active",
+      status: initialValues?.status ?? "Active",
     },
   });
 
-  async function onSubmit(
-    values: InventoryLocationFormValues,
-  ): Promise<void> {
+  async function onSubmit(values: InventoryLocationFormValues): Promise<void> {
     setServerError("");
     setSuccessMessage("");
 
@@ -79,9 +65,7 @@ export function InventoryLocationForm({
       );
 
       setTimeout(() => {
-        router.push(
-          "/catalog/inventory-locations",
-        );
+        router.push("/catalog/inventory-locations");
         router.refresh();
       }, 800);
     } catch {
@@ -113,13 +97,10 @@ export function InventoryLocationForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Location information
-          </h2>
+          <h2 className="text-lg font-bold">Location information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Enter the inventory storage location
-            details.
+            Enter the inventory storage location details.
           </p>
         </div>
       </div>
@@ -153,14 +134,8 @@ export function InventoryLocationForm({
 
       <div className="mt-6 grid gap-5 sm:grid-cols-2">
         <div>
-          <label
-            htmlFor="name"
-            className="text-sm font-semibold"
-          >
-            Location name{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="name" className="text-sm font-semibold">
+            Location name <span className="text-danger">*</span>
           </label>
 
           <input
@@ -173,30 +148,18 @@ export function InventoryLocationForm({
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.name
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.name ? "border-red-300" : "border-border"}
             `}
           />
 
           {errors.name?.message && (
-            <p className="mt-1.5 text-xs text-danger">
-              {errors.name.message}
-            </p>
+            <p className="mt-1.5 text-xs text-danger">{errors.name.message}</p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor="code"
-            className="text-sm font-semibold"
-          >
-            Location code{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="code" className="text-sm font-semibold">
+            Location code <span className="text-danger">*</span>
           </label>
 
           <input
@@ -210,26 +173,17 @@ export function InventoryLocationForm({
               outline-none transition
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.code
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.code ? "border-red-300" : "border-border"}
             `}
           />
 
           {errors.code?.message && (
-            <p className="mt-1.5 text-xs text-danger">
-              {errors.code.message}
-            </p>
+            <p className="mt-1.5 text-xs text-danger">{errors.code.message}</p>
           )}
         </div>
 
         <div className="sm:col-span-2">
-          <label
-            htmlFor="address"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="address" className="text-sm font-semibold">
             Address
           </label>
 
@@ -252,11 +206,7 @@ export function InventoryLocationForm({
                 text-sm outline-none transition
                 focus:border-primary
                 focus:ring-4 focus:ring-primary/10
-                ${
-                  errors.address
-                    ? "border-red-300"
-                    : "border-border"
-                }
+                ${errors.address ? "border-red-300" : "border-border"}
               `}
             />
           </div>
@@ -269,14 +219,8 @@ export function InventoryLocationForm({
         </div>
 
         <div className="sm:col-span-2">
-          <label
-            htmlFor="status"
-            className="text-sm font-semibold"
-          >
-            Status{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="status" className="text-sm font-semibold">
+            Status <span className="text-danger">*</span>
           </label>
 
           <select
@@ -287,20 +231,12 @@ export function InventoryLocationForm({
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.status
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.status ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="Active">
-              Active
-            </option>
+            <option value="Active">Active</option>
 
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           {errors.status?.message && (

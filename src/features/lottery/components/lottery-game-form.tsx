@@ -1,29 +1,18 @@
 "use client";
 
-import {
-  useState,
-  type ReactNode,
-} from "react";
+import { useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { Save } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import {
-  lotteryGameSchema,
-} from "@/features/lottery/schemas";
-import type {
-  CreateLotteryGamePayload,
-} from "@/features/lottery/types";
+import { lotteryGameSchema } from "@/features/lottery/schemas";
+import type { CreateLotteryGamePayload } from "@/features/lottery/types";
 
-type LotteryGameFormInput = z.input<
-  typeof lotteryGameSchema
->;
+type LotteryGameFormInput = z.input<typeof lotteryGameSchema>;
 
-type LotteryGameFormOutput = z.output<
-  typeof lotteryGameSchema
->;
+type LotteryGameFormOutput = z.output<typeof lotteryGameSchema>;
 
 interface LotteryGameFormProps {
   mode?: "create" | "edit";
@@ -38,49 +27,31 @@ export function LotteryGameForm({
 }: LotteryGameFormProps) {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
-  } = useForm<
-    LotteryGameFormInput,
-    unknown,
-    LotteryGameFormOutput
-  >({
-    resolver: zodResolver(
-      lotteryGameSchema,
-    ),
+    formState: { errors, isSubmitting },
+  } = useForm<LotteryGameFormInput, unknown, LotteryGameFormOutput>({
+    resolver: zodResolver(lotteryGameSchema),
 
     defaultValues: {
-      name:
-        initialValues?.name ?? "",
+      name: initialValues?.name ?? "",
 
-      game_number:
-        initialValues?.game_number ?? "",
+      game_number: initialValues?.game_number ?? "",
 
-      ticket_price:
-        initialValues?.ticket_price ?? "",
+      ticket_price: initialValues?.ticket_price ?? "",
 
-      tickets_per_pack:
-        initialValues?.tickets_per_pack ?? "",
+      tickets_per_pack: initialValues?.tickets_per_pack ?? "",
 
-      status:
-        initialValues?.status ?? "",
+      status: initialValues?.status ?? "",
     },
   });
 
-  async function onSubmit(
-    values: LotteryGameFormOutput,
-  ): Promise<void> {
+  async function onSubmit(values: LotteryGameFormOutput): Promise<void> {
     setServerError("");
     setSuccessMessage("");
 
@@ -88,28 +59,19 @@ export function LotteryGameForm({
       const payload: CreateLotteryGamePayload = {
         name: values.name.trim(),
 
-        ticket_price: Number(
-          values.ticket_price,
-        ),
+        ticket_price: Number(values.ticket_price),
 
         status: values.status,
       };
 
-      const gameNumber =
-        values.game_number?.trim();
+      const gameNumber = values.game_number?.trim();
 
       if (gameNumber) {
-        payload.game_number =
-          gameNumber;
+        payload.game_number = gameNumber;
       }
 
-      if (
-        values.tickets_per_pack
-      ) {
-        payload.tickets_per_pack =
-          Number(
-            values.tickets_per_pack,
-          );
+      if (values.tickets_per_pack) {
+        payload.tickets_per_pack = Number(values.tickets_per_pack);
       }
 
       /*
@@ -132,14 +94,9 @@ export function LotteryGameForm({
        * }
        */
 
-      await new Promise<void>(
-        (resolve) => {
-          window.setTimeout(
-            resolve,
-            700,
-          );
-        },
-      );
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, 700);
+      });
 
       console.log({
         mode,
@@ -154,16 +111,12 @@ export function LotteryGameForm({
       );
 
       window.setTimeout(() => {
-        router.push(
-          "/lottery/games",
-        );
+        router.push("/lottery/games");
 
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the lottery game. Please try again.",
-      );
+      setServerError("Unable to save the lottery game. Please try again.");
     }
   }
 
@@ -180,9 +133,7 @@ export function LotteryGameForm({
   return (
     <form
       noValidate
-      onSubmit={handleSubmit(
-        onSubmit,
-      )}
+      onSubmit={handleSubmit(onSubmit)}
       className="
         rounded-2xl border border-border
         bg-white p-5
@@ -191,13 +142,10 @@ export function LotteryGameForm({
       "
     >
       <div>
-        <h2 className="text-lg font-bold">
-          Game information
-        </h2>
+        <h2 className="text-lg font-bold">Game information</h2>
 
         <p className="mt-1 text-xs text-muted">
-          Enter the lottery game, ticket price and
-          pack information.
+          Enter the lottery game, ticket price and pack information.
         </p>
       </div>
 
@@ -238,9 +186,7 @@ export function LotteryGameForm({
         <Field
           label="Game name"
           required
-          error={
-            errors.name?.message
-          }
+          error={errors.name?.message}
           className="sm:col-span-2"
         >
           <input
@@ -250,36 +196,20 @@ export function LotteryGameForm({
             {...register("name")}
             className={`
               ${inputClassName}
-              ${
-                errors.name
-                  ? "border-red-300"
-                  : ""
-              }
+              ${errors.name ? "border-red-300" : ""}
             `}
           />
         </Field>
 
-        <Field
-          label="Game number"
-          error={
-            errors.game_number
-              ?.message
-          }
-        >
+        <Field label="Game number" error={errors.game_number?.message}>
           <input
             id="game_number"
             type="text"
             placeholder="For example: LG-1007"
-            {...register(
-              "game_number",
-            )}
+            {...register("game_number")}
             className={`
               ${inputClassName}
-              ${
-                errors.game_number
-                  ? "border-red-300"
-                  : ""
-              }
+              ${errors.game_number ? "border-red-300" : ""}
             `}
           />
         </Field>
@@ -287,10 +217,7 @@ export function LotteryGameForm({
         <Field
           label="Ticket price"
           required
-          error={
-            errors.ticket_price
-              ?.message
-          }
+          error={errors.ticket_price?.message}
         >
           <input
             id="ticket_price"
@@ -298,26 +225,17 @@ export function LotteryGameForm({
             min="0"
             step="0.01"
             placeholder="For example: 5"
-            {...register(
-              "ticket_price",
-            )}
+            {...register("ticket_price")}
             className={`
               ${inputClassName}
-              ${
-                errors.ticket_price
-                  ? "border-red-300"
-                  : ""
-              }
+              ${errors.ticket_price ? "border-red-300" : ""}
             `}
           />
         </Field>
 
         <Field
           label="Tickets per pack"
-          error={
-            errors.tickets_per_pack
-              ?.message
-          }
+          error={errors.tickets_per_pack?.message}
         >
           <input
             id="tickets_per_pack"
@@ -325,50 +243,28 @@ export function LotteryGameForm({
             min="1"
             step="1"
             placeholder="For example: 100"
-            {...register(
-              "tickets_per_pack",
-            )}
+            {...register("tickets_per_pack")}
             className={`
               ${inputClassName}
-              ${
-                errors.tickets_per_pack
-                  ? "border-red-300"
-                  : ""
-              }
+              ${errors.tickets_per_pack ? "border-red-300" : ""}
             `}
           />
         </Field>
 
-        <Field
-          label="Status"
-          required
-          error={
-            errors.status?.message
-          }
-        >
+        <Field label="Status" required error={errors.status?.message}>
           <select
             id="status"
             {...register("status")}
             className={`
               ${inputClassName}
-              ${
-                errors.status
-                  ? "border-red-300"
-                  : ""
-              }
+              ${errors.status ? "border-red-300" : ""}
             `}
           >
-            <option value="">
-              Select status
-            </option>
+            <option value="">Select status</option>
 
-            <option value="Active">
-              Active
-            </option>
+            <option value="Active">Active</option>
 
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="Inactive">Inactive</option>
           </select>
         </Field>
       </div>
@@ -382,9 +278,7 @@ export function LotteryGameForm({
       >
         <button
           type="button"
-          onClick={() =>
-            router.back()
-          }
+          onClick={() => router.back()}
           disabled={isSubmitting}
           className="
             inline-flex h-11 items-center
@@ -448,20 +342,12 @@ function Field({
       <label className="text-sm font-semibold">
         {label}
 
-        {required && (
-          <span className="text-danger">
-            {" "}*
-          </span>
-        )}
+        {required && <span className="text-danger"> *</span>}
       </label>
 
       {children}
 
-      {error && (
-        <p className="mt-1.5 text-xs text-danger">
-          {error}
-        </p>
-      )}
+      {error && <p className="mt-1.5 text-xs text-danger">{error}</p>}
     </div>
   );
 }

@@ -1,6 +1,115 @@
 import { lotterySaleSchema } from "./schemas";
 import type { CrudResourceConfig } from "@/types/crud-resource";
 const now = "2026-08-27T10:00:00.000Z";
-export const lotterySaleConfig: CrudResourceConfig = { title: "Lottery Sales", singular: "lottery sale", description: "Track ticket movement, sales amounts and payouts.", route: "/lottery/sales", endpoint: "/lottery/sales", statuses: ["Completed", "Pending", "Cancelled"], searchKeys: ["pack_number", "shift", "status"], schema: lotterySaleSchema, fields: [{ key: "pack_id", label: "Lottery pack", type: "select", options: ["1", "2", "3"], required: true, table: true }, { key: "opening_ticket_no", label: "Opening ticket", type: "number", required: true, table: true }, { key: "closing_ticket_no", label: "Closing ticket", type: "number", required: true, table: true }, { key: "tickets_sold", label: "Tickets sold", type: "number", required: true, table: true }, { key: "total_amount", label: "Total amount", type: "number", required: true, currency: true, table: true }, { key: "payout_amount", label: "Payout amount", type: "number", currency: true }, { key: "shift", label: "Shift", type: "select", options: ["Morning", "Evening", "Night"] }, { key: "sale_date", label: "Sale date", type: "datetime-local", required: true }, { key: "status", label: "Status", type: "select", options: ["Completed", "Pending", "Cancelled"], required: true, table: true }], records: [{ id: 1, pack_id: 1, pack_number: "PK-1001", opening_ticket_no: 1, closing_ticket_no: 20, tickets_sold: 19, total_amount: 9500, payout_amount: 500, shift: "Morning", sale_date: "2026-08-27T08:00:00.000Z", status: "Completed", created_at: now, updated_at: now, deleted_at: null }, { id: 2, pack_id: 2, pack_number: "PK-1002", opening_ticket_no: 21, closing_ticket_no: 42, tickets_sold: 21, total_amount: 10500, payout_amount: 1000, shift: "Evening", sale_date: "2026-08-27T17:00:00.000Z", status: "Pending", created_at: now, updated_at: now, deleted_at: null }] };
-export function findDemoLotterySale(id: number) { return lotterySaleConfig.records.find((item) => item.id === id); }
-
+export const lotterySaleConfig: CrudResourceConfig = {
+  title: "Lottery Sales",
+  singular: "lottery sale",
+  description: "Track ticket movement, sales amounts and payouts.",
+  route: "/lottery/sales",
+  endpoint: "/lottery/sales",
+  statuses: ["Completed", "Pending", "Cancelled"],
+  searchKeys: ["pack_number", "shift", "status"],
+  schema: lotterySaleSchema,
+  fields: [
+    {
+      key: "pack_id",
+      label: "Lottery pack",
+      type: "select",
+      options: ["1", "2", "3"],
+      required: true,
+      table: true,
+    },
+    {
+      key: "opening_ticket_no",
+      label: "Opening ticket",
+      type: "number",
+      required: true,
+      table: true,
+    },
+    {
+      key: "closing_ticket_no",
+      label: "Closing ticket",
+      type: "number",
+      required: true,
+      table: true,
+    },
+    {
+      key: "tickets_sold",
+      label: "Tickets sold",
+      type: "number",
+      required: true,
+      table: true,
+    },
+    {
+      key: "total_amount",
+      label: "Total amount",
+      type: "number",
+      required: true,
+      currency: true,
+      table: true,
+    },
+    {
+      key: "payout_amount",
+      label: "Payout amount",
+      type: "number",
+      currency: true,
+    },
+    {
+      key: "shift",
+      label: "Shift",
+      type: "select",
+      options: ["Morning", "Evening", "Night"],
+    },
+    {
+      key: "sale_date",
+      label: "Sale date",
+      type: "datetime-local",
+      required: true,
+    },
+    {
+      key: "status",
+      label: "Status",
+      type: "select",
+      options: ["Completed", "Pending", "Cancelled"],
+      required: true,
+      table: true,
+    },
+  ],
+  records: [
+    {
+      id: 1,
+      pack_id: 1,
+      pack_number: "PK-1001",
+      opening_ticket_no: 1,
+      closing_ticket_no: 20,
+      tickets_sold: 19,
+      total_amount: 9500,
+      payout_amount: 500,
+      shift: "Morning",
+      sale_date: "2026-08-27T08:00:00.000Z",
+      status: "Completed",
+      created_at: now,
+      updated_at: now,
+      deleted_at: null,
+    },
+    {
+      id: 2,
+      pack_id: 2,
+      pack_number: "PK-1002",
+      opening_ticket_no: 21,
+      closing_ticket_no: 42,
+      tickets_sold: 21,
+      total_amount: 10500,
+      payout_amount: 1000,
+      shift: "Evening",
+      sale_date: "2026-08-27T17:00:00.000Z",
+      status: "Pending",
+      created_at: now,
+      updated_at: now,
+      deleted_at: null,
+    },
+  ],
+};
+export function findDemoLotterySale(id: number) {
+  return lotterySaleConfig.records.find((item) => item.id === id);
+}

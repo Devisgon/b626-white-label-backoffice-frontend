@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Box,
-} from "lucide-react";
+import { ArrowLeft, Box } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { CartonMappingForm } from "@/features/catalogue/components";
@@ -46,8 +43,8 @@ export default function NewCartonMappingPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Connect a carton product with the unit
-              product contained inside it.
+              Connect a carton product with the unit product contained inside
+              it.
             </p>
           </div>
         </section>

@@ -1,6 +1,4 @@
-export type UnitStatus =
-  | "Active"
-  | "Inactive";
+export type UnitStatus = "Active" | "Inactive";
 
 export interface Unit {
   id: number;
@@ -17,8 +15,7 @@ export interface CreateUnitPayload {
   status?: UnitStatus;
 }
 
-export type UpdateUnitPayload =
-  Partial<CreateUnitPayload>;
+export type UpdateUnitPayload = Partial<CreateUnitPayload>;
 
 export interface UnitFilters {
   search?: string;

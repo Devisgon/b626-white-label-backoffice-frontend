@@ -54,7 +54,5 @@ export {
   unmatchReconciliationLine,
 } from "./reconciliations";
 
-export {
-  getAuditLogs,
-} from "./audit-logs";
+export { getAuditLogs } from "./audit-logs";
 export * from "./e-print";

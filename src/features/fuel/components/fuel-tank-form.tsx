@@ -2,10 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Database,
-  Save,
-} from "lucide-react";
+import { Database, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -39,59 +36,35 @@ export function FuelTankForm({
 }: FuelTankFormProps) {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: {
-      errors,
-      isSubmitting,
-    },
-  } = useForm<
-    FuelTankFormInput,
-    unknown,
-    FuelTankFormValues
-  >({
+    formState: { errors, isSubmitting },
+  } = useForm<FuelTankFormInput, unknown, FuelTankFormValues>({
     resolver: zodResolver(fuelTankSchema),
     defaultValues: {
       name: initialValues?.name ?? "",
-      fuel_type:
-        initialValues?.fuel_type ?? "",
-      capacity:
-        initialValues?.capacity ?? "",
-      current_stock:
-        initialValues?.current_stock ?? "",
-      location_id:
-        initialValues?.location_id ?? "",
+      fuel_type: initialValues?.fuel_type ?? "",
+      capacity: initialValues?.capacity ?? "",
+      current_stock: initialValues?.current_stock ?? "",
+      location_id: initialValues?.location_id ?? "",
       status: initialValues?.status ?? "",
     },
   });
 
-  const capacity = Number(
-    watch("capacity") || 0,
-  );
+  const capacity = Number(watch("capacity") || 0);
 
-  const currentStock = Number(
-    watch("current_stock") || 0,
-  );
+  const currentStock = Number(watch("current_stock") || 0);
 
   const stockPercentage =
-    capacity > 0
-      ? Math.min(
-          (currentStock / capacity) * 100,
-          100,
-        )
-      : 0;
+    capacity > 0 ? Math.min((currentStock / capacity) * 100, 100) : 0;
 
-  async function onSubmit(
-    values: FuelTankFormValues,
-  ) {
+  async function onSubmit(values: FuelTankFormValues) {
     setServerError("");
     setSuccessMessage("");
 
@@ -132,9 +105,7 @@ export function FuelTankForm({
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the fuel tank. Please try again.",
-      );
+      setServerError("Unable to save the fuel tank. Please try again.");
     }
   }
 
@@ -160,13 +131,10 @@ export function FuelTankForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Tank information
-          </h2>
+          <h2 className="text-lg font-bold">Tank information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Enter the fuel type, capacity and
-            current stock details.
+            Enter the fuel type, capacity and current stock details.
           </p>
         </div>
       </div>
@@ -200,12 +168,8 @@ export function FuelTankForm({
 
       <div className="mt-7 grid gap-5 sm:grid-cols-2">
         <div>
-          <label
-            htmlFor="name"
-            className="text-sm font-semibold"
-          >
-            Tank name{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="name" className="text-sm font-semibold">
+            Tank name <span className="text-danger">*</span>
           </label>
 
           <input
@@ -219,28 +183,18 @@ export function FuelTankForm({
               outline-none transition
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.name
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.name ? "border-red-300" : "border-border"}
             `}
           />
 
           {errors.name?.message && (
-            <p className="mt-1.5 text-xs text-danger">
-              {errors.name.message}
-            </p>
+            <p className="mt-1.5 text-xs text-danger">{errors.name.message}</p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor="fuel_type"
-            className="text-sm font-semibold"
-          >
-            Fuel type{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="fuel_type" className="text-sm font-semibold">
+            Fuel type <span className="text-danger">*</span>
           </label>
 
           <select
@@ -252,32 +206,18 @@ export function FuelTankForm({
               outline-none transition
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.fuel_type
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.fuel_type ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="">
-              Select fuel type
-            </option>
+            <option value="">Select fuel type</option>
 
-            <option value="Petrol">
-              Petrol
-            </option>
+            <option value="Petrol">Petrol</option>
 
-            <option value="Diesel">
-              Diesel
-            </option>
+            <option value="Diesel">Diesel</option>
 
-            <option value="Premium Petrol">
-              Premium Petrol
-            </option>
+            <option value="Premium Petrol">Premium Petrol</option>
 
-            <option value="High Speed Diesel">
-              High Speed Diesel
-            </option>
+            <option value="High Speed Diesel">High Speed Diesel</option>
           </select>
 
           {errors.fuel_type?.message && (
@@ -288,12 +228,8 @@ export function FuelTankForm({
         </div>
 
         <div>
-          <label
-            htmlFor="capacity"
-            className="text-sm font-semibold"
-          >
-            Capacity{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="capacity" className="text-sm font-semibold">
+            Capacity <span className="text-danger">*</span>
           </label>
 
           <div className="relative mt-2">
@@ -312,11 +248,7 @@ export function FuelTankForm({
                 transition focus:border-primary
                 focus:ring-4
                 focus:ring-primary/10
-                ${
-                  errors.capacity
-                    ? "border-red-300"
-                    : "border-border"
-                }
+                ${errors.capacity ? "border-red-300" : "border-border"}
               `}
             />
 
@@ -339,10 +271,7 @@ export function FuelTankForm({
         </div>
 
         <div>
-          <label
-            htmlFor="current_stock"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="current_stock" className="text-sm font-semibold">
             Current stock
           </label>
 
@@ -362,11 +291,7 @@ export function FuelTankForm({
                 transition focus:border-primary
                 focus:ring-4
                 focus:ring-primary/10
-                ${
-                  errors.current_stock
-                    ? "border-red-300"
-                    : "border-border"
-                }
+                ${errors.current_stock ? "border-red-300" : "border-border"}
               `}
             />
 
@@ -389,10 +314,7 @@ export function FuelTankForm({
         </div>
 
         <div>
-          <label
-            htmlFor="location_id"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="location_id" className="text-sm font-semibold">
             Location
           </label>
 
@@ -405,22 +327,13 @@ export function FuelTankForm({
               outline-none transition
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.location_id
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.location_id ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="">
-              Select location
-            </option>
+            <option value="">Select location</option>
 
             {locationOptions.map((location) => (
-              <option
-                key={location.id}
-                value={location.id}
-              >
+              <option key={location.id} value={location.id}>
                 {location.name}
               </option>
             ))}
@@ -434,10 +347,7 @@ export function FuelTankForm({
         </div>
 
         <div>
-          <label
-            htmlFor="status"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="status" className="text-sm font-semibold">
             Status
           </label>
 
@@ -450,24 +360,14 @@ export function FuelTankForm({
               outline-none transition
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.status
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.status ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="">
-              Select status
-            </option>
+            <option value="">Select status</option>
 
-            <option value="Active">
-              Active
-            </option>
+            <option value="Active">Active</option>
 
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           {errors.status?.message && (
@@ -478,8 +378,7 @@ export function FuelTankForm({
         </div>
       </div>
 
-      {(capacity > 0 ||
-        currentStock > 0) && (
+      {(capacity > 0 || currentStock > 0) && (
         <section
           className="
             mt-6 rounded-xl border border-border
@@ -488,13 +387,11 @@ export function FuelTankForm({
         >
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold">
-                Stock level
-              </p>
+              <p className="text-sm font-semibold">Stock level</p>
 
               <p className="mt-1 text-xs text-muted">
-                {currentStock.toLocaleString()} of{" "}
-                {capacity.toLocaleString()} litres
+                {currentStock.toLocaleString()} of {capacity.toLocaleString()}{" "}
+                litres
               </p>
             </div>
 

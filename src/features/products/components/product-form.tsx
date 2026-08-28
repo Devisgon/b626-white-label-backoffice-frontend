@@ -50,20 +50,16 @@ export function ProductForm({
   mode = "create",
   onSuccess,
 }: ProductFormProps) {
-  const [form, setForm] =
-    useState<CreateProductInput>({
-      ...defaultValues,
-      ...initialValues,
-    });
+  const [form, setForm] = useState<CreateProductInput>({
+    ...defaultValues,
+    ...initialValues,
+  });
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [error, setError] = useState("");
 
-  function updateField<
-    Key extends keyof CreateProductInput,
-  >(
+  function updateField<Key extends keyof CreateProductInput>(
     field: Key,
     value: CreateProductInput[Key],
   ) {
@@ -73,9 +69,7 @@ export function ProductForm({
     }));
   }
 
-  async function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>,
-  ) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
 
@@ -84,24 +78,16 @@ export function ProductForm({
       return;
     }
 
-    if (
-      form.is_multi_pack &&
-      (!form.pack_size || form.pack_size < 1)
-    ) {
-      setError(
-        "Pack size is required for multi-pack products.",
-      );
+    if (form.is_multi_pack && (!form.pack_size || form.pack_size < 1)) {
+      setError("Pack size is required for multi-pack products.");
       return;
     }
 
     if (
-      (form.minimum_stock ?? 0) >
-      (form.maximum_stock ?? 0) &&
+      (form.minimum_stock ?? 0) > (form.maximum_stock ?? 0) &&
       (form.maximum_stock ?? 0) > 0
     ) {
-      setError(
-        "Minimum stock cannot be greater than maximum stock.",
-      );
+      setError("Minimum stock cannot be greater than maximum stock.");
       return;
     }
 
@@ -128,10 +114,7 @@ export function ProductForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-6"
-    >
+    <form onSubmit={handleSubmit} className="space-y-6">
       {error && (
         <div
           role="alert"
@@ -155,9 +138,7 @@ export function ProductForm({
             id="product-name"
             label="Product name"
             value={form.name}
-            onChange={(value) =>
-              updateField("name", value)
-            }
+            onChange={(value) => updateField("name", value)}
             placeholder="e.g. Coca Cola 500ml"
             required
           />
@@ -166,9 +147,7 @@ export function ProductForm({
             id="product-sku"
             label="SKU"
             value={form.sku ?? ""}
-            onChange={(value) =>
-              updateField("sku", value)
-            }
+            onChange={(value) => updateField("sku", value)}
             placeholder="e.g. COKE-500"
           />
 
@@ -176,9 +155,7 @@ export function ProductForm({
             id="item-code"
             label="Item code"
             value={form.item_code ?? ""}
-            onChange={(value) =>
-              updateField("item_code", value)
-            }
+            onChange={(value) => updateField("item_code", value)}
             placeholder="e.g. ITEM-00123"
           />
 
@@ -186,9 +163,7 @@ export function ProductForm({
             id="barcode"
             label="Barcode"
             value={form.barcode ?? ""}
-            onChange={(value) =>
-              updateField("barcode", value)
-            }
+            onChange={(value) => updateField("barcode", value)}
             placeholder="EAN or UPC barcode"
             icon={Barcode}
           />
@@ -197,9 +172,7 @@ export function ProductForm({
             id="plu-code"
             label="PLU code"
             value={form.plu_code ?? ""}
-            onChange={(value) =>
-              updateField("plu_code", value)
-            }
+            onChange={(value) => updateField("plu_code", value)}
             placeholder="e.g. 1234"
           />
 
@@ -207,12 +180,7 @@ export function ProductForm({
             id="product-status"
             label="Status"
             value={form.status ?? "Active"}
-            onChange={(value) =>
-              updateField(
-                "status",
-                value as ProductStatus,
-              )
-            }
+            onChange={(value) => updateField("status", value as ProductStatus)}
             options={[
               {
                 value: "Active",
@@ -237,42 +205,28 @@ export function ProductForm({
             id="retail-price"
             label="Retail price"
             value={form.retail_price ?? 0}
-            onChange={(value) =>
-              updateField("retail_price", value)
-            }
+            onChange={(value) => updateField("retail_price", value)}
           />
 
           <NumberField
             id="wholesale-price"
             label="Wholesale price"
             value={form.wholesale_price ?? 0}
-            onChange={(value) =>
-              updateField(
-                "wholesale_price",
-                value,
-              )
-            }
+            onChange={(value) => updateField("wholesale_price", value)}
           />
 
           <NumberField
             id="cost-price"
             label="Cost price"
             value={form.cost ?? 0}
-            onChange={(value) =>
-              updateField("cost", value)
-            }
+            onChange={(value) => updateField("cost", value)}
           />
 
           <NumberField
             id="tax-rate"
             label="Tax rate (%)"
             value={form.tax ?? 0}
-            onChange={(value) =>
-              updateField(
-                "tax",
-                Math.min(100, value),
-              )
-            }
+            onChange={(value) => updateField("tax", Math.min(100, value))}
             max={100}
           />
         </div>
@@ -289,10 +243,7 @@ export function ProductForm({
             label="Sale type"
             value={form.sale_type ?? "Retail"}
             onChange={(value) =>
-              updateField(
-                "sale_type",
-                value as ProductSaleType,
-              )
+              updateField("sale_type", value as ProductSaleType)
             }
             options={[
               {
@@ -314,9 +265,7 @@ export function ProductForm({
             id="product-unit"
             label="Unit"
             value={form.unit ?? ""}
-            onChange={(value) =>
-              updateField("unit", value)
-            }
+            onChange={(value) => updateField("unit", value)}
             placeholder="Piece, bottle, pack..."
           />
 
@@ -324,18 +273,13 @@ export function ProductForm({
             id="product-size"
             label="Size"
             value={form.size ?? ""}
-            onChange={(value) =>
-              updateField("size", value)
-            }
+            onChange={(value) => updateField("size", value)}
             placeholder="500ml, 1kg, large..."
           />
         </div>
 
         <div className="mt-4">
-          <label
-            htmlFor="description"
-            className="text-xs font-semibold"
-          >
+          <label htmlFor="description" className="text-xs font-semibold">
             Description
           </label>
 
@@ -343,12 +287,7 @@ export function ProductForm({
             id="description"
             rows={4}
             value={form.description ?? ""}
-            onChange={(event) =>
-              updateField(
-                "description",
-                event.target.value,
-              )
-            }
+            onChange={(event) => updateField("description", event.target.value)}
             placeholder="Enter product description..."
             className="
               mt-2 w-full resize-none rounded-xl
@@ -372,10 +311,7 @@ export function ProductForm({
             label="Category"
             value={String(form.category_id ?? "")}
             onChange={(value) =>
-              updateField(
-                "category_id",
-                value ? Number(value) : undefined,
-              )
+              updateField("category_id", value ? Number(value) : undefined)
             }
             options={[
               {
@@ -402,10 +338,7 @@ export function ProductForm({
             label="Brand"
             value={String(form.brand_id ?? "")}
             onChange={(value) =>
-              updateField(
-                "brand_id",
-                value ? Number(value) : undefined,
-              )
+              updateField("brand_id", value ? Number(value) : undefined)
             }
             options={[
               {
@@ -430,14 +363,9 @@ export function ProductForm({
           <SelectField
             id="supplier"
             label="Supplier"
-            value={String(
-              form.supplier_id ?? "",
-            )}
+            value={String(form.supplier_id ?? "")}
             onChange={(value) =>
-              updateField(
-                "supplier_id",
-                value ? Number(value) : undefined,
-              )
+              updateField("supplier_id", value ? Number(value) : undefined)
             }
             options={[
               {
@@ -462,14 +390,9 @@ export function ProductForm({
           <SelectField
             id="department"
             label="Department"
-            value={String(
-              form.department_id ?? "",
-            )}
+            value={String(form.department_id ?? "")}
             onChange={(value) =>
-              updateField(
-                "department_id",
-                value ? Number(value) : undefined,
-              )
+              updateField("department_id", value ? Number(value) : undefined)
             }
             options={[
               {
@@ -501,22 +424,15 @@ export function ProductForm({
         <label className="flex items-center gap-3 rounded-xl border border-border p-4">
           <input
             type="checkbox"
-            checked={
-              form.inventory_tracking ?? true
-            }
+            checked={form.inventory_tracking ?? true}
             onChange={(event) =>
-              updateField(
-                "inventory_tracking",
-                event.target.checked,
-              )
+              updateField("inventory_tracking", event.target.checked)
             }
             className="size-4 accent-primary"
           />
 
           <span>
-            <span className="block text-sm font-semibold">
-              Track inventory
-            </span>
+            <span className="block text-sm font-semibold">Track inventory</span>
 
             <span className="mt-1 block text-xs text-muted">
               Monitor stock levels for this product.
@@ -530,24 +446,14 @@ export function ProductForm({
               id="minimum-stock"
               label="Minimum stock"
               value={form.minimum_stock ?? 0}
-              onChange={(value) =>
-                updateField(
-                  "minimum_stock",
-                  value,
-                )
-              }
+              onChange={(value) => updateField("minimum_stock", value)}
             />
 
             <NumberField
               id="maximum-stock"
               label="Maximum stock"
               value={form.maximum_stock ?? 0}
-              onChange={(value) =>
-                updateField(
-                  "maximum_stock",
-                  value,
-                )
-              }
+              onChange={(value) => updateField("maximum_stock", value)}
             />
           </div>
         )}
@@ -563,10 +469,7 @@ export function ProductForm({
             type="checkbox"
             checked={form.is_multi_pack ?? false}
             onChange={(event) =>
-              updateField(
-                "is_multi_pack",
-                event.target.checked,
-              )
+              updateField("is_multi_pack", event.target.checked)
             }
             className="size-4 accent-primary"
           />
@@ -588,9 +491,7 @@ export function ProductForm({
               id="pack-size"
               label="Units per pack"
               value={form.pack_size ?? 1}
-              onChange={(value) =>
-                updateField("pack_size", value)
-              }
+              onChange={(value) => updateField("pack_size", value)}
               min={1}
             />
 
@@ -598,9 +499,7 @@ export function ProductForm({
               id="pack-type"
               label="Pack type"
               value={form.pack_type ?? ""}
-              onChange={(value) =>
-                updateField("pack_type", value)
-              }
+              onChange={(value) => updateField("pack_type", value)}
               placeholder="Carton, case, bundle..."
             />
           </div>
@@ -657,9 +556,7 @@ function FormSection({
         <div>
           <h2 className="font-bold">{title}</h2>
 
-          <p className="mt-1 text-xs text-muted">
-            {description}
-          </p>
+          <p className="mt-1 text-xs text-muted">{description}</p>
         </div>
       </div>
 
@@ -689,17 +586,10 @@ function TextField({
 }: TextFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="text-xs font-semibold"
-      >
+      <label htmlFor={id} className="text-xs font-semibold">
         {label}
 
-        {required && (
-          <span className="ml-1 text-danger">
-            *
-          </span>
-        )}
+        {required && <span className="ml-1 text-danger">*</span>}
       </label>
 
       <div className="relative mt-2">
@@ -712,9 +602,7 @@ function TextField({
           type="text"
           value={value}
           required={required}
-          onChange={(event) =>
-            onChange(event.target.value)
-          }
+          onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
           className={`
             h-11 w-full rounded-xl border
@@ -749,10 +637,7 @@ function NumberField({
 }: NumberFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="text-xs font-semibold"
-      >
+      <label htmlFor={id} className="text-xs font-semibold">
         {label}
       </label>
 
@@ -764,12 +649,7 @@ function NumberField({
         step="0.01"
         value={value}
         onChange={(event) =>
-          onChange(
-            Math.max(
-              min,
-              Number(event.target.value),
-            ),
-          )
+          onChange(Math.max(min, Number(event.target.value)))
         }
         className="
           mt-2 h-11 w-full rounded-xl border
@@ -805,19 +685,14 @@ function SelectField({
 }: SelectFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="text-xs font-semibold"
-      >
+      <label htmlFor={id} className="text-xs font-semibold">
         {label}
       </label>
 
       <select
         id={id}
         value={value}
-        onChange={(event) =>
-          onChange(event.target.value)
-        }
+        onChange={(event) => onChange(event.target.value)}
         className="
           mt-2 h-11 w-full rounded-xl border
           border-border bg-white px-3 text-sm
@@ -827,10 +702,7 @@ function SelectField({
         "
       >
         {options.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-          >
+          <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}

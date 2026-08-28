@@ -32,8 +32,7 @@ export default function UnitsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage measurement and packaging units for
-              products.
+              Manage measurement and packaging units for products.
             </p>
           </div>
         </section>

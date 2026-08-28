@@ -1,3 +1,45 @@
-import Link from "next/link"; import { AppShell } from "@/components/layout";
-export default async function FuelDeliveryDetailsPage({params}:{params:Promise<{id:string}>}){const {id}=await params;return <AppShell><main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8"><p className="text-xs font-bold uppercase tracking-[.14em] text-primary">Delivery details</p><div className="mt-2 flex items-center justify-between"><h1 className="text-3xl font-bold">INV-{String(id).padStart(4,"0")}</h1><Link href={`/fuel/deliveries/${id}/edit`} className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white">Edit delivery</Link></div><section className="mt-8 grid gap-4 rounded-2xl border border-border bg-white p-6 sm:grid-cols-2"><Item label="Supplier" value="Pakistan State Oil"/><Item label="Tank" value="Regular Tank"/><Item label="Quantity" value="8,000 liters"/><Item label="Status" value="Received"/><Item label="Delivery date" value="25 Aug 2026"/><Item label="Record ID" value={id}/></section></main></AppShell>} function Item({label,value}:{label:string;value:string}){return <div><p className="text-xs text-muted">{label}</p><p className="mt-1 font-semibold">{value}</p></div>}
-
+import Link from "next/link";
+import { AppShell } from "@/components/layout";
+export default async function FuelDeliveryDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  return (
+    <AppShell>
+      <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+        <p className="text-xs font-bold uppercase tracking-[.14em] text-primary">
+          Delivery details
+        </p>
+        <div className="mt-2 flex items-center justify-between">
+          <h1 className="text-3xl font-bold">
+            INV-{String(id).padStart(4, "0")}
+          </h1>
+          <Link
+            href={`/fuel/deliveries/${id}/edit`}
+            className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white"
+          >
+            Edit delivery
+          </Link>
+        </div>
+        <section className="mt-8 grid gap-4 rounded-2xl border border-border bg-white p-6 sm:grid-cols-2">
+          <Item label="Supplier" value="Pakistan State Oil" />
+          <Item label="Tank" value="Regular Tank" />
+          <Item label="Quantity" value="8,000 liters" />
+          <Item label="Status" value="Received" />
+          <Item label="Delivery date" value="25 Aug 2026" />
+          <Item label="Record ID" value={id} />
+        </section>
+      </main>
+    </AppShell>
+  );
+}
+function Item({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <p className="text-xs text-muted">{label}</p>
+      <p className="mt-1 font-semibold">{value}</p>
+    </div>
+  );
+}

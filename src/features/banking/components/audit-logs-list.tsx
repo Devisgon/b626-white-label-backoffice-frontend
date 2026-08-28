@@ -11,9 +11,7 @@ import {
   X,
 } from "lucide-react";
 
-import type {
-  BankingAuditLog,
-} from "@/features/banking/types";
+import type { BankingAuditLog } from "@/features/banking/types";
 
 const auditLogs: BankingAuditLog[] = [
   {
@@ -21,8 +19,7 @@ const auditLogs: BankingAuditLog[] = [
     tenantId: "tenant-1",
     locationId: "location-1",
     entityType: "transaction",
-    entityId:
-      "c1111111-1111-4111-8111-111111111111",
+    entityId: "c1111111-1111-4111-8111-111111111111",
     action: "posted",
     performedBy: "Amna",
     beforeData: {
@@ -41,18 +38,15 @@ const auditLogs: BankingAuditLog[] = [
     tenantId: "tenant-1",
     locationId: "location-1",
     entityType: "fund_transfer",
-    entityId:
-      "a1111111-1111-4111-8111-111111111111",
+    entityId: "a1111111-1111-4111-8111-111111111111",
     action: "created",
     performedBy: "Amna",
     beforeData: null,
     afterData: {
       amount: 250000,
       status: "posted",
-      sourceAccount:
-        "HBL Main Operating Account",
-      destinationAccount:
-        "Meezan Business Account",
+      sourceAccount: "HBL Main Operating Account",
+      destinationAccount: "Meezan Business Account",
     },
     notes: "Fund transfer created.",
     createdAt: "2026-08-25T08:45:00.000Z",
@@ -62,8 +56,7 @@ const auditLogs: BankingAuditLog[] = [
     tenantId: "tenant-1",
     locationId: "location-1",
     entityType: "bank_reconciliation",
-    entityId:
-      "b2222222-2222-4222-8222-222222222222",
+    entityId: "b2222222-2222-4222-8222-222222222222",
     action: "completed",
     performedBy: "Finance User",
     beforeData: {
@@ -74,8 +67,7 @@ const auditLogs: BankingAuditLog[] = [
       statementEndingBalance: 1275000,
       systemBalanceAtCompletion: 1275000,
     },
-    notes:
-      "Bank reconciliation completed successfully.",
+    notes: "Bank reconciliation completed successfully.",
     createdAt: "2026-08-24T15:20:00.000Z",
   },
   {
@@ -83,8 +75,7 @@ const auditLogs: BankingAuditLog[] = [
     tenantId: "tenant-1",
     locationId: "location-1",
     entityType: "bank_account",
-    entityId:
-      "11111111-1111-4111-8111-111111111111",
+    entityId: "11111111-1111-4111-8111-111111111111",
     action: "updated",
     performedBy: "Amna",
     beforeData: {
@@ -92,8 +83,7 @@ const auditLogs: BankingAuditLog[] = [
       status: "active",
     },
     afterData: {
-      accountName:
-        "HBL Main Operating Account",
+      accountName: "HBL Main Operating Account",
       status: "active",
     },
     notes: "Bank account name updated.",
@@ -104,8 +94,7 @@ const auditLogs: BankingAuditLog[] = [
     tenantId: "tenant-1",
     locationId: "location-1",
     entityType: "fund_transfer",
-    entityId:
-      "a3333333-3333-4333-8333-333333333333",
+    entityId: "a3333333-3333-4333-8333-333333333333",
     action: "voided",
     performedBy: "Finance User",
     beforeData: {
@@ -115,31 +104,23 @@ const auditLogs: BankingAuditLog[] = [
     afterData: {
       status: "voided",
       amount: 50000,
-      voidReason:
-        "Incorrect amount entered during transfer.",
+      voidReason: "Incorrect amount entered during transfer.",
     },
-    notes:
-      "Incorrect amount entered during transfer.",
+    notes: "Incorrect amount entered during transfer.",
     createdAt: "2026-08-23T13:45:00.000Z",
   },
 ];
 
 const entityOptions = Array.from(
-  new Set(
-    auditLogs.map((log) => log.entityType),
-  ),
+  new Set(auditLogs.map((log) => log.entityType)),
 );
 
-const actionOptions = Array.from(
-  new Set(auditLogs.map((log) => log.action)),
-);
+const actionOptions = Array.from(new Set(auditLogs.map((log) => log.action)));
 
 function formatLabel(value: string) {
   return value
     .replaceAll("_", " ")
-    .replace(/\b\w/g, (character) =>
-      character.toUpperCase(),
-    );
+    .replace(/\b\w/g, (character) => character.toUpperCase());
 }
 
 function formatDateTime(value: string) {
@@ -155,53 +136,35 @@ function formatDateTime(value: string) {
 
 export function AuditLogsList() {
   const [search, setSearch] = useState("");
-  const [entityType, setEntityType] =
-    useState("all");
+  const [entityType, setEntityType] = useState("all");
   const [action, setAction] = useState("all");
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
 
-  const [selectedLog, setSelectedLog] =
-    useState<BankingAuditLog | null>(null);
+  const [selectedLog, setSelectedLog] = useState<BankingAuditLog | null>(null);
 
   const filteredLogs = useMemo(() => {
-    const normalizedSearch =
-      search.trim().toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
 
     return auditLogs.filter((log) => {
       const matchesSearch =
         normalizedSearch.length === 0 ||
-        log.entityType
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        log.entityId
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        log.action
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        log.performedBy
-          ?.toLowerCase()
-          .includes(normalizedSearch) ||
-        log.notes
-          ?.toLowerCase()
-          .includes(normalizedSearch);
+        log.entityType.toLowerCase().includes(normalizedSearch) ||
+        log.entityId.toLowerCase().includes(normalizedSearch) ||
+        log.action.toLowerCase().includes(normalizedSearch) ||
+        log.performedBy?.toLowerCase().includes(normalizedSearch) ||
+        log.notes?.toLowerCase().includes(normalizedSearch);
 
       const matchesEntity =
-        entityType === "all" ||
-        log.entityType === entityType;
+        entityType === "all" || log.entityType === entityType;
 
-      const matchesAction =
-        action === "all" ||
-        log.action === action;
+      const matchesAction = action === "all" || log.action === action;
 
       const logDate = log.createdAt.slice(0, 10);
 
-      const matchesDateFrom =
-        !dateFrom || logDate >= dateFrom;
+      const matchesDateFrom = !dateFrom || logDate >= dateFrom;
 
-      const matchesDateTo =
-        !dateTo || logDate <= dateTo;
+      const matchesDateTo = !dateTo || logDate <= dateTo;
 
       return (
         matchesSearch &&
@@ -211,18 +174,10 @@ export function AuditLogsList() {
         matchesDateTo
       );
     });
-  }, [
-    search,
-    entityType,
-    action,
-    dateFrom,
-    dateTo,
-  ]);
+  }, [search, entityType, action, dateFrom, dateTo]);
 
   const uniqueUsers = new Set(
-    auditLogs
-      .map((log) => log.performedBy)
-      .filter(Boolean),
+    auditLogs.map((log) => log.performedBy).filter(Boolean),
   ).size;
 
   const financialActions = auditLogs.filter(
@@ -276,13 +231,10 @@ export function AuditLogsList() {
         "
       >
         <div className="border-b border-border p-5">
-          <h2 className="font-bold">
-            Financial audit history
-          </h2>
+          <h2 className="font-bold">Financial audit history</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Review actions performed across the
-            banking module.
+            Review actions performed across the banking module.
           </p>
         </div>
 
@@ -304,9 +256,7 @@ export function AuditLogsList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search audit history..."
               className="
                 h-11 w-full rounded-xl border
@@ -320,9 +270,7 @@ export function AuditLogsList() {
 
           <select
             value={entityType}
-            onChange={(event) =>
-              setEntityType(event.target.value)
-            }
+            onChange={(event) => setEntityType(event.target.value)}
             aria-label="Filter by entity type"
             className="
               h-11 rounded-xl border border-border
@@ -331,15 +279,10 @@ export function AuditLogsList() {
               focus:ring-4 focus:ring-primary/10
             "
           >
-            <option value="all">
-              All record types
-            </option>
+            <option value="all">All record types</option>
 
             {entityOptions.map((entity) => (
-              <option
-                key={entity}
-                value={entity}
-              >
+              <option key={entity} value={entity}>
                 {formatLabel(entity)}
               </option>
             ))}
@@ -347,9 +290,7 @@ export function AuditLogsList() {
 
           <select
             value={action}
-            onChange={(event) =>
-              setAction(event.target.value)
-            }
+            onChange={(event) => setAction(event.target.value)}
             aria-label="Filter by action"
             className="
               h-11 rounded-xl border border-border
@@ -358,28 +299,19 @@ export function AuditLogsList() {
               focus:ring-4 focus:ring-primary/10
             "
           >
-            <option value="all">
-              All actions
-            </option>
+            <option value="all">All actions</option>
 
-            {actionOptions.map(
-              (actionOption) => (
-                <option
-                  key={actionOption}
-                  value={actionOption}
-                >
-                  {formatLabel(actionOption)}
-                </option>
-              ),
-            )}
+            {actionOptions.map((actionOption) => (
+              <option key={actionOption} value={actionOption}>
+                {formatLabel(actionOption)}
+              </option>
+            ))}
           </select>
 
           <input
             type="date"
             value={dateFrom}
-            onChange={(event) =>
-              setDateFrom(event.target.value)
-            }
+            onChange={(event) => setDateFrom(event.target.value)}
             aria-label="Filter from date"
             className="
               h-11 rounded-xl border border-border
@@ -392,9 +324,7 @@ export function AuditLogsList() {
           <input
             type="date"
             value={dateTo}
-            onChange={(event) =>
-              setDateTo(event.target.value)
-            }
+            onChange={(event) => setDateTo(event.target.value)}
             aria-label="Filter to date"
             className="
               h-11 rounded-xl border border-border
@@ -431,33 +361,19 @@ export function AuditLogsList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Record type
-                </th>
+                <th className="px-5 py-4">Record type</th>
 
-                <th className="px-5 py-4">
-                  Action
-                </th>
+                <th className="px-5 py-4">Action</th>
 
-                <th className="px-5 py-4">
-                  Record ID
-                </th>
+                <th className="px-5 py-4">Record ID</th>
 
-                <th className="px-5 py-4">
-                  Performed by
-                </th>
+                <th className="px-5 py-4">Performed by</th>
 
-                <th className="px-5 py-4">
-                  Notes
-                </th>
+                <th className="px-5 py-4">Notes</th>
 
-                <th className="px-5 py-4">
-                  Date and time
-                </th>
+                <th className="px-5 py-4">Date and time</th>
 
-                <th className="px-5 py-4 text-right">
-                  Details
-                </th>
+                <th className="px-5 py-4 text-right">Details</th>
               </tr>
             </thead>
 
@@ -472,16 +388,12 @@ export function AuditLogsList() {
                 >
                   <td className="px-5 py-4">
                     <p className="font-semibold">
-                      {formatLabel(
-                        log.entityType,
-                      )}
+                      {formatLabel(log.entityType)}
                     </p>
                   </td>
 
                   <td className="px-5 py-4">
-                    <ActionBadge
-                      action={log.action}
-                    />
+                    <ActionBadge action={log.action} />
                   </td>
 
                   <td className="px-5 py-4">
@@ -490,31 +402,23 @@ export function AuditLogsList() {
                     </p>
                   </td>
 
-                  <td className="px-5 py-4">
-                    {log.performedBy ||
-                      "System"}
-                  </td>
+                  <td className="px-5 py-4">{log.performedBy || "System"}</td>
 
                   <td className="px-5 py-4">
                     <p className="max-w-56 truncate text-muted">
-                      {log.notes ||
-                        "No notes provided"}
+                      {log.notes || "No notes provided"}
                     </p>
                   </td>
 
                   <td className="px-5 py-4 text-muted">
-                    {formatDateTime(
-                      log.createdAt,
-                    )}
+                    {formatDateTime(log.createdAt)}
                   </td>
 
                   <td className="px-5 py-4">
                     <div className="flex justify-end">
                       <button
                         type="button"
-                        onClick={() =>
-                          setSelectedLog(log)
-                        }
+                        onClick={() => setSelectedLog(log)}
                         aria-label="View audit details"
                         className="
                           flex size-10 items-center
@@ -538,9 +442,7 @@ export function AuditLogsList() {
 
         {filteredLogs.length === 0 && (
           <div className="px-5 py-16 text-center">
-            <p className="font-semibold">
-              No audit records found
-            </p>
+            <p className="font-semibold">No audit records found</p>
 
             <p className="mt-1 text-sm text-muted">
               Try changing or resetting the filters.
@@ -554,17 +456,14 @@ export function AuditLogsList() {
             text-xs text-muted
           "
         >
-          Showing {filteredLogs.length} of{" "}
-          {auditLogs.length} audit records
+          Showing {filteredLogs.length} of {auditLogs.length} audit records
         </div>
       </section>
 
       {selectedLog && (
         <AuditDetailsDialog
           log={selectedLog}
-          onClose={() =>
-            setSelectedLog(null)
-          }
+          onClose={() => setSelectedLog(null)}
         />
       )}
     </>
@@ -605,38 +504,23 @@ function SummaryCard({
       </span>
 
       <div>
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 text-xl font-bold">
-          {value}
-        </p>
+        <p className="mt-1 text-xl font-bold">{value}</p>
 
-        <p className="mt-1 text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function ActionBadge({
-  action,
-}: {
-  action: string;
-}) {
+function ActionBadge({ action }: { action: string }) {
   const styles: Record<string, string> = {
-    created:
-      "bg-blue-50 text-blue-700",
-    updated:
-      "bg-orange-50 text-orange-700",
-    posted:
-      "bg-emerald-50 text-emerald-700",
-    completed:
-      "bg-emerald-50 text-emerald-700",
-    voided:
-      "bg-red-50 text-red-700",
+    created: "bg-blue-50 text-blue-700",
+    updated: "bg-orange-50 text-orange-700",
+    posted: "bg-emerald-50 text-emerald-700",
+    completed: "bg-emerald-50 text-emerald-700",
+    voided: "bg-red-50 text-red-700",
   };
 
   return (
@@ -644,10 +528,7 @@ function ActionBadge({
       className={`
         inline-flex rounded-full px-2.5 py-1
         text-[10px] font-semibold
-        ${
-          styles[action] ??
-          "bg-slate-100 text-slate-700"
-        }
+        ${styles[action] ?? "bg-slate-100 text-slate-700"}
       `}
     >
       {formatLabel(action)}
@@ -689,16 +570,12 @@ function AuditDetailsDialog({
           "
         >
           <div>
-            <h2
-              id="audit-details-title"
-              className="font-bold"
-            >
+            <h2 id="audit-details-title" className="font-bold">
               Audit record details
             </h2>
 
             <p className="mt-1 text-xs text-muted">
-              {formatLabel(log.entityType)} ·{" "}
-              {formatLabel(log.action)}
+              {formatLabel(log.entityType)} · {formatLabel(log.action)}
             </p>
           </div>
 
@@ -720,73 +597,43 @@ function AuditDetailsDialog({
 
         <div className="space-y-6 p-5">
           <dl className="divide-y divide-border">
-            <DetailsRow
-              label="Audit log ID"
-              value={log.id}
-            />
+            <DetailsRow label="Audit log ID" value={log.id} />
 
             <DetailsRow
               label="Record type"
-              value={formatLabel(
-                log.entityType,
-              )}
+              value={formatLabel(log.entityType)}
             />
 
-            <DetailsRow
-              label="Record ID"
-              value={log.entityId}
-            />
+            <DetailsRow label="Record ID" value={log.entityId} />
 
-            <DetailsRow
-              label="Action"
-              value={formatLabel(log.action)}
-            />
+            <DetailsRow label="Action" value={formatLabel(log.action)} />
 
             <DetailsRow
               label="Performed by"
-              value={
-                log.performedBy || "System"
-              }
+              value={log.performedBy || "System"}
             />
 
             <DetailsRow
               label="Date and time"
-              value={formatDateTime(
-                log.createdAt,
-              )}
+              value={formatDateTime(log.createdAt)}
             />
 
             <DetailsRow
               label="Notes"
-              value={
-                log.notes ||
-                "No notes provided"
-              }
+              value={log.notes || "No notes provided"}
             />
           </dl>
 
-          <JsonSection
-            title="Before changes"
-            data={log.beforeData}
-          />
+          <JsonSection title="Before changes" data={log.beforeData} />
 
-          <JsonSection
-            title="After changes"
-            data={log.afterData}
-          />
+          <JsonSection title="After changes" data={log.afterData} />
         </div>
       </div>
     </div>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -794,13 +641,9 @@ function DetailsRow({
         sm:grid-cols-[160px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="break-all font-medium">
-        {value}
-      </dd>
+      <dd className="break-all font-medium">{value}</dd>
     </div>
   );
 }
@@ -814,9 +657,7 @@ function JsonSection({
 }) {
   return (
     <section>
-      <h3 className="text-sm font-bold">
-        {title}
-      </h3>
+      <h3 className="text-sm font-bold">{title}</h3>
 
       <pre
         className="
@@ -825,9 +666,7 @@ function JsonSection({
           leading-6 text-slate-100
         "
       >
-        {data === null
-          ? "No data available"
-          : JSON.stringify(data, null, 2)}
+        {data === null ? "No data available" : JSON.stringify(data, null, 2)}
       </pre>
     </section>
   );

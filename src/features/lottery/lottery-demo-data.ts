@@ -1,6 +1,4 @@
-import type {
-  LotteryGame,
-} from "@/features/lottery/types";
+import type { LotteryGame } from "@/features/lottery/types";
 
 export const demoLotteryGames: LotteryGame[] = [
   {
@@ -10,10 +8,8 @@ export const demoLotteryGames: LotteryGame[] = [
     ticket_price: 5,
     tickets_per_pack: 100,
     status: "Active",
-    created_at:
-      "2026-08-25T09:00:00.000Z",
-    updated_at:
-      "2026-08-25T09:00:00.000Z",
+    created_at: "2026-08-25T09:00:00.000Z",
+    updated_at: "2026-08-25T09:00:00.000Z",
     deleted_at: null,
   },
   {
@@ -23,10 +19,8 @@ export const demoLotteryGames: LotteryGame[] = [
     ticket_price: 10,
     tickets_per_pack: 50,
     status: "Active",
-    created_at:
-      "2026-08-24T10:00:00.000Z",
-    updated_at:
-      "2026-08-24T10:00:00.000Z",
+    created_at: "2026-08-24T10:00:00.000Z",
+    updated_at: "2026-08-24T10:00:00.000Z",
     deleted_at: null,
   },
   {
@@ -36,10 +30,8 @@ export const demoLotteryGames: LotteryGame[] = [
     ticket_price: 20,
     tickets_per_pack: 40,
     status: "Inactive",
-    created_at:
-      "2026-08-23T11:00:00.000Z",
-    updated_at:
-      "2026-08-23T11:00:00.000Z",
+    created_at: "2026-08-23T11:00:00.000Z",
+    updated_at: "2026-08-23T11:00:00.000Z",
     deleted_at: null,
   },
   {
@@ -49,18 +41,12 @@ export const demoLotteryGames: LotteryGame[] = [
     ticket_price: 5,
     tickets_per_pack: 100,
     status: "Active",
-    created_at:
-      "2026-08-22T12:00:00.000Z",
-    updated_at:
-      "2026-08-22T12:00:00.000Z",
+    created_at: "2026-08-22T12:00:00.000Z",
+    updated_at: "2026-08-22T12:00:00.000Z",
     deleted_at: null,
   },
 ];
 
-export function findDemoLotteryGame(
-  id: number,
-) {
-  return demoLotteryGames.find(
-    (game) => game.id === id,
-  );
+export function findDemoLotteryGame(id: number) {
+  return demoLotteryGames.find((game) => game.id === id);
 }

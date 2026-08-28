@@ -1,13 +1,7 @@
 import { create } from "zustand";
-import {
-  createJSONStorage,
-  persist,
-} from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-import type {
-  AuthUser,
-  Location,
-} from "@/features/auth/types";
+import type { AuthUser, Location } from "@/features/auth/types";
 
 interface SetSessionData {
   user: AuthUser;
@@ -23,10 +17,7 @@ interface AuthStore {
 
   setSession: (data: SetSessionData) => void;
 
-  updateTokens: (
-    accessToken: string,
-    refreshToken: string,
-  ) => void;
+  updateTokens: (accessToken: string, refreshToken: string) => void;
 
   setUser: (user: AuthUser) => void;
 
@@ -45,21 +36,11 @@ export const useAuthStore = create<AuthStore>()(
       isAuthenticated: false,
       hasHydrated: false,
 
-      setSession: ({
-        user,
-        accessToken,
-        refreshToken,
-      }) => {
+      setSession: ({ user, accessToken, refreshToken }) => {
         if (typeof window !== "undefined") {
-          localStorage.setItem(
-            "accessToken",
-            accessToken,
-          );
+          localStorage.setItem("accessToken", accessToken);
 
-          localStorage.setItem(
-            "refreshToken",
-            refreshToken,
-          );
+          localStorage.setItem("refreshToken", refreshToken);
         }
 
         set({
@@ -68,20 +49,11 @@ export const useAuthStore = create<AuthStore>()(
         });
       },
 
-      updateTokens: (
-        accessToken,
-        refreshToken,
-      ) => {
+      updateTokens: (accessToken, refreshToken) => {
         if (typeof window !== "undefined") {
-          localStorage.setItem(
-            "accessToken",
-            accessToken,
-          );
+          localStorage.setItem("accessToken", accessToken);
 
-          localStorage.setItem(
-            "refreshToken",
-            refreshToken,
-          );
+          localStorage.setItem("refreshToken", refreshToken);
         }
       },
 
@@ -128,9 +100,7 @@ export const useAuthStore = create<AuthStore>()(
     {
       name: "total-store-auth",
 
-      storage: createJSONStorage(
-        () => localStorage,
-      ),
+      storage: createJSONStorage(() => localStorage),
 
       partialize: (state) => ({
         user: state.user,

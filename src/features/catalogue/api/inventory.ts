@@ -24,43 +24,37 @@ export interface InventoryStats {
   lowStockItems: number;
 }
 
-const INVENTORY_ENDPOINT =
-  "/catalogue/inventory";
+const INVENTORY_ENDPOINT = "/catalogue/inventory";
 
 export async function getInventoryRecords(
   filters?: InventoryFilters,
 ): Promise<InventoryListResponse> {
-  const response =
-    await apiClient.get<InventoryListResponse>(
-      INVENTORY_ENDPOINT,
-      {
-        params: {
-          page: filters?.page,
-          limit: filters?.limit,
-          search: filters?.search,
-        },
+  const response = await apiClient.get<InventoryListResponse>(
+    INVENTORY_ENDPOINT,
+    {
+      params: {
+        page: filters?.page,
+        limit: filters?.limit,
+        search: filters?.search,
       },
-    );
+    },
+  );
 
   return response.data;
 }
 
 export async function getInventoryStats(): Promise<InventoryStats> {
-  const response =
-    await apiClient.get<InventoryStats>(
-      `${INVENTORY_ENDPOINT}/stats`,
-    );
+  const response = await apiClient.get<InventoryStats>(
+    `${INVENTORY_ENDPOINT}/stats`,
+  );
 
   return response.data;
 }
 
-export async function getInventoryRecord(
-  id: number,
-): Promise<Inventory> {
-  const response =
-    await apiClient.get<Inventory>(
-      `${INVENTORY_ENDPOINT}/${id}`,
-    );
+export async function getInventoryRecord(id: number): Promise<Inventory> {
+  const response = await apiClient.get<Inventory>(
+    `${INVENTORY_ENDPOINT}/${id}`,
+  );
 
   return response.data;
 }
@@ -68,11 +62,7 @@ export async function getInventoryRecord(
 export async function createInventoryRecord(
   payload: CreateInventoryPayload,
 ): Promise<Inventory> {
-  const response =
-    await apiClient.post<Inventory>(
-      INVENTORY_ENDPOINT,
-      payload,
-    );
+  const response = await apiClient.post<Inventory>(INVENTORY_ENDPOINT, payload);
 
   return response.data;
 }
@@ -81,33 +71,26 @@ export async function updateInventoryRecord(
   id: number,
   payload: UpdateInventoryPayload,
 ): Promise<Inventory> {
-  const response =
-    await apiClient.patch<Inventory>(
-      `${INVENTORY_ENDPOINT}/${id}`,
-      payload,
-    );
+  const response = await apiClient.patch<Inventory>(
+    `${INVENTORY_ENDPOINT}/${id}`,
+    payload,
+  );
 
   return response.data;
 }
 
-export async function deleteInventoryRecord(
-  id: number,
-): Promise<Inventory> {
-  const response =
-    await apiClient.delete<Inventory>(
-      `${INVENTORY_ENDPOINT}/${id}`,
-    );
+export async function deleteInventoryRecord(id: number): Promise<Inventory> {
+  const response = await apiClient.delete<Inventory>(
+    `${INVENTORY_ENDPOINT}/${id}`,
+  );
 
   return response.data;
 }
 
-export async function restoreInventoryRecord(
-  id: number,
-): Promise<Inventory> {
-  const response =
-    await apiClient.patch<Inventory>(
-      `${INVENTORY_ENDPOINT}/${id}/restore`,
-    );
+export async function restoreInventoryRecord(id: number): Promise<Inventory> {
+  const response = await apiClient.patch<Inventory>(
+    `${INVENTORY_ENDPOINT}/${id}/restore`,
+  );
 
   return response.data;
 }

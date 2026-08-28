@@ -2,14 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import {
-  Eye,
-  Pencil,
-  Plus,
-  Power,
-  RotateCcw,
-  Search,
-} from "lucide-react";
+import { Eye, Pencil, Plus, Power, RotateCcw, Search } from "lucide-react";
 
 import type {
   ChartAccount,
@@ -92,52 +85,32 @@ const initialAccounts: ChartAccount[] = [
   },
 ];
 
-function formatCategory(
-  category: ChartAccountCategory,
-) {
-  return (
-    category.charAt(0).toUpperCase() +
-    category.slice(1)
-  );
+function formatCategory(category: ChartAccountCategory) {
+  return category.charAt(0).toUpperCase() + category.slice(1);
 }
 
 export function ChartAccountsList() {
-  const [accounts, setAccounts] =
-    useState(initialAccounts);
+  const [accounts, setAccounts] = useState(initialAccounts);
 
   const [search, setSearch] = useState("");
-  const [category, setCategory] =
-    useState<ChartAccountCategory | "all">("all");
-  const [status, setStatus] =
-    useState<ChartAccountStatus | "all">("all");
+  const [category, setCategory] = useState<ChartAccountCategory | "all">("all");
+  const [status, setStatus] = useState<ChartAccountStatus | "all">("all");
 
   const filteredAccounts = useMemo(() => {
-    const normalizedSearch =
-      search.trim().toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
 
     return accounts.filter((account) => {
       const matchesSearch =
         normalizedSearch.length === 0 ||
-        account.accountName
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        account.accountCode
-          .toLowerCase()
-          .includes(normalizedSearch);
+        account.accountName.toLowerCase().includes(normalizedSearch) ||
+        account.accountCode.toLowerCase().includes(normalizedSearch);
 
       const matchesCategory =
-        category === "all" ||
-        account.accountCategory === category;
+        category === "all" || account.accountCategory === category;
 
-      const matchesStatus =
-        status === "all" ||
-        account.status === status;
+      const matchesStatus = status === "all" || account.status === status;
 
-      return (
-        matchesSearch &&
-        matchesCategory &&
-        matchesStatus
-      );
+      return matchesSearch && matchesCategory && matchesStatus;
     });
   }, [accounts, search, category, status]);
 
@@ -145,9 +118,7 @@ export function ChartAccountsList() {
     (account) => account.status === "active",
   ).length;
 
-  const systemAccounts = accounts.filter(
-    (account) => account.isSystem,
-  ).length;
+  const systemAccounts = accounts.filter((account) => account.isSystem).length;
 
   function resetFilters() {
     setSearch("");
@@ -155,10 +126,7 @@ export function ChartAccountsList() {
     setStatus("all");
   }
 
-  function deactivateAccount(
-    accountId: string,
-    accountName: string,
-  ) {
+  function deactivateAccount(accountId: string, accountName: string) {
     const confirmed = window.confirm(
       `Are you sure you want to deactivate ${accountName}?`,
     );
@@ -182,85 +150,71 @@ export function ChartAccountsList() {
   return (
     <div>
       <section className="grid gap-4 sm:grid-cols-3">
-        <SummaryCard
-          label="Total accounts"
-          value={accounts.length}
-        />
+        <SummaryCard label="Total accounts" value={accounts.length} />
 
-        <SummaryCard
-          label="Active accounts"
-          value={activeAccounts}
-        />
+        <SummaryCard label="Active accounts" value={activeAccounts} />
 
-        <SummaryCard
-          label="System accounts"
-          value={systemAccounts}
-        />
+        <SummaryCard label="System accounts" value={systemAccounts} />
       </section>
 
-     <section
-  className="
+      <section
+        className="
     mt-6 overflow-hidden rounded-2xl
     border border-border bg-white
     shadow-[var(--shadow-sm)]
   "
->
-  <div
-    className="
+      >
+        <div
+          className="
       flex flex-col justify-between gap-4
       border-b border-border p-5
       sm:flex-row sm:items-center
     "
-  >
-    <div>
-      <h2 className="font-bold">
-        Chart accounts
-      </h2>
+        >
+          <div>
+            <h2 className="font-bold">Chart accounts</h2>
 
-      <p className="mt-1 text-xs text-muted">
-        Manage account codes, categories and
-        account status.
-      </p>
-    </div>
+            <p className="mt-1 text-xs text-muted">
+              Manage account codes, categories and account status.
+            </p>
+          </div>
 
-    <Link
-      href="/bank/chart-of-accounts/new"
-      className="
+          <Link
+            href="/bank/chart-of-accounts/new"
+            className="
         inline-flex h-10 items-center
         justify-center gap-2 rounded-xl
         bg-primary px-4 text-sm font-semibold
         text-white transition
         hover:bg-primary-hover
       "
-    >
-      <Plus className="size-4" />
-      Add account
-    </Link>
-  </div>
+          >
+            <Plus className="size-4" />
+            Add account
+          </Link>
+        </div>
 
-  <div
-    className="
+        <div
+          className="
       flex flex-col gap-3 border-b
       border-border p-4 lg:flex-row
     "
-  >
-    <div className="relative min-w-0 flex-1">
-      <Search
-        className="
+        >
+          <div className="relative min-w-0 flex-1">
+            <Search
+              className="
           pointer-events-none absolute left-4
           top-1/2 size-4 -translate-y-1/2
           text-muted
         "
-      />
+            />
 
-      <input
-        type="search"
-        value={search}
-        onChange={(event) =>
-          setSearch(event.target.value)
-        }
-        placeholder="Search by account name or code..."
-        className="
+            <input
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Search by account name or code..."
+              className="
           h-11 w-full rounded-xl border
           border-border bg-white pl-11 pr-4
           text-sm text-black outline-none
@@ -268,20 +222,16 @@ export function ChartAccountsList() {
           focus:border-primary
           focus:ring-4 focus:ring-primary/10
         "
-      />
-    </div>
+            />
+          </div>
 
-    <select
-      value={category}
-      onChange={(event) =>
-        setCategory(
-          event.target.value as
-            | ChartAccountCategory
-            | "all",
-        )
-      }
-      aria-label="Filter by account category"
-      className="
+          <select
+            value={category}
+            onChange={(event) =>
+              setCategory(event.target.value as ChartAccountCategory | "all")
+            }
+            aria-label="Filter by account category"
+            className="
         h-11 rounded-xl border border-border
         bg-white px-4 text-sm text-black
         outline-none transition
@@ -289,43 +239,27 @@ export function ChartAccountsList() {
         focus:ring-4 focus:ring-primary/10
         lg:min-w-44
       "
-    >
-      <option value="all">
-        All categories
-      </option>
+          >
+            <option value="all">All categories</option>
 
-      <option value="asset">
-        Assets
-      </option>
+            <option value="asset">Assets</option>
 
-      <option value="liability">
-        Liabilities
-      </option>
+            <option value="liability">Liabilities</option>
 
-      <option value="equity">
-        Equity
-      </option>
+            <option value="equity">Equity</option>
 
-      <option value="revenue">
-        Revenue
-      </option>
+            <option value="revenue">Revenue</option>
 
-      <option value="expense">
-        Expenses
-      </option>
-    </select>
+            <option value="expense">Expenses</option>
+          </select>
 
-    <select
-      value={status}
-      onChange={(event) =>
-        setStatus(
-          event.target.value as
-            | ChartAccountStatus
-            | "all",
-        )
-      }
-      aria-label="Filter by account status"
-      className="
+          <select
+            value={status}
+            onChange={(event) =>
+              setStatus(event.target.value as ChartAccountStatus | "all")
+            }
+            aria-label="Filter by account status"
+            className="
         h-11 rounded-xl border border-border
         bg-white px-4 text-sm text-black
         outline-none transition
@@ -333,35 +267,29 @@ export function ChartAccountsList() {
         focus:ring-4 focus:ring-primary/10
         lg:min-w-40
       "
-    >
-      <option value="all">
-        All statuses
-      </option>
+          >
+            <option value="all">All statuses</option>
 
-      <option value="active">
-        Active
-      </option>
+            <option value="active">Active</option>
 
-      <option value="inactive">
-        Inactive
-      </option>
-    </select>
+            <option value="inactive">Inactive</option>
+          </select>
 
-    <button
-      type="button"
-      onClick={resetFilters}
-      className="
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="
         inline-flex h-11 items-center
         justify-center gap-2 rounded-xl
         bg-primary-light px-4 text-sm
         font-semibold text-primary transition
         hover:bg-primary hover:text-white
       "
-    >
-      <RotateCcw className="size-4" />
-      Reset
-    </button>
-  </div>
+          >
+            <RotateCcw className="size-4" />
+            Reset
+          </button>
+        </div>
 
         <div className="overflow-x-auto">
           <table className="w-full min-w-[900px] text-left">
@@ -372,33 +300,19 @@ export function ChartAccountsList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Code
-                </th>
+                <th className="px-5 py-4">Code</th>
 
-                <th className="px-5 py-4">
-                  Account
-                </th>
+                <th className="px-5 py-4">Account</th>
 
-                <th className="px-5 py-4">
-                  Category
-                </th>
+                <th className="px-5 py-4">Category</th>
 
-                <th className="px-5 py-4">
-                  Normal balance
-                </th>
+                <th className="px-5 py-4">Normal balance</th>
 
-                <th className="px-5 py-4">
-                  Type
-                </th>
+                <th className="px-5 py-4">Type</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -411,14 +325,10 @@ export function ChartAccountsList() {
                     hover:bg-surface-secondary/60
                   "
                 >
-                  <td className="px-5 py-4 font-bold">
-                    {account.accountCode}
-                  </td>
+                  <td className="px-5 py-4 font-bold">{account.accountCode}</td>
 
                   <td className="px-5 py-4">
-                    <p className="font-semibold">
-                      {account.accountName}
-                    </p>
+                    <p className="font-semibold">{account.accountName}</p>
 
                     <p className="mt-1 text-[11px] text-muted">
                       ID: {account.id.slice(0, 8)}...
@@ -434,9 +344,7 @@ export function ChartAccountsList() {
                         text-blue-700
                       "
                     >
-                      {formatCategory(
-                        account.accountCategory,
-                      )}
+                      {formatCategory(account.accountCategory)}
                     </span>
                   </td>
 
@@ -450,9 +358,7 @@ export function ChartAccountsList() {
                         System
                       </span>
                     ) : (
-                      <span className="text-xs text-muted">
-                        Custom
-                      </span>
+                      <span className="text-xs text-muted">Custom</span>
                     )}
                   </td>
 
@@ -469,9 +375,7 @@ export function ChartAccountsList() {
                         }
                       `}
                     >
-                      {account.status === "active"
-                        ? "Active"
-                        : "Inactive"}
+                      {account.status === "active" ? "Active" : "Inactive"}
                     </span>
                   </td>
 
@@ -494,15 +398,10 @@ export function ChartAccountsList() {
                       <button
                         type="button"
                         onClick={() =>
-                          deactivateAccount(
-                            account.id,
-                            account.accountName,
-                          )
+                          deactivateAccount(account.id, account.accountName)
                         }
                         disabled={
-                          account.status ===
-                            "inactive" ||
-                          account.isSystem
+                          account.status === "inactive" || account.isSystem
                         }
                         aria-label={`Deactivate ${account.accountName}`}
                         title={
@@ -532,9 +431,7 @@ export function ChartAccountsList() {
 
         {filteredAccounts.length === 0 && (
           <div className="px-5 py-14 text-center">
-            <p className="font-semibold">
-              No accounts found
-            </p>
+            <p className="font-semibold">No accounts found</p>
 
             <p className="mt-1 text-xs text-muted">
               Try changing or resetting the filters.
@@ -550,8 +447,7 @@ export function ChartAccountsList() {
           "
         >
           <span>
-            Showing {filteredAccounts.length} of{" "}
-            {accounts.length} accounts
+            Showing {filteredAccounts.length} of {accounts.length} accounts
           </span>
 
           <span>Page 1 of 1</span>
@@ -561,13 +457,7 @@ export function ChartAccountsList() {
   );
 }
 
-function SummaryCard({
-  label,
-  value,
-}: {
-  label: string;
-  value: number;
-}) {
+function SummaryCard({ label, value }: { label: string; value: number }) {
   return (
     <article
       className="
@@ -577,13 +467,9 @@ function SummaryCard({
         hover:shadow-[var(--shadow-md)]
       "
     >
-      <p className="text-xs text-muted">
-        {label}
-      </p>
+      <p className="text-xs text-muted">{label}</p>
 
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
     </article>
   );
 }

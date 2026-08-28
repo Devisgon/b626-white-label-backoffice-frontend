@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowUpRight, type LucideIcon } from "lucide-react";
 
 interface CatalogueCardProps {
   title: string;
@@ -61,9 +58,7 @@ export function CatalogueCard({
       </div>
 
       <div className="mt-6">
-        <h2 className="text-base font-bold text-foreground">
-          {title}
-        </h2>
+        <h2 className="text-base font-bold text-foreground">{title}</h2>
 
         <p className="mt-2 min-h-10 text-xs leading-5 text-muted">
           {description}
@@ -90,9 +85,7 @@ export function CatalogueCard({
 
   if (comingSoon) {
     return (
-      <article
-        className={`${className} cursor-not-allowed opacity-70`}
-      >
+      <article className={`${className} cursor-not-allowed opacity-70`}>
         {content}
       </article>
     );

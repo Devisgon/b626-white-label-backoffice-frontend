@@ -1,6 +1,4 @@
-export type SupplierStatus =
-  | "Active"
-  | "Inactive";
+export type SupplierStatus = "Active" | "Inactive";
 
 export interface Supplier {
   id: number;

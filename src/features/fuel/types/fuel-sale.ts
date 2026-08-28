@@ -18,4 +18,3 @@ export interface FuelSale {
 }
 
 export type FuelSalePayload = Omit<FuelSale, "id" | "pump_name" | "tank_name">;
-

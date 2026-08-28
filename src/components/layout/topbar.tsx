@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  ChevronDown,
-  Clock3,
-  Menu,
-  Store,
-} from "lucide-react";
+import { ChevronDown, Clock3, Menu, Store } from "lucide-react";
 
 import { Button } from "@/components/ui";
 
@@ -58,9 +53,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
         <Button
           variant="outline"
           className="hidden md:inline-flex"
-          leftIcon={
-            <Clock3 className="size-4 text-primary" />
-          }
+          leftIcon={<Clock3 className="size-4 text-primary" />}
         >
           Clock In
         </Button>
@@ -83,9 +76,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
           </span>
 
           <span className="hidden md:flex md:flex-col">
-            <strong className="text-xs font-semibold">
-              Phoenix Store
-            </strong>
+            <strong className="text-xs font-semibold">Phoenix Store</strong>
 
             <small className="mt-0.5 text-[10px] text-muted">
               55756 · Punjab

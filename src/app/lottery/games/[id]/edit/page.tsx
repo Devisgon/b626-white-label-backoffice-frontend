@@ -1,19 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ArrowLeft,
-  Gamepad2,
-} from "lucide-react";
+import { ArrowLeft, Gamepad2 } from "lucide-react";
 
-import {
-  AppShell,
-} from "@/components/layout";
-import {
-  LotteryGameForm,
-} from "@/features/lottery/components";
-import {
-  findDemoLotteryGame,
-} from "@/features/lottery/lottery-demo-data";
+import { AppShell } from "@/components/layout";
+import { LotteryGameForm } from "@/features/lottery/components";
+import { findDemoLotteryGame } from "@/features/lottery/lottery-demo-data";
 
 interface EditLotteryGamePageProps {
   params: Promise<{
@@ -28,10 +19,7 @@ export default async function EditLotteryGamePage({
 
   const numericId = Number(id);
 
-  if (
-    !Number.isInteger(numericId) ||
-    numericId < 1
-  ) {
+  if (!Number.isInteger(numericId) || numericId < 1) {
     notFound();
   }
 
@@ -42,10 +30,7 @@ export default async function EditLotteryGamePage({
    *   await getLotteryGame(numericId);
    */
 
-  const game =
-    findDemoLotteryGame(
-      numericId,
-    );
+  const game = findDemoLotteryGame(numericId);
 
   if (!game) {
     notFound();
@@ -110,8 +95,7 @@ export default async function EditLotteryGamePage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update {game.name} and its ticket
-              information.
+              Update {game.name} and its ticket information.
             </p>
           </div>
         </section>
@@ -123,19 +107,13 @@ export default async function EditLotteryGamePage({
             initialValues={{
               name: game.name,
 
-              game_number:
-                game.game_number ?? "",
+              game_number: game.game_number ?? "",
 
-              ticket_price: String(
-                game.ticket_price,
-              ),
+              ticket_price: String(game.ticket_price),
 
-              tickets_per_pack:
-                game.tickets_per_pack
-                  ? String(
-                      game.tickets_per_pack,
-                    )
-                  : "",
+              tickets_per_pack: game.tickets_per_pack
+                ? String(game.tickets_per_pack)
+                : "",
 
               status: game.status,
             }}

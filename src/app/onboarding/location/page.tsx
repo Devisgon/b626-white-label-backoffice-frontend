@@ -3,11 +3,7 @@ import { OnboardingGuard } from "@/components/shared";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import {
-  ArrowRight,
-  MapPin,
-  Store,
-} from "lucide-react";
+import { ArrowRight, MapPin, Store } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -23,23 +19,16 @@ import { useAuthStore } from "@/store";
 export default function OnboardingLocationPage() {
   const router = useRouter();
 
-  const updateTokens = useAuthStore(
-    (state) => state.updateTokens,
-  );
+  const updateTokens = useAuthStore((state) => state.updateTokens);
 
-  const setActiveLocation = useAuthStore(
-    (state) => state.setActiveLocation,
-  );
+  const setActiveLocation = useAuthStore((state) => state.setActiveLocation);
 
   const [serverError, setServerError] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<CreateLocationFormValues>({
     resolver: zodResolver(createLocationSchema),
     defaultValues: {
@@ -48,9 +37,7 @@ export default function OnboardingLocationPage() {
     },
   });
 
-  async function onSubmit(
-    values: CreateLocationFormValues,
-  ) {
+  async function onSubmit(values: CreateLocationFormValues) {
     setServerError("");
 
     try {
@@ -59,10 +46,7 @@ export default function OnboardingLocationPage() {
         address: values.address || undefined,
       });
 
-      updateTokens(
-        response.accessToken,
-        response.refreshToken,
-      );
+      updateTokens(response.accessToken, response.refreshToken);
 
       setActiveLocation(response.location);
 
@@ -76,9 +60,7 @@ export default function OnboardingLocationPage() {
         } else if (typeof message === "string") {
           setServerError(message);
         } else if (!error.response) {
-          setServerError(
-            "Unable to connect to the server. Please try again.",
-          );
+          setServerError("Unable to connect to the server. Please try again.");
         } else {
           setServerError(
             "Unable to create your store. Please check the details.",
@@ -88,147 +70,145 @@ export default function OnboardingLocationPage() {
         return;
       }
 
-      setServerError(
-        "Something went wrong. Please try again.",
-      );
+      setServerError("Something went wrong. Please try again.");
     }
   }
 
   return (
-     <OnboardingGuard>
-    <main
-      className="
+    <OnboardingGuard>
+      <main
+        className="
         relative flex min-h-screen items-center justify-center
         overflow-hidden bg-background px-5 py-10
       "
-    >
-      <div
-        className="
+      >
+        <div
+          className="
           absolute -left-40 -top-40 size-[420px]
           rounded-full bg-primary/10 blur-3xl
         "
-      />
+        />
 
-      <div
-        className="
+        <div
+          className="
           absolute -bottom-48 -right-40 size-[480px]
           rounded-full bg-blue-200/30 blur-3xl
         "
-      />
+        />
 
-      <section
-        className="
+        <section
+          className="
           relative z-10 w-full max-w-[540px]
           rounded-3xl border border-border bg-white
           p-6 shadow-[var(--shadow-lg)]
           sm:p-9
         "
-      >
-        <div className="flex items-center justify-between">
-          <div
-            className="
+        >
+          <div className="flex items-center justify-between">
+            <div
+              className="
               flex size-11 items-center justify-center rounded-xl
               bg-gradient-to-br from-emerald-500 to-primary
               text-xs font-bold text-white
             "
-          >
-            TS
-          </div>
+            >
+              TS
+            </div>
 
-          <span
-            className="
+            <span
+              className="
               rounded-full bg-primary-light px-3 py-1.5
               text-[10px] font-bold uppercase
               tracking-wider text-primary
             "
-          >
-            Final step
-          </span>
-        </div>
+            >
+              Final step
+            </span>
+          </div>
 
-        <div className="mt-8">
-          <div
-            className="
+          <div className="mt-8">
+            <div
+              className="
               flex size-12 items-center justify-center
               rounded-2xl bg-primary-light text-primary
             "
-          >
-            <Store className="size-6" />
+            >
+              <Store className="size-6" />
+            </div>
+
+            <h1 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl">
+              Set up your first store
+            </h1>
+
+            <p className="mt-3 text-sm leading-6 text-muted">
+              Add your main store location to complete account setup and access
+              your backoffice dashboard.
+            </p>
           </div>
 
-          <h1 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl">
-            Set up your first store
-          </h1>
-
-          <p className="mt-3 text-sm leading-6 text-muted">
-            Add your main store location to complete account
-            setup and access your backoffice dashboard.
-          </p>
-        </div>
-
-        <form
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-          className="mt-8 space-y-5"
-        >
-          {serverError && (
-            <div
-              role="alert"
-              className="
+          <form
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-8 space-y-5"
+          >
+            {serverError && (
+              <div
+                role="alert"
+                className="
                 rounded-xl border border-red-200 bg-red-50
                 px-4 py-3 text-xs font-medium text-danger
               "
+              >
+                {serverError}
+              </div>
+            )}
+
+            <Input
+              id="storeName"
+              type="text"
+              label="Store name"
+              placeholder="e.g. Phoenix Store"
+              autoComplete="organization"
+              required
+              leftIcon={<Store className="size-4" />}
+              error={errors.name?.message}
+              {...register("name")}
+            />
+
+            <Input
+              id="storeAddress"
+              type="text"
+              label="Store address"
+              placeholder="e.g. Okara, Punjab"
+              autoComplete="street-address"
+              leftIcon={<MapPin className="size-4" />}
+              helperText="You can update this information later."
+              error={errors.address?.message}
+              {...register("address")}
+            />
+
+            <Button
+              type="submit"
+              size="lg"
+              loading={isSubmitting}
+              rightIcon={<ArrowRight className="size-4" />}
+              className="w-full"
             >
-              {serverError}
-            </div>
-          )}
+              Complete setup
+            </Button>
+          </form>
 
-          <Input
-            id="storeName"
-            type="text"
-            label="Store name"
-            placeholder="e.g. Phoenix Store"
-            autoComplete="organization"
-            required
-            leftIcon={<Store className="size-4" />}
-            error={errors.name?.message}
-            {...register("name")}
-          />
+          <div className="mt-8 flex items-center gap-3">
+            <span className="h-px flex-1 bg-border" />
 
-          <Input
-            id="storeAddress"
-            type="text"
-            label="Store address"
-            placeholder="e.g. Okara, Punjab"
-            autoComplete="street-address"
-            leftIcon={<MapPin className="size-4" />}
-            helperText="You can update this information later."
-            error={errors.address?.message}
-            {...register("address")}
-          />
+            <p className="text-[10px] text-muted">
+              Your data is securely isolated
+            </p>
 
-          <Button
-            type="submit"
-            size="lg"
-            loading={isSubmitting}
-            rightIcon={<ArrowRight className="size-4" />}
-            className="w-full"
-          >
-            Complete setup
-          </Button>
-        </form>
-
-        <div className="mt-8 flex items-center gap-3">
-          <span className="h-px flex-1 bg-border" />
-
-          <p className="text-[10px] text-muted">
-            Your data is securely isolated
-          </p>
-
-          <span className="h-px flex-1 bg-border" />
-        </div>
-      </section>
-    </main>
-  </OnboardingGuard>
-);
+            <span className="h-px flex-1 bg-border" />
+          </div>
+        </section>
+      </main>
+    </OnboardingGuard>
+  );
 }

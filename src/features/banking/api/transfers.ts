@@ -13,13 +13,9 @@ const TRANSFERS_ENDPOINT = "/bank/transfers";
 export async function getTransfers(
   filters: TransferFilters = {},
 ): Promise<TransfersResponse> {
-  const response =
-    await apiClient.get<TransfersResponse>(
-      TRANSFERS_ENDPOINT,
-      {
-        params: filters,
-      },
-    );
+  const response = await apiClient.get<TransfersResponse>(TRANSFERS_ENDPOINT, {
+    params: filters,
+  });
 
   return response.data;
 }
@@ -27,10 +23,9 @@ export async function getTransfers(
 export async function getTransferById(
   transferId: string,
 ): Promise<FundTransfer> {
-  const response =
-    await apiClient.get<FundTransfer>(
-      `${TRANSFERS_ENDPOINT}/${transferId}`,
-    );
+  const response = await apiClient.get<FundTransfer>(
+    `${TRANSFERS_ENDPOINT}/${transferId}`,
+  );
 
   return response.data;
 }
@@ -38,11 +33,10 @@ export async function getTransferById(
 export async function createTransfer(
   payload: CreateTransferPayload,
 ): Promise<FundTransfer> {
-  const response =
-    await apiClient.post<FundTransfer>(
-      TRANSFERS_ENDPOINT,
-      payload,
-    );
+  const response = await apiClient.post<FundTransfer>(
+    TRANSFERS_ENDPOINT,
+    payload,
+  );
 
   return response.data;
 }
@@ -51,11 +45,10 @@ export async function voidTransfer(
   transferId: string,
   payload: VoidTransferPayload,
 ): Promise<FundTransfer> {
-  const response =
-    await apiClient.post<FundTransfer>(
-      `${TRANSFERS_ENDPOINT}/${transferId}/void`,
-      payload,
-    );
+  const response = await apiClient.post<FundTransfer>(
+    `${TRANSFERS_ENDPOINT}/${transferId}/void`,
+    payload,
+  );
 
   return response.data;
 }

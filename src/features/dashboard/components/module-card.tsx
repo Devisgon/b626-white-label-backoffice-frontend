@@ -1,19 +1,10 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight, type LucideIcon } from "lucide-react";
 
 import { cn } from "@/utils";
 
 type ModuleCardColor =
-  | "green"
-  | "blue"
-  | "purple"
-  | "orange"
-  | "red"
-  | "cyan"
-  | "slate";
+  "green" | "blue" | "purple" | "orange" | "red" | "cyan" | "slate";
 
 interface ModuleCardProps {
   title: string;
@@ -57,9 +48,7 @@ export function ModuleCard({
 
       <div className="mt-auto">
         <div className="flex items-center gap-2">
-          <h3 className="text-[15px] font-semibold text-foreground">
-            {title}
-          </h3>
+          <h3 className="text-[15px] font-semibold text-foreground">{title}</h3>
 
           {comingSoon && (
             <span
@@ -105,20 +94,14 @@ export function ModuleCard({
 
   if (comingSoon) {
     return (
-      <div
-        className={cardClasses}
-        aria-disabled="true"
-      >
+      <div className={cardClasses} aria-disabled="true">
         {cardContent}
       </div>
     );
   }
 
   return (
-    <Link
-      href={href}
-      className={cardClasses}
-    >
+    <Link href={href} className={cardClasses}>
       {cardContent}
     </Link>
   );

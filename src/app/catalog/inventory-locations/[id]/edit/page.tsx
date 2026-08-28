@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Warehouse,
-} from "lucide-react";
+import { ArrowLeft, Warehouse } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { InventoryLocationForm } from "@/features/catalogue/components";
@@ -48,10 +45,7 @@ export default async function EditInventoryLocationPage({
 }: EditInventoryLocationPageProps) {
   const { id } = await params;
 
-  const location =
-    inventoryLocations[
-      id as keyof typeof inventoryLocations
-    ];
+  const location = inventoryLocations[id as keyof typeof inventoryLocations];
 
   if (!location) {
     return (
@@ -64,13 +58,10 @@ export default async function EditInventoryLocationPage({
               shadow-[var(--shadow-sm)]
             "
           >
-            <h1 className="text-xl font-bold">
-              Inventory location not found
-            </h1>
+            <h1 className="text-xl font-bold">Inventory location not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested inventory location does
-              not exist.
+              The requested inventory location does not exist.
             </p>
 
             <Link
@@ -128,8 +119,7 @@ export default async function EditInventoryLocationPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update the information and
-              availability of {location.name}.
+              Update the information and availability of {location.name}.
             </p>
           </div>
         </section>

@@ -1,18 +1,9 @@
-import type {
-  CursorPagination,
-  OffsetPagination,
-} from "./fuel-tank";
+import type { CursorPagination, OffsetPagination } from "./fuel-tank";
 
-export type FuelPumpStatus =
-  | "Active"
-  | "Inactive";
+export type FuelPumpStatus = "Active" | "Inactive";
 
 export type FuelPumpSortField =
-  | "id"
-  | "name"
-  | "status"
-  | "created_at"
-  | "updated_at";
+  "id" | "name" | "status" | "created_at" | "updated_at";
 
 export interface FuelPump {
   id: number;
@@ -38,8 +29,7 @@ export interface CreateFuelPumpPayload {
   status?: FuelPumpStatus;
 }
 
-export type UpdateFuelPumpPayload =
-  Partial<CreateFuelPumpPayload>;
+export type UpdateFuelPumpPayload = Partial<CreateFuelPumpPayload>;
 
 export interface FuelPumpFilters {
   search?: string;
@@ -56,9 +46,7 @@ export interface FuelPumpFilters {
 export interface FuelPumpsResponse {
   success: boolean;
 
-  pagination:
-    | OffsetPagination
-    | CursorPagination;
+  pagination: OffsetPagination | CursorPagination;
 
   data: FuelPump[];
 }

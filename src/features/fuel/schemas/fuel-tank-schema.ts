@@ -5,33 +5,23 @@ const optionalNumberField = z
   .trim()
   .refine(
     (value) =>
-      value === "" ||
-      (Number.isFinite(Number(value)) &&
-        Number(value) >= 0),
+      value === "" || (Number.isFinite(Number(value)) && Number(value) >= 0),
     {
-      message:
-        "Please enter a valid non-negative number.",
+      message: "Please enter a valid non-negative number.",
     },
   )
-  .transform((value) =>
-    value === "" ? undefined : Number(value),
-  );
+  .transform((value) => (value === "" ? undefined : Number(value)));
 
 const optionalLocationField = z
   .string()
   .trim()
   .refine(
-    (value) =>
-      value === "" ||
-      z.string().uuid().safeParse(value).success,
+    (value) => value === "" || z.string().uuid().safeParse(value).success,
     {
-      message:
-        "Please select a valid location.",
+      message: "Please select a valid location.",
     },
   )
-  .transform((value) =>
-    value === "" ? undefined : value,
-  );
+  .transform((value) => (value === "" ? undefined : value));
 
 export const fuelTankSchema = z
   .object({
@@ -39,37 +29,22 @@ export const fuelTankSchema = z
       .string()
       .trim()
       .min(1, "Tank name is required.")
-      .min(
-        2,
-        "Tank name must contain at least 2 characters.",
-      )
-      .max(
-        100,
-        "Tank name cannot exceed 100 characters.",
-      ),
+      .min(2, "Tank name must contain at least 2 characters.")
+      .max(100, "Tank name cannot exceed 100 characters."),
 
     fuel_type: z
       .string()
       .trim()
       .min(1, "Please select a fuel type.")
-      .max(
-        50,
-        "Fuel type cannot exceed 50 characters.",
-      ),
+      .max(50, "Fuel type cannot exceed 50 characters."),
 
     capacity: z
       .string()
       .trim()
       .min(1, "Tank capacity is required.")
-      .refine(
-        (value) =>
-          Number.isFinite(Number(value)) &&
-          Number(value) >= 0,
-        {
-          message:
-            "Capacity must be a valid non-negative number.",
-        },
-      )
+      .refine((value) => Number.isFinite(Number(value)) && Number(value) >= 0, {
+        message: "Capacity must be a valid non-negative number.",
+      })
       .transform((value) => Number(value)),
 
     current_stock: optionalNumberField,
@@ -78,9 +53,7 @@ export const fuelTankSchema = z
 
     status: z
       .enum(["", "Active", "Inactive"])
-      .transform((value) =>
-        value === "" ? undefined : value,
-      ),
+      .transform((value) => (value === "" ? undefined : value)),
   })
   .superRefine((values, context) => {
     if (
@@ -90,16 +63,11 @@ export const fuelTankSchema = z
       context.addIssue({
         code: "custom",
         path: ["current_stock"],
-        message:
-          "Current stock cannot exceed tank capacity.",
+        message: "Current stock cannot exceed tank capacity.",
       });
     }
   });
 
-export type FuelTankFormInput = z.input<
-  typeof fuelTankSchema
->;
+export type FuelTankFormInput = z.input<typeof fuelTankSchema>;
 
-export type FuelTankFormValues = z.output<
-  typeof fuelTankSchema
->;
+export type FuelTankFormValues = z.output<typeof fuelTankSchema>;

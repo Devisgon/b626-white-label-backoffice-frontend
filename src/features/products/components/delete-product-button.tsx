@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  LoaderCircle,
-  Trash2,
-  X,
-} from "lucide-react";
+import { LoaderCircle, Trash2, X } from "lucide-react";
 
 interface DeleteProductButtonProps {
   productId: number;
@@ -20,39 +16,36 @@ export function DeleteProductButton({
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-async function handleDelete() {
-  setIsSubmitting(true);
+  async function handleDelete() {
+    setIsSubmitting(true);
 
-  /*
-   * Temporary frontend testing.
-   * Backend connect honay par:
-   *
-   * await deleteProduct(productId);
-   */
+    /*
+     * Temporary frontend testing.
+     * Backend connect honay par:
+     *
+     * await deleteProduct(productId);
+     */
 
-  console.log({
-    action: "delete-product",
-    productId,
-    productName,
-  });
+    console.log({
+      action: "delete-product",
+      productId,
+      productName,
+    });
 
-  await new Promise<void>((resolve) => {
-    window.setTimeout(resolve, 700);
-  });
+    await new Promise<void>((resolve) => {
+      window.setTimeout(resolve, 700);
+    });
 
-  setIsSubmitting(false);
-  setIsOpen(false);
+    setIsSubmitting(false);
+    setIsOpen(false);
 
-  window.alert(
-    `${productName} has been prepared for deletion.`,
-  );
+    window.alert(`${productName} has been prepared for deletion.`);
 
-  router.push("/products");
-  router.refresh();
-}
+    router.push("/products");
+    router.refresh();
+  }
 
   return (
     <>
@@ -91,16 +84,11 @@ async function handleDelete() {
                 </span>
 
                 <div>
-                  <h2
-                    id="delete-product-title"
-                    className="font-bold"
-                  >
+                  <h2 id="delete-product-title" className="font-bold">
                     Delete product
                   </h2>
 
-                  <p className="mt-1 text-xs text-muted">
-                    {productName}
-                  </p>
+                  <p className="mt-1 text-xs text-muted">{productName}</p>
                 </div>
               </div>
 
@@ -122,14 +110,13 @@ async function handleDelete() {
 
             <div className="p-5">
               <p className="text-sm leading-6 text-muted">
-                This product will be removed from the active
-                catalogue and will no longer be available
-                for normal product operations.
+                This product will be removed from the active catalogue and will
+                no longer be available for normal product operations.
               </p>
 
               <div className="mt-5 rounded-xl bg-red-50 px-4 py-3 text-xs leading-5 text-red-700">
-                Please confirm that you want to delete this
-                product. This is a soft-delete action.
+                Please confirm that you want to delete this product. This is a
+                soft-delete action.
               </div>
             </div>
 
@@ -167,9 +154,7 @@ async function handleDelete() {
                   <Trash2 className="size-4" />
                 )}
 
-                {isSubmitting
-                  ? "Deleting..."
-                  : "Delete product"}
+                {isSubmitting ? "Deleting..." : "Delete product"}
               </button>
             </div>
           </div>

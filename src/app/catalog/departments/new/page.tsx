@@ -32,8 +32,7 @@ export default function CreateDepartmentPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Create a department and configure its tax
-              and POS defaults.
+              Create a department and configure its tax and POS defaults.
             </p>
           </div>
         </section>

@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  ArrowRightLeft,
-  CalendarDays,
-  Save,
-} from "lucide-react";
+import { ArrowRightLeft, CalendarDays, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -52,25 +48,16 @@ const clearingAccountOptions = [
 export function TransferForm() {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: {
-      errors,
-      isSubmitting,
-    },
-  } = useForm<
-    TransferFormInput,
-    unknown,
-    TransferFormValues
-  >({
+    formState: { errors, isSubmitting },
+  } = useForm<TransferFormInput, unknown, TransferFormValues>({
     resolver: zodResolver(transferSchema),
     defaultValues: {
       sourceAccountId: "",
@@ -82,13 +69,9 @@ export function TransferForm() {
     },
   });
 
-  const selectedSourceAccountId = watch(
-    "sourceAccountId",
-  );
+  const selectedSourceAccountId = watch("sourceAccountId");
 
-  async function onSubmit(
-    values: TransferFormValues,
-  ) {
+  async function onSubmit(values: TransferFormValues) {
     setServerError("");
     setSuccessMessage("");
 
@@ -117,18 +100,14 @@ export function TransferForm() {
 
       console.log("Transfer submitted:", values);
 
-      setSuccessMessage(
-        "Transfer created successfully.",
-      );
+      setSuccessMessage("Transfer created successfully.");
 
       window.setTimeout(() => {
         router.push("/bank/transfers");
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to create the transfer. Please try again.",
-      );
+      setServerError("Unable to create the transfer. Please try again.");
     }
   }
 
@@ -154,13 +133,10 @@ export function TransferForm() {
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Transfer information
-          </h2>
+          <h2 className="text-lg font-bold">Transfer information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Enter the accounts, amount and transfer
-            details.
+            Enter the accounts, amount and transfer details.
           </p>
         </div>
       </div>
@@ -194,12 +170,8 @@ export function TransferForm() {
 
       <div className="mt-7 grid gap-5 sm:grid-cols-2">
         <div>
-          <label
-            htmlFor="sourceAccountId"
-            className="text-sm font-semibold"
-          >
-            Source bank account{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="sourceAccountId" className="text-sm font-semibold">
+            Source bank account <span className="text-danger">*</span>
           </label>
 
           <select
@@ -211,22 +183,13 @@ export function TransferForm() {
               outline-none transition
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.sourceAccountId
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.sourceAccountId ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="">
-              Select source account
-            </option>
+            <option value="">Select source account</option>
 
             {bankAccountOptions.map((account) => (
-              <option
-                key={account.id}
-                value={account.id}
-              >
+              <option key={account.id} value={account.id}>
                 {account.name} — {account.helper}
               </option>
             ))}
@@ -244,8 +207,7 @@ export function TransferForm() {
             htmlFor="destinationAccountId"
             className="text-sm font-semibold"
           >
-            Destination bank account{" "}
-            <span className="text-danger">*</span>
+            Destination bank account <span className="text-danger">*</span>
           </label>
 
           <select
@@ -258,24 +220,17 @@ export function TransferForm() {
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
               ${
-                errors.destinationAccountId
-                  ? "border-red-300"
-                  : "border-border"
+                errors.destinationAccountId ? "border-red-300" : "border-border"
               }
             `}
           >
-            <option value="">
-              Select destination account
-            </option>
+            <option value="">Select destination account</option>
 
             {bankAccountOptions.map((account) => (
               <option
                 key={account.id}
                 value={account.id}
-                disabled={
-                  account.id ===
-                  selectedSourceAccountId
-                }
+                disabled={account.id === selectedSourceAccountId}
               >
                 {account.name} — {account.helper}
               </option>
@@ -284,21 +239,14 @@ export function TransferForm() {
 
           {errors.destinationAccountId?.message && (
             <p className="mt-1.5 text-xs text-danger">
-              {
-                errors.destinationAccountId
-                  .message
-              }
+              {errors.destinationAccountId.message}
             </p>
           )}
         </div>
 
         <div>
-          <label
-            htmlFor="amount"
-            className="text-sm font-semibold"
-          >
-            Transfer amount{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="amount" className="text-sm font-semibold">
+            Transfer amount <span className="text-danger">*</span>
           </label>
 
           <div className="relative mt-2">
@@ -326,11 +274,7 @@ export function TransferForm() {
                 text-foreground outline-none transition
                 focus:border-primary
                 focus:ring-4 focus:ring-primary/10
-                ${
-                  errors.amount
-                    ? "border-red-300"
-                    : "border-border"
-                }
+                ${errors.amount ? "border-red-300" : "border-border"}
               `}
             />
           </div>
@@ -343,12 +287,8 @@ export function TransferForm() {
         </div>
 
         <div>
-          <label
-            htmlFor="transferDate"
-            className="text-sm font-semibold"
-          >
-            Transfer date{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="transferDate" className="text-sm font-semibold">
+            Transfer date <span className="text-danger">*</span>
           </label>
 
           <div className="relative mt-2">
@@ -370,11 +310,7 @@ export function TransferForm() {
                 text-foreground outline-none transition
                 focus:border-primary
                 focus:ring-4 focus:ring-primary/10
-                ${
-                  errors.transferDate
-                    ? "border-red-300"
-                    : "border-border"
-                }
+                ${errors.transferDate ? "border-red-300" : "border-border"}
               `}
             />
           </div>
@@ -391,15 +327,12 @@ export function TransferForm() {
             htmlFor="transferClearingAccountId"
             className="text-sm font-semibold"
           >
-            Transfer clearing account{" "}
-            <span className="text-danger">*</span>
+            Transfer clearing account <span className="text-danger">*</span>
           </label>
 
           <select
             id="transferClearingAccountId"
-            {...register(
-              "transferClearingAccountId",
-            )}
+            {...register("transferClearingAccountId")}
             className={`
               mt-2 h-11 w-full rounded-xl border
               bg-white px-4 text-sm text-foreground
@@ -413,38 +346,24 @@ export function TransferForm() {
               }
             `}
           >
-            <option value="">
-              Select clearing account
-            </option>
+            <option value="">Select clearing account</option>
 
-            {clearingAccountOptions.map(
-              (account) => (
-                <option
-                  key={account.id}
-                  value={account.id}
-                >
-                  {account.code} — {account.name}
-                </option>
-              ),
-            )}
+            {clearingAccountOptions.map((account) => (
+              <option key={account.id} value={account.id}>
+                {account.code} — {account.name}
+              </option>
+            ))}
           </select>
 
-          {errors.transferClearingAccountId
-            ?.message && (
+          {errors.transferClearingAccountId?.message && (
             <p className="mt-1.5 text-xs text-danger">
-              {
-                errors.transferClearingAccountId
-                  .message
-              }
+              {errors.transferClearingAccountId.message}
             </p>
           )}
         </div>
 
         <div className="sm:col-span-2">
-          <label
-            htmlFor="memo"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="memo" className="text-sm font-semibold">
             Memo
           </label>
 
@@ -459,18 +378,12 @@ export function TransferForm() {
               text-foreground outline-none transition
               focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.memo
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.memo ? "border-red-300" : "border-border"}
             `}
           />
 
           {errors.memo?.message && (
-            <p className="mt-1.5 text-xs text-danger">
-              {errors.memo.message}
-            </p>
+            <p className="mt-1.5 text-xs text-danger">{errors.memo.message}</p>
           )}
         </div>
       </div>
@@ -515,9 +428,7 @@ export function TransferForm() {
         >
           <Save className="size-4" />
 
-          {isSubmitting
-            ? "Creating transfer..."
-            : "Create transfer"}
+          {isSubmitting ? "Creating transfer..." : "Create transfer"}
         </button>
       </div>
     </form>

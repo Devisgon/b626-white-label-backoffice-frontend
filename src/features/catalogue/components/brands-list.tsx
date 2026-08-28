@@ -12,17 +12,13 @@ import {
   Trash2,
 } from "lucide-react";
 
-import type {
-  Brand,
-  BrandStatus,
-} from "@/features/catalogue/types";
+import type { Brand, BrandStatus } from "@/features/catalogue/types";
 
 const initialBrands: Brand[] = [
   {
     id: 1,
     name: "Nestle",
-    description:
-      "Food, beverage and consumer product brand",
+    description: "Food, beverage and consumer product brand",
     status: "Active",
     createdAt: "17 Aug 2026",
     updatedAt: "20 Aug 2026",
@@ -30,8 +26,7 @@ const initialBrands: Brand[] = [
   {
     id: 2,
     name: "Coca-Cola",
-    description:
-      "Soft drinks and beverage products",
+    description: "Soft drinks and beverage products",
     status: "Active",
     createdAt: "17 Aug 2026",
     updatedAt: "19 Aug 2026",
@@ -39,8 +34,7 @@ const initialBrands: Brand[] = [
   {
     id: 3,
     name: "Unilever",
-    description:
-      "Personal care and household products",
+    description: "Personal care and household products",
     status: "Active",
     createdAt: "16 Aug 2026",
     updatedAt: "19 Aug 2026",
@@ -48,8 +42,7 @@ const initialBrands: Brand[] = [
   {
     id: 4,
     name: "Local Choice",
-    description:
-      "Locally sourced store products",
+    description: "Locally sourced store products",
     status: "Inactive",
     createdAt: "15 Aug 2026",
     updatedAt: "18 Aug 2026",
@@ -57,13 +50,11 @@ const initialBrands: Brand[] = [
 ];
 
 export function BrandsList() {
-  const [brands, setBrands] =
-    useState<Brand[]>(initialBrands);
+  const [brands, setBrands] = useState<Brand[]>(initialBrands);
 
   const [search, setSearch] = useState("");
 
-  const [status, setStatus] =
-    useState<BrandStatus | "all">("all");
+  const [status, setStatus] = useState<BrandStatus | "all">("all");
 
   const filteredBrands = useMemo(() => {
     const searchValue = search.trim().toLowerCase();
@@ -71,12 +62,9 @@ export function BrandsList() {
     return brands.filter((brand) => {
       const matchesSearch =
         brand.name.toLowerCase().includes(searchValue) ||
-        brand.description
-          .toLowerCase()
-          .includes(searchValue);
+        brand.description.toLowerCase().includes(searchValue);
 
-      const matchesStatus =
-        status === "all" || brand.status === status;
+      const matchesStatus = status === "all" || brand.status === status;
 
       return matchesSearch && matchesStatus;
     });
@@ -86,8 +74,7 @@ export function BrandsList() {
     (brand) => brand.status === "Active",
   ).length;
 
-  const inactiveBrands =
-    brands.length - activeBrands;
+  const inactiveBrands = brands.length - activeBrands;
 
   function resetFilters() {
     setSearch("");
@@ -104,9 +91,7 @@ export function BrandsList() {
     }
 
     setBrands((currentBrands) =>
-      currentBrands.filter(
-        (brand) => brand.id !== id,
-      ),
+      currentBrands.filter((brand) => brand.id !== id),
     );
   }
 
@@ -147,9 +132,7 @@ export function BrandsList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Brand records
-            </h2>
+            <h2 className="font-bold">Brand records</h2>
 
             <p className="mt-1 text-xs text-muted">
               Search, review and manage product brands.
@@ -177,9 +160,7 @@ export function BrandsList() {
           "
         >
           <label className="relative flex-1">
-            <span className="sr-only">
-              Search brands
-            </span>
+            <span className="sr-only">Search brands</span>
 
             <Search
               className="
@@ -191,9 +172,7 @@ export function BrandsList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by brand name or description..."
               className="
                 h-11 w-full rounded-xl border
@@ -209,11 +188,7 @@ export function BrandsList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | BrandStatus
-                  | "all",
-              )
+              setStatus(event.target.value as BrandStatus | "all")
             }
             aria-label="Filter brands by status"
             className="
@@ -253,25 +228,15 @@ export function BrandsList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Brand
-                </th>
+                <th className="px-5 py-4">Brand</th>
 
-                <th className="px-5 py-4">
-                  Description
-                </th>
+                <th className="px-5 py-4">Description</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4">
-                  Updated
-                </th>
+                <th className="px-5 py-4">Updated</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -296,27 +261,19 @@ export function BrandsList() {
                         <Building2 className="size-4" />
                       </span>
 
-                      <span className="font-semibold">
-                        {brand.name}
-                      </span>
+                      <span className="font-semibold">{brand.name}</span>
                     </div>
                   </td>
 
                   <td className="max-w-xs px-5 py-4 text-muted">
-                    <p className="truncate">
-                      {brand.description}
-                    </p>
+                    <p className="truncate">{brand.description}</p>
                   </td>
 
                   <td className="px-5 py-4">
-                    <BrandStatusBadge
-                      status={brand.status}
-                    />
+                    <BrandStatusBadge status={brand.status} />
                   </td>
 
-                  <td className="px-5 py-4 text-muted">
-                    {brand.updatedAt}
-                  </td>
+                  <td className="px-5 py-4 text-muted">{brand.updatedAt}</td>
 
                   <td className="px-5 py-4">
                     <div className="flex justify-end gap-2">
@@ -352,9 +309,7 @@ export function BrandsList() {
 
                       <button
                         type="button"
-                        onClick={() =>
-                          removeBrand(brand.id)
-                        }
+                        onClick={() => removeBrand(brand.id)}
                         aria-label={`Delete ${brand.name}`}
                         className="
                           flex size-9 items-center justify-center
@@ -378,9 +333,7 @@ export function BrandsList() {
             <div className="px-5 py-14 text-center">
               <Building2 className="mx-auto size-8 text-muted-light" />
 
-              <p className="mt-3 text-sm font-semibold">
-                No brands found
-              </p>
+              <p className="mt-3 text-sm font-semibold">No brands found</p>
 
               <p className="mt-1 text-xs text-muted">
                 Try changing your search or status filter.
@@ -397,8 +350,7 @@ export function BrandsList() {
           "
         >
           <span>
-            Showing {filteredBrands.length} of{" "}
-            {brands.length} brands
+            Showing {filteredBrands.length} of {brands.length} brands
           </span>
 
           <span>Dummy data for frontend testing</span>
@@ -414,11 +366,7 @@ interface StatCardProps {
   helper: string;
 }
 
-function StatCard({
-  label,
-  value,
-  helper,
-}: StatCardProps) {
+function StatCard({ label, value, helper }: StatCardProps) {
   return (
     <article
       className="
@@ -428,26 +376,16 @@ function StatCard({
         hover:shadow-[var(--shadow-md)]
       "
     >
-      <p className="text-xs text-muted">
-        {label}
-      </p>
+      <p className="text-xs text-muted">{label}</p>
 
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
 
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }
 
-function BrandStatusBadge({
-  status,
-}: {
-  status: BrandStatus;
-}) {
+function BrandStatusBadge({ status }: { status: BrandStatus }) {
   const styles =
     status === "Active"
       ? "bg-emerald-50 text-emerald-700"

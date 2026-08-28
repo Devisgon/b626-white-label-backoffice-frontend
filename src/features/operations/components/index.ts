@@ -10,4 +10,3 @@ export { MaintenanceLogActionButton } from "./maintenance-log-action-button";
 export { ShiftsList } from "./shifts-list";
 export { ShiftForm } from "./shift-form";
 export { ShiftActionButton } from "./shift-action-button";
-

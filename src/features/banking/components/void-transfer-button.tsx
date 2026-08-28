@@ -2,10 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Ban,
-  X,
-} from "lucide-react";
+import { Ban, X } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -26,17 +23,13 @@ export function VoidTransferButton({
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<VoidTransferFormValues>({
     resolver: zodResolver(voidTransferSchema),
     defaultValues: {
@@ -54,9 +47,7 @@ export function VoidTransferButton({
     reset();
   }
 
-  async function onSubmit(
-    values: VoidTransferFormValues,
-  ) {
+  async function onSubmit(values: VoidTransferFormValues) {
     setServerError("");
 
     try {
@@ -79,16 +70,12 @@ export function VoidTransferButton({
         voidReason: values.voidReason,
       });
 
-      window.alert(
-        "Transfer has been prepared for voiding.",
-      );
+      window.alert("Transfer has been prepared for voiding.");
 
       closeDialog();
       router.refresh();
     } catch {
-      setServerError(
-        "Unable to void the transfer. Please try again.",
-      );
+      setServerError("Unable to void the transfer. Please try again.");
     }
   }
 
@@ -114,9 +101,7 @@ export function VoidTransferButton({
       >
         <Ban className="size-4" />
 
-        {disabled
-          ? "Transfer voided"
-          : "Void transfer"}
+        {disabled ? "Transfer voided" : "Void transfer"}
       </button>
 
       {isOpen && (
@@ -144,16 +129,13 @@ export function VoidTransferButton({
               "
             >
               <div>
-                <h2
-                  id="void-transfer-title"
-                  className="font-bold"
-                >
+                <h2 id="void-transfer-title" className="font-bold">
                   Void transfer
                 </h2>
 
                 <p className="mt-1 text-xs leading-5 text-muted">
-                  This will reverse both sides of the
-                  transfer. A reason is required.
+                  This will reverse both sides of the transfer. A reason is
+                  required.
                 </p>
               </div>
 
@@ -174,11 +156,7 @@ export function VoidTransferButton({
               </button>
             </div>
 
-            <form
-              noValidate
-              onSubmit={handleSubmit(onSubmit)}
-              className="p-5"
-            >
+            <form noValidate onSubmit={handleSubmit(onSubmit)} className="p-5">
               {serverError && (
                 <div
                   role="alert"
@@ -194,14 +172,8 @@ export function VoidTransferButton({
               )}
 
               <div>
-                <label
-                  htmlFor="voidReason"
-                  className="text-sm font-semibold"
-                >
-                  Void reason{" "}
-                  <span className="text-danger">
-                    *
-                  </span>
+                <label htmlFor="voidReason" className="text-sm font-semibold">
+                  Void reason <span className="text-danger">*</span>
                 </label>
 
                 <textarea
@@ -217,11 +189,7 @@ export function VoidTransferButton({
                     transition focus:border-primary
                     focus:ring-4
                     focus:ring-primary/10
-                    ${
-                      errors.voidReason
-                        ? "border-red-300"
-                        : "border-border"
-                    }
+                    ${errors.voidReason ? "border-red-300" : "border-border"}
                   `}
                 />
 
@@ -273,9 +241,7 @@ export function VoidTransferButton({
                 >
                   <Ban className="size-4" />
 
-                  {isSubmitting
-                    ? "Voiding..."
-                    : "Confirm void"}
+                  {isSubmitting ? "Voiding..." : "Confirm void"}
                 </button>
               </div>
             </form>

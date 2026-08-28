@@ -1,6 +1,4 @@
-export type FuelTankStatus =
-  | "Active"
-  | "Inactive";
+export type FuelTankStatus = "Active" | "Inactive";
 
 export type FuelTankSortField =
   | "id"
@@ -41,8 +39,7 @@ export interface CreateFuelTankPayload {
   status?: FuelTankStatus;
 }
 
-export type UpdateFuelTankPayload =
-  Partial<CreateFuelTankPayload>;
+export type UpdateFuelTankPayload = Partial<CreateFuelTankPayload>;
 
 export interface FuelTankFilters {
   search?: string;
@@ -73,9 +70,7 @@ export interface CursorPagination {
 
 export interface FuelTanksResponse {
   success: boolean;
-  pagination:
-    | OffsetPagination
-    | CursorPagination;
+  pagination: OffsetPagination | CursorPagination;
   data: FuelTank[];
 }
 

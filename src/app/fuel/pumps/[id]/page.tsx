@@ -1,16 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Database,
-  Fuel,
-  MapPin,
-  Pencil,
-} from "lucide-react";
+import { ArrowLeft, Database, Fuel, MapPin, Pencil } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelPumpActionButton,
-} from "@/features/fuel/components";
+import { FuelPumpActionButton } from "@/features/fuel/components";
 
 interface FuelPumpDetailsPageProps {
   params: Promise<{ id: string }>;
@@ -45,9 +37,7 @@ export default async function FuelPumpDetailsPage({
 }: FuelPumpDetailsPageProps) {
   const { id } = await params;
 
-  const pump =
-    pumps[id as keyof typeof pumps] ??
-    pumps["1"];
+  const pump = pumps[id as keyof typeof pumps] ?? pumps["1"];
 
   return (
     <AppShell>
@@ -67,18 +57,14 @@ export default async function FuelPumpDetailsPage({
               </p>
 
               <div className="mt-2 flex items-center gap-3">
-                <h1 className="text-2xl font-bold sm:text-3xl">
-                  {pump.name}
-                </h1>
+                <h1 className="text-2xl font-bold sm:text-3xl">{pump.name}</h1>
 
                 <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold text-emerald-700">
                   {pump.status}
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Pump ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Pump ID: {id}</p>
             </div>
           </div>
 
@@ -106,17 +92,9 @@ export default async function FuelPumpDetailsPage({
             icon={Database}
           />
 
-          <InfoCard
-            title="Fuel type"
-            value={pump.fuelType}
-            icon={Fuel}
-          />
+          <InfoCard title="Fuel type" value={pump.fuelType} icon={Fuel} />
 
-          <InfoCard
-            title="Location"
-            value={pump.location}
-            icon={MapPin}
-          />
+          <InfoCard title="Location" value={pump.location} icon={MapPin} />
         </section>
       </div>
     </AppShell>
@@ -139,12 +117,8 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
+        <p className="mt-1 truncate font-bold">{value}</p>
       </div>
     </article>
   );

@@ -1,23 +1,10 @@
 "use client";
 
-import {
-  Suspense,
-  useEffect,
-  useState,
-} from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
-import {
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
-import {
-  Eye,
-  EyeOff,
-  KeyRound,
-  LockKeyhole,
-  Mail,
-} from "lucide-react";
+import { Eye, EyeOff, KeyRound, LockKeyhole, Mail } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -42,10 +29,7 @@ function ResetPasswordForm() {
     register,
     handleSubmit,
     reset,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<ResetPasswordFormValues>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
@@ -65,9 +49,7 @@ function ResetPasswordForm() {
     });
   }, [emailFromUrl, reset]);
 
-  async function onSubmit(
-    values: ResetPasswordFormValues,
-  ) {
+  async function onSubmit(values: ResetPasswordFormValues) {
     setServerError("");
 
     try {
@@ -87,9 +69,7 @@ function ResetPasswordForm() {
         } else if (typeof message === "string") {
           setServerError(message);
         } else if (!error.response) {
-          setServerError(
-            "Unable to connect to the server. Please try again.",
-          );
+          setServerError("Unable to connect to the server. Please try again.");
         } else {
           setServerError(
             "Unable to reset your password. Please check the code.",
@@ -99,23 +79,15 @@ function ResetPasswordForm() {
         return;
       }
 
-      setServerError(
-        "Something went wrong. Please try again.",
-      );
+      setServerError("Something went wrong. Please try again.");
     }
   }
 
   const passwordToggle = (
     <button
       type="button"
-      onClick={() =>
-        setShowPassword((previous) => !previous)
-      }
-      aria-label={
-        showPassword
-          ? "Hide passwords"
-          : "Show passwords"
-      }
+      onClick={() => setShowPassword((previous) => !previous)}
+      aria-label={showPassword ? "Hide passwords" : "Show passwords"}
       className="
         flex size-8 items-center justify-center
         rounded-lg text-muted transition-colors
@@ -142,8 +114,7 @@ function ResetPasswordForm() {
         </h1>
 
         <p className="mt-3 text-sm leading-6 text-muted">
-          Enter the 6-digit code sent to your email and
-          choose a new password.
+          Enter the 6-digit code sent to your email and choose a new password.
         </p>
       </div>
 

@@ -7,17 +7,9 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import {
-  USER_ROLES,
-  type UserRole,
-} from "@/types/role";
+import { USER_ROLES, type UserRole } from "@/types/role";
 
-export type FuelModuleColor =
-  | "green"
-  | "blue"
-  | "purple"
-  | "orange"
-  | "red";
+export type FuelModuleColor = "green" | "blue" | "purple" | "orange" | "red";
 
 export interface FuelModule {
   title: string;
@@ -38,8 +30,7 @@ const FUEL_ROLES: UserRole[] = [
 export const fuelModules: FuelModule[] = [
   {
     title: "Fuel Tanks",
-    description:
-      "Manage fuel tanks, capacity and current stock",
+    description: "Manage fuel tanks, capacity and current stock",
     href: "/fuel/tanks",
     icon: Database,
     color: "green",
@@ -47,8 +38,7 @@ export const fuelModules: FuelModule[] = [
   },
   {
     title: "Fuel Pumps",
-    description:
-      "Manage pumps and their connected fuel tanks",
+    description: "Manage pumps and their connected fuel tanks",
     href: "/fuel/pumps",
     icon: Fuel,
     color: "blue",
@@ -56,8 +46,7 @@ export const fuelModules: FuelModule[] = [
   },
   {
     title: "Fuel Prices",
-    description:
-      "Manage fuel prices and effective dates",
+    description: "Manage fuel prices and effective dates",
     href: "/fuel/prices",
     icon: BadgeDollarSign,
     color: "purple",
@@ -65,8 +54,7 @@ export const fuelModules: FuelModule[] = [
   },
   {
     title: "Fuel Deliveries",
-    description:
-      "Record supplier deliveries and received stock",
+    description: "Record supplier deliveries and received stock",
     href: "/fuel/deliveries",
     icon: Truck,
     color: "orange",
@@ -74,8 +62,7 @@ export const fuelModules: FuelModule[] = [
   },
   {
     title: "Fuel Sales",
-    description:
-      "Manage pump readings and fuel sales",
+    description: "Manage pump readings and fuel sales",
     href: "/fuel/sales",
     icon: ReceiptText,
     color: "red",

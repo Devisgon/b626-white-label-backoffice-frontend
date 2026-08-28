@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Warehouse,
-} from "lucide-react";
+import { ArrowLeft, Warehouse } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { InventoryForm } from "@/features/catalogue/components";
@@ -46,8 +43,7 @@ export default function NewInventoryPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Add product stock and warehouse
-              quantity information.
+              Add product stock and warehouse quantity information.
             </p>
           </div>
         </section>

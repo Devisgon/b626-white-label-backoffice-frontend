@@ -74,9 +74,7 @@ export default async function SaleDetailsPage({
 }: SaleDetailsPageProps) {
   const { id } = await params;
   const currentStatus =
-  id === "5"
-    ? ("cancelled" as const)
-    : saleDetails.status;
+    id === "5" ? ("cancelled" as const) : saleDetails.status;
 
   return (
     <AppShell>
@@ -107,7 +105,7 @@ export default async function SaleDetailsPage({
                   {saleDetails.saleNumber}
                 </h1>
 
-               <SaleStatusBadge status={currentStatus} />
+                <SaleStatusBadge status={currentStatus} />
               </div>
 
               <p className="mt-2 text-sm text-muted">
@@ -168,8 +166,7 @@ export default async function SaleDetailsPage({
           <InfoCard
             title="Total items"
             value={`${saleDetails.items.reduce(
-              (total, item) =>
-                total + item.quantity,
+              (total, item) => total + item.quantity,
               0,
             )} items`}
             helper={`${saleDetails.items.length} different products`}
@@ -180,9 +177,7 @@ export default async function SaleDetailsPage({
         <div className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_330px]">
           <section className="overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-sm)]">
             <div className="border-b border-border p-5">
-              <h2 className="font-bold">
-                Purchased items
-              </h2>
+              <h2 className="font-bold">Purchased items</h2>
 
               <p className="mt-1 text-xs text-muted">
                 Products included in this transaction.
@@ -193,47 +188,30 @@ export default async function SaleDetailsPage({
               <table className="w-full min-w-[650px] text-left">
                 <thead className="bg-surface-secondary">
                   <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                    <th className="px-5 py-4">
-                      Product
-                    </th>
+                    <th className="px-5 py-4">Product</th>
 
-                    <th className="px-5 py-4">
-                      Price
-                    </th>
+                    <th className="px-5 py-4">Price</th>
 
-                    <th className="px-5 py-4">
-                      Quantity
-                    </th>
+                    <th className="px-5 py-4">Quantity</th>
 
-                    <th className="px-5 py-4 text-right">
-                      Total
-                    </th>
+                    <th className="px-5 py-4 text-right">Total</th>
                   </tr>
                 </thead>
 
                 <tbody className="divide-y divide-border">
                   {saleDetails.items.map((item) => (
-                    <tr
-                      key={item.id}
-                      className="text-sm"
-                    >
+                    <tr key={item.id} className="text-sm">
                       <td className="px-5 py-4">
-                        <p className="font-semibold">
-                          {item.name}
-                        </p>
+                        <p className="font-semibold">{item.name}</p>
 
-                        <p className="mt-1 text-xs text-muted">
-                          {item.sku}
-                        </p>
+                        <p className="mt-1 text-xs text-muted">{item.sku}</p>
                       </td>
 
                       <td className="px-5 py-4 text-muted">
                         {formatCurrency(item.price)}
                       </td>
 
-                      <td className="px-5 py-4">
-                        {item.quantity}
-                      </td>
+                      <td className="px-5 py-4">{item.quantity}</td>
 
                       <td className="px-5 py-4 text-right font-semibold">
                         {formatCurrency(item.total)}
@@ -252,13 +230,9 @@ export default async function SaleDetailsPage({
               </span>
 
               <div>
-                <h2 className="font-bold">
-                  Payment summary
-                </h2>
+                <h2 className="font-bold">Payment summary</h2>
 
-                <p className="text-xs text-muted">
-                  Transaction totals
-                </p>
+                <p className="text-xs text-muted">Transaction totals</p>
               </div>
             </div>
 
@@ -266,39 +240,26 @@ export default async function SaleDetailsPage({
               <div className="flex justify-between gap-4 text-muted">
                 <span>Subtotal</span>
 
-                <span>
-                  {formatCurrency(
-                    saleDetails.subtotal,
-                  )}
-                </span>
+                <span>{formatCurrency(saleDetails.subtotal)}</span>
               </div>
 
               <div className="flex justify-between gap-4 text-muted">
                 <span>Tax</span>
 
-                <span>
-                  {formatCurrency(saleDetails.tax)}
-                </span>
+                <span>{formatCurrency(saleDetails.tax)}</span>
               </div>
 
               <div className="flex justify-between gap-4 text-muted">
                 <span>Discount</span>
 
-                <span>
-                  −{" "}
-                  {formatCurrency(
-                    saleDetails.discount,
-                  )}
-                </span>
+                <span>− {formatCurrency(saleDetails.discount)}</span>
               </div>
 
               <div className="flex justify-between gap-4 border-t border-border pt-4 text-lg font-bold">
                 <span>Total</span>
 
                 <span className="text-primary">
-                  {formatCurrency(
-                    saleDetails.total,
-                  )}
+                  {formatCurrency(saleDetails.total)}
                 </span>
               </div>
             </div>
@@ -316,12 +277,7 @@ interface InfoCardProps {
   icon: React.ElementType;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon: Icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon: Icon }: InfoCardProps) {
   return (
     <article className="flex items-center gap-4 rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
       <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
@@ -329,17 +285,11 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );

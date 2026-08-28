@@ -58,22 +58,16 @@ export interface DepartmentsResult {
   pagination: DepartmentsResponse["pagination"];
 }
 
-function mapDepartment(
-  department: BackendDepartment,
-): Department {
+function mapDepartment(department: BackendDepartment): Department {
   return {
     id: Number(department.id),
     name: department.name,
     description: department.description ?? "",
-    defaultTaxRate:
-      department.default_tax_rate ?? null,
-    defaultMargin:
-      department.default_margin ?? null,
-    ageRestriction:
-      department.age_restriction ?? false,
+    defaultTaxRate: department.default_tax_rate ?? null,
+    defaultMargin: department.default_margin ?? null,
+    ageRestriction: department.age_restriction ?? false,
     nacsCode: department.nacs_code ?? "",
-    posDepartmentNumber:
-      department.pos_department_number ?? null,
+    posDepartmentNumber: department.pos_department_number ?? null,
     status: department.status,
     createdAt: department.created_at,
     updatedAt: department.updated_at,
@@ -83,72 +77,59 @@ function mapDepartment(
 export async function getDepartments(
   filters: DepartmentFilters = {},
 ): Promise<DepartmentsResult> {
-  const response =
-    await apiClient.get<DepartmentsResponse>(
-      "/catalogue/departments",
-      {
-        params: {
-          search: filters.search || undefined,
+  const response = await apiClient.get<DepartmentsResponse>(
+    "/catalogue/departments",
+    {
+      params: {
+        search: filters.search || undefined,
 
-          status:
-            filters.status === "all"
-              ? undefined
-              : filters.status,
+        status: filters.status === "all" ? undefined : filters.status,
 
-          page: filters.page,
-          cursor: filters.cursor,
-          limit: filters.limit ?? 10,
-          sortBy: filters.sortBy,
-          order: filters.order ?? "asc",
-        },
+        page: filters.page,
+        cursor: filters.cursor,
+        limit: filters.limit ?? 10,
+        sortBy: filters.sortBy,
+        order: filters.order ?? "asc",
       },
-    );
+    },
+  );
 
   return {
-    departments:
-      response.data.data.map(mapDepartment),
+    departments: response.data.data.map(mapDepartment),
 
     pagination: response.data.pagination,
   };
 }
 
-export async function getDepartment(
-  id: number,
-): Promise<Department> {
-  const response =
-    await apiClient.get<DepartmentResponse>(
-      `/catalogue/departments/${id}`,
-    );
+export async function getDepartment(id: number): Promise<Department> {
+  const response = await apiClient.get<DepartmentResponse>(
+    `/catalogue/departments/${id}`,
+  );
 
   return mapDepartment(response.data.data);
 }
 
 export async function getDepartmentStats(): Promise<DepartmentStats> {
-  const response =
-    await apiClient.get<DepartmentStatsResponse>(
-      "/catalogue/departments/stats",
-    );
+  const response = await apiClient.get<DepartmentStatsResponse>(
+    "/catalogue/departments/stats",
+  );
 
   return {
-    total:
-      response.data.data.totalDepartments,
+    total: response.data.data.totalDepartments,
 
-    active:
-      response.data.data.activeDepartments,
+    active: response.data.data.activeDepartments,
 
-    inactive:
-      response.data.data.inactiveDepartments,
+    inactive: response.data.data.inactiveDepartments,
   };
 }
 
 export async function createDepartment(
   payload: CreateDepartmentPayload,
 ): Promise<Department> {
-  const response =
-    await apiClient.post<DepartmentResponse>(
-      "/catalogue/departments",
-      payload,
-    );
+  const response = await apiClient.post<DepartmentResponse>(
+    "/catalogue/departments",
+    payload,
+  );
 
   return mapDepartment(response.data.data);
 }
@@ -157,33 +138,26 @@ export async function updateDepartment(
   id: number,
   payload: UpdateDepartmentPayload,
 ): Promise<Department> {
-  const response =
-    await apiClient.patch<DepartmentResponse>(
-      `/catalogue/departments/${id}`,
-      payload,
-    );
+  const response = await apiClient.patch<DepartmentResponse>(
+    `/catalogue/departments/${id}`,
+    payload,
+  );
 
   return mapDepartment(response.data.data);
 }
 
-export async function deleteDepartment(
-  id: number,
-): Promise<Department> {
-  const response =
-    await apiClient.delete<DepartmentResponse>(
-      `/catalogue/departments/${id}`,
-    );
+export async function deleteDepartment(id: number): Promise<Department> {
+  const response = await apiClient.delete<DepartmentResponse>(
+    `/catalogue/departments/${id}`,
+  );
 
   return mapDepartment(response.data.data);
 }
 
-export async function restoreDepartment(
-  id: number,
-): Promise<Department> {
-  const response =
-    await apiClient.patch<DepartmentResponse>(
-      `/catalogue/departments/${id}/restore`,
-    );
+export async function restoreDepartment(id: number): Promise<Department> {
+  const response = await apiClient.patch<DepartmentResponse>(
+    `/catalogue/departments/${id}/restore`,
+  );
 
   return mapDepartment(response.data.data);
 }

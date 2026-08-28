@@ -66,9 +66,7 @@ export async function resendOtp(
   return response.data;
 }
 
-export async function loginUser(
-  data: LoginRequest,
-): Promise<AuthResponse> {
+export async function loginUser(data: LoginRequest): Promise<AuthResponse> {
   const response = await apiClient.post<AuthResponse>(
     `${AUTH_ENDPOINT}/login`,
     data,
@@ -108,9 +106,7 @@ export async function resetPassword(
 }
 
 export async function getCurrentUser(): Promise<AuthUser> {
-  const response = await apiClient.get<AuthUser>(
-    `${AUTH_ENDPOINT}/me`,
-  );
+  const response = await apiClient.get<AuthUser>(`${AUTH_ENDPOINT}/me`);
 
   return response.data;
 }

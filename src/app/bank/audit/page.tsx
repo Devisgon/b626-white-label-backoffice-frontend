@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  FileClock,
-} from "lucide-react";
+import { ArrowLeft, FileClock } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  AuditLogsList,
-} from "@/features/banking/components";
+import { AuditLogsList } from "@/features/banking/components";
 
 export default function BankingAuditPage() {
   return (
@@ -48,9 +43,8 @@ export default function BankingAuditPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Review financial actions, record
-              changes and user activity across the
-              banking module.
+              Review financial actions, record changes and user activity across
+              the banking module.
             </p>
           </div>
         </section>

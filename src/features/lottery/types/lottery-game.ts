@@ -1,6 +1,4 @@
-export type LotteryGameStatus =
-  | "Active"
-  | "Inactive";
+export type LotteryGameStatus = "Active" | "Inactive";
 
 export interface LotteryGame {
   id: number;
@@ -22,8 +20,7 @@ export interface CreateLotteryGamePayload {
   status?: LotteryGameStatus;
 }
 
-export type UpdateLotteryGamePayload =
-  Partial<CreateLotteryGamePayload>;
+export type UpdateLotteryGamePayload = Partial<CreateLotteryGamePayload>;
 
 export interface LotteryGameStats {
   total: number;

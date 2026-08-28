@@ -2,9 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  PayeeForm,
-} from "@/features/banking/components";
+import { PayeeForm } from "@/features/banking/components";
 
 export default function NewPayeePage() {
   return (
@@ -35,8 +33,7 @@ export default function NewPayeePage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Add a vendor, supplier, individual or
-              another payment recipient.
+              Add a vendor, supplier, individual or another payment recipient.
             </p>
           </div>
         </section>

@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowRightLeft,
-} from "lucide-react";
+import { ArrowLeft, ArrowRightLeft } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  TransfersList,
-} from "@/features/banking/components";
+import { TransfersList } from "@/features/banking/components";
 
 export default function TransfersPage() {
   return (
@@ -48,8 +43,7 @@ export default function TransfersPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage transfers between company bank
-              accounts.
+              Manage transfers between company bank accounts.
             </p>
           </div>
         </section>

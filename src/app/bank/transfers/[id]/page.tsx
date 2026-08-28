@@ -11,12 +11,8 @@ import {
 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  VoidTransferButton,
-} from "@/features/banking/components";
-import type {
-  TransferStatus,
-} from "@/features/banking/types";
+import { VoidTransferButton } from "@/features/banking/components";
+import type { TransferStatus } from "@/features/banking/types";
 
 interface TransferDetailsPageProps {
   params: Promise<{
@@ -47,22 +43,17 @@ interface TransferDetails {
 const transferRecords: TransferDetails[] = [
   {
     id: "a1111111-1111-4111-8111-111111111111",
-    sourceAccountName:
-      "HBL Main Operating Account",
+    sourceAccountName: "HBL Main Operating Account",
     sourceAccountNumber: "**** 2343",
-    destinationAccountName:
-      "Meezan Business Account",
+    destinationAccountName: "Meezan Business Account",
     destinationAccountNumber: "**** 7812",
-    clearingAccountName:
-      "Bank Transfer Clearing",
+    clearingAccountName: "Bank Transfer Clearing",
     clearingAccountCode: "1050",
     amount: 250000,
     transferDate: "2026-08-23",
     memo: "Monthly operating fund allocation",
-    sourceTransactionId:
-      "61111111-1111-4111-8111-111111111111",
-    destinationTransactionId:
-      "71111111-1111-4111-8111-111111111111",
+    sourceTransactionId: "61111111-1111-4111-8111-111111111111",
+    destinationTransactionId: "71111111-1111-4111-8111-111111111111",
     status: "posted",
     voidedAt: null,
     voidReason: null,
@@ -71,22 +62,17 @@ const transferRecords: TransferDetails[] = [
   },
   {
     id: "a2222222-2222-4222-8222-222222222222",
-    sourceAccountName:
-      "Meezan Business Account",
+    sourceAccountName: "Meezan Business Account",
     sourceAccountNumber: "**** 7812",
-    destinationAccountName:
-      "UBL Petty Cash Account",
+    destinationAccountName: "UBL Petty Cash Account",
     destinationAccountNumber: "**** 4590",
-    clearingAccountName:
-      "Bank Transfer Clearing",
+    clearingAccountName: "Bank Transfer Clearing",
     clearingAccountCode: "1050",
     amount: 75000,
     transferDate: "2026-08-22",
     memo: "Weekly petty cash allocation",
-    sourceTransactionId:
-      "62222222-2222-4222-8222-222222222222",
-    destinationTransactionId:
-      "72222222-2222-4222-8222-222222222222",
+    sourceTransactionId: "62222222-2222-4222-8222-222222222222",
+    destinationTransactionId: "72222222-2222-4222-8222-222222222222",
     status: "posted",
     voidedAt: null,
     voidReason: null,
@@ -95,47 +81,36 @@ const transferRecords: TransferDetails[] = [
   },
   {
     id: "a3333333-3333-4333-8333-333333333333",
-    sourceAccountName:
-      "HBL Main Operating Account",
+    sourceAccountName: "HBL Main Operating Account",
     sourceAccountNumber: "**** 2343",
-    destinationAccountName:
-      "UBL Petty Cash Account",
+    destinationAccountName: "UBL Petty Cash Account",
     destinationAccountNumber: "**** 4590",
-    clearingAccountName:
-      "General Clearing Account",
+    clearingAccountName: "General Clearing Account",
     clearingAccountCode: "1060",
     amount: 50000,
     transferDate: "2026-08-20",
     memo: "Transfer entered with incorrect amount",
-    sourceTransactionId:
-      "63333333-3333-4333-8333-333333333333",
-    destinationTransactionId:
-      "73333333-3333-4333-8333-333333333333",
+    sourceTransactionId: "63333333-3333-4333-8333-333333333333",
+    destinationTransactionId: "73333333-3333-4333-8333-333333333333",
     status: "voided",
     voidedAt: "2026-08-20T13:45:00.000Z",
-    voidReason:
-      "Incorrect amount entered during transfer.",
+    voidReason: "Incorrect amount entered during transfer.",
     createdAt: "2026-08-20T12:40:00.000Z",
     createdBy: "Amna",
   },
   {
     id: "a4444444-4444-4444-8444-444444444444",
-    sourceAccountName:
-      "Meezan Business Account",
+    sourceAccountName: "Meezan Business Account",
     sourceAccountNumber: "**** 7812",
-    destinationAccountName:
-      "HBL Main Operating Account",
+    destinationAccountName: "HBL Main Operating Account",
     destinationAccountNumber: "**** 2343",
-    clearingAccountName:
-      "Bank Transfer Clearing",
+    clearingAccountName: "Bank Transfer Clearing",
     clearingAccountCode: "1050",
     amount: 125000,
     transferDate: "2026-08-18",
     memo: "Balance consolidation",
-    sourceTransactionId:
-      "64444444-4444-4444-8444-444444444444",
-    destinationTransactionId:
-      "74444444-4444-4444-8444-444444444444",
+    sourceTransactionId: "64444444-4444-4444-8444-444444444444",
+    destinationTransactionId: "74444444-4444-4444-8444-444444444444",
     status: "posted",
     voidedAt: null,
     voidReason: null,
@@ -176,9 +151,7 @@ export default async function TransferDetailsPage({
   const { id } = await params;
 
   const transfer =
-    transferRecords.find(
-      (record) => record.id === id,
-    ) ?? transferRecords[0];
+    transferRecords.find((record) => record.id === id) ?? transferRecords[0];
 
   const isVoided = transfer.status === "voided";
 
@@ -226,9 +199,7 @@ export default async function TransferDetailsPage({
                   {formatCurrency(transfer.amount)}
                 </h1>
 
-                <TransferStatusBadge
-                  status={transfer.status}
-                />
+                <TransferStatusBadge status={transfer.status} />
               </div>
 
               <p className="mt-2 text-sm text-muted">
@@ -237,10 +208,7 @@ export default async function TransferDetailsPage({
             </div>
           </div>
 
-          <VoidTransferButton
-            transferId={transfer.id}
-            disabled={isVoided}
-          />
+          <VoidTransferButton transferId={transfer.id} disabled={isVoided} />
         </section>
 
         <section className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -253,20 +221,14 @@ export default async function TransferDetailsPage({
 
           <InfoCard
             title="Transfer date"
-            value={formatDate(
-              transfer.transferDate,
-            )}
+            value={formatDate(transfer.transferDate)}
             helper="Effective transfer date"
             icon={CalendarDays}
           />
 
           <InfoCard
             title="Current status"
-            value={
-              transfer.status === "posted"
-                ? "Posted"
-                : "Voided"
-            }
+            value={transfer.status === "posted" ? "Posted" : "Voided"}
             helper={
               isVoided
                 ? "Transfer has been reversed"
@@ -294,13 +256,10 @@ export default async function TransferDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Account movement
-              </h2>
+              <h2 className="font-bold">Account movement</h2>
 
               <p className="mt-1 text-xs text-muted">
-                Source and destination bank account
-                information.
+                Source and destination bank account information.
               </p>
             </div>
           </div>
@@ -314,12 +273,8 @@ export default async function TransferDetailsPage({
           >
             <AccountCard
               label="Money transferred from"
-              accountName={
-                transfer.sourceAccountName
-              }
-              accountNumber={
-                transfer.sourceAccountNumber
-              }
+              accountName={transfer.sourceAccountName}
+              accountNumber={transfer.sourceAccountNumber}
               icon={ArrowUpRight}
               colorClass="
                 bg-orange-50 text-orange-700
@@ -339,12 +294,8 @@ export default async function TransferDetailsPage({
 
             <AccountCard
               label="Money transferred to"
-              accountName={
-                transfer.destinationAccountName
-              }
-              accountNumber={
-                transfer.destinationAccountNumber
-              }
+              accountName={transfer.destinationAccountName}
+              accountNumber={transfer.destinationAccountNumber}
               icon={ArrowDownLeft}
               colorClass="
                 bg-emerald-50 text-emerald-700
@@ -378,13 +329,10 @@ export default async function TransferDetailsPage({
               </span>
 
               <div>
-                <h2 className="font-bold">
-                  Transfer information
-                </h2>
+                <h2 className="font-bold">Transfer information</h2>
 
                 <p className="mt-1 text-xs text-muted">
-                  General information for this
-                  transfer.
+                  General information for this transfer.
                 </p>
               </div>
             </div>
@@ -392,24 +340,17 @@ export default async function TransferDetailsPage({
             <dl className="mt-6 divide-y divide-border">
               <DetailsRow
                 label="Amount"
-                value={formatCurrency(
-                  transfer.amount,
-                )}
+                value={formatCurrency(transfer.amount)}
               />
 
               <DetailsRow
                 label="Transfer date"
-                value={formatDate(
-                  transfer.transferDate,
-                )}
+                value={formatDate(transfer.transferDate)}
               />
 
               <DetailsRow
                 label="Memo"
-                value={
-                  transfer.memo ||
-                  "No memo provided"
-                }
+                value={transfer.memo || "No memo provided"}
               />
 
               <DetailsRow
@@ -417,16 +358,11 @@ export default async function TransferDetailsPage({
                 value={`${transfer.clearingAccountCode} — ${transfer.clearingAccountName}`}
               />
 
-              <DetailsRow
-                label="Created by"
-                value={transfer.createdBy}
-              />
+              <DetailsRow label="Created by" value={transfer.createdBy} />
 
               <DetailsRow
                 label="Created at"
-                value={formatDateTime(
-                  transfer.createdAt,
-                )}
+                value={formatDateTime(transfer.createdAt)}
               />
             </dl>
           </section>
@@ -438,13 +374,10 @@ export default async function TransferDetailsPage({
               shadow-[var(--shadow-sm)]
             "
           >
-            <h2 className="font-bold">
-              Transaction references
-            </h2>
+            <h2 className="font-bold">Transaction references</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Ledger transactions created for both
-              sides.
+              Ledger transactions created for both sides.
             </p>
 
             <div className="mt-5 space-y-4">
@@ -455,9 +388,7 @@ export default async function TransferDetailsPage({
 
               <ReferenceCard
                 label="Destination transaction"
-                value={
-                  transfer.destinationTransactionId
-                }
+                value={transfer.destinationTransactionId}
               />
             </div>
           </aside>
@@ -470,9 +401,7 @@ export default async function TransferDetailsPage({
               bg-red-50 p-5
             "
           >
-            <h2 className="font-bold text-red-700">
-              Void information
-            </h2>
+            <h2 className="font-bold text-red-700">Void information</h2>
 
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <div>
@@ -486,15 +415,11 @@ export default async function TransferDetailsPage({
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-red-600">
-                  Voided at
-                </p>
+                <p className="text-xs font-semibold text-red-600">Voided at</p>
 
                 <p className="mt-1 text-sm text-red-800">
                   {transfer.voidedAt
-                    ? formatDateTime(
-                        transfer.voidedAt,
-                      )
+                    ? formatDateTime(transfer.voidedAt)
                     : "Not available"}
                 </p>
               </div>
@@ -506,11 +431,7 @@ export default async function TransferDetailsPage({
   );
 }
 
-function TransferStatusBadge({
-  status,
-}: {
-  status: TransferStatus;
-}) {
+function TransferStatusBadge({ status }: { status: TransferStatus }) {
   const className =
     status === "posted"
       ? "bg-emerald-50 text-emerald-700"
@@ -536,12 +457,7 @@ interface InfoCardProps {
   icon: React.ElementType;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon: Icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon: Icon }: InfoCardProps) {
   return (
     <article
       className="
@@ -561,17 +477,11 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
@@ -610,29 +520,17 @@ function AccountCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {label}
-        </p>
+        <p className="text-xs text-muted">{label}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {accountName}
-        </p>
+        <p className="mt-1 truncate font-bold">{accountName}</p>
 
-        <p className="mt-1 text-xs text-muted">
-          {accountNumber}
-        </p>
+        <p className="mt-1 text-xs text-muted">{accountNumber}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -640,24 +538,14 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="break-words font-medium">
-        {value}
-      </dd>
+      <dd className="break-words font-medium">{value}</dd>
     </div>
   );
 }
 
-function ReferenceCard({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function ReferenceCard({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -665,13 +553,9 @@ function ReferenceCard({
         bg-surface-secondary p-4
       "
     >
-      <p className="text-xs font-semibold text-muted">
-        {label}
-      </p>
+      <p className="text-xs font-semibold text-muted">{label}</p>
 
-      <p className="mt-2 break-all text-xs font-medium">
-        {value}
-      </p>
+      <p className="mt-2 break-all text-xs font-medium">{value}</p>
     </div>
   );
 }

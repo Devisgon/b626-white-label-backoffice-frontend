@@ -1,6 +1,4 @@
-export type BrandStatus =
-  | "Active"
-  | "Inactive";
+export type BrandStatus = "Active" | "Inactive";
 
 export interface Brand {
   id: number;

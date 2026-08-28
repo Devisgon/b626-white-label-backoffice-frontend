@@ -32,8 +32,7 @@ export default function SuppliersPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage suppliers and their contact
-              information.
+              Manage suppliers and their contact information.
             </p>
           </div>
         </section>

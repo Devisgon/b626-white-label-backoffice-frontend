@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Database,
-} from "lucide-react";
+import { ArrowLeft, Database } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelTankForm,
-} from "@/features/fuel/components";
+import { FuelTankForm } from "@/features/fuel/components";
 
 export default function NewFuelTankPage() {
   return (
@@ -34,8 +29,7 @@ export default function NewFuelTankPage() {
               Add fuel tank
             </h1>
             <p className="mt-2 text-sm text-muted">
-              Create a tank and define its fuel type,
-              capacity and stock.
+              Create a tank and define its fuel type, capacity and stock.
             </p>
           </div>
         </section>

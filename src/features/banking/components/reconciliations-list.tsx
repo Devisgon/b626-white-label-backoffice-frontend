@@ -17,8 +17,7 @@ import type {
   ReconciliationStatus,
 } from "@/features/banking/types";
 
-interface ReconciliationListItem
-  extends BankReconciliation {
+interface ReconciliationListItem extends BankReconciliation {
   bankAccountName: string;
   bankAccountNumber: string;
 }
@@ -28,10 +27,8 @@ const reconciliations: ReconciliationListItem[] = [
     id: "b1111111-1111-4111-8111-111111111111",
     tenantId: "tenant-1",
     locationId: "location-1",
-    bankAccountId:
-      "11111111-1111-4111-8111-111111111111",
-    bankAccountName:
-      "HBL Main Operating Account",
+    bankAccountId: "11111111-1111-4111-8111-111111111111",
+    bankAccountName: "HBL Main Operating Account",
     bankAccountNumber: "**** 2343",
     statementStartDate: "2026-08-01",
     statementEndDate: "2026-08-31",
@@ -48,10 +45,8 @@ const reconciliations: ReconciliationListItem[] = [
     id: "b2222222-2222-4222-8222-222222222222",
     tenantId: "tenant-1",
     locationId: "location-1",
-    bankAccountId:
-      "22222222-2222-4222-8222-222222222222",
-    bankAccountName:
-      "Meezan Business Account",
+    bankAccountId: "22222222-2222-4222-8222-222222222222",
+    bankAccountName: "Meezan Business Account",
     bankAccountNumber: "**** 7812",
     statementStartDate: "2026-07-01",
     statementEndDate: "2026-07-31",
@@ -68,10 +63,8 @@ const reconciliations: ReconciliationListItem[] = [
     id: "b3333333-3333-4333-8333-333333333333",
     tenantId: "tenant-1",
     locationId: "location-1",
-    bankAccountId:
-      "33333333-3333-4333-8333-333333333333",
-    bankAccountName:
-      "UBL Petty Cash Account",
+    bankAccountId: "33333333-3333-4333-8333-333333333333",
+    bankAccountName: "UBL Petty Cash Account",
     bankAccountNumber: "**** 4590",
     statementStartDate: "2026-07-01",
     statementEndDate: "2026-07-31",
@@ -88,10 +81,8 @@ const reconciliations: ReconciliationListItem[] = [
     id: "b4444444-4444-4444-8444-444444444444",
     tenantId: "tenant-1",
     locationId: "location-1",
-    bankAccountId:
-      "11111111-1111-4111-8111-111111111111",
-    bankAccountName:
-      "HBL Main Operating Account",
+    bankAccountId: "11111111-1111-4111-8111-111111111111",
+    bankAccountName: "HBL Main Operating Account",
     bankAccountNumber: "**** 2343",
     statementStartDate: "2026-06-01",
     statementEndDate: "2026-06-30",
@@ -118,9 +109,7 @@ const accountOptions = Array.from(
   ).values(),
 );
 
-function formatCurrency(
-  value: number | string | null,
-) {
+function formatCurrency(value: number | string | null) {
   if (value === null) {
     return "Not available";
   }
@@ -142,61 +131,42 @@ function formatDate(value: string) {
 
 export function ReconciliationsList() {
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState<
-    ReconciliationStatus | "all"
-  >("all");
+  const [status, setStatus] = useState<ReconciliationStatus | "all">("all");
 
-  const [bankAccountId, setBankAccountId] =
-    useState("all");
+  const [bankAccountId, setBankAccountId] = useState("all");
 
   const filteredReconciliations = useMemo(() => {
-    const normalizedSearch =
-      search.trim().toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
 
-    return reconciliations.filter(
-      (reconciliation) => {
-        const matchesSearch =
-          normalizedSearch.length === 0 ||
-          reconciliation.bankAccountName
-            .toLowerCase()
-            .includes(normalizedSearch) ||
-          reconciliation.bankAccountNumber
-            .toLowerCase()
-            .includes(normalizedSearch) ||
-          reconciliation.id
-            .toLowerCase()
-            .includes(normalizedSearch);
+    return reconciliations.filter((reconciliation) => {
+      const matchesSearch =
+        normalizedSearch.length === 0 ||
+        reconciliation.bankAccountName
+          .toLowerCase()
+          .includes(normalizedSearch) ||
+        reconciliation.bankAccountNumber
+          .toLowerCase()
+          .includes(normalizedSearch) ||
+        reconciliation.id.toLowerCase().includes(normalizedSearch);
 
-        const matchesStatus =
-          status === "all" ||
-          reconciliation.status === status;
+      const matchesStatus =
+        status === "all" || reconciliation.status === status;
 
-        const matchesAccount =
-          bankAccountId === "all" ||
-          reconciliation.bankAccountId ===
-            bankAccountId;
+      const matchesAccount =
+        bankAccountId === "all" ||
+        reconciliation.bankAccountId === bankAccountId;
 
-        return (
-          matchesSearch &&
-          matchesStatus &&
-          matchesAccount
-        );
-      },
-    );
+      return matchesSearch && matchesStatus && matchesAccount;
+    });
   }, [search, status, bankAccountId]);
 
-  const inProgressCount =
-    reconciliations.filter(
-      (reconciliation) =>
-        reconciliation.status ===
-        "in_progress",
-    ).length;
+  const inProgressCount = reconciliations.filter(
+    (reconciliation) => reconciliation.status === "in_progress",
+  ).length;
 
-  const completedCount =
-    reconciliations.filter(
-      (reconciliation) =>
-        reconciliation.status === "completed",
-    ).length;
+  const completedCount = reconciliations.filter(
+    (reconciliation) => reconciliation.status === "completed",
+  ).length;
 
   function resetFilters() {
     setSearch("");
@@ -247,13 +217,10 @@ export function ReconciliationsList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Bank reconciliations
-            </h2>
+            <h2 className="font-bold">Bank reconciliations</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Match system transactions with bank
-              statements.
+              Match system transactions with bank statements.
             </p>
           </div>
 
@@ -290,9 +257,7 @@ export function ReconciliationsList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by bank account..."
               className="
                 h-11 w-full rounded-xl border
@@ -306,11 +271,7 @@ export function ReconciliationsList() {
 
           <select
             value={bankAccountId}
-            onChange={(event) =>
-              setBankAccountId(
-                event.target.value,
-              )
-            }
+            onChange={(event) => setBankAccountId(event.target.value)}
             aria-label="Filter by bank account"
             className="
               h-11 rounded-xl border border-border
@@ -320,15 +281,10 @@ export function ReconciliationsList() {
               xl:min-w-56
             "
           >
-            <option value="all">
-              All bank accounts
-            </option>
+            <option value="all">All bank accounts</option>
 
             {accountOptions.map((account) => (
-              <option
-                key={account.id}
-                value={account.id}
-              >
+              <option key={account.id} value={account.id}>
                 {account.name}
               </option>
             ))}
@@ -337,11 +293,7 @@ export function ReconciliationsList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | ReconciliationStatus
-                  | "all",
-              )
+              setStatus(event.target.value as ReconciliationStatus | "all")
             }
             aria-label="Filter by status"
             className="
@@ -352,21 +304,13 @@ export function ReconciliationsList() {
               xl:min-w-44
             "
           >
-            <option value="all">
-              All statuses
-            </option>
+            <option value="all">All statuses</option>
 
-            <option value="in_progress">
-              In progress
-            </option>
+            <option value="in_progress">In progress</option>
 
-            <option value="completed">
-              Completed
-            </option>
+            <option value="completed">Completed</option>
 
-            <option value="cancelled">
-              Cancelled
-            </option>
+            <option value="cancelled">Cancelled</option>
           </select>
 
           <button
@@ -394,107 +338,73 @@ export function ReconciliationsList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Bank account
-                </th>
+                <th className="px-5 py-4">Bank account</th>
 
-                <th className="px-5 py-4">
-                  Statement period
-                </th>
+                <th className="px-5 py-4">Statement period</th>
 
-                <th className="px-5 py-4">
-                  Statement balance
-                </th>
+                <th className="px-5 py-4">Statement balance</th>
 
-                <th className="px-5 py-4">
-                  System balance
-                </th>
+                <th className="px-5 py-4">System balance</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4">
-                  Created
-                </th>
+                <th className="px-5 py-4">Created</th>
 
-                <th className="px-5 py-4 text-right">
-                  Action
-                </th>
+                <th className="px-5 py-4 text-right">Action</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-border">
-              {filteredReconciliations.map(
-                (reconciliation) => (
-                  <tr
-                    key={reconciliation.id}
-                    className="
+              {filteredReconciliations.map((reconciliation) => (
+                <tr
+                  key={reconciliation.id}
+                  className="
                       text-sm transition
                       hover:bg-surface-secondary/60
                     "
-                  >
-                    <td className="px-5 py-4">
-                      <p className="font-semibold">
-                        {
-                          reconciliation.bankAccountName
-                        }
-                      </p>
+                >
+                  <td className="px-5 py-4">
+                    <p className="font-semibold">
+                      {reconciliation.bankAccountName}
+                    </p>
 
-                      <p className="mt-1 text-xs text-muted">
-                        {
-                          reconciliation.bankAccountNumber
-                        }
-                      </p>
-                    </td>
+                    <p className="mt-1 text-xs text-muted">
+                      {reconciliation.bankAccountNumber}
+                    </p>
+                  </td>
 
-                    <td className="px-5 py-4">
-                      <p className="font-medium">
-                        {formatDate(
-                          reconciliation.statementStartDate,
-                        )}
-                      </p>
+                  <td className="px-5 py-4">
+                    <p className="font-medium">
+                      {formatDate(reconciliation.statementStartDate)}
+                    </p>
 
-                      <p className="mt-1 text-xs text-muted">
-                        to{" "}
-                        {formatDate(
-                          reconciliation.statementEndDate,
-                        )}
-                      </p>
-                    </td>
+                    <p className="mt-1 text-xs text-muted">
+                      to {formatDate(reconciliation.statementEndDate)}
+                    </p>
+                  </td>
 
-                    <td className="px-5 py-4 font-semibold">
-                      {formatCurrency(
-                        reconciliation.statementEndingBalance,
-                      )}
-                    </td>
+                  <td className="px-5 py-4 font-semibold">
+                    {formatCurrency(reconciliation.statementEndingBalance)}
+                  </td>
 
-                    <td className="px-5 py-4 text-muted">
-                      {formatCurrency(
-                        reconciliation.systemBalanceAtCompletion,
-                      )}
-                    </td>
+                  <td className="px-5 py-4 text-muted">
+                    {formatCurrency(reconciliation.systemBalanceAtCompletion)}
+                  </td>
 
-                    <td className="px-5 py-4">
-                      <ReconciliationStatusBadge
-                        status={
-                          reconciliation.status
-                        }
-                      />
-                    </td>
+                  <td className="px-5 py-4">
+                    <ReconciliationStatusBadge status={reconciliation.status} />
+                  </td>
 
-                    <td className="px-5 py-4 text-muted">
-                      {formatDate(
-                        reconciliation.createdAt,
-                      )}
-                    </td>
+                  <td className="px-5 py-4 text-muted">
+                    {formatDate(reconciliation.createdAt)}
+                  </td>
 
-                    <td className="px-5 py-4">
-                      <div className="flex justify-end">
-                        <Link
-                          href={`/bank/reconciliations/${reconciliation.id}`}
-                          aria-label="View reconciliation"
-                          className="
+                  <td className="px-5 py-4">
+                    <div className="flex justify-end">
+                      <Link
+                        href={`/bank/reconciliations/${reconciliation.id}`}
+                        aria-label="View reconciliation"
+                        className="
                             flex size-10 items-center
                             justify-center rounded-xl
                             border border-border bg-white
@@ -503,24 +413,20 @@ export function ReconciliationsList() {
                             hover:bg-primary-light
                             hover:text-primary
                           "
-                        >
-                          <Eye className="size-4" />
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
-                ),
-              )}
+                      >
+                        <Eye className="size-4" />
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
-        {filteredReconciliations.length ===
-          0 && (
+        {filteredReconciliations.length === 0 && (
           <div className="px-5 py-16 text-center">
-            <p className="font-semibold">
-              No reconciliations found
-            </p>
+            <p className="font-semibold">No reconciliations found</p>
 
             <p className="mt-1 text-sm text-muted">
               Try changing or resetting the filters.
@@ -537,15 +443,11 @@ export function ReconciliationsList() {
           "
         >
           <p>
-            Showing{" "}
-            {filteredReconciliations.length} of{" "}
-            {reconciliations.length} reconciliations
+            Showing {filteredReconciliations.length} of {reconciliations.length}{" "}
+            reconciliations
           </p>
 
-          <p>
-            Data is currently used for frontend
-            testing.
-          </p>
+          <p>Data is currently used for frontend testing.</p>
         </div>
       </section>
     </div>
@@ -586,17 +488,11 @@ function SummaryCard({
       </span>
 
       <div>
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 text-xl font-bold">
-          {value}
-        </p>
+        <p className="mt-1 text-xl font-bold">{value}</p>
 
-        <p className="mt-1 text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
@@ -610,14 +506,12 @@ function ReconciliationStatusBadge({
   const configuration = {
     in_progress: {
       label: "In progress",
-      className:
-        "bg-orange-50 text-orange-700",
+      className: "bg-orange-50 text-orange-700",
       icon: Clock3,
     },
     completed: {
       label: "Completed",
-      className:
-        "bg-emerald-50 text-emerald-700",
+      className: "bg-emerald-50 text-emerald-700",
       icon: CheckCircle2,
     },
     cancelled: {

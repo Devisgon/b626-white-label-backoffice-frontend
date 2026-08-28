@@ -50,8 +50,7 @@ export default async function EditCategoryPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update category information and
-              availability.
+              Update category information and availability.
             </p>
           </div>
         </section>

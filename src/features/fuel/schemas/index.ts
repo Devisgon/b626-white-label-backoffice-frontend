@@ -1,25 +1,12 @@
-export {
-  fuelTankSchema,
-} from "./fuel-tank-schema";
+export { fuelTankSchema } from "./fuel-tank-schema";
 
-export type {
-  FuelTankFormInput,
-  FuelTankFormValues,
-} from "./fuel-tank-schema";
+export type { FuelTankFormInput, FuelTankFormValues } from "./fuel-tank-schema";
 
+export { fuelPumpSchema } from "./fuel-pump-schema";
 
-export {
-  fuelPumpSchema,
-} from "./fuel-pump-schema";
+export type { FuelPumpFormInput, FuelPumpFormValues } from "./fuel-pump-schema";
 
-export type {
-  FuelPumpFormInput,
-  FuelPumpFormValues,
-} from "./fuel-pump-schema";
-
-export {
-  fuelPriceSchema,
-} from "./fuel-price-schema";
+export { fuelPriceSchema } from "./fuel-price-schema";
 
 export type {
   FuelPriceFormInput,

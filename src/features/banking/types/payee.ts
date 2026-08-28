@@ -1,13 +1,7 @@
 export type PayeeType =
-  | "vendor"
-  | "supplier"
-  | "individual"
-  | "utility"
-  | "other";
+  "vendor" | "supplier" | "individual" | "utility" | "other";
 
-export type PayeeStatus =
-  | "active"
-  | "inactive";
+export type PayeeStatus = "active" | "inactive";
 
 export interface Payee {
   id: string;
@@ -45,8 +39,7 @@ export interface CreatePayeePayload {
   notes?: string;
 }
 
-export interface UpdatePayeePayload
-  extends Partial<CreatePayeePayload> {
+export interface UpdatePayeePayload extends Partial<CreatePayeePayload> {
   status?: PayeeStatus;
 }
 

@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  CalendarDays,
-  Pencil,
-  Ruler,
-} from "lucide-react";
+import { ArrowLeft, CalendarDays, Pencil, Ruler } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 
@@ -53,9 +48,7 @@ export default async function UnitDetailsPage({
 }: UnitDetailsPageProps) {
   const { id } = await params;
 
-  const unit =
-    unitRecords[id as keyof typeof unitRecords] ??
-    unitRecords["1"];
+  const unit = unitRecords[id as keyof typeof unitRecords] ?? unitRecords["1"];
 
   const statusStyles =
     unit.status === "Active"
@@ -107,9 +100,7 @@ export default async function UnitDetailsPage({
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Unit ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Unit ID: {id}</p>
             </div>
           </div>
 
@@ -169,9 +160,7 @@ export default async function UnitDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Unit information
-              </h2>
+              <h2 className="font-bold">Unit information</h2>
 
               <p className="text-xs text-muted">
                 Measurement and packaging unit details.
@@ -180,30 +169,15 @@ export default async function UnitDetailsPage({
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Unit name"
-              value={unit.name}
-            />
+            <DetailsRow label="Unit name" value={unit.name} />
 
-            <DetailsRow
-              label="Short name"
-              value={unit.shortName}
-            />
+            <DetailsRow label="Short name" value={unit.shortName} />
 
-            <DetailsRow
-              label="Status"
-              value={unit.status}
-            />
+            <DetailsRow label="Status" value={unit.status} />
 
-            <DetailsRow
-              label="Created"
-              value={unit.createdAt}
-            />
+            <DetailsRow label="Created" value={unit.createdAt} />
 
-            <DetailsRow
-              label="Last updated"
-              value={unit.updatedAt}
-            />
+            <DetailsRow label="Last updated" value={unit.updatedAt} />
           </dl>
         </section>
       </div>
@@ -244,21 +218,13 @@ function InfoCard({
       <div className="min-w-0">
         <p className="text-xs text-muted">{title}</p>
         <p className="mt-1 truncate font-bold">{value}</p>
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -266,13 +232,9 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium text-foreground">
-        {value || "Not provided"}
-      </dd>
+      <dd className="font-medium text-foreground">{value || "Not provided"}</dd>
     </div>
   );
 }

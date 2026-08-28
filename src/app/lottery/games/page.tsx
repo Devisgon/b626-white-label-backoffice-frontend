@@ -1,15 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Gamepad2,
-} from "lucide-react";
+import { ArrowLeft, Gamepad2 } from "lucide-react";
 
-import {
-  AppShell,
-} from "@/components/layout";
-import {
-  LotteryGamesList,
-} from "@/features/lottery/components";
+import { AppShell } from "@/components/layout";
+import { LotteryGamesList } from "@/features/lottery/components";
 
 export default function LotteryGamesPage() {
   return (
@@ -69,8 +62,7 @@ export default function LotteryGamesPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage games, ticket prices and
-              ticket pack sizes.
+              Manage games, ticket prices and ticket pack sizes.
             </p>
           </div>
         </section>

@@ -55,9 +55,7 @@ export interface SuppliersResult {
   pagination: SuppliersResponse["pagination"];
 }
 
-function mapSupplier(
-  supplier: BackendSupplier,
-): Supplier {
+function mapSupplier(supplier: BackendSupplier): Supplier {
   return {
     id: Number(supplier.id),
     name: supplier.name,
@@ -73,72 +71,59 @@ function mapSupplier(
 export async function getSuppliers(
   filters: SupplierFilters = {},
 ): Promise<SuppliersResult> {
-  const response =
-    await apiClient.get<SuppliersResponse>(
-      "/catalogue/suppliers",
-      {
-        params: {
-          search: filters.search || undefined,
+  const response = await apiClient.get<SuppliersResponse>(
+    "/catalogue/suppliers",
+    {
+      params: {
+        search: filters.search || undefined,
 
-          status:
-            filters.status === "all"
-              ? undefined
-              : filters.status,
+        status: filters.status === "all" ? undefined : filters.status,
 
-          page: filters.page,
-          cursor: filters.cursor,
-          limit: filters.limit ?? 10,
-          sortBy: filters.sortBy,
-          order: filters.order ?? "asc",
-        },
+        page: filters.page,
+        cursor: filters.cursor,
+        limit: filters.limit ?? 10,
+        sortBy: filters.sortBy,
+        order: filters.order ?? "asc",
       },
-    );
+    },
+  );
 
   return {
-    suppliers:
-      response.data.data.map(mapSupplier),
+    suppliers: response.data.data.map(mapSupplier),
 
     pagination: response.data.pagination,
   };
 }
 
-export async function getSupplier(
-  id: number,
-): Promise<Supplier> {
-  const response =
-    await apiClient.get<SupplierResponse>(
-      `/catalogue/suppliers/${id}`,
-    );
+export async function getSupplier(id: number): Promise<Supplier> {
+  const response = await apiClient.get<SupplierResponse>(
+    `/catalogue/suppliers/${id}`,
+  );
 
   return mapSupplier(response.data.data);
 }
 
 export async function getSupplierStats(): Promise<SupplierStats> {
-  const response =
-    await apiClient.get<SupplierStatsResponse>(
-      "/catalogue/suppliers/stats",
-    );
+  const response = await apiClient.get<SupplierStatsResponse>(
+    "/catalogue/suppliers/stats",
+  );
 
   return {
-    total:
-      response.data.data.totalSuppliers,
+    total: response.data.data.totalSuppliers,
 
-    active:
-      response.data.data.activeSuppliers,
+    active: response.data.data.activeSuppliers,
 
-    inactive:
-      response.data.data.inactiveSuppliers,
+    inactive: response.data.data.inactiveSuppliers,
   };
 }
 
 export async function createSupplier(
   payload: CreateSupplierPayload,
 ): Promise<Supplier> {
-  const response =
-    await apiClient.post<SupplierResponse>(
-      "/catalogue/suppliers",
-      payload,
-    );
+  const response = await apiClient.post<SupplierResponse>(
+    "/catalogue/suppliers",
+    payload,
+  );
 
   return mapSupplier(response.data.data);
 }
@@ -147,33 +132,26 @@ export async function updateSupplier(
   id: number,
   payload: UpdateSupplierPayload,
 ): Promise<Supplier> {
-  const response =
-    await apiClient.patch<SupplierResponse>(
-      `/catalogue/suppliers/${id}`,
-      payload,
-    );
+  const response = await apiClient.patch<SupplierResponse>(
+    `/catalogue/suppliers/${id}`,
+    payload,
+  );
 
   return mapSupplier(response.data.data);
 }
 
-export async function deleteSupplier(
-  id: number,
-): Promise<Supplier> {
-  const response =
-    await apiClient.delete<SupplierResponse>(
-      `/catalogue/suppliers/${id}`,
-    );
+export async function deleteSupplier(id: number): Promise<Supplier> {
+  const response = await apiClient.delete<SupplierResponse>(
+    `/catalogue/suppliers/${id}`,
+  );
 
   return mapSupplier(response.data.data);
 }
 
-export async function restoreSupplier(
-  id: number,
-): Promise<Supplier> {
-  const response =
-    await apiClient.patch<SupplierResponse>(
-      `/catalogue/suppliers/${id}/restore`,
-    );
+export async function restoreSupplier(id: number): Promise<Supplier> {
+  const response = await apiClient.patch<SupplierResponse>(
+    `/catalogue/suppliers/${id}/restore`,
+  );
 
   return mapSupplier(response.data.data);
 }

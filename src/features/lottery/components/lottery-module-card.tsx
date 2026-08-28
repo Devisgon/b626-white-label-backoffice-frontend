@@ -1,12 +1,7 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight, type LucideIcon } from "lucide-react";
 
-import type {
-  LotteryModuleColor,
-} from "@/config/lottery-modules";
+import type { LotteryModuleColor } from "@/config/lottery-modules";
 
 interface LotteryModuleCardProps {
   title: string;
@@ -16,18 +11,11 @@ interface LotteryModuleCardProps {
   color: LotteryModuleColor;
 }
 
-const colorClasses: Record<
-  LotteryModuleColor,
-  string
-> = {
-  green:
-    "bg-emerald-50 text-emerald-700",
-  blue:
-    "bg-blue-50 text-blue-700",
-  purple:
-    "bg-purple-50 text-purple-700",
-  orange:
-    "bg-orange-50 text-orange-700",
+const colorClasses: Record<LotteryModuleColor, string> = {
+  green: "bg-emerald-50 text-emerald-700",
+  blue: "bg-blue-50 text-blue-700",
+  purple: "bg-purple-50 text-purple-700",
+  orange: "bg-orange-50 text-orange-700",
 };
 
 export function LotteryModuleCard({
@@ -94,9 +82,7 @@ export function LotteryModuleCard({
           {title}
         </h2>
 
-        <p className="mt-2 text-xs leading-5 text-muted">
-          {description}
-        </p>
+        <p className="mt-2 text-xs leading-5 text-muted">{description}</p>
       </div>
 
       <div

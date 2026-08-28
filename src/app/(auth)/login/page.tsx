@@ -3,41 +3,27 @@ import { useAuthStore } from "@/store";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {
-  Eye,
-  EyeOff,
-  LockKeyhole,
-  Mail,
-} from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
 import { Button, Input } from "@/components/ui";
 import { loginUser } from "@/features/auth/api";
-import {
-  loginSchema,
-  type LoginFormValues,
-} from "@/features/auth/schemas";
+import { loginSchema, type LoginFormValues } from "@/features/auth/schemas";
 import type { ApiErrorResponse } from "@/lib/api";
 
 export default function LoginPage() {
-
   const router = useRouter();
 
-  const setSession = useAuthStore(
-  (state) => state.setSession,
-);
+  const setSession = useAuthStore((state) => state.setSession);
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -52,11 +38,11 @@ export default function LoginPage() {
     try {
       const response = await loginUser(values);
 
- setSession({
-  user: response.user,
-  accessToken: response.accessToken,
-  refreshToken: response.refreshToken,
-});
+      setSession({
+        user: response.user,
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken,
+      });
 
       if (response.onboardingComplete === false) {
         router.push("/onboarding/location");
@@ -73,21 +59,15 @@ export default function LoginPage() {
         } else if (typeof message === "string") {
           setServerError(message);
         } else if (!error.response) {
-          setServerError(
-            "Unable to connect to the server. Please try again.",
-          );
+          setServerError("Unable to connect to the server. Please try again.");
         } else {
-          setServerError(
-            "Login failed. Please check your details.",
-          );
+          setServerError("Login failed. Please check your details.");
         }
 
         return;
       }
 
-      setServerError(
-        "Something went wrong. Please try again.",
-      );
+      setServerError("Something went wrong. Please try again.");
     }
   }
 
@@ -103,8 +83,7 @@ export default function LoginPage() {
         </h1>
 
         <p className="mt-3 text-sm leading-6 text-muted">
-          Enter your account details to access the Total
-          Store backoffice.
+          Enter your account details to access the Total Store backoffice.
         </p>
       </div>
 
@@ -149,14 +128,8 @@ export default function LoginPage() {
           rightElement={
             <button
               type="button"
-              onClick={() =>
-                setShowPassword((previous) => !previous)
-              }
-              aria-label={
-                showPassword
-                  ? "Hide password"
-                  : "Show password"
-              }
+              onClick={() => setShowPassword((previous) => !previous)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
               className="
                 flex size-8 items-center justify-center
                 rounded-lg text-muted
@@ -184,7 +157,6 @@ export default function LoginPage() {
                 accent-primary
               "
             />
-
             Remember me
           </label>
 

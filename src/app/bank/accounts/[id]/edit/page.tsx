@@ -11,10 +11,7 @@ interface EditBankAccountPageProps {
   }>;
 }
 
-const bankAccounts: Record<
-  string,
-  BankAccountFormValues
-> = {
+const bankAccounts: Record<string, BankAccountFormValues> = {
   "1f83751c-54b1-4d50-85cd-100000000001": {
     accountName: "Main Operating Account",
     institution: "HBL",
@@ -67,9 +64,7 @@ export default async function EditBankAccountPage({
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-[var(--shadow-sm)]">
-            <h1 className="text-xl font-bold">
-              Bank account not found
-            </h1>
+            <h1 className="text-xl font-bold">Bank account not found</h1>
 
             <p className="mt-2 text-sm text-muted">
               The requested bank account does not exist.

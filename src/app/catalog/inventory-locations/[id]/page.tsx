@@ -24,10 +24,7 @@ interface InventoryLocationDetails {
   updatedAt: string;
 }
 
-const inventoryLocations: Record<
-  string,
-  InventoryLocationDetails
-> = {
+const inventoryLocations: Record<string, InventoryLocationDetails> = {
   "1": {
     name: "Main Warehouse",
     code: "WH-001",
@@ -70,8 +67,7 @@ export default async function InventoryLocationDetailsPage({
 }: InventoryLocationDetailsPageProps) {
   const { id } = await params;
 
-  const location =
-    inventoryLocations[id];
+  const location = inventoryLocations[id];
 
   if (!location) {
     return (
@@ -84,13 +80,10 @@ export default async function InventoryLocationDetailsPage({
               shadow-[var(--shadow-sm)]
             "
           >
-            <h1 className="text-xl font-bold">
-              Inventory location not found
-            </h1>
+            <h1 className="text-xl font-bold">Inventory location not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested inventory location does
-              not exist.
+              The requested inventory location does not exist.
             </p>
 
             <Link
@@ -110,8 +103,7 @@ export default async function InventoryLocationDetailsPage({
     );
   }
 
-  const isActive =
-    location.status === "Active";
+  const isActive = location.status === "Active";
 
   return (
     <AppShell>
@@ -163,8 +155,7 @@ export default async function InventoryLocationDetailsPage({
               </div>
 
               <p className="mt-2 text-sm text-muted">
-                Location ID: {id} ·{" "}
-                {location.code}
+                Location ID: {id} · {location.code}
               </p>
             </div>
           </div>
@@ -190,27 +181,21 @@ export default async function InventoryLocationDetailsPage({
             title="Location"
             value={location.name}
             helper={`Record ID: ${id}`}
-            icon={
-              <Warehouse className="size-5" />
-            }
+            icon={<Warehouse className="size-5" />}
           />
 
           <InfoCard
             title="Location code"
             value={location.code}
             helper="Unique inventory code"
-            icon={
-              <Warehouse className="size-5" />
-            }
+            icon={<Warehouse className="size-5" />}
           />
 
           <InfoCard
             title="Last updated"
             value={location.updatedAt}
             helper={`Created ${location.createdAt}`}
-            icon={
-              <CalendarDays className="size-5" />
-            }
+            icon={<CalendarDays className="size-5" />}
           />
         </section>
 
@@ -233,47 +218,26 @@ export default async function InventoryLocationDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Location information
-              </h2>
+              <h2 className="font-bold">Location information</h2>
 
               <p className="text-xs text-muted">
-                General information for this
-                inventory location.
+                General information for this inventory location.
               </p>
             </div>
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Location name"
-              value={location.name}
-            />
+            <DetailsRow label="Location name" value={location.name} />
 
-            <DetailsRow
-              label="Location code"
-              value={location.code}
-            />
+            <DetailsRow label="Location code" value={location.code} />
 
-            <DetailsRow
-              label="Address"
-              value={location.address}
-            />
+            <DetailsRow label="Address" value={location.address} />
 
-            <DetailsRow
-              label="Status"
-              value={location.status}
-            />
+            <DetailsRow label="Status" value={location.status} />
 
-            <DetailsRow
-              label="Created"
-              value={location.createdAt}
-            />
+            <DetailsRow label="Created" value={location.createdAt} />
 
-            <DetailsRow
-              label="Last updated"
-              value={location.updatedAt}
-            />
+            <DetailsRow label="Last updated" value={location.updatedAt} />
           </dl>
         </section>
       </div>
@@ -288,12 +252,7 @@ interface InfoCardProps {
   icon: React.ReactNode;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon }: InfoCardProps) {
   return (
     <article
       className="
@@ -315,29 +274,17 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -345,13 +292,9 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium text-foreground">
-        {value}
-      </dd>
+      <dd className="font-medium text-foreground">{value}</dd>
     </div>
   );
 }

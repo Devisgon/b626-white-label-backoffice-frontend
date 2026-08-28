@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  BookOpen,
-} from "lucide-react";
+import { ArrowLeft, BookOpen } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  ChartAccountsList,
-} from "@/features/banking/components";
+import { ChartAccountsList } from "@/features/banking/components";
 
 export default function ChartOfAccountsPage() {
   return (
@@ -48,8 +43,7 @@ export default function ChartOfAccountsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage financial account codes,
-              categories and balances.
+              Manage financial account codes, categories and balances.
             </p>
           </div>
         </section>

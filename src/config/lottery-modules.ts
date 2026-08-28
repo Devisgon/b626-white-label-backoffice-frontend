@@ -6,16 +6,9 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import {
-  USER_ROLES,
-  type UserRole,
-} from "@/types/role";
+import { USER_ROLES, type UserRole } from "@/types/role";
 
-export type LotteryModuleColor =
-  | "green"
-  | "blue"
-  | "purple"
-  | "orange";
+export type LotteryModuleColor = "green" | "blue" | "purple" | "orange";
 
 export interface LotteryModule {
   title: string;
@@ -34,8 +27,7 @@ const LOTTERY_ROLES: UserRole[] = [
 export const lotteryModules: LotteryModule[] = [
   {
     title: "Lottery Games",
-    description:
-      "Manage lottery games, ticket prices and pack sizes",
+    description: "Manage lottery games, ticket prices and pack sizes",
     href: "/lottery/games",
     icon: Gamepad2,
     color: "purple",
@@ -43,8 +35,7 @@ export const lotteryModules: LotteryModule[] = [
   },
   {
     title: "Lottery Packs",
-    description:
-      "Manage ticket packs, number ranges and activation",
+    description: "Manage ticket packs, number ranges and activation",
     href: "/lottery/packs",
     icon: Boxes,
     color: "blue",
@@ -52,8 +43,7 @@ export const lotteryModules: LotteryModule[] = [
   },
   {
     title: "Lottery Sales",
-    description:
-      "Track sold tickets, payouts and sale amounts",
+    description: "Track sold tickets, payouts and sale amounts",
     href: "/lottery/sales",
     icon: BadgeDollarSign,
     color: "green",
@@ -61,8 +51,7 @@ export const lotteryModules: LotteryModule[] = [
   },
   {
     title: "Lottery Settlements",
-    description:
-      "Manage daily lottery sales and payout settlements",
+    description: "Manage daily lottery sales and payout settlements",
     href: "/lottery/settlements",
     icon: CircleDollarSign,
     color: "orange",

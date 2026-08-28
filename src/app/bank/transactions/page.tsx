@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ReceiptText,
-} from "lucide-react";
+import { ArrowLeft, ReceiptText } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  TransactionsList,
-} from "@/features/banking/components";
+import { TransactionsList } from "@/features/banking/components";
 
 export default function TransactionsPage() {
   return (
@@ -48,8 +43,7 @@ export default function TransactionsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage deposits, payments, adjustments
-              and ledger entries.
+              Manage deposits, payments, adjustments and ledger entries.
             </p>
           </div>
         </section>

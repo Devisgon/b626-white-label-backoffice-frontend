@@ -2,18 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  LogOut,
-  X,
-} from "lucide-react";
+import { LayoutDashboard, LogOut, X } from "lucide-react";
 
 import { dashboardModules } from "@/config/dashboard-modules";
 import { useAuthStore } from "@/store";
-import {
-  ROLE_LABELS,
-  type UserRole,
-} from "@/types/role";
+import { ROLE_LABELS, type UserRole } from "@/types/role";
 import { cn } from "@/utils";
 
 interface SidebarProps {
@@ -22,20 +15,13 @@ interface SidebarProps {
   role: UserRole;
 }
 
-export function Sidebar({
-  isOpen,
-  onClose,
-  role,
-}: SidebarProps) {
+export function Sidebar({ isOpen, onClose, role }: SidebarProps) {
   const pathname = usePathname();
 
-  const user = useAuthStore(
-    (state) => state.user,
-  );
+  const user = useAuthStore((state) => state.user);
 
-  const availableModules = dashboardModules.filter(
-    (module) =>
-      module.allowedRoles.includes(role),
+  const availableModules = dashboardModules.filter((module) =>
+    module.allowedRoles.includes(role),
   );
 
   const displayName = user?.name ?? "Amna";
@@ -68,9 +54,7 @@ export function Sidebar({
           "border-r border-border bg-white p-5",
           "shadow-[var(--shadow-lg)]",
           "transition-transform duration-300 ease-in-out",
-          isOpen
-            ? "translate-x-0"
-            : "-translate-x-full",
+          isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className="flex items-center gap-3 border-b border-border pb-5">
@@ -86,9 +70,7 @@ export function Sidebar({
           </div>
 
           <div>
-            <p className="text-sm font-semibold">
-              Total Store
-            </p>
+            <p className="text-sm font-semibold">Total Store</p>
 
             <p className="mt-0.5 text-[10px] uppercase tracking-wider text-muted">
               Backoffice
@@ -142,9 +124,7 @@ export function Sidebar({
 
               const isActive =
                 pathname === module.href ||
-                pathname.startsWith(
-                  `${module.href}/`,
-                );
+                pathname.startsWith(`${module.href}/`);
 
               return (
                 <Link
@@ -181,9 +161,7 @@ export function Sidebar({
             </div>
 
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-semibold">
-                {displayName}
-              </p>
+              <p className="truncate text-xs font-semibold">{displayName}</p>
 
               <p className="mt-0.5 truncate text-[10px] text-muted">
                 {ROLE_LABELS[role]}

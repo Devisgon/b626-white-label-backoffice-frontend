@@ -1,41 +1,21 @@
-export {
-  FuelModuleCard,
-} from "./fuel-module-card";
+export { FuelModuleCard } from "./fuel-module-card";
 
-export {
-  FuelTankForm,
-} from "./fuel-tank-form";
+export { FuelTankForm } from "./fuel-tank-form";
 
-export {
-  FuelTankActionButton,
-} from "./fuel-tank-action-button";
+export { FuelTankActionButton } from "./fuel-tank-action-button";
 
-export {
-  FuelTanksList,
-} from "./fuel-tanks-list";
+export { FuelTanksList } from "./fuel-tanks-list";
 
-export {
-  FuelPumpForm,
-} from "./fuel-pump-form";
+export { FuelPumpForm } from "./fuel-pump-form";
 
-export {
-  FuelPumpActionButton,
-} from "./fuel-pump-action-button";
+export { FuelPumpActionButton } from "./fuel-pump-action-button";
 
-export {
-  FuelPumpsList,
-} from "./fuel-pumps-list";
-export {
-  FuelPriceForm,
-} from "./fuel-price-form";
+export { FuelPumpsList } from "./fuel-pumps-list";
+export { FuelPriceForm } from "./fuel-price-form";
 
-export {
-  FuelPriceActionButton,
-} from "./fuel-price-action-button";
+export { FuelPriceActionButton } from "./fuel-price-action-button";
 
-export {
-  FuelPricesList,
-} from "./fuel-prices-list";
+export { FuelPricesList } from "./fuel-prices-list";
 export { FuelDeliveryForm } from "./fuel-delivery-form";
 export { FuelDeliveriesList } from "./fuel-deliveries-list";
 export { FuelSaleForm } from "./fuel-sale-form";

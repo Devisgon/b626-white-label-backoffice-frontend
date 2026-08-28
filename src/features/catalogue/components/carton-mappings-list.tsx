@@ -13,9 +13,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import type {
-  CartonMapping,
-} from "@/features/catalogue/types";
+import type { CartonMapping } from "@/features/catalogue/types";
 
 const initialMappings: CartonMapping[] = [
   {
@@ -85,72 +83,43 @@ const initialMappings: CartonMapping[] = [
 ];
 
 export function CartonMappingsList() {
-  const [mappings, setMappings] =
-    useState(initialMappings);
+  const [mappings, setMappings] = useState(initialMappings);
 
-  const [search, setSearch] =
-    useState("");
+  const [search, setSearch] = useState("");
 
-  const [
-    selectedCartonProductId,
-    setSelectedCartonProductId,
-  ] = useState("All");
+  const [selectedCartonProductId, setSelectedCartonProductId] = useState("All");
 
   const cartonProducts = useMemo(() => {
-    const uniqueCartons = new Map<
-      number,
-      CartonMapping["carton"]
-    >();
+    const uniqueCartons = new Map<number, CartonMapping["carton"]>();
 
     mappings.forEach((mapping) => {
-      uniqueCartons.set(
-        mapping.carton.id,
-        mapping.carton,
-      );
+      uniqueCartons.set(mapping.carton.id, mapping.carton);
     });
 
-    return Array.from(
-      uniqueCartons.values(),
-    );
+    return Array.from(uniqueCartons.values());
   }, [mappings]);
 
   const filteredMappings = useMemo(() => {
-    const normalizedSearch = search
-      .trim()
-      .toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
 
     return mappings.filter((mapping) => {
       const matchesSearch =
         normalizedSearch.length === 0 ||
-        mapping.carton.name
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        mapping.carton.sku
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        mapping.child.name
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        mapping.child.sku
-          .toLowerCase()
-          .includes(normalizedSearch);
+        mapping.carton.name.toLowerCase().includes(normalizedSearch) ||
+        mapping.carton.sku.toLowerCase().includes(normalizedSearch) ||
+        mapping.child.name.toLowerCase().includes(normalizedSearch) ||
+        mapping.child.sku.toLowerCase().includes(normalizedSearch);
 
       const matchesCarton =
         selectedCartonProductId === "All" ||
-        mapping.carton_product_id ===
-          Number(selectedCartonProductId);
+        mapping.carton_product_id === Number(selectedCartonProductId);
 
       return matchesSearch && matchesCarton;
     });
-  }, [
-    mappings,
-    search,
-    selectedCartonProductId,
-  ]);
+  }, [mappings, search, selectedCartonProductId]);
 
   const totalUnits = mappings.reduce(
-    (total, mapping) =>
-      total + mapping.quantity,
+    (total, mapping) => total + mapping.quantity,
     0,
   );
 
@@ -159,9 +128,7 @@ export function CartonMappingsList() {
     setSelectedCartonProductId("All");
   }
 
-  function removeMapping(
-    mapping: CartonMapping,
-  ) {
+  function removeMapping(mapping: CartonMapping) {
     const shouldDelete = window.confirm(
       `Delete the mapping between "${mapping.carton.name}" and "${mapping.child.name}"? This is a permanent delete.`,
     );
@@ -172,8 +139,7 @@ export function CartonMappingsList() {
 
     setMappings((currentMappings) =>
       currentMappings.filter(
-        (currentMapping) =>
-          currentMapping.id !== mapping.id,
+        (currentMapping) => currentMapping.id !== mapping.id,
       ),
     );
   }
@@ -215,13 +181,10 @@ export function CartonMappingsList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Carton mappings
-            </h2>
+            <h2 className="font-bold">Carton mappings</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Manage the unit products and quantities
-              contained inside cartons.
+              Manage the unit products and quantities contained inside cartons.
             </p>
           </div>
 
@@ -258,9 +221,7 @@ export function CartonMappingsList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by carton, product or SKU..."
               className="
                 h-11 w-full rounded-xl border
@@ -274,11 +235,7 @@ export function CartonMappingsList() {
 
           <select
             value={selectedCartonProductId}
-            onChange={(event) =>
-              setSelectedCartonProductId(
-                event.target.value,
-              )
-            }
+            onChange={(event) => setSelectedCartonProductId(event.target.value)}
             aria-label="Filter by carton product"
             className="
               h-11 rounded-xl border border-border
@@ -287,15 +244,10 @@ export function CartonMappingsList() {
               focus:ring-4 focus:ring-primary/10
             "
           >
-            <option value="All">
-              All carton products
-            </option>
+            <option value="All">All carton products</option>
 
             {cartonProducts.map((carton) => (
-              <option
-                key={carton.id}
-                value={carton.id}
-              >
+              <option key={carton.id} value={carton.id}>
                 {carton.name}
               </option>
             ))}
@@ -322,76 +274,75 @@ export function CartonMappingsList() {
             <table className="w-full min-w-[900px] text-left">
               <thead className="bg-surface-secondary">
                 <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                  <th className="px-5 py-4">
-                    Carton product
-                  </th>
+                  <th className="px-5 py-4">Carton product</th>
 
-                  <th className="px-5 py-4">
-                    Child product
-                  </th>
+                  <th className="px-5 py-4">Child product</th>
 
-                  <th className="px-5 py-4">
-                    Units per carton
-                  </th>
+                  <th className="px-5 py-4">Units per carton</th>
 
-                  <th className="px-5 py-4 text-right">
-                    Actions
-                  </th>
+                  <th className="px-5 py-4 text-right">Actions</th>
                 </tr>
               </thead>
 
               <tbody className="divide-y divide-border">
-                {filteredMappings.map(
-                  (mapping) => (
-                    <tr
-                      key={mapping.id}
-                      className="
+                {filteredMappings.map((mapping) => (
+                  <tr
+                    key={mapping.id}
+                    className="
                         text-sm transition
                         hover:bg-surface-secondary/50
                       "
-                    >
-                      <td className="px-5 py-4">
-                        <ProductCell
-                          name={
-                            mapping.carton.name
-                          }
-                          sku={
-                            mapping.carton.sku
-                          }
-                          type="carton"
-                        />
-                      </td>
+                  >
+                    <td className="px-5 py-4">
+                      <ProductCell
+                        name={mapping.carton.name}
+                        sku={mapping.carton.sku}
+                        type="carton"
+                      />
+                    </td>
 
-                      <td className="px-5 py-4">
-                        <ProductCell
-                          name={
-                            mapping.child.name
-                          }
-                          sku={
-                            mapping.child.sku
-                          }
-                          type="child"
-                        />
-                      </td>
+                    <td className="px-5 py-4">
+                      <ProductCell
+                        name={mapping.child.name}
+                        sku={mapping.child.sku}
+                        type="child"
+                      />
+                    </td>
 
-                      <td className="px-5 py-4">
-                        <span
-                          className="
+                    <td className="px-5 py-4">
+                      <span
+                        className="
                             inline-flex rounded-full
                             bg-primary-light px-3 py-1
                             text-xs font-bold text-primary
                           "
+                      >
+                        {mapping.quantity} units
+                      </span>
+                    </td>
+
+                    <td className="px-5 py-4">
+                      <div className="flex justify-end gap-2">
+                        <Link
+                          href={`/catalog/carton-mappings/${mapping.id}`}
+                          aria-label={`View mapping ${mapping.id}`}
+                          className="
+                              flex size-9 items-center
+                              justify-center rounded-lg
+                              border border-border
+                              text-muted transition
+                              hover:border-primary
+                              hover:bg-primary-light
+                              hover:text-primary
+                            "
                         >
-                          {mapping.quantity} units
-                        </span>
-                      </td>
+                          <Eye className="size-4" />
+                        </Link>
 
-                      <td className="px-5 py-4">
-                        <div className="flex justify-end gap-2">
-                          <Link
-                            href={`/catalog/carton-mappings/${mapping.id}`}
-                            aria-label={`View mapping ${mapping.id}`}
-                            className="
+                        <Link
+                          href={`/catalog/carton-mappings/${mapping.id}/edit`}
+                          aria-label={`Edit mapping ${mapping.id}`}
+                          className="
                               flex size-9 items-center
                               justify-center rounded-lg
                               border border-border
@@ -400,33 +351,15 @@ export function CartonMappingsList() {
                               hover:bg-primary-light
                               hover:text-primary
                             "
-                          >
-                            <Eye className="size-4" />
-                          </Link>
+                        >
+                          <Pencil className="size-4" />
+                        </Link>
 
-                          <Link
-                            href={`/catalog/carton-mappings/${mapping.id}/edit`}
-                            aria-label={`Edit mapping ${mapping.id}`}
-                            className="
-                              flex size-9 items-center
-                              justify-center rounded-lg
-                              border border-border
-                              text-muted transition
-                              hover:border-primary
-                              hover:bg-primary-light
-                              hover:text-primary
-                            "
-                          >
-                            <Pencil className="size-4" />
-                          </Link>
-
-                          <button
-                            type="button"
-                            onClick={() =>
-                              removeMapping(mapping)
-                            }
-                            aria-label={`Delete mapping ${mapping.id}`}
-                            className="
+                        <button
+                          type="button"
+                          onClick={() => removeMapping(mapping)}
+                          aria-label={`Delete mapping ${mapping.id}`}
+                          className="
                               flex size-9 items-center
                               justify-center rounded-lg
                               border border-border
@@ -435,14 +368,13 @@ export function CartonMappingsList() {
                               hover:bg-red-50
                               hover:text-red-600
                             "
-                          >
-                            <Trash2 className="size-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ),
-                )}
+                        >
+                          <Trash2 className="size-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -450,13 +382,10 @@ export function CartonMappingsList() {
           <div className="p-12 text-center">
             <Box className="mx-auto size-9 text-muted" />
 
-            <h3 className="mt-3 font-semibold">
-              No carton mappings found
-            </h3>
+            <h3 className="mt-3 font-semibold">No carton mappings found</h3>
 
             <p className="mt-1 text-xs text-muted">
-              Try changing your filters or create a
-              new carton mapping.
+              Try changing your filters or create a new carton mapping.
             </p>
           </div>
         )}
@@ -469,8 +398,7 @@ export function CartonMappingsList() {
           "
         >
           <span>
-            Showing {filteredMappings.length} of{" "}
-            {mappings.length} mappings
+            Showing {filteredMappings.length} of {mappings.length} mappings
           </span>
 
           <span>Dummy data</span>
@@ -506,13 +434,9 @@ function ProductCell({
       </span>
 
       <div>
-        <p className="font-semibold">
-          {name}
-        </p>
+        <p className="font-semibold">{name}</p>
 
-        <p className="mt-1 text-[11px] text-muted">
-          {sku}
-        </p>
+        <p className="mt-1 text-[11px] text-muted">{sku}</p>
       </div>
     </div>
   );
@@ -536,17 +460,11 @@ function StatCard({
         hover:shadow-[var(--shadow-md)]
       "
     >
-      <p className="text-xs text-muted">
-        {title}
-      </p>
+      <p className="text-xs text-muted">{title}</p>
 
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
 
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }

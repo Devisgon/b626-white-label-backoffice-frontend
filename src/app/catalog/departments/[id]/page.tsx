@@ -20,8 +20,7 @@ interface DepartmentDetailsPageProps {
 const departmentRecords = {
   "1": {
     name: "Grocery",
-    description:
-      "Daily grocery and household products",
+    description: "Daily grocery and household products",
     defaultTaxRate: 5,
     defaultMargin: 18,
     ageRestriction: false,
@@ -34,8 +33,7 @@ const departmentRecords = {
 
   "2": {
     name: "Beverages",
-    description:
-      "Cold drinks, juices and bottled water",
+    description: "Cold drinks, juices and bottled water",
     defaultTaxRate: 8,
     defaultMargin: 20,
     ageRestriction: false,
@@ -48,8 +46,7 @@ const departmentRecords = {
 
   "3": {
     name: "Tobacco",
-    description:
-      "Age-restricted tobacco products",
+    description: "Age-restricted tobacco products",
     defaultTaxRate: 15,
     defaultMargin: 12,
     ageRestriction: true,
@@ -62,8 +59,7 @@ const departmentRecords = {
 
   "4": {
     name: "Seasonal",
-    description:
-      "Seasonal and promotional products",
+    description: "Seasonal and promotional products",
     defaultTaxRate: 5,
     defaultMargin: 25,
     ageRestriction: false,
@@ -81,9 +77,8 @@ export default async function DepartmentDetailsPage({
   const { id } = await params;
 
   const department =
-    departmentRecords[
-      id as keyof typeof departmentRecords
-    ] ?? departmentRecords["1"];
+    departmentRecords[id as keyof typeof departmentRecords] ??
+    departmentRecords["1"];
 
   const statusStyles =
     department.status === "Active"
@@ -135,9 +130,7 @@ export default async function DepartmentDetailsPage({
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Department ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Department ID: {id}</p>
             </div>
           </div>
 
@@ -197,9 +190,7 @@ export default async function DepartmentDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Department information
-              </h2>
+              <h2 className="font-bold">Department information</h2>
 
               <p className="text-xs text-muted">
                 Department, tax and POS configuration.
@@ -208,15 +199,9 @@ export default async function DepartmentDetailsPage({
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Department name"
-              value={department.name}
-            />
+            <DetailsRow label="Department name" value={department.name} />
 
-            <DetailsRow
-              label="Description"
-              value={department.description}
-            />
+            <DetailsRow label="Description" value={department.description} />
 
             <DetailsRow
               label="Default tax rate"
@@ -238,36 +223,21 @@ export default async function DepartmentDetailsPage({
 
             <DetailsRow
               label="POS department"
-              value={String(
-                department.posDepartmentNumber,
-              )}
+              value={String(department.posDepartmentNumber)}
               icon={Hash}
             />
 
             <DetailsRow
               label="Age restriction"
-              value={
-                department.ageRestriction
-                  ? "Required"
-                  : "Not required"
-              }
+              value={department.ageRestriction ? "Required" : "Not required"}
               icon={ShieldAlert}
             />
 
-            <DetailsRow
-              label="Status"
-              value={department.status}
-            />
+            <DetailsRow label="Status" value={department.status} />
 
-            <DetailsRow
-              label="Created"
-              value={department.createdAt}
-            />
+            <DetailsRow label="Created" value={department.createdAt} />
 
-            <DetailsRow
-              label="Last updated"
-              value={department.updatedAt}
-            />
+            <DetailsRow label="Last updated" value={department.updatedAt} />
           </dl>
         </section>
       </div>
@@ -308,9 +278,7 @@ function InfoCard({
       <div className="min-w-0">
         <p className="text-xs text-muted">{title}</p>
         <p className="mt-1 truncate font-bold">{value}</p>
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
@@ -332,14 +300,10 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
       <dd className="flex items-center gap-2 font-medium">
-        {Icon && (
-          <Icon className="size-4 text-muted" />
-        )}
+        {Icon && <Icon className="size-4 text-muted" />}
 
         {value || "Not provided"}
       </dd>

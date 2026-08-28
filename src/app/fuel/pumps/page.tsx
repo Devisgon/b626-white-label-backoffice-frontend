@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Fuel,
-} from "lucide-react";
+import { ArrowLeft, Fuel } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelPumpsList,
-} from "@/features/fuel/components";
+import { FuelPumpsList } from "@/features/fuel/components";
 
 export default function FuelPumpsPage() {
   return (
@@ -29,12 +24,9 @@ export default function FuelPumpsPage() {
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
               Fuel management
             </p>
-            <h1 className="mt-2 text-2xl font-bold sm:text-3xl">
-              Fuel pumps
-            </h1>
+            <h1 className="mt-2 text-2xl font-bold sm:text-3xl">Fuel pumps</h1>
             <p className="mt-2 text-sm text-muted">
-              Manage pumps and their connected fuel
-              tanks.
+              Manage pumps and their connected fuel tanks.
             </p>
           </div>
         </section>

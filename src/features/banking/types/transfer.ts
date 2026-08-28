@@ -1,6 +1,4 @@
-export type TransferStatus =
-  | "posted"
-  | "voided";
+export type TransferStatus = "posted" | "voided";
 
 export interface FundTransfer {
   id: string;

@@ -1,16 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Database,
-  Gauge,
-  MapPin,
-  Pencil,
-} from "lucide-react";
+import { ArrowLeft, Database, Gauge, MapPin, Pencil } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelTankActionButton,
-} from "@/features/fuel/components";
+import { FuelTankActionButton } from "@/features/fuel/components";
 
 interface FuelTankDetailsPageProps {
   params: Promise<{
@@ -59,15 +51,10 @@ export default async function FuelTankDetailsPage({
 }: FuelTankDetailsPageProps) {
   const { id } = await params;
 
-  const tank =
-    tanks[id as keyof typeof tanks] ??
-    tanks["1"];
+  const tank = tanks[id as keyof typeof tanks] ?? tanks["1"];
 
   const percentage =
-    tank.capacity > 0
-      ? (tank.currentStock / tank.capacity) *
-        100
-      : 0;
+    tank.capacity > 0 ? (tank.currentStock / tank.capacity) * 100 : 0;
 
   return (
     <AppShell>
@@ -91,9 +78,7 @@ export default async function FuelTankDetailsPage({
               </p>
 
               <div className="mt-2 flex flex-wrap items-center gap-3">
-                <h1 className="text-2xl font-bold sm:text-3xl">
-                  {tank.name}
-                </h1>
+                <h1 className="text-2xl font-bold sm:text-3xl">{tank.name}</h1>
 
                 <span
                   className={`
@@ -110,9 +95,7 @@ export default async function FuelTankDetailsPage({
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Tank ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Tank ID: {id}</p>
             </div>
           </div>
 
@@ -157,9 +140,7 @@ export default async function FuelTankDetailsPage({
         </section>
 
         <section className="mt-6 rounded-2xl border border-border bg-white p-6 shadow-[var(--shadow-sm)]">
-          <h2 className="font-bold">
-            Current stock level
-          </h2>
+          <h2 className="font-bold">Current stock level</h2>
 
           <div className="mt-6 flex items-end justify-between gap-4">
             <div>
@@ -171,40 +152,23 @@ export default async function FuelTankDetailsPage({
               </p>
             </div>
 
-            <p className="text-lg font-bold">
-              {percentage.toFixed(1)}%
-            </p>
+            <p className="text-lg font-bold">{percentage.toFixed(1)}%</p>
           </div>
 
           <div className="mt-4 h-3 overflow-hidden rounded-full bg-surface-secondary">
             <div
               className="h-full rounded-full bg-primary"
               style={{
-                width: `${Math.min(
-                  percentage,
-                  100,
-                )}%`,
+                width: `${Math.min(percentage, 100)}%`,
               }}
             />
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Tank name"
-              value={tank.name}
-            />
-            <DetailsRow
-              label="Fuel type"
-              value={tank.fuelType}
-            />
-            <DetailsRow
-              label="Status"
-              value={tank.status}
-            />
-            <DetailsRow
-              label="Last updated"
-              value={tank.updatedAt}
-            />
+            <DetailsRow label="Tank name" value={tank.name} />
+            <DetailsRow label="Fuel type" value={tank.fuelType} />
+            <DetailsRow label="Status" value={tank.status} />
+            <DetailsRow label="Last updated" value={tank.updatedAt} />
           </dl>
         </section>
       </div>
@@ -230,35 +194,19 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
-        <p className="mt-1 text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
+        <p className="mt-1 truncate font-bold">{value}</p>
+        <p className="mt-1 text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid gap-2 py-4 text-sm sm:grid-cols-[180px_minmax(0,1fr)]">
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
-      <dd className="font-medium">
-        {value}
-      </dd>
+      <dt className="font-medium text-muted">{label}</dt>
+      <dd className="font-medium">{value}</dd>
     </div>
   );
 }

@@ -1,6 +1,93 @@
 import { lotterySettlementSchema } from "./schemas";
 import type { CrudResourceConfig } from "@/types/crud-resource";
-const now = "2026-08-27T10:00:00.000Z"; const location = "b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d";
-export const lotterySettlementConfig: CrudResourceConfig = { title: "Lottery Settlements", singular: "lottery settlement", description: "Manage end-of-day lottery totals, payouts and net amounts.", route: "/lottery/settlements", endpoint: "/lottery/settlements", statuses: ["Pending", "Settled", "Cancelled"], searchKeys: ["notes", "status"], schema: lotterySettlementSchema, fields: [{ key: "location_id", label: "Location", type: "select", options: [location] }, { key: "settlement_date", label: "Settlement date", type: "datetime-local", required: true, table: true }, { key: "total_sales", label: "Total sales", type: "number", required: true, currency: true, table: true }, { key: "total_payouts", label: "Total payouts", type: "number", required: true, currency: true, table: true }, { key: "net_amount", label: "Net amount", type: "number", required: true, currency: true, table: true }, { key: "status", label: "Status", type: "select", options: ["Pending", "Settled", "Cancelled"], required: true, table: true }, { key: "notes", label: "Notes", type: "textarea" }], records: [{ id: 1, location_id: location, settlement_date: "2026-08-26T23:59:00.000Z", total_sales: 32000, total_payouts: 4500, net_amount: 27500, status: "Settled", notes: "End of day settlement", created_at: now, updated_at: now, deleted_at: null }, { id: 2, location_id: location, settlement_date: "2026-08-27T23:59:00.000Z", total_sales: 20000, total_payouts: 1500, net_amount: 18500, status: "Pending", notes: "Awaiting review", created_at: now, updated_at: now, deleted_at: null }] };
-export function findDemoLotterySettlement(id: number) { return lotterySettlementConfig.records.find((item) => item.id === id); }
-
+const now = "2026-08-27T10:00:00.000Z";
+const location = "b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d";
+export const lotterySettlementConfig: CrudResourceConfig = {
+  title: "Lottery Settlements",
+  singular: "lottery settlement",
+  description: "Manage end-of-day lottery totals, payouts and net amounts.",
+  route: "/lottery/settlements",
+  endpoint: "/lottery/settlements",
+  statuses: ["Pending", "Settled", "Cancelled"],
+  searchKeys: ["notes", "status"],
+  schema: lotterySettlementSchema,
+  fields: [
+    {
+      key: "location_id",
+      label: "Location",
+      type: "select",
+      options: [location],
+    },
+    {
+      key: "settlement_date",
+      label: "Settlement date",
+      type: "datetime-local",
+      required: true,
+      table: true,
+    },
+    {
+      key: "total_sales",
+      label: "Total sales",
+      type: "number",
+      required: true,
+      currency: true,
+      table: true,
+    },
+    {
+      key: "total_payouts",
+      label: "Total payouts",
+      type: "number",
+      required: true,
+      currency: true,
+      table: true,
+    },
+    {
+      key: "net_amount",
+      label: "Net amount",
+      type: "number",
+      required: true,
+      currency: true,
+      table: true,
+    },
+    {
+      key: "status",
+      label: "Status",
+      type: "select",
+      options: ["Pending", "Settled", "Cancelled"],
+      required: true,
+      table: true,
+    },
+    { key: "notes", label: "Notes", type: "textarea" },
+  ],
+  records: [
+    {
+      id: 1,
+      location_id: location,
+      settlement_date: "2026-08-26T23:59:00.000Z",
+      total_sales: 32000,
+      total_payouts: 4500,
+      net_amount: 27500,
+      status: "Settled",
+      notes: "End of day settlement",
+      created_at: now,
+      updated_at: now,
+      deleted_at: null,
+    },
+    {
+      id: 2,
+      location_id: location,
+      settlement_date: "2026-08-27T23:59:00.000Z",
+      total_sales: 20000,
+      total_payouts: 1500,
+      net_amount: 18500,
+      status: "Pending",
+      notes: "Awaiting review",
+      created_at: now,
+      updated_at: now,
+      deleted_at: null,
+    },
+  ],
+};
+export function findDemoLotterySettlement(id: number) {
+  return lotterySettlementConfig.records.find((item) => item.id === id);
+}

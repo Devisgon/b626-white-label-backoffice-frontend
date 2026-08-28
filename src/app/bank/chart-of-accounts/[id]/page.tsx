@@ -33,18 +33,14 @@ interface ChartAccountDetails {
   updatedAt: string;
 }
 
-const chartAccounts: Record<
-  string,
-  ChartAccountDetails
-> = {
+const chartAccounts: Record<string, ChartAccountDetails> = {
   "2d17c4ef-86b1-4ef8-9000-100000000001": {
     accountCode: "1000",
     accountName: "Assets",
     accountCategory: "asset",
     normalBalance: "debit",
     parentAccount: "No parent account",
-    description:
-      "Main account used to group all business assets.",
+    description: "Main account used to group all business assets.",
     isSystem: true,
     status: "active",
     createdAt: "1 Jan 2026",
@@ -57,8 +53,7 @@ const chartAccounts: Record<
     accountCategory: "liability",
     normalBalance: "credit",
     parentAccount: "No parent account",
-    description:
-      "Main account used to group business liabilities.",
+    description: "Main account used to group business liabilities.",
     isSystem: true,
     status: "active",
     createdAt: "1 Jan 2026",
@@ -71,8 +66,7 @@ const chartAccounts: Record<
     accountCategory: "equity",
     normalBalance: "credit",
     parentAccount: "No parent account",
-    description:
-      "Tracks owner investments and retained equity.",
+    description: "Tracks owner investments and retained equity.",
     isSystem: true,
     status: "active",
     createdAt: "1 Jan 2026",
@@ -85,8 +79,7 @@ const chartAccounts: Record<
     accountCategory: "revenue",
     normalBalance: "credit",
     parentAccount: "No parent account",
-    description:
-      "Tracks income generated from store sales.",
+    description: "Tracks income generated from store sales.",
     isSystem: false,
     status: "active",
     createdAt: "10 Feb 2026",
@@ -99,8 +92,7 @@ const chartAccounts: Record<
     accountCategory: "expense",
     normalBalance: "debit",
     parentAccount: "Expenses",
-    description:
-      "Electricity, gas, water and other utility expenses.",
+    description: "Electricity, gas, water and other utility expenses.",
     isSystem: false,
     status: "active",
     createdAt: "17 Mar 2026",
@@ -113,8 +105,7 @@ const chartAccounts: Record<
     accountCategory: "expense",
     normalBalance: "debit",
     parentAccount: "Expenses",
-    description:
-      "Previous account used for marketing expenses.",
+    description: "Previous account used for marketing expenses.",
     isSystem: false,
     status: "inactive",
     createdAt: "18 Mar 2026",
@@ -123,10 +114,7 @@ const chartAccounts: Record<
 };
 
 function capitalize(value: string) {
-  return (
-    value.charAt(0).toUpperCase() +
-    value.slice(1)
-  );
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 export default async function ChartAccountDetailsPage({
@@ -140,13 +128,10 @@ export default async function ChartAccountDetailsPage({
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-[var(--shadow-sm)]">
-            <h1 className="text-xl font-bold">
-              Account not found
-            </h1>
+            <h1 className="text-xl font-bold">Account not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested chart account does not
-              exist.
+              The requested chart account does not exist.
             </p>
 
             <Link
@@ -197,8 +182,7 @@ export default async function ChartAccountDetailsPage({
 
               <div className="mt-2 flex flex-wrap items-center gap-3">
                 <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                  {account.accountCode} —{" "}
-                  {account.accountName}
+                  {account.accountCode} — {account.accountName}
                 </h1>
 
                 <span
@@ -217,9 +201,7 @@ export default async function ChartAccountDetailsPage({
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Account ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Account ID: {id}</p>
             </div>
           </div>
 
@@ -242,22 +224,14 @@ export default async function ChartAccountDetailsPage({
         <section className="mt-8 grid gap-4 sm:grid-cols-3">
           <InfoCard
             title="Category"
-            value={capitalize(
-              account.accountCategory,
-            )}
-            helper={`Normal balance: ${capitalize(
-              account.normalBalance,
-            )}`}
+            value={capitalize(account.accountCategory)}
+            helper={`Normal balance: ${capitalize(account.normalBalance)}`}
             icon={Scale}
           />
 
           <InfoCard
             title="Account type"
-            value={
-              account.isSystem
-                ? "System account"
-                : "Custom account"
-            }
+            value={account.isSystem ? "System account" : "Custom account"}
             helper={
               account.isSystem
                 ? "Managed by the system"
@@ -292,65 +266,39 @@ export default async function ChartAccountDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Account information
-              </h2>
+              <h2 className="font-bold">Account information</h2>
 
               <p className="text-xs text-muted">
-                Financial classification and account
-                settings.
+                Financial classification and account settings.
               </p>
             </div>
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Account code"
-              value={account.accountCode}
-            />
+            <DetailsRow label="Account code" value={account.accountCode} />
 
-            <DetailsRow
-              label="Account name"
-              value={account.accountName}
-            />
+            <DetailsRow label="Account name" value={account.accountName} />
 
             <DetailsRow
               label="Category"
-              value={capitalize(
-                account.accountCategory,
-              )}
+              value={capitalize(account.accountCategory)}
             />
 
             <DetailsRow
               label="Normal balance"
-              value={capitalize(
-                account.normalBalance,
-              )}
+              value={capitalize(account.normalBalance)}
             />
 
-            <DetailsRow
-              label="Parent account"
-              value={account.parentAccount}
-            />
+            <DetailsRow label="Parent account" value={account.parentAccount} />
 
-            <DetailsRow
-              label="Description"
-              value={account.description}
-            />
+            <DetailsRow label="Description" value={account.description} />
 
             <DetailsRow
               label="Account type"
-              value={
-                account.isSystem
-                  ? "System account"
-                  : "Custom account"
-              }
+              value={account.isSystem ? "System account" : "Custom account"}
             />
 
-            <DetailsRow
-              label="Status"
-              value={capitalize(account.status)}
-            />
+            <DetailsRow label="Status" value={capitalize(account.status)} />
           </dl>
         </section>
       </div>
@@ -365,12 +313,7 @@ interface InfoCardProps {
   icon: React.ElementType;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon: Icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon: Icon }: InfoCardProps) {
   return (
     <article
       className="
@@ -392,29 +335,17 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -422,13 +353,9 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium text-foreground">
-        {value}
-      </dd>
+      <dd className="font-medium text-foreground">{value}</dd>
     </div>
   );
 }

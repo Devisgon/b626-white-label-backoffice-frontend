@@ -32,29 +32,25 @@ export interface PriceBooksListResponse {
   data: PriceBook[];
 }
 
-const PRICE_BOOKS_ENDPOINT =
-  "/catalogue/price-books";
+const PRICE_BOOKS_ENDPOINT = "/catalogue/price-books";
 
 export async function getPriceBooks(
   filters?: PriceBookFilters,
 ): Promise<PriceBooksListResponse> {
-  const response =
-    await apiClient.get<PriceBooksListResponse>(
-      PRICE_BOOKS_ENDPOINT,
-      {
-        params: filters,
-      },
-    );
+  const response = await apiClient.get<PriceBooksListResponse>(
+    PRICE_BOOKS_ENDPOINT,
+    {
+      params: filters,
+    },
+  );
 
   return response.data;
 }
 
-export async function getPriceBook(
-  id: number,
-): Promise<PriceBook> {
-  const response = await apiClient.get<
-    ApiResponse<PriceBook>
-  >(`${PRICE_BOOKS_ENDPOINT}/${id}`);
+export async function getPriceBook(id: number): Promise<PriceBook> {
+  const response = await apiClient.get<ApiResponse<PriceBook>>(
+    `${PRICE_BOOKS_ENDPOINT}/${id}`,
+  );
 
   return response.data.data;
 }
@@ -62,9 +58,10 @@ export async function getPriceBook(
 export async function createPriceBook(
   payload: CreatePriceBookPayload,
 ): Promise<PriceBook> {
-  const response = await apiClient.post<
-    ApiResponse<PriceBook>
-  >(PRICE_BOOKS_ENDPOINT, payload);
+  const response = await apiClient.post<ApiResponse<PriceBook>>(
+    PRICE_BOOKS_ENDPOINT,
+    payload,
+  );
 
   return response.data.data;
 }
@@ -73,28 +70,23 @@ export async function updatePriceBook(
   id: number,
   payload: UpdatePriceBookPayload,
 ): Promise<PriceBook> {
-  const response = await apiClient.patch<
-    ApiResponse<PriceBook>
-  >(`${PRICE_BOOKS_ENDPOINT}/${id}`, payload);
+  const response = await apiClient.patch<ApiResponse<PriceBook>>(
+    `${PRICE_BOOKS_ENDPOINT}/${id}`,
+    payload,
+  );
 
   return response.data.data;
 }
 
-export async function deletePriceBook(
-  id: number,
-): Promise<void> {
-  await apiClient.delete(
-    `${PRICE_BOOKS_ENDPOINT}/${id}`,
-  );
+export async function deletePriceBook(id: number): Promise<void> {
+  await apiClient.delete(`${PRICE_BOOKS_ENDPOINT}/${id}`);
 }
 
 export async function addPriceBookItem(
   priceBookId: number,
   payload: AddPriceBookItemPayload,
 ): Promise<PriceBookItem> {
-  const response = await apiClient.post<
-    ApiResponse<PriceBookItem>
-  >(
+  const response = await apiClient.post<ApiResponse<PriceBookItem>>(
     `${PRICE_BOOKS_ENDPOINT}/${priceBookId}/items`,
     {
       product_id: payload.product_id,
@@ -110,9 +102,7 @@ export async function updatePriceBookItem(
   itemId: number,
   payload: UpdatePriceBookItemPayload,
 ): Promise<PriceBookItem> {
-  const response = await apiClient.patch<
-    ApiResponse<PriceBookItem>
-  >(
+  const response = await apiClient.patch<ApiResponse<PriceBookItem>>(
     `${PRICE_BOOKS_ENDPOINT}/${priceBookId}/items/${itemId}`,
     {
       selling_price: payload.selling_price,

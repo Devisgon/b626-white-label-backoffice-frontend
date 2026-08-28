@@ -50,57 +50,41 @@ const initialLocations: InventoryLocation[] = [
 ];
 
 export function InventoryLocationsList() {
-  const [locations, setLocations] =
-    useState(initialLocations);
+  const [locations, setLocations] = useState(initialLocations);
 
-  const [search, setSearch] =
-    useState("");
+  const [search, setSearch] = useState("");
 
-  const [statusFilter, setStatusFilter] =
-    useState<
-      "All" | InventoryLocationStatus
-    >("All");
+  const [statusFilter, setStatusFilter] = useState<
+    "All" | InventoryLocationStatus
+  >("All");
 
   const filteredLocations = useMemo(() => {
-    const normalizedSearch = search
-      .trim()
-      .toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
 
     return locations.filter((location) => {
       const matchesSearch =
         normalizedSearch.length === 0 ||
-        location.name
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        location.code
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        location.address
-          ?.toLowerCase()
-          .includes(normalizedSearch);
+        location.name.toLowerCase().includes(normalizedSearch) ||
+        location.code.toLowerCase().includes(normalizedSearch) ||
+        location.address?.toLowerCase().includes(normalizedSearch);
 
       const matchesStatus =
-        statusFilter === "All" ||
-        location.status === statusFilter;
+        statusFilter === "All" || location.status === statusFilter;
 
       return matchesSearch && matchesStatus;
     });
   }, [locations, search, statusFilter]);
 
-  const activeLocations =
-    locations.filter(
-      (location) =>
-        location.status === "Active",
-    ).length;
+  const activeLocations = locations.filter(
+    (location) => location.status === "Active",
+  ).length;
 
   function resetFilters() {
     setSearch("");
     setStatusFilter("All");
   }
 
-  function removeLocation(
-    location: InventoryLocation,
-  ) {
+  function removeLocation(location: InventoryLocation) {
     const shouldDelete = window.confirm(
       `Delete "${location.name}"? This action will be connected to the backend later.`,
     );
@@ -111,8 +95,7 @@ export function InventoryLocationsList() {
 
     setLocations((currentLocations) =>
       currentLocations.filter(
-        (currentLocation) =>
-          currentLocation.id !== location.id,
+        (currentLocation) => currentLocation.id !== location.id,
       ),
     );
   }
@@ -134,10 +117,7 @@ export function InventoryLocationsList() {
 
         <StatCard
           title="Inactive locations"
-          value={String(
-            locations.length -
-              activeLocations,
-          )}
+          value={String(locations.length - activeLocations)}
           helper="Not currently in use"
         />
       </section>
@@ -157,13 +137,11 @@ export function InventoryLocationsList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Inventory locations
-            </h2>
+            <h2 className="font-bold">Inventory locations</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Manage warehouses, stock rooms and
-              other inventory storage locations.
+              Manage warehouses, stock rooms and other inventory storage
+              locations.
             </p>
           </div>
 
@@ -200,9 +178,7 @@ export function InventoryLocationsList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by name, code or address..."
               className="
                 h-11 w-full rounded-xl border
@@ -218,9 +194,7 @@ export function InventoryLocationsList() {
             value={statusFilter}
             onChange={(event) =>
               setStatusFilter(
-                event.target.value as
-                  | "All"
-                  | InventoryLocationStatus,
+                event.target.value as "All" | InventoryLocationStatus,
               )
             }
             aria-label="Filter locations by status"
@@ -231,17 +205,11 @@ export function InventoryLocationsList() {
               focus:ring-4 focus:ring-primary/10
             "
           >
-            <option value="All">
-              All statuses
-            </option>
+            <option value="All">All statuses</option>
 
-            <option value="Active">
-              Active
-            </option>
+            <option value="Active">Active</option>
 
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           <button
@@ -265,103 +233,104 @@ export function InventoryLocationsList() {
             <table className="w-full min-w-[850px] text-left">
               <thead className="bg-surface-secondary">
                 <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                  <th className="px-5 py-4">
-                    Location
-                  </th>
+                  <th className="px-5 py-4">Location</th>
 
-                  <th className="px-5 py-4">
-                    Code
-                  </th>
+                  <th className="px-5 py-4">Code</th>
 
-                  <th className="px-5 py-4">
-                    Address
-                  </th>
+                  <th className="px-5 py-4">Address</th>
 
-                  <th className="px-5 py-4">
-                    Status
-                  </th>
+                  <th className="px-5 py-4">Status</th>
 
-                  <th className="px-5 py-4 text-right">
-                    Actions
-                  </th>
+                  <th className="px-5 py-4 text-right">Actions</th>
                 </tr>
               </thead>
 
               <tbody className="divide-y divide-border">
-                {filteredLocations.map(
-                  (location) => (
-                    <tr
-                      key={location.id}
-                      className="
+                {filteredLocations.map((location) => (
+                  <tr
+                    key={location.id}
+                    className="
                         text-sm transition
                         hover:bg-surface-secondary/50
                       "
-                    >
-                      <td className="px-5 py-4">
-                        <div className="flex items-center gap-3">
-                          <span
-                            className="
+                  >
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="
                               flex size-9 shrink-0
                               items-center justify-center
                               rounded-lg bg-primary-light
                               text-primary
                             "
-                          >
-                            <Warehouse className="size-4" />
-                          </span>
+                        >
+                          <Warehouse className="size-4" />
+                        </span>
 
-                          <span className="font-semibold">
-                            {location.name}
-                          </span>
-                        </div>
-                      </td>
+                        <span className="font-semibold">{location.name}</span>
+                      </div>
+                    </td>
 
-                      <td className="px-5 py-4">
-                        <span
-                          className="
+                    <td className="px-5 py-4">
+                      <span
+                        className="
                             rounded-lg
                             bg-surface-secondary
                             px-2.5 py-1 text-xs
                             font-semibold text-muted
                           "
-                        >
-                          {location.code}
-                        </span>
-                      </td>
+                      >
+                        {location.code}
+                      </span>
+                    </td>
 
-                      <td className="px-5 py-4 text-muted">
-                        <span className="flex items-center gap-2">
-                          <MapPin className="size-3.5 shrink-0" />
+                    <td className="px-5 py-4 text-muted">
+                      <span className="flex items-center gap-2">
+                        <MapPin className="size-3.5 shrink-0" />
 
-                          {location.address ||
-                            "Not provided"}
-                        </span>
-                      </td>
+                        {location.address || "Not provided"}
+                      </span>
+                    </td>
 
-                      <td className="px-5 py-4">
-                        <span
-                          className={`
+                    <td className="px-5 py-4">
+                      <span
+                        className={`
                             inline-flex rounded-full
                             px-2.5 py-1 text-[10px]
                             font-semibold
                             ${
-                              location.status ===
-                              "Active"
+                              location.status === "Active"
                                 ? "bg-emerald-50 text-emerald-700"
                                 : "bg-slate-100 text-slate-600"
                             }
                           `}
+                      >
+                        {location.status}
+                      </span>
+                    </td>
+
+                    <td className="px-5 py-4">
+                      <div className="flex justify-end gap-2">
+                        <Link
+                          href={`/catalog/inventory-locations/${location.id}`}
+                          aria-label={`View ${location.name}`}
+                          className="
+                              flex size-9 items-center
+                              justify-center rounded-lg
+                              border border-border
+                              text-muted transition
+                              hover:border-primary
+                              hover:bg-primary-light
+                              hover:text-primary
+                            "
                         >
-                          {location.status}
-                        </span>
-                      </td>
+                          <Eye className="size-4" />
+                        </Link>
 
-                      <td className="px-5 py-4">
-                        <div className="flex justify-end gap-2">
-                          <Link
-                            href={`/catalog/inventory-locations/${location.id}`}
-                            aria-label={`View ${location.name}`}
-                            className="
+                        <Link
+                          href={`/catalog/inventory-locations/${location.id}/edit`}
+                          aria-label={`Edit ${location.name}`}
+                          className="
                               flex size-9 items-center
                               justify-center rounded-lg
                               border border-border
@@ -370,35 +339,15 @@ export function InventoryLocationsList() {
                               hover:bg-primary-light
                               hover:text-primary
                             "
-                          >
-                            <Eye className="size-4" />
-                          </Link>
+                        >
+                          <Pencil className="size-4" />
+                        </Link>
 
-                          <Link
-                            href={`/catalog/inventory-locations/${location.id}/edit`}
-                            aria-label={`Edit ${location.name}`}
-                            className="
-                              flex size-9 items-center
-                              justify-center rounded-lg
-                              border border-border
-                              text-muted transition
-                              hover:border-primary
-                              hover:bg-primary-light
-                              hover:text-primary
-                            "
-                          >
-                            <Pencil className="size-4" />
-                          </Link>
-
-                          <button
-                            type="button"
-                            onClick={() =>
-                              removeLocation(
-                                location,
-                              )
-                            }
-                            aria-label={`Delete ${location.name}`}
-                            className="
+                        <button
+                          type="button"
+                          onClick={() => removeLocation(location)}
+                          aria-label={`Delete ${location.name}`}
+                          className="
                               flex size-9 items-center
                               justify-center rounded-lg
                               border border-border
@@ -407,14 +356,13 @@ export function InventoryLocationsList() {
                               hover:bg-red-50
                               hover:text-red-600
                             "
-                          >
-                            <Trash2 className="size-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ),
-                )}
+                        >
+                          <Trash2 className="size-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -422,13 +370,10 @@ export function InventoryLocationsList() {
           <div className="p-12 text-center">
             <Warehouse className="mx-auto size-9 text-muted" />
 
-            <h3 className="mt-3 font-semibold">
-              No locations found
-            </h3>
+            <h3 className="mt-3 font-semibold">No locations found</h3>
 
             <p className="mt-1 text-xs text-muted">
-              Try changing your search or status
-              filter.
+              Try changing your search or status filter.
             </p>
           </div>
         )}
@@ -441,13 +386,10 @@ export function InventoryLocationsList() {
           "
         >
           <span>
-            Showing {filteredLocations.length} of{" "}
-            {locations.length} locations
+            Showing {filteredLocations.length} of {locations.length} locations
           </span>
 
-          <span>
-            Dummy data
-          </span>
+          <span>Dummy data</span>
         </div>
       </section>
     </div>
@@ -460,11 +402,7 @@ interface StatCardProps {
   helper: string;
 }
 
-function StatCard({
-  title,
-  value,
-  helper,
-}: StatCardProps) {
+function StatCard({ title, value, helper }: StatCardProps) {
   return (
     <article
       className="
@@ -474,17 +412,11 @@ function StatCard({
         hover:shadow-[var(--shadow-md)]
       "
     >
-      <p className="text-xs text-muted">
-        {title}
-      </p>
+      <p className="text-xs text-muted">{title}</p>
 
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
 
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }

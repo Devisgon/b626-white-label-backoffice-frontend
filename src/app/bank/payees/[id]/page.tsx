@@ -10,10 +10,7 @@ import {
 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import type {
-  PayeeStatus,
-  PayeeType,
-} from "@/features/banking/types";
+import type { PayeeStatus, PayeeType } from "@/features/banking/types";
 
 interface PayeeDetailsPageProps {
   params: Promise<{
@@ -40,10 +37,7 @@ interface PayeeDetails {
   updatedAt: string;
 }
 
-const payees: Record<
-  string,
-  PayeeDetails
-> = {
+const payees: Record<string, PayeeDetails> = {
   "3e28d5fa-97c2-4fa9-8000-100000000001": {
     payeeName: "Pakistan State Oil",
     payeeType: "vendor",
@@ -56,10 +50,8 @@ const payees: Record<
     postalCode: "75600",
     country: "Pakistan",
     taxId: "NTN-PSO-1001",
-    defaultAccount:
-      "HBL Main Operating •••• 2343",
-    notes:
-      "Primary vendor for fuel supply and related payments.",
+    defaultAccount: "HBL Main Operating •••• 2343",
+    notes: "Primary vendor for fuel supply and related payments.",
     status: "active",
     createdAt: "10 Feb 2026",
     updatedAt: "20 Aug 2026",
@@ -77,18 +69,15 @@ const payees: Record<
     postalCode: "54660",
     country: "Pakistan",
     taxId: "NTN-NES-2002",
-    defaultAccount:
-      "HBL Main Operating •••• 2343",
-    notes:
-      "Supplier for beverages and consumer products.",
+    defaultAccount: "HBL Main Operating •••• 2343",
+    notes: "Supplier for beverages and consumer products.",
     status: "active",
     createdAt: "12 Mar 2026",
     updatedAt: "20 Aug 2026",
   },
 
   "3e28d5fa-97c2-4fa9-8000-100000000003": {
-    payeeName:
-      "Lahore Electric Supply Company",
+    payeeName: "Lahore Electric Supply Company",
     payeeType: "utility",
     email: "billing@lesco.gov.pk",
     phone: "118",
@@ -99,10 +88,8 @@ const payees: Record<
     postalCode: "54000",
     country: "Pakistan",
     taxId: "UTILITY-3003",
-    defaultAccount:
-      "HBL Main Operating •••• 2343",
-    notes:
-      "Electricity utility payments for the store.",
+    defaultAccount: "HBL Main Operating •••• 2343",
+    notes: "Electricity utility payments for the store.",
     status: "active",
     createdAt: "5 Apr 2026",
     updatedAt: "19 Aug 2026",
@@ -121,16 +108,14 @@ const payees: Record<
     country: "Pakistan",
     taxId: "Not provided",
     defaultAccount: "Not selected",
-    notes:
-      "Individual payment recipient.",
+    notes: "Individual payment recipient.",
     status: "active",
     createdAt: "1 May 2026",
     updatedAt: "18 Aug 2026",
   },
 
   "3e28d5fa-97c2-4fa9-8000-100000000005": {
-    payeeName:
-      "Previous Maintenance Service",
+    payeeName: "Previous Maintenance Service",
     payeeType: "other",
     email: "maintenance@example.com",
     phone: "+92 302 5554321",
@@ -142,8 +127,7 @@ const payees: Record<
     country: "Pakistan",
     taxId: "Not provided",
     defaultAccount: "Not selected",
-    notes:
-      "Previous maintenance service provider.",
+    notes: "Previous maintenance service provider.",
     status: "inactive",
     createdAt: "15 Jan 2026",
     updatedAt: "17 Aug 2026",
@@ -151,10 +135,7 @@ const payees: Record<
 };
 
 function capitalize(value: string) {
-  return (
-    value.charAt(0).toUpperCase() +
-    value.slice(1)
-  );
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 export default async function PayeeDetailsPage({
@@ -168,9 +149,7 @@ export default async function PayeeDetailsPage({
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-[var(--shadow-sm)]">
-            <h1 className="text-xl font-bold">
-              Payee not found
-            </h1>
+            <h1 className="text-xl font-bold">Payee not found</h1>
 
             <p className="mt-2 text-sm text-muted">
               The requested payee does not exist.
@@ -254,9 +233,7 @@ export default async function PayeeDetailsPage({
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Payee ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Payee ID: {id}</p>
             </div>
           </div>
 
@@ -305,21 +282,13 @@ export default async function PayeeDetailsPage({
             description="Payee contact and postal information."
             icon={MapPin}
           >
-            <DetailsRow
-              label="Email address"
-              value={payee.email}
-            />
+            <DetailsRow label="Email address" value={payee.email} />
 
-            <DetailsRow
-              label="Phone number"
-              value={payee.phone}
-            />
+            <DetailsRow label="Phone number" value={payee.phone} />
 
             <DetailsRow
               label="Full address"
-              value={
-                fullAddress || "Not provided"
-              }
+              value={fullAddress || "Not provided"}
             />
           </DetailsSection>
 
@@ -328,20 +297,11 @@ export default async function PayeeDetailsPage({
             description="Tax and preferred payment settings."
             icon={CreditCard}
           >
-            <DetailsRow
-              label="Tax ID"
-              value={payee.taxId}
-            />
+            <DetailsRow label="Tax ID" value={payee.taxId} />
 
-            <DetailsRow
-              label="Default account"
-              value={payee.defaultAccount}
-            />
+            <DetailsRow label="Default account" value={payee.defaultAccount} />
 
-            <DetailsRow
-              label="Status"
-              value={capitalize(payee.status)}
-            />
+            <DetailsRow label="Status" value={capitalize(payee.status)} />
           </DetailsSection>
         </div>
 
@@ -352,9 +312,7 @@ export default async function PayeeDetailsPage({
             sm:p-6
           "
         >
-          <h2 className="font-bold">
-            Notes
-          </h2>
+          <h2 className="font-bold">Notes</h2>
 
           <p className="mt-3 text-sm leading-6 text-muted">
             {payee.notes || "No notes provided."}
@@ -372,12 +330,7 @@ interface InfoCardProps {
   icon: React.ElementType;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon: Icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon: Icon }: InfoCardProps) {
   return (
     <article
       className="
@@ -399,17 +352,11 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
@@ -445,30 +392,18 @@ function DetailsSection({
         </span>
 
         <div>
-          <h2 className="font-bold">
-            {title}
-          </h2>
+          <h2 className="font-bold">{title}</h2>
 
-          <p className="text-xs text-muted">
-            {description}
-          </p>
+          <p className="text-xs text-muted">{description}</p>
         </div>
       </div>
 
-      <dl className="mt-6 divide-y divide-border">
-        {children}
-      </dl>
+      <dl className="mt-6 divide-y divide-border">{children}</dl>
     </section>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -476,13 +411,9 @@ function DetailsRow({
         sm:grid-cols-[140px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="break-words font-medium text-foreground">
-        {value}
-      </dd>
+      <dd className="break-words font-medium text-foreground">{value}</dd>
     </div>
   );
 }

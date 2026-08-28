@@ -1,8 +1,4 @@
-import {
-  BadgeCheck,
-  ChartNoAxesCombined,
-  ShieldCheck,
-} from "lucide-react";
+import { BadgeCheck, ChartNoAxesCombined, ShieldCheck } from "lucide-react";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -12,8 +8,7 @@ const benefits = [
   {
     icon: ChartNoAxesCombined,
     title: "Complete store visibility",
-    description:
-      "Track sales, products and operations from one workspace.",
+    description: "Track sales, products and operations from one workspace.",
   },
   {
     icon: ShieldCheck,
@@ -24,14 +19,11 @@ const benefits = [
   {
     icon: BadgeCheck,
     title: "Secure and reliable",
-    description:
-      "Your organisation and store data remain properly isolated.",
+    description: "Your organisation and store data remain properly isolated.",
   },
 ];
 
-export default function AuthLayout({
-  children,
-}: AuthLayoutProps) {
+export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <main className="min-h-screen bg-white lg:grid lg:grid-cols-[1.05fr_0.95fr]">
       <section
@@ -67,9 +59,7 @@ export default function AuthLayout({
           </div>
 
           <div>
-            <p className="text-sm font-semibold">
-              Total Store
-            </p>
+            <p className="text-sm font-semibold">Total Store</p>
 
             <p className="mt-0.5 text-[10px] uppercase tracking-[0.16em] text-white/60">
               Backoffice
@@ -87,9 +77,8 @@ export default function AuthLayout({
           </h1>
 
           <p className="mt-5 max-w-lg text-sm leading-7 text-white/70">
-            A secure backoffice workspace built for sales,
-            inventory, banking, payroll and daily store
-            operations.
+            A secure backoffice workspace built for sales, inventory, banking,
+            payroll and daily store operations.
           </p>
 
           <div className="mt-10 space-y-5">
@@ -97,10 +86,7 @@ export default function AuthLayout({
               const Icon = benefit.icon;
 
               return (
-                <div
-                  key={benefit.title}
-                  className="flex items-start gap-4"
-                >
+                <div key={benefit.title} className="flex items-start gap-4">
                   <span
                     className="
                       flex size-10 shrink-0 items-center justify-center
@@ -111,9 +97,7 @@ export default function AuthLayout({
                   </span>
 
                   <div>
-                    <h2 className="text-sm font-semibold">
-                      {benefit.title}
-                    </h2>
+                    <h2 className="text-sm font-semibold">{benefit.title}</h2>
 
                     <p className="mt-1 text-xs leading-5 text-white/60">
                       {benefit.description}
@@ -148,9 +132,7 @@ export default function AuthLayout({
             </div>
 
             <div>
-              <p className="text-sm font-semibold">
-                Total Store
-              </p>
+              <p className="text-sm font-semibold">Total Store</p>
 
               <p className="text-[10px] uppercase tracking-wider text-muted">
                 Backoffice

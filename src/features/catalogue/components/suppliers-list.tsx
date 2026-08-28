@@ -14,10 +14,7 @@ import {
   Truck,
 } from "lucide-react";
 
-import type {
-  Supplier,
-  SupplierStatus,
-} from "@/features/catalogue/types";
+import type { Supplier, SupplierStatus } from "@/features/catalogue/types";
 
 const initialSuppliers: Supplier[] = [
   {
@@ -63,13 +60,11 @@ const initialSuppliers: Supplier[] = [
 ];
 
 export function SuppliersList() {
-  const [suppliers, setSuppliers] =
-    useState<Supplier[]>(initialSuppliers);
+  const [suppliers, setSuppliers] = useState<Supplier[]>(initialSuppliers);
 
   const [search, setSearch] = useState("");
 
-  const [status, setStatus] =
-    useState<SupplierStatus | "all">("all");
+  const [status, setStatus] = useState<SupplierStatus | "all">("all");
 
   const filteredSuppliers = useMemo(() => {
     const searchValue = search.trim().toLowerCase();
@@ -80,13 +75,9 @@ export function SuppliersList() {
         supplier.email,
         supplier.phone,
         supplier.address,
-      ].some((value) =>
-        value.toLowerCase().includes(searchValue),
-      );
+      ].some((value) => value.toLowerCase().includes(searchValue));
 
-      const matchesStatus =
-        status === "all" ||
-        supplier.status === status;
+      const matchesStatus = status === "all" || supplier.status === status;
 
       return matchesSearch && matchesStatus;
     });
@@ -96,8 +87,7 @@ export function SuppliersList() {
     (supplier) => supplier.status === "Active",
   ).length;
 
-  const inactiveSuppliers =
-    suppliers.length - activeSuppliers;
+  const inactiveSuppliers = suppliers.length - activeSuppliers;
 
   function resetFilters() {
     setSearch("");
@@ -114,9 +104,7 @@ export function SuppliersList() {
     }
 
     setSuppliers((currentSuppliers) =>
-      currentSuppliers.filter(
-        (supplier) => supplier.id !== id,
-      ),
+      currentSuppliers.filter((supplier) => supplier.id !== id),
     );
   }
 
@@ -157,9 +145,7 @@ export function SuppliersList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Supplier records
-            </h2>
+            <h2 className="font-bold">Supplier records</h2>
 
             <p className="mt-1 text-xs text-muted">
               Search, review and manage store suppliers.
@@ -187,9 +173,7 @@ export function SuppliersList() {
           "
         >
           <label className="relative flex-1">
-            <span className="sr-only">
-              Search suppliers
-            </span>
+            <span className="sr-only">Search suppliers</span>
 
             <Search
               className="
@@ -201,9 +185,7 @@ export function SuppliersList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by supplier name, email, phone or address..."
               className="
                 h-11 w-full rounded-xl border
@@ -219,11 +201,7 @@ export function SuppliersList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | SupplierStatus
-                  | "all",
-              )
+              setStatus(event.target.value as SupplierStatus | "all")
             }
             aria-label="Filter suppliers by status"
             className="
@@ -263,29 +241,17 @@ export function SuppliersList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Supplier
-                </th>
+                <th className="px-5 py-4">Supplier</th>
 
-                <th className="px-5 py-4">
-                  Contact
-                </th>
+                <th className="px-5 py-4">Contact</th>
 
-                <th className="px-5 py-4">
-                  Address
-                </th>
+                <th className="px-5 py-4">Address</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4">
-                  Updated
-                </th>
+                <th className="px-5 py-4">Updated</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -310,9 +276,7 @@ export function SuppliersList() {
                         <Truck className="size-4" />
                       </span>
 
-                      <span className="font-semibold">
-                        {supplier.name}
-                      </span>
+                      <span className="font-semibold">{supplier.name}</span>
                     </div>
                   </td>
 
@@ -337,14 +301,10 @@ export function SuppliersList() {
                   </td>
 
                   <td className="px-5 py-4">
-                    <SupplierStatusBadge
-                      status={supplier.status}
-                    />
+                    <SupplierStatusBadge status={supplier.status} />
                   </td>
 
-                  <td className="px-5 py-4 text-muted">
-                    {supplier.updatedAt}
-                  </td>
+                  <td className="px-5 py-4 text-muted">{supplier.updatedAt}</td>
 
                   <td className="px-5 py-4">
                     <div className="flex justify-end gap-2">
@@ -380,9 +340,7 @@ export function SuppliersList() {
 
                       <button
                         type="button"
-                        onClick={() =>
-                          removeSupplier(supplier.id)
-                        }
+                        onClick={() => removeSupplier(supplier.id)}
                         aria-label={`Delete ${supplier.name}`}
                         className="
                           flex size-9 items-center justify-center
@@ -406,9 +364,7 @@ export function SuppliersList() {
             <div className="px-5 py-14 text-center">
               <Truck className="mx-auto size-8 text-muted-light" />
 
-              <p className="mt-3 text-sm font-semibold">
-                No suppliers found
-              </p>
+              <p className="mt-3 text-sm font-semibold">No suppliers found</p>
 
               <p className="mt-1 text-xs text-muted">
                 Try changing your search or status filter.
@@ -425,8 +381,7 @@ export function SuppliersList() {
           "
         >
           <span>
-            Showing {filteredSuppliers.length} of{" "}
-            {suppliers.length} suppliers
+            Showing {filteredSuppliers.length} of {suppliers.length} suppliers
           </span>
 
           <span>Dummy data for frontend testing</span>
@@ -456,18 +411,12 @@ function StatCard({
     >
       <p className="text-xs text-muted">{label}</p>
       <p className="mt-2 text-2xl font-bold">{value}</p>
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }
 
-function SupplierStatusBadge({
-  status,
-}: {
-  status: SupplierStatus;
-}) {
+function SupplierStatusBadge({ status }: { status: SupplierStatus }) {
   const styles =
     status === "Active"
       ? "bg-emerald-50 text-emerald-700"

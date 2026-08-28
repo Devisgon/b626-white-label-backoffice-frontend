@@ -13,17 +13,13 @@ import {
   Warehouse,
 } from "lucide-react";
 
-import type {
-  Department,
-  DepartmentStatus,
-} from "@/features/catalogue/types";
+import type { Department, DepartmentStatus } from "@/features/catalogue/types";
 
 const initialDepartments: Department[] = [
   {
     id: 1,
     name: "Grocery",
-    description:
-      "Daily grocery and household products",
+    description: "Daily grocery and household products",
     defaultTaxRate: 5,
     defaultMargin: 18,
     ageRestriction: false,
@@ -36,8 +32,7 @@ const initialDepartments: Department[] = [
   {
     id: 2,
     name: "Beverages",
-    description:
-      "Cold drinks, juices and bottled water",
+    description: "Cold drinks, juices and bottled water",
     defaultTaxRate: 8,
     defaultMargin: 20,
     ageRestriction: false,
@@ -50,8 +45,7 @@ const initialDepartments: Department[] = [
   {
     id: 3,
     name: "Tobacco",
-    description:
-      "Age-restricted tobacco products",
+    description: "Age-restricted tobacco products",
     defaultTaxRate: 15,
     defaultMargin: 12,
     ageRestriction: true,
@@ -64,8 +58,7 @@ const initialDepartments: Department[] = [
   {
     id: 4,
     name: "Seasonal",
-    description:
-      "Seasonal and promotional products",
+    description: "Seasonal and promotional products",
     defaultTaxRate: 5,
     defaultMargin: 25,
     ageRestriction: false,
@@ -83,8 +76,7 @@ export function DepartmentsList() {
 
   const [search, setSearch] = useState("");
 
-  const [status, setStatus] =
-    useState<DepartmentStatus | "all">("all");
+  const [status, setStatus] = useState<DepartmentStatus | "all">("all");
 
   const filteredDepartments = useMemo(() => {
     const searchValue = search.trim().toLowerCase();
@@ -94,25 +86,19 @@ export function DepartmentsList() {
         department.name,
         department.description,
         department.nacsCode,
-      ].some((value) =>
-        value.toLowerCase().includes(searchValue),
-      );
+      ].some((value) => value.toLowerCase().includes(searchValue));
 
-      const matchesStatus =
-        status === "all" ||
-        department.status === status;
+      const matchesStatus = status === "all" || department.status === status;
 
       return matchesSearch && matchesStatus;
     });
   }, [departments, search, status]);
 
   const activeDepartments = departments.filter(
-    (department) =>
-      department.status === "Active",
+    (department) => department.status === "Active",
   ).length;
 
-  const inactiveDepartments =
-    departments.length - activeDepartments;
+  const inactiveDepartments = departments.length - activeDepartments;
 
   function resetFilters() {
     setSearch("");
@@ -129,9 +115,7 @@ export function DepartmentsList() {
     }
 
     setDepartments((currentDepartments) =>
-      currentDepartments.filter(
-        (department) => department.id !== id,
-      ),
+      currentDepartments.filter((department) => department.id !== id),
     );
   }
 
@@ -172,9 +156,7 @@ export function DepartmentsList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Department records
-            </h2>
+            <h2 className="font-bold">Department records</h2>
 
             <p className="mt-1 text-xs text-muted">
               Manage product departments and POS defaults.
@@ -202,9 +184,7 @@ export function DepartmentsList() {
           "
         >
           <label className="relative flex-1">
-            <span className="sr-only">
-              Search departments
-            </span>
+            <span className="sr-only">Search departments</span>
 
             <Search
               className="
@@ -216,9 +196,7 @@ export function DepartmentsList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by name, description or NACS code..."
               className="
                 h-11 w-full rounded-xl border
@@ -234,11 +212,7 @@ export function DepartmentsList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | DepartmentStatus
-                  | "all",
-              )
+              setStatus(event.target.value as DepartmentStatus | "all")
             }
             aria-label="Filter departments by status"
             className="
@@ -278,29 +252,17 @@ export function DepartmentsList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Department
-                </th>
+                <th className="px-5 py-4">Department</th>
 
-                <th className="px-5 py-4">
-                  Tax / Margin
-                </th>
+                <th className="px-5 py-4">Tax / Margin</th>
 
-                <th className="px-5 py-4">
-                  NACS / POS
-                </th>
+                <th className="px-5 py-4">NACS / POS</th>
 
-                <th className="px-5 py-4">
-                  Restriction
-                </th>
+                <th className="px-5 py-4">Restriction</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -326,9 +288,7 @@ export function DepartmentsList() {
                       </span>
 
                       <div>
-                        <p className="font-semibold">
-                          {department.name}
-                        </p>
+                        <p className="font-semibold">{department.name}</p>
 
                         <p className="mt-1 max-w-60 truncate text-xs text-muted">
                           {department.description}
@@ -346,21 +306,17 @@ export function DepartmentsList() {
                     </p>
 
                     <p className="mt-1 text-xs text-muted">
-                      Margin:{" "}
-                      {department.defaultMargin ?? 0}%
+                      Margin: {department.defaultMargin ?? 0}%
                     </p>
                   </td>
 
                   <td className="px-5 py-4">
                     <p className="font-medium">
-                      {department.nacsCode ||
-                        "Not provided"}
+                      {department.nacsCode || "Not provided"}
                     </p>
 
                     <p className="mt-1 text-xs text-muted">
-                      POS:{" "}
-                      {department.posDepartmentNumber ??
-                        "Not provided"}
+                      POS: {department.posDepartmentNumber ?? "Not provided"}
                     </p>
                   </td>
 
@@ -378,16 +334,12 @@ export function DepartmentsList() {
                         Age restricted
                       </span>
                     ) : (
-                      <span className="text-xs text-muted">
-                        No restriction
-                      </span>
+                      <span className="text-xs text-muted">No restriction</span>
                     )}
                   </td>
 
                   <td className="px-5 py-4">
-                    <StatusBadge
-                      status={department.status}
-                    />
+                    <StatusBadge status={department.status} />
                   </td>
 
                   <td className="px-5 py-4">
@@ -424,9 +376,7 @@ export function DepartmentsList() {
 
                       <button
                         type="button"
-                        onClick={() =>
-                          removeDepartment(department.id)
-                        }
+                        onClick={() => removeDepartment(department.id)}
                         aria-label={`Delete ${department.name}`}
                         className="
                           flex size-9 items-center justify-center
@@ -450,9 +400,7 @@ export function DepartmentsList() {
             <div className="px-5 py-14 text-center">
               <Warehouse className="mx-auto size-8 text-muted-light" />
 
-              <p className="mt-3 text-sm font-semibold">
-                No departments found
-              </p>
+              <p className="mt-3 text-sm font-semibold">No departments found</p>
 
               <p className="mt-1 text-xs text-muted">
                 Try changing your search or filters.
@@ -469,8 +417,8 @@ export function DepartmentsList() {
           "
         >
           <span>
-            Showing {filteredDepartments.length} of{" "}
-            {departments.length} departments
+            Showing {filteredDepartments.length} of {departments.length}{" "}
+            departments
           </span>
 
           <span>Dummy data for frontend testing</span>
@@ -500,18 +448,12 @@ function StatCard({
     >
       <p className="text-xs text-muted">{label}</p>
       <p className="mt-2 text-2xl font-bold">{value}</p>
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: DepartmentStatus;
-}) {
+function StatusBadge({ status }: { status: DepartmentStatus }) {
   return (
     <span
       className={`

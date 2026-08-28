@@ -2,12 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  CheckCircle2,
-  LoaderCircle,
-  Save,
-  ShieldAlert,
-} from "lucide-react";
+import { CheckCircle2, LoaderCircle, Save, ShieldAlert } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -29,40 +24,31 @@ export function DepartmentForm({
 }: DepartmentFormProps) {
   const router = useRouter();
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<DepartmentFormValues>({
     resolver: zodResolver(departmentSchema),
 
-    defaultValues:
-      initialValues ?? {
-        name: "",
-        description: "",
-        defaultTaxRate: undefined,
-        defaultMargin: undefined,
-        ageRestriction: false,
-        nacsCode: "",
-        posDepartmentNumber: undefined,
-        status: "Active",
-      },
+    defaultValues: initialValues ?? {
+      name: "",
+      description: "",
+      defaultTaxRate: undefined,
+      defaultMargin: undefined,
+      ageRestriction: false,
+      nacsCode: "",
+      posDepartmentNumber: undefined,
+      status: "Active",
+    },
   });
 
-  async function onSubmit(
-    values: DepartmentFormValues,
-  ) {
+  async function onSubmit(values: DepartmentFormValues) {
     setSuccessMessage("");
 
-    await new Promise((resolve) =>
-      setTimeout(resolve, 700),
-    );
+    await new Promise((resolve) => setTimeout(resolve, 700));
 
     if (mode === "edit") {
       console.log("Update department:", {
@@ -70,15 +56,11 @@ export function DepartmentForm({
         ...values,
       });
 
-      setSuccessMessage(
-        "Department updated successfully.",
-      );
+      setSuccessMessage("Department updated successfully.");
     } else {
       console.log("Create department:", values);
 
-      setSuccessMessage(
-        "Department created successfully.",
-      );
+      setSuccessMessage("Department created successfully.");
     }
 
     setTimeout(() => {
@@ -97,13 +79,10 @@ export function DepartmentForm({
       "
     >
       <div className="border-b border-border p-5 sm:p-6">
-        <h2 className="font-bold">
-          Department information
-        </h2>
+        <h2 className="font-bold">Department information</h2>
 
         <p className="mt-1 text-xs text-muted">
-          Configure department information, tax and POS
-          defaults.
+          Configure department information, tax and POS defaults.
         </p>
       </div>
 
@@ -135,19 +114,14 @@ export function DepartmentForm({
             type="text"
             placeholder="For example: Grocery"
             {...register("name")}
-            className={getInputClass(
-              Boolean(errors.name),
-            )}
+            className={getInputClass(Boolean(errors.name))}
           />
 
           <FieldError message={errors.name?.message} />
         </div>
 
         <div>
-          <FieldLabel
-            htmlFor="department-description"
-            label="Description"
-          />
+          <FieldLabel htmlFor="department-description" label="Description" />
 
           <textarea
             id="department-description"
@@ -167,9 +141,7 @@ export function DepartmentForm({
             `}
           />
 
-          <FieldError
-            message={errors.description?.message}
-          />
+          <FieldError message={errors.description?.message} />
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
@@ -188,27 +160,16 @@ export function DepartmentForm({
               placeholder="For example: 5"
               {...register("defaultTaxRate", {
                 setValueAs: (value) =>
-                  value === ""
-                    ? undefined
-                    : Number(value),
+                  value === "" ? undefined : Number(value),
               })}
-              className={getInputClass(
-                Boolean(errors.defaultTaxRate),
-              )}
+              className={getInputClass(Boolean(errors.defaultTaxRate))}
             />
 
-            <FieldError
-              message={
-                errors.defaultTaxRate?.message
-              }
-            />
+            <FieldError message={errors.defaultTaxRate?.message} />
           </div>
 
           <div>
-            <FieldLabel
-              htmlFor="default-margin"
-              label="Default margin (%)"
-            />
+            <FieldLabel htmlFor="default-margin" label="Default margin (%)" />
 
             <input
               id="default-margin"
@@ -219,43 +180,28 @@ export function DepartmentForm({
               placeholder="For example: 20"
               {...register("defaultMargin", {
                 setValueAs: (value) =>
-                  value === ""
-                    ? undefined
-                    : Number(value),
+                  value === "" ? undefined : Number(value),
               })}
-              className={getInputClass(
-                Boolean(errors.defaultMargin),
-              )}
+              className={getInputClass(Boolean(errors.defaultMargin))}
             />
 
-            <FieldError
-              message={
-                errors.defaultMargin?.message
-              }
-            />
+            <FieldError message={errors.defaultMargin?.message} />
           </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <FieldLabel
-              htmlFor="nacs-code"
-              label="NACS code"
-            />
+            <FieldLabel htmlFor="nacs-code" label="NACS code" />
 
             <input
               id="nacs-code"
               type="text"
               placeholder="For example: GRC-01"
               {...register("nacsCode")}
-              className={getInputClass(
-                Boolean(errors.nacsCode),
-              )}
+              className={getInputClass(Boolean(errors.nacsCode))}
             />
 
-            <FieldError
-              message={errors.nacsCode?.message}
-            />
+            <FieldError message={errors.nacsCode?.message} />
           </div>
 
           <div>
@@ -272,22 +218,12 @@ export function DepartmentForm({
               placeholder="For example: 10"
               {...register("posDepartmentNumber", {
                 setValueAs: (value) =>
-                  value === ""
-                    ? undefined
-                    : Number(value),
+                  value === "" ? undefined : Number(value),
               })}
-              className={getInputClass(
-                Boolean(
-                  errors.posDepartmentNumber,
-                ),
-              )}
+              className={getInputClass(Boolean(errors.posDepartmentNumber))}
             />
 
-            <FieldError
-              message={
-                errors.posDepartmentNumber?.message
-              }
-            />
+            <FieldError message={errors.posDepartmentNumber?.message} />
           </div>
         </div>
 
@@ -314,18 +250,13 @@ export function DepartmentForm({
             </span>
 
             <span className="mt-1 block text-xs text-muted">
-              Enable this for age-restricted products such
-              as tobacco.
+              Enable this for age-restricted products such as tobacco.
             </span>
           </span>
         </label>
 
         <div>
-          <FieldLabel
-            htmlFor="department-status"
-            label="Status"
-            required
-          />
+          <FieldLabel htmlFor="department-status" label="Status" required />
 
           <select
             id="department-status"
@@ -354,9 +285,7 @@ export function DepartmentForm({
       >
         <button
           type="button"
-          onClick={() =>
-            router.push("/catalog/departments")
-          }
+          onClick={() => router.push("/catalog/departments")}
           disabled={isSubmitting}
           className="
             inline-flex h-11 items-center justify-center
@@ -390,9 +319,7 @@ export function DepartmentForm({
             <>
               <Save className="size-4" />
 
-              {mode === "edit"
-                ? "Save changes"
-                : "Create department"}
+              {mode === "edit" ? "Save changes" : "Create department"}
             </>
           )}
         </button>
@@ -411,33 +338,19 @@ function FieldLabel({
   required?: boolean;
 }) {
   return (
-    <label
-      htmlFor={htmlFor}
-      className="text-sm font-semibold"
-    >
-      {label}{" "}
-
-      {required && (
-        <span className="text-danger">*</span>
-      )}
+    <label htmlFor={htmlFor} className="text-sm font-semibold">
+      {label} {required && <span className="text-danger">*</span>}
     </label>
   );
 }
 
-function FieldError({
-  message,
-}: {
-  message?: string;
-}) {
+function FieldError({ message }: { message?: string }) {
   if (!message) {
     return null;
   }
 
   return (
-    <p
-      role="alert"
-      className="mt-2 text-xs font-medium text-danger"
-    >
+    <p role="alert" className="mt-2 text-xs font-medium text-danger">
       {message}
     </p>
   );

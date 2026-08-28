@@ -2,22 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import {
-  Database,
-  Eye,
-  Pencil,
-  Plus,
-  RotateCcw,
-  Search,
-} from "lucide-react";
+import { Database, Eye, Pencil, Plus, RotateCcw, Search } from "lucide-react";
 
-import {
-  FuelTankActionButton,
-} from "./fuel-tank-action-button";
-import type {
-  FuelTank,
-  FuelTankStatus,
-} from "@/features/fuel/types";
+import { FuelTankActionButton } from "./fuel-tank-action-button";
+import type { FuelTank, FuelTankStatus } from "@/features/fuel/types";
 
 const fuelTanks: FuelTank[] = [
   {
@@ -26,8 +14,7 @@ const fuelTanks: FuelTank[] = [
     fuel_type: "Premium Petrol",
     capacity: 20000,
     current_stock: 15000,
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active",
     created_at: "2026-08-20T09:00:00.000Z",
     updated_at: "2026-08-24T11:30:00.000Z",
@@ -40,8 +27,7 @@ const fuelTanks: FuelTank[] = [
     fuel_type: "Diesel",
     capacity: 25000,
     current_stock: 18500,
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active",
     created_at: "2026-08-18T10:00:00.000Z",
     updated_at: "2026-08-23T09:45:00.000Z",
@@ -54,8 +40,7 @@ const fuelTanks: FuelTank[] = [
     fuel_type: "Petrol",
     capacity: 15000,
     current_stock: 9350,
-    location_id:
-      "22222222-2222-4222-8222-222222222222",
+    location_id: "22222222-2222-4222-8222-222222222222",
     status: "Inactive",
     created_at: "2026-08-15T08:30:00.000Z",
     updated_at: "2026-08-22T14:20:00.000Z",
@@ -72,9 +57,7 @@ function formatNumber(value: number | string) {
 
 export function FuelTanksList() {
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState<
-    FuelTankStatus | "all"
-  >("all");
+  const [status, setStatus] = useState<FuelTankStatus | "all">("all");
 
   const filteredTanks = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -83,13 +66,9 @@ export function FuelTanksList() {
       const matchesSearch =
         !query ||
         tank.name.toLowerCase().includes(query) ||
-        tank.fuel_type
-          .toLowerCase()
-          .includes(query);
+        tank.fuel_type.toLowerCase().includes(query);
 
-      const matchesStatus =
-        status === "all" ||
-        tank.status === status;
+      const matchesStatus = status === "all" || tank.status === status;
 
       return matchesSearch && matchesStatus;
     });
@@ -100,14 +79,12 @@ export function FuelTanksList() {
   ).length;
 
   const totalCapacity = fuelTanks.reduce(
-    (total, tank) =>
-      total + Number(tank.capacity),
+    (total, tank) => total + Number(tank.capacity),
     0,
   );
 
   const totalStock = fuelTanks.reduce(
-    (total, tank) =>
-      total + Number(tank.current_stock),
+    (total, tank) => total + Number(tank.current_stock),
     0,
   );
 
@@ -141,13 +118,10 @@ export function FuelTanksList() {
       <section className="mt-6 overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-sm)]">
         <div className="flex flex-col justify-between gap-4 border-b border-border p-5 sm:flex-row sm:items-center">
           <div>
-            <h2 className="font-bold">
-              Fuel tanks
-            </h2>
+            <h2 className="font-bold">Fuel tanks</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Manage capacity, stock and tank
-              availability.
+              Manage capacity, stock and tank availability.
             </p>
           </div>
 
@@ -173,9 +147,7 @@ export function FuelTanksList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by tank name or fuel type..."
               className="
                 h-11 w-full rounded-xl border
@@ -190,23 +162,13 @@ export function FuelTanksList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | FuelTankStatus
-                  | "all",
-              )
+              setStatus(event.target.value as FuelTankStatus | "all")
             }
             className="h-11 rounded-xl border border-border bg-white px-4 text-sm outline-none lg:min-w-44"
           >
-            <option value="all">
-              All statuses
-            </option>
-            <option value="Active">
-              Active
-            </option>
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="all">All statuses</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           <button
@@ -229,27 +191,13 @@ export function FuelTanksList() {
           <table className="w-full min-w-[1000px] text-left">
             <thead className="bg-surface-secondary">
               <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                <th className="px-5 py-4">
-                  Tank
-                </th>
-                <th className="px-5 py-4">
-                  Fuel type
-                </th>
-                <th className="px-5 py-4">
-                  Capacity
-                </th>
-                <th className="px-5 py-4">
-                  Current stock
-                </th>
-                <th className="px-5 py-4">
-                  Stock level
-                </th>
-                <th className="px-5 py-4">
-                  Status
-                </th>
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4">Tank</th>
+                <th className="px-5 py-4">Fuel type</th>
+                <th className="px-5 py-4">Capacity</th>
+                <th className="px-5 py-4">Current stock</th>
+                <th className="px-5 py-4">Stock level</th>
+                <th className="px-5 py-4">Status</th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -257,11 +205,7 @@ export function FuelTanksList() {
               {filteredTanks.map((tank) => {
                 const percentage =
                   Number(tank.capacity) > 0
-                    ? (Number(
-                        tank.current_stock,
-                      ) /
-                        Number(tank.capacity)) *
-                      100
+                    ? (Number(tank.current_stock) / Number(tank.capacity)) * 100
                     : 0;
 
                 return (
@@ -276,9 +220,7 @@ export function FuelTanksList() {
                         </span>
 
                         <div>
-                          <p className="font-semibold">
-                            {tank.name}
-                          </p>
+                          <p className="font-semibold">{tank.name}</p>
                           <p className="mt-1 text-xs text-muted">
                             Tank ID: {tank.id}
                           </p>
@@ -286,38 +228,28 @@ export function FuelTanksList() {
                       </div>
                     </td>
 
-                    <td className="px-5 py-4">
-                      {tank.fuel_type}
-                    </td>
+                    <td className="px-5 py-4">{tank.fuel_type}</td>
 
                     <td className="px-5 py-4 font-semibold">
                       {formatNumber(tank.capacity)} L
                     </td>
 
                     <td className="px-5 py-4 font-semibold">
-                      {formatNumber(
-                        tank.current_stock,
-                      )}{" "}
-                      L
+                      {formatNumber(tank.current_stock)} L
                     </td>
 
                     <td className="px-5 py-4">
                       <div className="w-32">
                         <div className="flex justify-between text-[10px] text-muted">
                           <span>Level</span>
-                          <span>
-                            {percentage.toFixed(0)}%
-                          </span>
+                          <span>{percentage.toFixed(0)}%</span>
                         </div>
 
                         <div className="mt-2 h-2 overflow-hidden rounded-full bg-surface-secondary">
                           <div
                             className="h-full rounded-full bg-primary"
                             style={{
-                              width: `${Math.min(
-                                percentage,
-                                100,
-                              )}%`,
+                              width: `${Math.min(percentage, 100)}%`,
                             }}
                           />
                         </div>
@@ -374,9 +306,7 @@ export function FuelTanksList() {
 
         {filteredTanks.length === 0 && (
           <div className="px-5 py-16 text-center">
-            <p className="font-semibold">
-              No fuel tanks found
-            </p>
+            <p className="font-semibold">No fuel tanks found</p>
             <p className="mt-1 text-sm text-muted">
               Try changing or resetting the filters.
             </p>
@@ -384,8 +314,7 @@ export function FuelTanksList() {
         )}
 
         <div className="border-t border-border px-5 py-4 text-xs text-muted">
-          Showing {filteredTanks.length} of{" "}
-          {fuelTanks.length} fuel tanks
+          Showing {filteredTanks.length} of {fuelTanks.length} fuel tanks
         </div>
       </section>
     </div>
@@ -403,15 +332,9 @@ function SummaryCard({
 }) {
   return (
     <article className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
-      <p className="text-xs text-muted">
-        {title}
-      </p>
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="text-xs text-muted">{title}</p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }

@@ -1,16 +1,8 @@
 "use client";
 
-import {
-  MapPin,
-  Package,
-  Save,
-  Warehouse,
-} from "lucide-react";
+import { MapPin, Package, Save, Warehouse } from "lucide-react";
 import { useRouter } from "next/navigation";
-import {
-  type FormEvent,
-  useState,
-} from "react";
+import { type FormEvent, useState } from "react";
 
 import {
   productInventorySchema,
@@ -81,77 +73,48 @@ export function ProductInventoryForm({
 }: ProductInventoryFormProps) {
   const router = useRouter();
 
-  const [productId, setProductId] =
-    useState(
-      String(initialValues?.product_id ?? ""),
-    );
-
-  const [locationId, setLocationId] =
-    useState(
-      String(initialValues?.location_id ?? ""),
-    );
-
-  const [
-    onHandQuantity,
-    setOnHandQuantity,
-  ] = useState(
-    String(
-      initialValues?.on_hand_quantity ?? 0,
-    ),
+  const [productId, setProductId] = useState(
+    String(initialValues?.product_id ?? ""),
   );
 
-  const [
-    reservedQuantity,
-    setReservedQuantity,
-  ] = useState(
-    String(
-      initialValues?.reserved_quantity ?? 0,
-    ),
+  const [locationId, setLocationId] = useState(
+    String(initialValues?.location_id ?? ""),
   );
 
-  const [reorderLevel, setReorderLevel] =
-    useState(
-      String(
-        initialValues?.reorder_level ?? 0,
-      ),
-    );
+  const [onHandQuantity, setOnHandQuantity] = useState(
+    String(initialValues?.on_hand_quantity ?? 0),
+  );
 
-  const [minimumStock, setMinimumStock] =
-    useState(
-      String(
-        initialValues?.minimum_stock ?? 0,
-      ),
-    );
+  const [reservedQuantity, setReservedQuantity] = useState(
+    String(initialValues?.reserved_quantity ?? 0),
+  );
 
-  const [maximumStock, setMaximumStock] =
-    useState(
-      String(
-        initialValues?.maximum_stock ?? 0,
-      ),
-    );
+  const [reorderLevel, setReorderLevel] = useState(
+    String(initialValues?.reorder_level ?? 0),
+  );
 
-  const [errors, setErrors] = useState<
-    Record<string, string>
-  >({});
+  const [minimumStock, setMinimumStock] = useState(
+    String(initialValues?.minimum_stock ?? 0),
+  );
 
-  const [serverError, setServerError] =
-    useState("");
+  const [maximumStock, setMaximumStock] = useState(
+    String(initialValues?.maximum_stock ?? 0),
+  );
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [serverError, setServerError] = useState("");
+
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const availableQuantity = Math.max(
     0,
-    Number(onHandQuantity || 0) -
-      Number(reservedQuantity || 0),
+    Number(onHandQuantity || 0) - Number(reservedQuantity || 0),
   );
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>,
-  ) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setErrors({});
@@ -161,36 +124,23 @@ export function ProductInventoryForm({
     const values = {
       product_id: Number(productId),
       location_id: Number(locationId),
-      on_hand_quantity: Number(
-        onHandQuantity,
-      ),
-      reserved_quantity: Number(
-        reservedQuantity,
-      ),
+      on_hand_quantity: Number(onHandQuantity),
+      reserved_quantity: Number(reservedQuantity),
       reorder_level: Number(reorderLevel),
       minimum_stock: Number(minimumStock),
       maximum_stock: Number(maximumStock),
     };
 
-    const result =
-      productInventorySchema.safeParse(
-        values,
-      );
+    const result = productInventorySchema.safeParse(values);
 
     if (!result.success) {
-      const nextErrors: Record<
-        string,
-        string
-      > = {};
+      const nextErrors: Record<string, string> = {};
 
       result.error.issues.forEach((issue) => {
-        const field = String(
-          issue.path[0] ?? "form",
-        );
+        const field = String(issue.path[0] ?? "form");
 
         if (!nextErrors[field]) {
-          nextErrors[field] =
-            issue.message;
+          nextErrors[field] = issue.message;
         }
       });
 
@@ -219,15 +169,11 @@ export function ProductInventoryForm({
       );
 
       setTimeout(() => {
-        router.push(
-          "/catalog/product-inventory",
-        );
+        router.push("/catalog/product-inventory");
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save product inventory. Please try again.",
-      );
+      setServerError("Unable to save product inventory. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -255,42 +201,24 @@ export function ProductInventoryForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Product inventory information
-          </h2>
+          <h2 className="text-lg font-bold">Product inventory information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Assign a product to an inventory location
-            and configure its stock levels.
+            Assign a product to an inventory location and configure its stock
+            levels.
           </p>
         </div>
       </div>
 
-      {serverError && (
-        <Message
-          type="error"
-          message={serverError}
-        />
-      )}
+      {serverError && <Message type="error" message={serverError} />}
 
-      {successMessage && (
-        <Message
-          type="success"
-          message={successMessage}
-        />
-      )}
+      {successMessage && <Message type="success" message={successMessage} />}
 
       <div className="mt-6 space-y-6">
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
-            <label
-              htmlFor="product"
-              className="text-sm font-semibold"
-            >
-              Product{" "}
-              <span className="text-danger">
-                *
-              </span>
+            <label htmlFor="product" className="text-sm font-semibold">
+              Product <span className="text-danger">*</span>
             </label>
 
             <div className="relative mt-2">
@@ -305,11 +233,7 @@ export function ProductInventoryForm({
               <select
                 id="product"
                 value={productId}
-                onChange={(event) =>
-                  setProductId(
-                    event.target.value,
-                  )
-                }
+                onChange={(event) => setProductId(event.target.value)}
                 className={`
                   h-11 w-full rounded-xl border
                   bg-white pl-11 pr-4 text-sm
@@ -317,43 +241,25 @@ export function ProductInventoryForm({
                   focus:border-primary
                   focus:ring-4
                   focus:ring-primary/10
-                  ${
-                    errors.product_id
-                      ? "border-red-300"
-                      : "border-border"
-                  }
+                  ${errors.product_id ? "border-red-300" : "border-border"}
                 `}
               >
-                <option value="">
-                  Select product
-                </option>
+                <option value="">Select product</option>
 
                 {products.map((product) => (
-                  <option
-                    key={product.id}
-                    value={product.id}
-                  >
-                    {product.name} —{" "}
-                    {product.sku}
+                  <option key={product.id} value={product.id}>
+                    {product.name} — {product.sku}
                   </option>
                 ))}
               </select>
             </div>
 
-            <FieldError
-              message={errors.product_id}
-            />
+            <FieldError message={errors.product_id} />
           </div>
 
           <div>
-            <label
-              htmlFor="location"
-              className="text-sm font-semibold"
-            >
-              Inventory location{" "}
-              <span className="text-danger">
-                *
-              </span>
+            <label htmlFor="location" className="text-sm font-semibold">
+              Inventory location <span className="text-danger">*</span>
             </label>
 
             <div className="relative mt-2">
@@ -368,11 +274,7 @@ export function ProductInventoryForm({
               <select
                 id="location"
                 value={locationId}
-                onChange={(event) =>
-                  setLocationId(
-                    event.target.value,
-                  )
-                }
+                onChange={(event) => setLocationId(event.target.value)}
                 className={`
                   h-11 w-full rounded-xl border
                   bg-white pl-11 pr-4 text-sm
@@ -380,34 +282,20 @@ export function ProductInventoryForm({
                   focus:border-primary
                   focus:ring-4
                   focus:ring-primary/10
-                  ${
-                    errors.location_id
-                      ? "border-red-300"
-                      : "border-border"
-                  }
+                  ${errors.location_id ? "border-red-300" : "border-border"}
                 `}
               >
-                <option value="">
-                  Select inventory location
-                </option>
+                <option value="">Select inventory location</option>
 
-                {inventoryLocations.map(
-                  (location) => (
-                    <option
-                      key={location.id}
-                      value={location.id}
-                    >
-                      {location.name} —{" "}
-                      {location.code}
-                    </option>
-                  ),
-                )}
+                {inventoryLocations.map((location) => (
+                  <option key={location.id} value={location.id}>
+                    {location.name} — {location.code}
+                  </option>
+                ))}
               </select>
             </div>
 
-            <FieldError
-              message={errors.location_id}
-            />
+            <FieldError message={errors.location_id} />
           </div>
         </div>
 
@@ -417,9 +305,7 @@ export function ProductInventoryForm({
             label="On-hand quantity"
             value={onHandQuantity}
             onChange={setOnHandQuantity}
-            error={
-              errors.on_hand_quantity
-            }
+            error={errors.on_hand_quantity}
           />
 
           <NumberField
@@ -427,9 +313,7 @@ export function ProductInventoryForm({
             label="Reserved quantity"
             value={reservedQuantity}
             onChange={setReservedQuantity}
-            error={
-              errors.reserved_quantity
-            }
+            error={errors.reserved_quantity}
           />
 
           <div
@@ -438,9 +322,7 @@ export function ProductInventoryForm({
               bg-primary-light p-4
             "
           >
-            <p className="text-xs text-muted">
-              Available quantity
-            </p>
+            <p className="text-xs text-muted">Available quantity</p>
 
             <p className="mt-2 text-2xl font-bold text-primary">
               {availableQuantity}
@@ -538,23 +420,11 @@ interface NumberFieldProps {
   error?: string;
 }
 
-function NumberField({
-  id,
-  label,
-  value,
-  onChange,
-  error,
-}: NumberFieldProps) {
+function NumberField({ id, label, value, onChange, error }: NumberFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="text-sm font-semibold"
-      >
-        {label}{" "}
-        <span className="text-danger">
-          *
-        </span>
+      <label htmlFor={id} className="text-sm font-semibold">
+        {label} <span className="text-danger">*</span>
       </label>
 
       <input
@@ -563,19 +433,13 @@ function NumberField({
         min="0"
         step="1"
         value={value}
-        onChange={(event) =>
-          onChange(event.target.value)
-        }
+        onChange={(event) => onChange(event.target.value)}
         className={`
           mt-2 h-11 w-full rounded-xl border
           bg-white px-4 text-sm outline-none
           transition focus:border-primary
           focus:ring-4 focus:ring-primary/10
-          ${
-            error
-              ? "border-red-300"
-              : "border-border"
-          }
+          ${error ? "border-red-300" : "border-border"}
         `}
       />
 
@@ -584,20 +448,12 @@ function NumberField({
   );
 }
 
-function FieldError({
-  message,
-}: {
-  message?: string;
-}) {
+function FieldError({ message }: { message?: string }) {
   if (!message) {
     return null;
   }
 
-  return (
-    <p className="mt-1.5 text-xs text-danger">
-      {message}
-    </p>
-  );
+  return <p className="mt-1.5 text-xs text-danger">{message}</p>;
 }
 
 function Message({
@@ -609,11 +465,7 @@ function Message({
 }) {
   return (
     <div
-      role={
-        type === "error"
-          ? "alert"
-          : "status"
-      }
+      role={type === "error" ? "alert" : "status"}
       className={`
         mt-6 rounded-xl border px-4 py-3
         text-sm font-medium

@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Box,
-} from "lucide-react";
+import { ArrowLeft, Box } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { CartonMappingForm } from "@/features/catalogue/components";
@@ -18,20 +15,16 @@ const cartonMappings = {
     carton_product_id: 1,
     child_product_id: 2,
     quantity: 12,
-    cartonProductName:
-      "Mineral Water Carton",
-    childProductName:
-      "Premium Mineral Water",
+    cartonProductName: "Mineral Water Carton",
+    childProductName: "Premium Mineral Water",
   },
 
   "2": {
     carton_product_id: 3,
     child_product_id: 4,
     quantity: 24,
-    cartonProductName:
-      "Potato Chips Case",
-    childProductName:
-      "Classic Potato Chips",
+    cartonProductName: "Potato Chips Case",
+    childProductName: "Classic Potato Chips",
   },
 
   "3": {
@@ -46,8 +39,7 @@ const cartonMappings = {
     carton_product_id: 7,
     child_product_id: 8,
     quantity: 12,
-    cartonProductName:
-      "Orange Juice Carton",
+    cartonProductName: "Orange Juice Carton",
     childProductName: "Orange Juice",
   },
 };
@@ -57,10 +49,7 @@ export default async function EditCartonMappingPage({
 }: EditCartonMappingPageProps) {
   const { id } = await params;
 
-  const mapping =
-    cartonMappings[
-      id as keyof typeof cartonMappings
-    ];
+  const mapping = cartonMappings[id as keyof typeof cartonMappings];
 
   if (!mapping) {
     return (
@@ -73,13 +62,10 @@ export default async function EditCartonMappingPage({
               shadow-[var(--shadow-sm)]
             "
           >
-            <h1 className="text-xl font-bold">
-              Carton mapping not found
-            </h1>
+            <h1 className="text-xl font-bold">Carton mapping not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested carton mapping does not
-              exist.
+              The requested carton mapping does not exist.
             </p>
 
             <Link
@@ -137,8 +123,8 @@ export default async function EditCartonMappingPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update the number of units contained
-              inside {mapping.cartonProductName}.
+              Update the number of units contained inside{" "}
+              {mapping.cartonProductName}.
             </p>
           </div>
         </section>
@@ -147,17 +133,11 @@ export default async function EditCartonMappingPage({
           <CartonMappingForm
             mode="edit"
             cartonMappingId={Number(id)}
-            cartonProductName={
-              mapping.cartonProductName
-            }
-            childProductName={
-              mapping.childProductName
-            }
+            cartonProductName={mapping.cartonProductName}
+            childProductName={mapping.childProductName}
             initialValues={{
-              carton_product_id:
-                mapping.carton_product_id,
-              child_product_id:
-                mapping.child_product_id,
+              carton_product_id: mapping.carton_product_id,
+              child_product_id: mapping.child_product_id,
               quantity: mapping.quantity,
             }}
           />

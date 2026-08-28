@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  BadgeDollarSign,
-} from "lucide-react";
+import { ArrowLeft, BadgeDollarSign } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelPricesList,
-} from "@/features/fuel/components";
+import { FuelPricesList } from "@/features/fuel/components";
 
 export default function FuelPricesPage() {
   return (
@@ -29,9 +24,7 @@ export default function FuelPricesPage() {
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
               Fuel management
             </p>
-            <h1 className="mt-2 text-2xl font-bold sm:text-3xl">
-              Fuel prices
-            </h1>
+            <h1 className="mt-2 text-2xl font-bold sm:text-3xl">Fuel prices</h1>
             <p className="mt-2 text-sm text-muted">
               Manage fuel prices and effective dates.
             </p>

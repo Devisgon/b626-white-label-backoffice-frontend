@@ -1,16 +1,8 @@
 "use client";
 
-import {
-  useState,
-} from "react";
-import {
-  useRouter,
-} from "next/navigation";
-import {
-  RotateCcw,
-  Trash2,
-  X,
-} from "lucide-react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { RotateCcw, Trash2, X } from "lucide-react";
 
 interface LotteryPackActionButtonProps {
   packId: number;
@@ -25,11 +17,9 @@ export function LotteryPackActionButton({
 }: LotteryPackActionButtonProps) {
   const router = useRouter();
 
-  const [isOpen, setIsOpen] =
-    useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleAction() {
     setIsSubmitting(true);
@@ -51,21 +41,14 @@ export function LotteryPackActionButton({
        * }
        */
 
-      await new Promise<void>(
-        (resolve) => {
-          window.setTimeout(
-            resolve,
-            700,
-          );
-        },
-      );
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, 700);
+      });
 
       console.log({
         packId,
         packNumber,
-        action: deleted
-          ? "restore"
-          : "delete",
+        action: deleted ? "restore" : "delete",
       });
 
       setIsOpen(false);
@@ -76,9 +59,7 @@ export function LotteryPackActionButton({
           : `${packNumber} has been prepared for deletion.`,
       );
 
-      router.push(
-        "/lottery/packs",
-      );
+      router.push("/lottery/packs");
 
       router.refresh();
     } finally {
@@ -90,19 +71,9 @@ export function LotteryPackActionButton({
     <>
       <button
         type="button"
-        onClick={() =>
-          setIsOpen(true)
-        }
-        aria-label={
-          deleted
-            ? `Restore ${packNumber}`
-            : `Delete ${packNumber}`
-        }
-        title={
-          deleted
-            ? "Restore pack"
-            : "Delete pack"
-        }
+        onClick={() => setIsOpen(true)}
+        aria-label={deleted ? `Restore ${packNumber}` : `Delete ${packNumber}`}
+        title={deleted ? "Restore pack" : "Delete pack"}
         className="
           flex size-9 items-center
           justify-center rounded-xl
@@ -168,12 +139,8 @@ export function LotteryPackActionButton({
 
               <button
                 type="button"
-                onClick={() =>
-                  setIsOpen(false)
-                }
-                disabled={
-                  isSubmitting
-                }
+                onClick={() => setIsOpen(false)}
+                disabled={isSubmitting}
                 aria-label="Close dialog"
                 className="
                   flex size-9 items-center
@@ -194,9 +161,7 @@ export function LotteryPackActionButton({
                 mt-5 text-lg font-bold
               "
             >
-              {deleted
-                ? "Restore lottery pack?"
-                : "Delete lottery pack?"}
+              {deleted ? "Restore lottery pack?" : "Delete lottery pack?"}
             </h2>
 
             <p
@@ -208,18 +173,14 @@ export function LotteryPackActionButton({
               {deleted ? (
                 <>
                   This will restore{" "}
-                  <strong className="text-foreground">
-                    {packNumber}
-                  </strong>{" "}
-                  and make it available again.
+                  <strong className="text-foreground">{packNumber}</strong> and
+                  make it available again.
                 </>
               ) : (
                 <>
                   This will soft delete{" "}
-                  <strong className="text-foreground">
-                    {packNumber}
-                  </strong>
-                  . It can be restored later.
+                  <strong className="text-foreground">{packNumber}</strong>. It
+                  can be restored later.
                 </>
               )}
             </p>
@@ -233,12 +194,8 @@ export function LotteryPackActionButton({
             >
               <button
                 type="button"
-                onClick={() =>
-                  setIsOpen(false)
-                }
-                disabled={
-                  isSubmitting
-                }
+                onClick={() => setIsOpen(false)}
+                disabled={isSubmitting}
                 className="
                   inline-flex h-10
                   items-center justify-center
@@ -256,12 +213,8 @@ export function LotteryPackActionButton({
 
               <button
                 type="button"
-                onClick={
-                  handleAction
-                }
-                disabled={
-                  isSubmitting
-                }
+                onClick={handleAction}
+                disabled={isSubmitting}
                 className={`
                   inline-flex h-10
                   items-center justify-center

@@ -33,10 +33,7 @@ interface ProductInventoryDetails {
   updatedAt: string;
 }
 
-const productInventoryRecords: Record<
-  string,
-  ProductInventoryDetails
-> = {
+const productInventoryRecords: Record<string, ProductInventoryDetails> = {
   "1": {
     productId: 1,
     productName: "Premium Mineral Water",
@@ -78,8 +75,7 @@ const productInventoryRecords: Record<
     locationId: 3,
     locationName: "Cold Storage",
     locationCode: "CS-001",
-    locationAddress:
-      "Warehouse Block B, Lahore",
+    locationAddress: "Warehouse Block B, Lahore",
     onHandQuantity: 45,
     reservedQuantity: 5,
     reorderLevel: 15,
@@ -112,21 +108,17 @@ export default async function ProductInventoryDetailsPage({
 }: ProductInventoryDetailsPageProps) {
   const { id } = await params;
 
-  const inventory =
-    productInventoryRecords[id];
+  const inventory = productInventoryRecords[id];
 
   if (!inventory) {
     return (
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-[var(--shadow-sm)]">
-            <h1 className="text-xl font-bold">
-              Product inventory not found
-            </h1>
+            <h1 className="text-xl font-bold">Product inventory not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested product inventory record
-              does not exist.
+              The requested product inventory record does not exist.
             </p>
 
             <Link
@@ -148,21 +140,14 @@ export default async function ProductInventoryDetailsPage({
 
   const availableQuantity = Math.max(
     0,
-    inventory.onHandQuantity -
-      inventory.reservedQuantity,
+    inventory.onHandQuantity - inventory.reservedQuantity,
   );
 
-  const isLowStock =
-    inventory.onHandQuantity <=
-    inventory.reorderLevel;
+  const isLowStock = inventory.onHandQuantity <= inventory.reorderLevel;
 
   const stockPercentage = Math.min(
     100,
-    Math.round(
-      (inventory.onHandQuantity /
-        inventory.maximumStock) *
-        100,
-    ),
+    Math.round((inventory.onHandQuantity / inventory.maximumStock) * 100),
   );
 
   return (
@@ -205,15 +190,12 @@ export default async function ProductInventoryDetailsPage({
                     }
                   `}
                 >
-                  {isLowStock
-                    ? "Low stock"
-                    : "In stock"}
+                  {isLowStock ? "Low stock" : "In stock"}
                 </span>
               </div>
 
               <p className="mt-2 text-sm text-muted">
-                Record ID: {id} ·{" "}
-                {inventory.sku}
+                Record ID: {id} · {inventory.sku}
               </p>
             </div>
           </div>
@@ -237,18 +219,14 @@ export default async function ProductInventoryDetailsPage({
         <section className="mt-8 grid gap-4 sm:grid-cols-4">
           <InfoCard
             title="On-hand"
-            value={String(
-              inventory.onHandQuantity,
-            )}
+            value={String(inventory.onHandQuantity)}
             helper="Physical stock units"
             icon={<Package className="size-5" />}
           />
 
           <InfoCard
             title="Reserved"
-            value={String(
-              inventory.reservedQuantity,
-            )}
+            value={String(inventory.reservedQuantity)}
             helper="Reserved stock units"
             icon={<Package className="size-5" />}
           />
@@ -257,9 +235,7 @@ export default async function ProductInventoryDetailsPage({
             title="Available"
             value={String(availableQuantity)}
             helper="Available for sale"
-            icon={
-              <Warehouse className="size-5" />
-            }
+            icon={<Warehouse className="size-5" />}
           />
 
           <InfoCard
@@ -278,27 +254,18 @@ export default async function ProductInventoryDetailsPage({
               </span>
 
               <div>
-                <h2 className="font-bold">
-                  Inventory information
-                </h2>
+                <h2 className="font-bold">Inventory information</h2>
 
                 <p className="text-xs text-muted">
-                  Product stock and assigned location
-                  details.
+                  Product stock and assigned location details.
                 </p>
               </div>
             </div>
 
             <dl className="mt-6 divide-y divide-border">
-              <DetailsRow
-                label="Product"
-                value={inventory.productName}
-              />
+              <DetailsRow label="Product" value={inventory.productName} />
 
-              <DetailsRow
-                label="SKU"
-                value={inventory.sku}
-              />
+              <DetailsRow label="SKU" value={inventory.sku} />
 
               <DetailsRow
                 label="Inventory location"
@@ -312,48 +279,32 @@ export default async function ProductInventoryDetailsPage({
 
               <DetailsRow
                 label="Location address"
-                value={
-                  inventory.locationAddress
-                }
+                value={inventory.locationAddress}
               />
 
               <DetailsRow
                 label="On-hand quantity"
-                value={String(
-                  inventory.onHandQuantity,
-                )}
+                value={String(inventory.onHandQuantity)}
               />
 
               <DetailsRow
                 label="Reserved quantity"
-                value={String(
-                  inventory.reservedQuantity,
-                )}
+                value={String(inventory.reservedQuantity)}
               />
 
               <DetailsRow
                 label="Available quantity"
-                value={String(
-                  availableQuantity,
-                )}
+                value={String(availableQuantity)}
               />
 
-              <DetailsRow
-                label="Created"
-                value={inventory.createdAt}
-              />
+              <DetailsRow label="Created" value={inventory.createdAt} />
 
-              <DetailsRow
-                label="Last updated"
-                value={inventory.updatedAt}
-              />
+              <DetailsRow label="Last updated" value={inventory.updatedAt} />
             </dl>
           </section>
 
           <aside className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
-            <h2 className="font-bold">
-              Stock limits
-            </h2>
+            <h2 className="font-bold">Stock limits</h2>
 
             <p className="mt-1 text-xs text-muted">
               Current inventory thresholds.
@@ -361,13 +312,10 @@ export default async function ProductInventoryDetailsPage({
 
             <div className="mt-6">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-muted">
-                  Stock capacity
-                </span>
+                <span className="text-muted">Stock capacity</span>
 
                 <span className="font-semibold">
-                  {inventory.onHandQuantity} /{" "}
-                  {inventory.maximumStock}
+                  {inventory.onHandQuantity} / {inventory.maximumStock}
                 </span>
               </div>
 
@@ -375,11 +323,7 @@ export default async function ProductInventoryDetailsPage({
                 <div
                   className={`
                     h-full rounded-full
-                    ${
-                      isLowStock
-                        ? "bg-orange-500"
-                        : "bg-primary"
-                    }
+                    ${isLowStock ? "bg-orange-500" : "bg-primary"}
                   `}
                   style={{
                     width: `${stockPercentage}%`,
@@ -389,20 +333,11 @@ export default async function ProductInventoryDetailsPage({
             </div>
 
             <div className="mt-6 space-y-4 border-t border-border pt-5 text-sm">
-              <LimitRow
-                label="Minimum stock"
-                value={inventory.minimumStock}
-              />
+              <LimitRow label="Minimum stock" value={inventory.minimumStock} />
 
-              <LimitRow
-                label="Reorder level"
-                value={inventory.reorderLevel}
-              />
+              <LimitRow label="Reorder level" value={inventory.reorderLevel} />
 
-              <LimitRow
-                label="Maximum stock"
-                value={inventory.maximumStock}
-              />
+              <LimitRow label="Maximum stock" value={inventory.maximumStock} />
             </div>
 
             {isLowStock && (
@@ -412,8 +347,7 @@ export default async function ProductInventoryDetailsPage({
                 </p>
 
                 <p className="mt-1 text-[11px] leading-5 text-orange-700">
-                  Current quantity is at or below the
-                  configured reorder level.
+                  Current quantity is at or below the configured reorder level.
                 </p>
               </div>
             )}
@@ -425,9 +359,7 @@ export default async function ProductInventoryDetailsPage({
 
           <span>
             Last updated on{" "}
-            <strong className="text-foreground">
-              {inventory.updatedAt}
-            </strong>
+            <strong className="text-foreground">{inventory.updatedAt}</strong>
           </span>
         </section>
       </div>
@@ -453,58 +385,32 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[10px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[10px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid gap-2 py-4 text-sm sm:grid-cols-[180px_minmax(0,1fr)]">
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium">
-        {value}
-      </dd>
+      <dd className="font-medium">{value}</dd>
     </div>
   );
 }
 
-function LimitRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: number;
-}) {
+function LimitRow({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex items-center justify-between gap-4">
-      <span className="text-muted">
-        {label}
-      </span>
+      <span className="text-muted">{label}</span>
 
-      <span className="font-bold">
-        {value}
-      </span>
+      <span className="font-bold">{value}</span>
     </div>
   );
 }

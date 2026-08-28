@@ -24,10 +24,7 @@ export {
   type VoidTransactionFormValues,
 } from "./transaction-schema";
 
-export {
-  transferSchema,
-  voidTransferSchema,
-} from "./transfer-schema";
+export { transferSchema, voidTransferSchema } from "./transfer-schema";
 
 export type {
   TransferFormInput,

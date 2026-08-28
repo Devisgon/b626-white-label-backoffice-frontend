@@ -1,21 +1,10 @@
 import Link from "next/link";
-import {
-  notFound,
-} from "next/navigation";
-import {
-  ArrowLeft,
-  Boxes,
-} from "lucide-react";
+import { notFound } from "next/navigation";
+import { ArrowLeft, Boxes } from "lucide-react";
 
-import {
-  AppShell,
-} from "@/components/layout";
-import {
-  LotteryPackForm,
-} from "@/features/lottery/components";
-import {
-  findDemoLotteryPack,
-} from "@/features/lottery/lottery-pack-demo-data";
+import { AppShell } from "@/components/layout";
+import { LotteryPackForm } from "@/features/lottery/components";
+import { findDemoLotteryPack } from "@/features/lottery/lottery-pack-demo-data";
 
 interface EditLotteryPackPageProps {
   params: Promise<{
@@ -23,9 +12,7 @@ interface EditLotteryPackPageProps {
   }>;
 }
 
-function toDateTimeLocal(
-  value: string | null,
-) {
+function toDateTimeLocal(value: string | null) {
   if (!value) {
     return "";
   }
@@ -33,14 +20,10 @@ function toDateTimeLocal(
   const date = new Date(value);
 
   const localDate = new Date(
-    date.getTime() -
-      date.getTimezoneOffset() *
-        60_000,
+    date.getTime() - date.getTimezoneOffset() * 60_000,
   );
 
-  return localDate
-    .toISOString()
-    .slice(0, 16);
+  return localDate.toISOString().slice(0, 16);
 }
 
 export default async function EditLotteryPackPage({
@@ -50,10 +33,7 @@ export default async function EditLotteryPackPage({
 
   const numericId = Number(id);
 
-  if (
-    !Number.isInteger(numericId) ||
-    numericId < 1
-  ) {
+  if (!Number.isInteger(numericId) || numericId < 1) {
     notFound();
   }
 
@@ -64,10 +44,7 @@ export default async function EditLotteryPackPage({
    *   await getLotteryPack(numericId);
    */
 
-  const pack =
-    findDemoLotteryPack(
-      numericId,
-    );
+  const pack = findDemoLotteryPack(numericId);
 
   if (!pack) {
     notFound();
@@ -132,8 +109,7 @@ export default async function EditLotteryPackPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update {pack.pack_number}, its ticket
-              range and availability.
+              Update {pack.pack_number}, its ticket range and availability.
             </p>
           </div>
         </section>
@@ -143,28 +119,17 @@ export default async function EditLotteryPackPage({
             mode="edit"
             packId={pack.id}
             initialValues={{
-              game_id: String(
-                pack.game_id,
-              ),
+              game_id: String(pack.game_id),
 
-              pack_number:
-                pack.pack_number,
+              pack_number: pack.pack_number,
 
-              start_ticket_no: String(
-                pack.start_ticket_no,
-              ),
+              start_ticket_no: String(pack.start_ticket_no),
 
-              end_ticket_no: String(
-                pack.end_ticket_no,
-              ),
+              end_ticket_no: String(pack.end_ticket_no),
 
-              activated_at:
-                toDateTimeLocal(
-                  pack.activated_at,
-                ),
+              activated_at: toDateTimeLocal(pack.activated_at),
 
-              location_id:
-                pack.location_id ?? "",
+              location_id: pack.location_id ?? "",
 
               status: pack.status,
             }}

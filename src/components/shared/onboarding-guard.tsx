@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  type ReactNode,
-} from "react";
+import { useEffect, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
 
@@ -13,22 +10,14 @@ interface OnboardingGuardProps {
   children: ReactNode;
 }
 
-export function OnboardingGuard({
-  children,
-}: OnboardingGuardProps) {
+export function OnboardingGuard({ children }: OnboardingGuardProps) {
   const router = useRouter();
 
-  const user = useAuthStore(
-    (state) => state.user,
-  );
+  const user = useAuthStore((state) => state.user);
 
-  const isAuthenticated = useAuthStore(
-    (state) => state.isAuthenticated,
-  );
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  const hasHydrated = useAuthStore(
-    (state) => state.hasHydrated,
-  );
+  const hasHydrated = useAuthStore((state) => state.hasHydrated);
 
   useEffect(() => {
     if (!hasHydrated) {
@@ -43,12 +32,7 @@ export function OnboardingGuard({
     if (user.onboardingStatus === "ONBOARDED") {
       router.replace("/");
     }
-  }, [
-    hasHydrated,
-    isAuthenticated,
-    router,
-    user,
-  ]);
+  }, [hasHydrated, isAuthenticated, router, user]);
 
   if (!hasHydrated) {
     return <LoadingScreen />;

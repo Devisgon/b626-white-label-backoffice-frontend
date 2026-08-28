@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Fuel,
-} from "lucide-react";
+import { ArrowLeft, Fuel } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelPumpForm,
-} from "@/features/fuel/components";
+import { FuelPumpForm } from "@/features/fuel/components";
 
 export default function NewFuelPumpPage() {
   return (
@@ -33,8 +28,7 @@ export default function NewFuelPumpPage() {
               Add fuel pump
             </h1>
             <p className="mt-2 text-sm text-muted">
-              Create a pump and connect it with a
-              fuel tank.
+              Create a pump and connect it with a fuel tank.
             </p>
           </div>
         </section>

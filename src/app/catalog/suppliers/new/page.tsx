@@ -33,8 +33,7 @@ export default function CreateSupplierPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Add a new supplier and their contact
-              information.
+              Add a new supplier and their contact information.
             </p>
           </div>
         </section>

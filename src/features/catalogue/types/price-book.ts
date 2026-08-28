@@ -1,6 +1,4 @@
-export type PriceBookStatus =
-  | "Active"
-  | "Inactive";
+export type PriceBookStatus = "Active" | "Inactive";
 
 export interface PriceBookProduct {
   id: number;
@@ -36,8 +34,7 @@ export interface CreatePriceBookPayload {
   status?: PriceBookStatus;
 }
 
-export type UpdatePriceBookPayload =
-  Partial<CreatePriceBookPayload>;
+export type UpdatePriceBookPayload = Partial<CreatePriceBookPayload>;
 
 export interface AddPriceBookItemPayload {
   product_id: number;

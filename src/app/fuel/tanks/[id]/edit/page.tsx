@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Database,
-} from "lucide-react";
+import { ArrowLeft, Database } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelTankForm,
-} from "@/features/fuel/components";
+import { FuelTankForm } from "@/features/fuel/components";
 
 interface EditFuelTankPageProps {
   params: Promise<{
@@ -21,8 +16,7 @@ const tanks = {
     fuel_type: "Premium Petrol",
     capacity: "20000",
     current_stock: "15000",
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active" as const,
   },
   "2": {
@@ -30,8 +24,7 @@ const tanks = {
     fuel_type: "Diesel",
     capacity: "25000",
     current_stock: "18500",
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active" as const,
   },
 };
@@ -41,9 +34,7 @@ export default async function EditFuelTankPage({
 }: EditFuelTankPageProps) {
   const { id } = await params;
 
-  const tank =
-    tanks[id as keyof typeof tanks] ??
-    tanks["1"];
+  const tank = tanks[id as keyof typeof tanks] ?? tanks["1"];
 
   return (
     <AppShell>
@@ -74,11 +65,7 @@ export default async function EditFuelTankPage({
         </section>
 
         <div className="mt-8">
-          <FuelTankForm
-            mode="edit"
-            tankId={Number(id)}
-            initialValues={tank}
-          />
+          <FuelTankForm mode="edit" tankId={Number(id)} initialValues={tank} />
         </div>
       </div>
     </AppShell>

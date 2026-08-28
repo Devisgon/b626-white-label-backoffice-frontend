@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Pencil,
-  Plus,
-  Save,
-  Trash2,
-  X,
-} from "lucide-react";
+import { Pencil, Plus, Save, Trash2, X } from "lucide-react";
 import { useMemo, useState } from "react";
 
 export interface PriceBookManagerItem {
@@ -73,34 +67,22 @@ export function PriceBookItemsManager({
   priceBookId,
   initialItems,
 }: PriceBookItemsManagerProps) {
-  const [items, setItems] =
-    useState<PriceBookManagerItem[]>(
-      initialItems,
-    );
+  const [items, setItems] = useState<PriceBookManagerItem[]>(initialItems);
 
-  const [showForm, setShowForm] =
-    useState(false);
+  const [showForm, setShowForm] = useState(false);
 
-  const [selectedProductId, setSelectedProductId] =
-    useState("");
+  const [selectedProductId, setSelectedProductId] = useState("");
 
-  const [sellingPrice, setSellingPrice] =
-    useState("");
+  const [sellingPrice, setSellingPrice] = useState("");
 
-  const [editingItemId, setEditingItemId] =
-    useState<number | null>(null);
+  const [editingItemId, setEditingItemId] = useState<number | null>(null);
 
-  const [formError, setFormError] =
-    useState("");
+  const [formError, setFormError] = useState("");
 
   const availableProducts = useMemo(
     () =>
       products.filter(
-        (product) =>
-          !items.some(
-            (item) =>
-              item.productId === product.id,
-          ),
+        (product) => !items.some((item) => item.productId === product.id),
       ),
     [items],
   );
@@ -116,38 +98,24 @@ export function PriceBookItemsManager({
   function handleAddItem() {
     setFormError("");
 
-    const productId = Number(
-      selectedProductId,
-    );
+    const productId = Number(selectedProductId);
 
     const price = Number(sellingPrice);
 
     if (!productId) {
-      setFormError(
-        "Please select a product.",
-      );
+      setFormError("Please select a product.");
       return;
     }
 
-    if (
-      sellingPrice.trim() === "" ||
-      Number.isNaN(price) ||
-      price < 0
-    ) {
-      setFormError(
-        "Please enter a valid selling price.",
-      );
+    if (sellingPrice.trim() === "" || Number.isNaN(price) || price < 0) {
+      setFormError("Please enter a valid selling price.");
       return;
     }
 
-    const product = products.find(
-      (item) => item.id === productId,
-    );
+    const product = products.find((item) => item.id === productId);
 
     if (!product) {
-      setFormError(
-        "Selected product was not found.",
-      );
+      setFormError("Selected product was not found.");
       return;
     }
 
@@ -159,10 +127,7 @@ export function PriceBookItemsManager({
       sellingPrice: price,
     };
 
-    setItems((currentItems) => [
-      ...currentItems,
-      newItem,
-    ]);
+    setItems((currentItems) => [...currentItems, newItem]);
 
     console.log({
       action: "add-price-book-item",
@@ -174,14 +139,10 @@ export function PriceBookItemsManager({
     resetForm();
   }
 
-  function startEditing(
-    item: PriceBookManagerItem,
-  ) {
+  function startEditing(item: PriceBookManagerItem) {
     setEditingItemId(item.id);
 
-    setSellingPrice(
-      String(item.sellingPrice),
-    );
+    setSellingPrice(String(item.sellingPrice));
 
     setShowForm(false);
     setFormError("");
@@ -190,14 +151,8 @@ export function PriceBookItemsManager({
   function updateItem(itemId: number) {
     const price = Number(sellingPrice);
 
-    if (
-      sellingPrice.trim() === "" ||
-      Number.isNaN(price) ||
-      price < 0
-    ) {
-      setFormError(
-        "Please enter a valid selling price.",
-      );
+    if (sellingPrice.trim() === "" || Number.isNaN(price) || price < 0) {
+      setFormError("Please enter a valid selling price.");
       return;
     }
 
@@ -224,9 +179,7 @@ export function PriceBookItemsManager({
     setFormError("");
   }
 
-  function removeItem(
-    item: PriceBookManagerItem,
-  ) {
+  function removeItem(item: PriceBookManagerItem) {
     const shouldDelete = window.confirm(
       `Remove ${item.productName} from this price book?`,
     );
@@ -236,10 +189,7 @@ export function PriceBookItemsManager({
     }
 
     setItems((currentItems) =>
-      currentItems.filter(
-        (currentItem) =>
-          currentItem.id !== item.id,
-      ),
+      currentItems.filter((currentItem) => currentItem.id !== item.id),
     );
 
     console.log({
@@ -265,13 +215,10 @@ export function PriceBookItemsManager({
         "
       >
         <div>
-          <h2 className="font-bold">
-            Product prices
-          </h2>
+          <h2 className="font-bold">Product prices</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Add products and manage their selling
-            prices in this price book.
+            Add products and manage their selling prices in this price book.
           </p>
         </div>
 
@@ -283,9 +230,7 @@ export function PriceBookItemsManager({
             setSellingPrice("");
             setFormError("");
           }}
-          disabled={
-            availableProducts.length === 0
-          }
+          disabled={availableProducts.length === 0}
           className="
             inline-flex h-10 items-center
             justify-center gap-2 rounded-xl
@@ -305,13 +250,10 @@ export function PriceBookItemsManager({
         <div className="border-b border-border bg-surface-secondary/50 p-5 sm:p-6">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <h3 className="text-sm font-bold">
-                Add product price
-              </h3>
+              <h3 className="text-sm font-bold">Add product price</h3>
 
               <p className="mt-1 text-xs text-muted">
-                Select a product and enter its
-                selling price.
+                Select a product and enter its selling price.
               </p>
             </div>
 
@@ -342,11 +284,7 @@ export function PriceBookItemsManager({
               <select
                 id="price-book-product"
                 value={selectedProductId}
-                onChange={(event) =>
-                  setSelectedProductId(
-                    event.target.value,
-                  )
-                }
+                onChange={(event) => setSelectedProductId(event.target.value)}
                 className="
                   mt-2 h-11 w-full rounded-xl
                   border border-border bg-white
@@ -355,29 +293,18 @@ export function PriceBookItemsManager({
                   focus:ring-4 focus:ring-primary/10
                 "
               >
-                <option value="">
-                  Select product
-                </option>
+                <option value="">Select product</option>
 
-                {availableProducts.map(
-                  (product) => (
-                    <option
-                      key={product.id}
-                      value={product.id}
-                    >
-                      {product.name} —{" "}
-                      {product.sku}
-                    </option>
-                  ),
-                )}
+                {availableProducts.map((product) => (
+                  <option key={product.id} value={product.id}>
+                    {product.name} — {product.sku}
+                  </option>
+                ))}
               </select>
             </div>
 
             <div>
-              <label
-                htmlFor="selling-price"
-                className="text-xs font-semibold"
-              >
+              <label htmlFor="selling-price" className="text-xs font-semibold">
                 Selling price
               </label>
 
@@ -387,11 +314,7 @@ export function PriceBookItemsManager({
                 min="0"
                 step="0.01"
                 value={sellingPrice}
-                onChange={(event) =>
-                  setSellingPrice(
-                    event.target.value,
-                  )
-                }
+                onChange={(event) => setSellingPrice(event.target.value)}
                 placeholder="0.00"
                 className="
                   mt-2 h-11 w-full rounded-xl
@@ -420,9 +343,7 @@ export function PriceBookItemsManager({
           </div>
 
           {formError && (
-            <p className="mt-3 text-xs font-medium text-danger">
-              {formError}
-            </p>
+            <p className="mt-3 text-xs font-medium text-danger">{formError}</p>
           )}
         </div>
       )}
@@ -432,21 +353,13 @@ export function PriceBookItemsManager({
           <table className="w-full min-w-[720px] text-left">
             <thead className="bg-surface-secondary">
               <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                <th className="px-5 py-4">
-                  Product
-                </th>
+                <th className="px-5 py-4">Product</th>
 
-                <th className="px-5 py-4">
-                  SKU
-                </th>
+                <th className="px-5 py-4">SKU</th>
 
-                <th className="px-5 py-4">
-                  Selling price
-                </th>
+                <th className="px-5 py-4">Selling price</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -463,9 +376,7 @@ export function PriceBookItemsManager({
                     {item.productName}
                   </td>
 
-                  <td className="px-5 py-4 text-muted">
-                    {item.sku}
-                  </td>
+                  <td className="px-5 py-4 text-muted">{item.sku}</td>
 
                   <td className="px-5 py-4">
                     {editingItemId === item.id ? (
@@ -476,9 +387,7 @@ export function PriceBookItemsManager({
                           step="0.01"
                           value={sellingPrice}
                           onChange={(event) =>
-                            setSellingPrice(
-                              event.target.value,
-                            )
+                            setSellingPrice(event.target.value)
                           }
                           className="
                             h-9 w-36 rounded-lg border
@@ -498,23 +407,18 @@ export function PriceBookItemsManager({
                       </div>
                     ) : (
                       <span className="font-bold text-primary">
-                        {formatCurrency(
-                          item.sellingPrice,
-                        )}
+                        {formatCurrency(item.sellingPrice)}
                       </span>
                     )}
                   </td>
 
                   <td className="px-5 py-4">
                     <div className="flex justify-end gap-2">
-                      {editingItemId ===
-                      item.id ? (
+                      {editingItemId === item.id ? (
                         <>
                           <button
                             type="button"
-                            onClick={() =>
-                              updateItem(item.id)
-                            }
+                            onClick={() => updateItem(item.id)}
                             aria-label="Save price"
                             className="
                               flex size-9 items-center
@@ -532,9 +436,7 @@ export function PriceBookItemsManager({
                           <button
                             type="button"
                             onClick={() => {
-                              setEditingItemId(
-                                null,
-                              );
+                              setEditingItemId(null);
                               setSellingPrice("");
                               setFormError("");
                             }}
@@ -555,9 +457,7 @@ export function PriceBookItemsManager({
                         <>
                           <button
                             type="button"
-                            onClick={() =>
-                              startEditing(item)
-                            }
+                            onClick={() => startEditing(item)}
                             aria-label={`Edit ${item.productName} price`}
                             className="
                               flex size-9 items-center
@@ -574,9 +474,7 @@ export function PriceBookItemsManager({
 
                           <button
                             type="button"
-                            onClick={() =>
-                              removeItem(item)
-                            }
+                            onClick={() => removeItem(item)}
                             aria-label={`Remove ${item.productName}`}
                             className="
                               flex size-9 items-center
@@ -601,13 +499,10 @@ export function PriceBookItemsManager({
         </div>
       ) : (
         <div className="p-10 text-center">
-          <p className="font-semibold">
-            No product prices added
-          </p>
+          <p className="font-semibold">No product prices added</p>
 
           <p className="mt-1 text-xs text-muted">
-            Add a product to start managing its
-            selling price.
+            Add a product to start managing its selling price.
           </p>
         </div>
       )}

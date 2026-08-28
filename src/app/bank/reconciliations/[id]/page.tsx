@@ -10,12 +10,8 @@ import {
 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  ReconciliationWorkspace,
-} from "@/features/banking/components";
-import type {
-  ReconciliationStatus,
-} from "@/features/banking/types";
+import { ReconciliationWorkspace } from "@/features/banking/components";
+import type { ReconciliationStatus } from "@/features/banking/types";
 
 interface ReconciliationDetailsPageProps {
   params: Promise<{
@@ -37,14 +33,10 @@ interface ReconciliationRecord {
   createdBy: string;
 }
 
-const reconciliationRecords: Record<
-  string,
-  ReconciliationRecord
-> = {
+const reconciliationRecords: Record<string, ReconciliationRecord> = {
   "b1111111-1111-4111-8111-111111111111": {
     id: "b1111111-1111-4111-8111-111111111111",
-    bankAccountName:
-      "HBL Main Operating Account",
+    bankAccountName: "HBL Main Operating Account",
     bankAccountNumber: "**** 2343",
     statementStartDate: "2026-08-01",
     statementEndDate: "2026-08-31",
@@ -58,8 +50,7 @@ const reconciliationRecords: Record<
 
   "b2222222-2222-4222-8222-222222222222": {
     id: "b2222222-2222-4222-8222-222222222222",
-    bankAccountName:
-      "Meezan Business Account",
+    bankAccountName: "Meezan Business Account",
     bankAccountNumber: "**** 7812",
     statementStartDate: "2026-07-01",
     statementEndDate: "2026-07-31",
@@ -73,8 +64,7 @@ const reconciliationRecords: Record<
 
   "b3333333-3333-4333-8333-333333333333": {
     id: "b3333333-3333-4333-8333-333333333333",
-    bankAccountName:
-      "UBL Petty Cash Account",
+    bankAccountName: "UBL Petty Cash Account",
     bankAccountNumber: "**** 4590",
     statementStartDate: "2026-07-01",
     statementEndDate: "2026-07-31",
@@ -88,8 +78,7 @@ const reconciliationRecords: Record<
 
   "b4444444-4444-4444-8444-444444444444": {
     id: "b4444444-4444-4444-8444-444444444444",
-    bankAccountName:
-      "HBL Main Operating Account",
+    bankAccountName: "HBL Main Operating Account",
     bankAccountNumber: "**** 2343",
     statementStartDate: "2026-06-01",
     statementEndDate: "2026-06-30",
@@ -103,9 +92,7 @@ const reconciliationRecords: Record<
 };
 
 const fallbackReconciliation =
-  reconciliationRecords[
-    "b1111111-1111-4111-8111-111111111111"
-  ];
+  reconciliationRecords["b1111111-1111-4111-8111-111111111111"];
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-PK", {
@@ -138,9 +125,7 @@ export default async function ReconciliationDetailsPage({
 }: ReconciliationDetailsPageProps) {
   const { id } = await params;
 
-  const reconciliation =
-    reconciliationRecords[id] ??
-    fallbackReconciliation;
+  const reconciliation = reconciliationRecords[id] ?? fallbackReconciliation;
 
   return (
     <AppShell>
@@ -180,19 +165,12 @@ export default async function ReconciliationDetailsPage({
                 {reconciliation.bankAccountName}
               </h1>
 
-              <ReconciliationStatusBadge
-                status={reconciliation.status}
-              />
+              <ReconciliationStatusBadge status={reconciliation.status} />
             </div>
 
             <p className="mt-2 text-sm text-muted">
-              {formatDate(
-                reconciliation.statementStartDate,
-              )}{" "}
-              to{" "}
-              {formatDate(
-                reconciliation.statementEndDate,
-              )}
+              {formatDate(reconciliation.statementStartDate)} to{" "}
+              {formatDate(reconciliation.statementEndDate)}
             </p>
           </div>
         </section>
@@ -201,17 +179,13 @@ export default async function ReconciliationDetailsPage({
           <InfoCard
             title="Bank account"
             value={reconciliation.bankAccountName}
-            helper={
-              reconciliation.bankAccountNumber
-            }
+            helper={reconciliation.bankAccountNumber}
             icon={Landmark}
           />
 
           <InfoCard
             title="Statement balance"
-            value={formatCurrency(
-              reconciliation.statementEndingBalance,
-            )}
+            value={formatCurrency(reconciliation.statementEndingBalance)}
             helper="Closing statement balance"
             icon={CalendarRange}
           />
@@ -219,15 +193,12 @@ export default async function ReconciliationDetailsPage({
           <InfoCard
             title="Created by"
             value={reconciliation.createdBy}
-            helper={formatDateTime(
-              reconciliation.createdAt,
-            )}
+            helper={formatDateTime(reconciliation.createdAt)}
             icon={Clock3}
           />
         </section>
 
-        {reconciliation.status ===
-          "completed" && (
+        {reconciliation.status === "completed" && (
           <section
             className="
               mt-6 rounded-2xl border
@@ -246,9 +217,7 @@ export default async function ReconciliationDetailsPage({
                 <p className="mt-1 text-xs text-emerald-700">
                   Completed on{" "}
                   {reconciliation.completedAt
-                    ? formatDateTime(
-                        reconciliation.completedAt,
-                      )
+                    ? formatDateTime(reconciliation.completedAt)
                     : "Not available"}
                   . This record is now locked.
                 </p>
@@ -257,8 +226,7 @@ export default async function ReconciliationDetailsPage({
           </section>
         )}
 
-        {reconciliation.status ===
-          "cancelled" && (
+        {reconciliation.status === "cancelled" && (
           <section
             className="
               mt-6 rounded-2xl border
@@ -274,8 +242,7 @@ export default async function ReconciliationDetailsPage({
                 </h2>
 
                 <p className="mt-1 text-xs text-red-700">
-                  This record is locked and cannot
-                  be modified.
+                  This record is locked and cannot be modified.
                 </p>
               </div>
             </div>
@@ -286,12 +253,8 @@ export default async function ReconciliationDetailsPage({
           <ReconciliationWorkspace
             reconciliationId={reconciliation.id}
             status={reconciliation.status}
-            openingSystemBalance={
-              reconciliation.openingSystemBalance
-            }
-            statementEndingBalance={
-              reconciliation.statementEndingBalance
-            }
+            openingSystemBalance={reconciliation.openingSystemBalance}
+            statementEndingBalance={reconciliation.statementEndingBalance}
           />
         </div>
       </div>
@@ -306,12 +269,7 @@ interface InfoCardProps {
   icon: LucideIcon;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon: Icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon: Icon }: InfoCardProps) {
   return (
     <article
       className="
@@ -331,17 +289,11 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
@@ -355,15 +307,13 @@ function ReconciliationStatusBadge({
   const configuration = {
     in_progress: {
       label: "In progress",
-      className:
-        "bg-orange-50 text-orange-700",
+      className: "bg-orange-50 text-orange-700",
       icon: Clock3,
     },
 
     completed: {
       label: "Completed",
-      className:
-        "bg-emerald-50 text-emerald-700",
+      className: "bg-emerald-50 text-emerald-700",
       icon: CheckCircle2,
     },
 

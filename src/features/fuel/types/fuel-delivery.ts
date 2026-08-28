@@ -19,4 +19,3 @@ export interface FuelDeliveryPayload {
   delivery_date: string;
   status?: FuelDeliveryStatus;
 }
-

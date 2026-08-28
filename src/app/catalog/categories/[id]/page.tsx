@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  CalendarDays,
-  Package,
-  Pencil,
-  Tags,
-} from "lucide-react";
+import { ArrowLeft, CalendarDays, Package, Pencil, Tags } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 
@@ -75,9 +69,7 @@ export default async function CategoryDetailsPage({
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Category ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Category ID: {id}</p>
             </div>
           </div>
 
@@ -138,9 +130,7 @@ export default async function CategoryDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Category information
-              </h2>
+              <h2 className="font-bold">Category information</h2>
 
               <p className="text-xs text-muted">
                 General information for this category.
@@ -149,25 +139,16 @@ export default async function CategoryDetailsPage({
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Category name"
-              value={categoryDetails.name}
-            />
+            <DetailsRow label="Category name" value={categoryDetails.name} />
 
             <DetailsRow
               label="Description"
               value={categoryDetails.description}
             />
 
-            <DetailsRow
-              label="Status"
-              value={categoryDetails.status}
-            />
+            <DetailsRow label="Status" value={categoryDetails.status} />
 
-            <DetailsRow
-              label="Created"
-              value={categoryDetails.createdAt}
-            />
+            <DetailsRow label="Created" value={categoryDetails.createdAt} />
 
             <DetailsRow
               label="Last updated"
@@ -187,12 +168,7 @@ interface InfoCardProps {
   icon: React.ElementType;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon: Icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon: Icon }: InfoCardProps) {
   return (
     <article
       className="
@@ -214,17 +190,11 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
@@ -235,10 +205,7 @@ interface DetailsRowProps {
   value: string;
 }
 
-function DetailsRow({
-  label,
-  value,
-}: DetailsRowProps) {
+function DetailsRow({ label, value }: DetailsRowProps) {
   return (
     <div
       className="
@@ -246,13 +213,9 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium text-foreground">
-        {value}
-      </dd>
+      <dd className="font-medium text-foreground">{value}</dd>
     </div>
   );
 }

@@ -1,25 +1,15 @@
 "use client";
 import { useAuthStore } from "@/store";
 
-import {
-  Suspense,
-  useEffect,
-  useState,
-} from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
-import {
-  KeyRound,
-  Mail,
-} from "lucide-react";
+import { KeyRound, Mail } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Button, Input } from "@/components/ui";
-import {
-  resendOtp,
-  verifyEmail,
-} from "@/features/auth/api";
+import { resendOtp, verifyEmail } from "@/features/auth/api";
 import {
   verifyEmailSchema,
   type VerifyEmailFormValues,
@@ -28,9 +18,7 @@ import type { ApiErrorResponse } from "@/lib/api";
 
 function VerifyEmailForm() {
   const router = useRouter();
-  const setSession = useAuthStore(
-  (state) => state.setSession,
-);
+  const setSession = useAuthStore((state) => state.setSession);
   const searchParams = useSearchParams();
 
   const emailFromUrl = searchParams.get("email") ?? "";
@@ -43,10 +31,7 @@ function VerifyEmailForm() {
     register,
     handleSubmit,
     reset,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<VerifyEmailFormValues>({
     resolver: zodResolver(verifyEmailSchema),
     defaultValues: {
@@ -62,20 +47,18 @@ function VerifyEmailForm() {
     });
   }, [emailFromUrl, reset]);
 
-  async function onSubmit(
-    values: VerifyEmailFormValues,
-  ) {
+  async function onSubmit(values: VerifyEmailFormValues) {
     setServerError("");
     setSuccessMessage("");
 
     try {
       const response = await verifyEmail(values);
 
-   setSession({
-  user: response.user,
-  accessToken: response.accessToken,
-  refreshToken: response.refreshToken,
-});
+      setSession({
+        user: response.user,
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken,
+      });
 
       router.push("/onboarding/location");
     } catch (error) {
@@ -87,29 +70,21 @@ function VerifyEmailForm() {
         } else if (typeof message === "string") {
           setServerError(message);
         } else if (!error.response) {
-          setServerError(
-            "Unable to connect to the server. Please try again.",
-          );
+          setServerError("Unable to connect to the server. Please try again.");
         } else {
-          setServerError(
-            "Verification failed. Please check your code.",
-          );
+          setServerError("Verification failed. Please check your code.");
         }
 
         return;
       }
 
-      setServerError(
-        "Something went wrong. Please try again.",
-      );
+      setServerError("Something went wrong. Please try again.");
     }
   }
 
   async function handleResendOtp() {
     if (!emailFromUrl) {
-      setServerError(
-        "Email address is missing. Please register again.",
-      );
+      setServerError("Email address is missing. Please register again.");
       return;
     }
 
@@ -129,14 +104,10 @@ function VerifyEmailForm() {
         const message = error.response?.data?.message;
 
         setServerError(
-          typeof message === "string"
-            ? message
-            : "Unable to resend the code.",
+          typeof message === "string" ? message : "Unable to resend the code.",
         );
       } else {
-        setServerError(
-          "Something went wrong. Please try again.",
-        );
+        setServerError("Something went wrong. Please try again.");
       }
     } finally {
       setIsResending(false);
@@ -155,8 +126,7 @@ function VerifyEmailForm() {
         </h1>
 
         <p className="mt-3 text-sm leading-6 text-muted">
-          Enter the 6-digit verification code sent to your
-          email address.
+          Enter the 6-digit verification code sent to your email address.
         </p>
       </div>
 
@@ -229,9 +199,7 @@ function VerifyEmailForm() {
       </form>
 
       <div className="mt-7 text-center">
-        <p className="text-xs text-muted">
-          Didn&apos;t receive the code?
-        </p>
+        <p className="text-xs text-muted">Didn&apos;t receive the code?</p>
 
         <button
           type="button"
@@ -243,9 +211,7 @@ function VerifyEmailForm() {
             disabled:cursor-not-allowed disabled:opacity-60
           "
         >
-          {isResending
-            ? "Sending code..."
-            : "Resend verification code"}
+          {isResending ? "Sending code..." : "Resend verification code"}
         </button>
       </div>
     </div>

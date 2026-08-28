@@ -2,12 +2,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  ChartAccountForm,
-} from "@/features/banking/components";
-import type {
-  ChartAccountFormValues,
-} from "@/features/banking/schemas";
+import { ChartAccountForm } from "@/features/banking/components";
+import type { ChartAccountFormValues } from "@/features/banking/schemas";
 
 interface EditChartAccountPageProps {
   params: Promise<{
@@ -15,18 +11,14 @@ interface EditChartAccountPageProps {
   }>;
 }
 
-const chartAccounts: Record<
-  string,
-  ChartAccountFormValues
-> = {
+const chartAccounts: Record<string, ChartAccountFormValues> = {
   "2d17c4ef-86b1-4ef8-9000-100000000001": {
     accountCode: "1000",
     accountName: "Assets",
     accountCategory: "asset",
     normalBalance: "debit",
     parentAccountId: "",
-    description:
-      "Main account used to group all business assets.",
+    description: "Main account used to group all business assets.",
     status: "active",
   },
 
@@ -36,8 +28,7 @@ const chartAccounts: Record<
     accountCategory: "liability",
     normalBalance: "credit",
     parentAccountId: "",
-    description:
-      "Main account used to group business liabilities.",
+    description: "Main account used to group business liabilities.",
     status: "active",
   },
 
@@ -47,8 +38,7 @@ const chartAccounts: Record<
     accountCategory: "equity",
     normalBalance: "credit",
     parentAccountId: "",
-    description:
-      "Tracks owner investments and retained equity.",
+    description: "Tracks owner investments and retained equity.",
     status: "active",
   },
 
@@ -58,8 +48,7 @@ const chartAccounts: Record<
     accountCategory: "revenue",
     normalBalance: "credit",
     parentAccountId: "",
-    description:
-      "Tracks income generated from store sales.",
+    description: "Tracks income generated from store sales.",
     status: "active",
   },
 
@@ -69,8 +58,7 @@ const chartAccounts: Record<
     accountCategory: "expense",
     normalBalance: "debit",
     parentAccountId: "",
-    description:
-      "Electricity, gas, water and other utility expenses.",
+    description: "Electricity, gas, water and other utility expenses.",
     status: "active",
   },
 
@@ -80,8 +68,7 @@ const chartAccounts: Record<
     accountCategory: "expense",
     normalBalance: "debit",
     parentAccountId: "",
-    description:
-      "Previous account used for marketing expenses.",
+    description: "Previous account used for marketing expenses.",
     status: "inactive",
   },
 };
@@ -97,13 +84,10 @@ export default async function EditChartAccountPage({
       <AppShell>
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-[var(--shadow-sm)]">
-            <h1 className="text-xl font-bold">
-              Account not found
-            </h1>
+            <h1 className="text-xl font-bold">Account not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested chart account does not
-              exist.
+              The requested chart account does not exist.
             </p>
 
             <Link
@@ -151,8 +135,7 @@ export default async function EditChartAccountPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update the account classification and
-              current status.
+              Update the account classification and current status.
             </p>
           </div>
         </section>

@@ -11,30 +11,19 @@ import {
 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  fuelModules,
-} from "@/config/fuel-modules";
-import {
-  FuelModuleCard,
-} from "@/features/fuel/components";
+import { fuelModules } from "@/config/fuel-modules";
+import { FuelModuleCard } from "@/features/fuel/components";
 import { useAuthStore } from "@/store";
 import { USER_ROLES } from "@/types/role";
 
 export default function FuelPage() {
-  const user = useAuthStore(
-    (state) => state.user,
-  );
+  const user = useAuthStore((state) => state.user);
 
-  const currentRole =
-    user?.role ?? USER_ROLES.OWNER_ADMIN;
+  const currentRole = user?.role ?? USER_ROLES.OWNER_ADMIN;
 
   const availableModules = useMemo(
     () =>
-      fuelModules.filter((module) =>
-        module.allowedRoles.includes(
-          currentRole,
-        ),
-      ),
+      fuelModules.filter((module) => module.allowedRoles.includes(currentRole)),
     [currentRole],
   );
 
@@ -76,8 +65,7 @@ export default function FuelPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage tanks, pumps, prices,
-              deliveries and fuel sales.
+              Manage tanks, pumps, prices, deliveries and fuel sales.
             </p>
           </div>
         </section>
@@ -90,9 +78,7 @@ export default function FuelPage() {
             title="Current stock"
             value="42,850 litres"
             helper="Across all active tanks"
-            icon={
-              <Database className="size-5" />
-            }
+            icon={<Database className="size-5" />}
             color="green"
           />
 
@@ -108,9 +94,7 @@ export default function FuelPage() {
             title="Today’s sales"
             value="PKR 685,250"
             helper="9.4% from yesterday"
-            icon={
-              <ReceiptText className="size-5" />
-            }
+            icon={<ReceiptText className="size-5" />}
             color="orange"
             trend
           />
@@ -119,13 +103,10 @@ export default function FuelPage() {
         <section className="mt-10">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-lg font-bold">
-                Fuel workspace
-              </h2>
+              <h2 className="text-lg font-bold">Fuel workspace</h2>
 
               <p className="mt-1 text-xs text-muted">
-                Quick access based on your role and
-                permissions.
+                Quick access based on your role and permissions.
               </p>
             </div>
 
@@ -137,8 +118,7 @@ export default function FuelPage() {
                 text-primary sm:inline-flex
               "
             >
-              {availableModules.length} sections
-              available
+              {availableModules.length} sections available
             </span>
           </div>
 
@@ -152,9 +132,7 @@ export default function FuelPage() {
               <FuelModuleCard
                 key={module.href}
                 title={module.title}
-                description={
-                  module.description
-                }
+                description={module.description}
                 href={module.href}
                 icon={module.icon}
                 color={module.color}
@@ -183,12 +161,9 @@ function OverviewCard({
   trend?: boolean;
 }) {
   const colorClasses = {
-    green:
-      "bg-emerald-50 text-emerald-700",
-    blue:
-      "bg-blue-50 text-blue-700",
-    orange:
-      "bg-orange-50 text-orange-700",
+    green: "bg-emerald-50 text-emerald-700",
+    blue: "bg-blue-50 text-blue-700",
+    orange: "bg-orange-50 text-orange-700",
   };
 
   return (
@@ -212,28 +187,18 @@ function OverviewCard({
       </span>
 
       <div>
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 text-xl font-bold">
-          {value}
-        </p>
+        <p className="mt-1 text-xl font-bold">{value}</p>
 
         <p
           className={`
             mt-1 flex items-center gap-1
             text-[10px]
-            ${
-              trend
-                ? "font-medium text-success"
-                : "text-muted"
-            }
+            ${trend ? "font-medium text-success" : "text-muted"}
           `}
         >
-          {trend && (
-            <ArrowUpRight className="size-3" />
-          )}
+          {trend && <ArrowUpRight className="size-3" />}
 
           {helper}
         </p>

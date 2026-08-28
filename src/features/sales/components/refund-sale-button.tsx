@@ -1,11 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  AlertTriangle,
-  RotateCcw,
-  X,
-} from "lucide-react";
+import { AlertTriangle, RotateCcw, X } from "lucide-react";
 
 interface RefundItem {
   id: number;
@@ -29,39 +25,26 @@ function formatCurrency(value: number) {
   }).format(value);
 }
 
-export function RefundSaleButton({
-  saleNumber,
-  items,
-}: RefundSaleButtonProps) {
+export function RefundSaleButton({ saleNumber, items }: RefundSaleButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [refundType, setRefundType] =
-    useState<RefundType>("full");
+  const [refundType, setRefundType] = useState<RefundType>("full");
   const [reason, setReason] = useState("");
-  const [selectedItems, setSelectedItems] =
-    useState<Record<number, number>>({});
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [selectedItems, setSelectedItems] = useState<Record<number, number>>(
+    {},
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const partialRefundTotal = items.reduce(
-    (total, item) =>
-      total +
-      (selectedItems[item.id] ?? 0) * item.price,
+    (total, item) => total + (selectedItems[item.id] ?? 0) * item.price,
     0,
   );
 
   const isFormValid =
     reason.trim().length >= 5 &&
-    (refundType === "full" ||
-      partialRefundTotal > 0);
+    (refundType === "full" || partialRefundTotal > 0);
 
-  function updateRefundQuantity(
-    item: RefundItem,
-    quantity: number,
-  ) {
-    const validQuantity = Math.min(
-      item.quantity,
-      Math.max(0, quantity),
-    );
+  function updateRefundQuantity(item: RefundItem, quantity: number) {
+    const validQuantity = Math.min(item.quantity, Math.max(0, quantity));
 
     setSelectedItems((current) => ({
       ...current,
@@ -100,9 +83,7 @@ export function RefundSaleButton({
 
     window.alert(
       `${
-        refundType === "full"
-          ? "Full"
-          : "Partial"
+        refundType === "full" ? "Full" : "Partial"
       } refund prepared for ${saleNumber}.`,
     );
 
@@ -116,7 +97,7 @@ export function RefundSaleButton({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-className="
+        className="
   inline-flex h-10 items-center justify-center
   gap-2 rounded-xl border border-border
   bg-white px-4 text-sm font-semibold
@@ -148,16 +129,11 @@ className="
                 </span>
 
                 <div>
-                  <h2
-                    id="refund-title"
-                    className="font-bold"
-                  >
+                  <h2 id="refund-title" className="font-bold">
                     Refund sale
                   </h2>
 
-                  <p className="mt-1 text-xs text-muted">
-                    {saleNumber}
-                  </p>
+                  <p className="mt-1 text-xs text-muted">{saleNumber}</p>
                 </div>
               </div>
 
@@ -178,16 +154,12 @@ className="
 
             <div className="space-y-5 p-5">
               <div>
-                <p className="text-xs font-semibold">
-                  Refund type
-                </p>
+                <p className="text-xs font-semibold">Refund type</p>
 
                 <div className="mt-3 grid grid-cols-2 gap-3">
                   <button
                     type="button"
-                    onClick={() =>
-                      setRefundType("full")
-                    }
+                    onClick={() => setRefundType("full")}
                     className={`
                       rounded-xl border px-4 py-3
                       text-left text-sm font-semibold
@@ -204,9 +176,7 @@ className="
 
                   <button
                     type="button"
-                    onClick={() =>
-                      setRefundType("partial")
-                    }
+                    onClick={() => setRefundType("partial")}
                     className={`
                       rounded-xl border px-4 py-3
                       text-left text-sm font-semibold
@@ -244,8 +214,8 @@ className="
                           </p>
 
                           <p className="mt-1 text-[11px] text-muted">
-                            {formatCurrency(item.price)} ·{" "}
-                            {item.quantity} purchased
+                            {formatCurrency(item.price)} · {item.quantity}{" "}
+                            purchased
                           </p>
                         </div>
 
@@ -253,15 +223,11 @@ className="
                           type="number"
                           min="0"
                           max={item.quantity}
-                          value={
-                            selectedItems[item.id] ?? 0
-                          }
+                          value={selectedItems[item.id] ?? 0}
                           onChange={(event) =>
                             updateRefundQuantity(
                               item,
-                              Number(
-                                event.target.value,
-                              ),
+                              Number(event.target.value),
                             )
                           }
                           aria-label={`Refund quantity for ${item.name}`}
@@ -277,14 +243,10 @@ className="
                   </div>
 
                   <div className="mt-3 flex justify-between rounded-xl bg-orange-50 px-4 py-3 text-sm">
-                    <span className="text-orange-700">
-                      Refund amount
-                    </span>
+                    <span className="text-orange-700">Refund amount</span>
 
                     <span className="font-bold text-orange-700">
-                      {formatCurrency(
-                        partialRefundTotal,
-                      )}
+                      {formatCurrency(partialRefundTotal)}
                     </span>
                   </div>
                 </div>
@@ -301,9 +263,7 @@ className="
                 <textarea
                   id="refund-reason"
                   value={reason}
-                  onChange={(event) =>
-                    setReason(event.target.value)
-                  }
+                  onChange={(event) => setReason(event.target.value)}
                   rows={4}
                   placeholder="Explain why this sale is being refunded..."
                   className="
@@ -319,10 +279,10 @@ className="
                   Minimum 5 characters required.
                 </p>
               </div>
-<div className="rounded-xl bg-red-50 px-4 py-3 text-xs leading-5 text-red-700">
-  Please review the refund details carefully.
-  This action may not be reversible after confirmation.
-</div>
+              <div className="rounded-xl bg-red-50 px-4 py-3 text-xs leading-5 text-red-700">
+                Please review the refund details carefully. This action may not
+                be reversible after confirmation.
+              </div>
             </div>
 
             <div className="flex justify-end gap-3 border-t border-border p-5">
@@ -342,9 +302,7 @@ className="
               <button
                 type="button"
                 onClick={handleRefund}
-                disabled={
-                  !isFormValid || isSubmitting
-                }
+                disabled={!isFormValid || isSubmitting}
                 className="
                   inline-flex h-10 items-center
                   justify-center gap-2 rounded-xl
@@ -356,9 +314,7 @@ className="
               >
                 <RotateCcw className="size-4" />
 
-                {isSubmitting
-                  ? "Processing..."
-                  : "Confirm refund"}
+                {isSubmitting ? "Processing..." : "Confirm refund"}
               </button>
             </div>
           </div>

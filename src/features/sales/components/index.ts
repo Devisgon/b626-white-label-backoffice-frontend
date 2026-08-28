@@ -5,7 +5,4 @@ export { CancelSaleButton } from "./cancel-sale-button";
 export { SalePaymentPanel } from "./sale-payment-panel";
 export { RestoreSaleButton } from "./restore-sale-button";
 
-export {
-  SaleProductCard,
-  type SaleProduct,
-} from "./sale-product-card";
+export { SaleProductCard, type SaleProduct } from "./sale-product-card";

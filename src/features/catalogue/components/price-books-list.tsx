@@ -12,17 +12,13 @@ import {
   Trash2,
 } from "lucide-react";
 
-import type {
-  PriceBook,
-  PriceBookStatus,
-} from "@/features/catalogue/types";
+import type { PriceBook, PriceBookStatus } from "@/features/catalogue/types";
 
 const initialPriceBooks: PriceBook[] = [
   {
     id: 1,
     name: "Standard Retail Prices",
-    description:
-      "Default retail prices for store products",
+    description: "Default retail prices for store products",
     status: "Active",
     itemCount: 48,
     createdAt: "17 Aug 2026",
@@ -31,8 +27,7 @@ const initialPriceBooks: PriceBook[] = [
   {
     id: 2,
     name: "Wholesale Prices",
-    description:
-      "Special prices for wholesale customers",
+    description: "Special prices for wholesale customers",
     status: "Active",
     itemCount: 32,
     createdAt: "16 Aug 2026",
@@ -41,8 +36,7 @@ const initialPriceBooks: PriceBook[] = [
   {
     id: 3,
     name: "Ramadan Promotion",
-    description:
-      "Promotional prices for the Ramadan campaign",
+    description: "Promotional prices for the Ramadan campaign",
     status: "Active",
     itemCount: 18,
     createdAt: "15 Aug 2026",
@@ -51,8 +45,7 @@ const initialPriceBooks: PriceBook[] = [
   {
     id: 4,
     name: "Previous Promotion",
-    description:
-      "Prices from a completed promotional campaign",
+    description: "Prices from a completed promotional campaign",
     status: "Inactive",
     itemCount: 12,
     createdAt: "14 Aug 2026",
@@ -61,29 +54,21 @@ const initialPriceBooks: PriceBook[] = [
 ];
 
 export function PriceBooksList() {
-  const [priceBooks, setPriceBooks] =
-    useState<PriceBook[]>(initialPriceBooks);
+  const [priceBooks, setPriceBooks] = useState<PriceBook[]>(initialPriceBooks);
 
   const [search, setSearch] = useState("");
 
-  const [status, setStatus] =
-    useState<PriceBookStatus | "all">("all");
+  const [status, setStatus] = useState<PriceBookStatus | "all">("all");
 
   const filteredPriceBooks = useMemo(() => {
     const searchValue = search.trim().toLowerCase();
 
     return priceBooks.filter((priceBook) => {
       const matchesSearch =
-        priceBook.name
-          .toLowerCase()
-          .includes(searchValue) ||
-        priceBook.description
-          .toLowerCase()
-          .includes(searchValue);
+        priceBook.name.toLowerCase().includes(searchValue) ||
+        priceBook.description.toLowerCase().includes(searchValue);
 
-      const matchesStatus =
-        status === "all" ||
-        priceBook.status === status;
+      const matchesStatus = status === "all" || priceBook.status === status;
 
       return matchesSearch && matchesStatus;
     });
@@ -94,8 +79,7 @@ export function PriceBooksList() {
   ).length;
 
   const totalItems = priceBooks.reduce(
-    (total, priceBook) =>
-      total + priceBook.itemCount,
+    (total, priceBook) => total + priceBook.itemCount,
     0,
   );
 
@@ -114,9 +98,7 @@ export function PriceBooksList() {
     }
 
     setPriceBooks((currentPriceBooks) =>
-      currentPriceBooks.filter(
-        (priceBook) => priceBook.id !== id,
-      ),
+      currentPriceBooks.filter((priceBook) => priceBook.id !== id),
     );
   }
 
@@ -157,13 +139,10 @@ export function PriceBooksList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Price book records
-            </h2>
+            <h2 className="font-bold">Price book records</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Manage price books and custom product
-              prices.
+              Manage price books and custom product prices.
             </p>
           </div>
 
@@ -198,9 +177,7 @@ export function PriceBooksList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by price book name or description..."
               className="
                 h-11 w-full rounded-xl border
@@ -216,11 +193,7 @@ export function PriceBooksList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | PriceBookStatus
-                  | "all",
-              )
+              setStatus(event.target.value as PriceBookStatus | "all")
             }
             aria-label="Filter price books by status"
             className="
@@ -260,25 +233,15 @@ export function PriceBooksList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Price book
-                </th>
+                <th className="px-5 py-4">Price book</th>
 
-                <th className="px-5 py-4">
-                  Items
-                </th>
+                <th className="px-5 py-4">Items</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4">
-                  Updated
-                </th>
+                <th className="px-5 py-4">Updated</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -304,9 +267,7 @@ export function PriceBooksList() {
                       </span>
 
                       <div>
-                        <p className="font-semibold">
-                          {priceBook.name}
-                        </p>
+                        <p className="font-semibold">{priceBook.name}</p>
 
                         <p className="mt-1 max-w-sm truncate text-xs text-muted">
                           {priceBook.description}
@@ -316,18 +277,12 @@ export function PriceBooksList() {
                   </td>
 
                   <td className="px-5 py-4">
-                    <span className="font-semibold">
-                      {priceBook.itemCount}
-                    </span>{" "}
-                    <span className="text-xs text-muted">
-                      products
-                    </span>
+                    <span className="font-semibold">{priceBook.itemCount}</span>{" "}
+                    <span className="text-xs text-muted">products</span>
                   </td>
 
                   <td className="px-5 py-4">
-                    <StatusBadge
-                      status={priceBook.status}
-                    />
+                    <StatusBadge status={priceBook.status} />
                   </td>
 
                   <td className="px-5 py-4 text-muted">
@@ -368,9 +323,7 @@ export function PriceBooksList() {
 
                       <button
                         type="button"
-                        onClick={() =>
-                          removePriceBook(priceBook.id)
-                        }
+                        onClick={() => removePriceBook(priceBook.id)}
                         aria-label={`Delete ${priceBook.name}`}
                         className="
                           flex size-9 items-center justify-center
@@ -394,9 +347,7 @@ export function PriceBooksList() {
             <div className="px-5 py-14 text-center">
               <BookOpenCheck className="mx-auto size-8 text-muted-light" />
 
-              <p className="mt-3 text-sm font-semibold">
-                No price books found
-              </p>
+              <p className="mt-3 text-sm font-semibold">No price books found</p>
 
               <p className="mt-1 text-xs text-muted">
                 Try changing your search or filters.
@@ -413,8 +364,8 @@ export function PriceBooksList() {
           "
         >
           <span>
-            Showing {filteredPriceBooks.length} of{" "}
-            {priceBooks.length} price books
+            Showing {filteredPriceBooks.length} of {priceBooks.length} price
+            books
           </span>
 
           <span>Dummy data for frontend testing</span>
@@ -444,18 +395,12 @@ function StatCard({
     >
       <p className="text-xs text-muted">{label}</p>
       <p className="mt-2 text-2xl font-bold">{value}</p>
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: PriceBookStatus;
-}) {
+function StatusBadge({ status }: { status: PriceBookStatus }) {
   return (
     <span
       className={`

@@ -1,13 +1,6 @@
-export type BankAccountType =
-  | "checking"
-  | "savings"
-  | "cash"
-  | "credit";
+export type BankAccountType = "checking" | "savings" | "cash" | "credit";
 
-export type BankAccountStatus =
-  | "active"
-  | "inactive"
-  | "closed";
+export type BankAccountStatus = "active" | "inactive" | "closed";
 
 export interface BankAccount {
   id: string;

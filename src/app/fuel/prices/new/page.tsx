@@ -2,9 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelPriceForm,
-} from "@/features/fuel/components";
+import { FuelPriceForm } from "@/features/fuel/components";
 
 export default function NewFuelPricePage() {
   return (
@@ -18,18 +16,15 @@ export default function NewFuelPricePage() {
         </Link>
 
         <div className="mt-5">
-          <h1 className="text-3xl font-bold">
-            Add fuel price
-          </h1>
+          <h1 className="text-3xl font-bold">Add fuel price</h1>
           <p className="mt-2 text-sm text-muted">
-            Create a fuel price with its effective
-            date.
+            Create a fuel price with its effective date.
           </p>
         </div>
 
         <div className="mt-8">
           <FuelPriceForm mode="create" />
-      </div>
+        </div>
       </div>
     </AppShell>
   );

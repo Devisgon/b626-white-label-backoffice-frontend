@@ -1,13 +1,8 @@
-import {
-  forwardRef,
-  type InputHTMLAttributes,
-  type ReactNode,
-} from "react";
+import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 
 import { cn } from "@/utils";
 
-interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   helperText?: string;
@@ -43,11 +38,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           >
             {label}
 
-            {required && (
-              <span className="ml-1 text-danger">
-                *
-              </span>
-            )}
+            {required && <span className="ml-1 text-danger">*</span>}
           </label>
         )}
 
@@ -71,11 +62,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             aria-invalid={Boolean(error)}
             aria-describedby={
-              error
-                ? `${id}-error`
-                : helperText
-                  ? `${id}-helper`
-                  : undefined
+              error ? `${id}-error` : helperText ? `${id}-helper` : undefined
             }
             className={cn(
               "h-11 w-full rounded-xl border bg-white",
@@ -115,10 +102,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {error}
           </p>
         ) : helperText ? (
-          <p
-            id={`${id}-helper`}
-            className="mt-1.5 text-[11px] text-muted"
-          >
+          <p id={`${id}-helper`} className="mt-1.5 text-[11px] text-muted">
             {helperText}
           </p>
         ) : null}

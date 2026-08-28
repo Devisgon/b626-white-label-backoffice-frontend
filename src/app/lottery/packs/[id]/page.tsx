@@ -1,7 +1,5 @@
 import Link from "next/link";
-import {
-  notFound,
-} from "next/navigation";
+import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   Boxes,
@@ -11,15 +9,9 @@ import {
   Ticket,
 } from "lucide-react";
 
-import {
-  AppShell,
-} from "@/components/layout";
-import {
-  findDemoLotteryPack,
-} from "@/features/lottery/lottery-pack-demo-data";
-import type {
-  LotteryPackStatus,
-} from "@/features/lottery/types";
+import { AppShell } from "@/components/layout";
+import { findDemoLotteryPack } from "@/features/lottery/lottery-pack-demo-data";
+import type { LotteryPackStatus } from "@/features/lottery/types";
 
 interface LotteryPackDetailsPageProps {
   params: Promise<{
@@ -27,36 +19,23 @@ interface LotteryPackDetailsPageProps {
   }>;
 }
 
-function formatDate(
-  value: string,
-) {
-  return new Intl.DateTimeFormat(
-    "en-GB",
-    {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Asia/Karachi",
-    },
-  ).format(new Date(value));
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Karachi",
+  }).format(new Date(value));
 }
 
-function getLocationName(
-  locationId: string | null,
-) {
-  if (
-    locationId ===
-    "b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d"
-  ) {
+function getLocationName(locationId: string | null) {
+  if (locationId === "b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d") {
     return "Phoenix Store";
   }
 
-  if (
-    locationId ===
-    "d4f2a3b1-4321-4c5d-8e7f-1a2b3c4d5e6f"
-  ) {
+  if (locationId === "d4f2a3b1-4321-4c5d-8e7f-1a2b3c4d5e6f") {
     return "Main Warehouse";
   }
 
@@ -70,10 +49,7 @@ export default async function LotteryPackDetailsPage({
 
   const numericId = Number(id);
 
-  if (
-    !Number.isInteger(numericId) ||
-    numericId < 1
-  ) {
+  if (!Number.isInteger(numericId) || numericId < 1) {
     notFound();
   }
 
@@ -84,24 +60,15 @@ export default async function LotteryPackDetailsPage({
    *   await getLotteryPack(numericId);
    */
 
-  const pack =
-    findDemoLotteryPack(
-      numericId,
-    );
+  const pack = findDemoLotteryPack(numericId);
 
   if (!pack) {
     notFound();
   }
 
-  const totalTickets =
-    pack.end_ticket_no -
-    pack.start_ticket_no +
-    1;
+  const totalTickets = pack.end_ticket_no - pack.start_ticket_no + 1;
 
-  const locationName =
-    getLocationName(
-      pack.location_id,
-    );
+  const locationName = getLocationName(pack.location_id);
 
   return (
     <AppShell>
@@ -174,14 +141,10 @@ export default async function LotteryPackDetailsPage({
                   {pack.pack_number}
                 </h1>
 
-                <StatusBadge
-                  status={pack.status}
-                />
+                <StatusBadge status={pack.status} />
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Pack ID: {pack.id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Pack ID: {pack.id}</p>
             </div>
           </div>
 
@@ -214,27 +177,21 @@ export default async function LotteryPackDetailsPage({
             title="Lottery game"
             value={pack.game_name}
             helper={`Game ID: ${pack.game_id}`}
-            icon={
-              <Ticket className="size-5" />
-            }
+            icon={<Ticket className="size-5" />}
           />
 
           <InfoCard
             title="Total tickets"
             value={String(totalTickets)}
             helper={`${pack.start_ticket_no} to ${pack.end_ticket_no}`}
-            icon={
-              <Boxes className="size-5" />
-            }
+            icon={<Boxes className="size-5" />}
           />
 
           <InfoCard
             title="Location"
             value={locationName}
             helper="Current pack location"
-            icon={
-              <MapPin className="size-5" />
-            }
+            icon={<MapPin className="size-5" />}
           />
         </section>
 
@@ -258,82 +215,49 @@ export default async function LotteryPackDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Pack information
-              </h2>
+              <h2 className="font-bold">Pack information</h2>
 
               <p className="mt-1 text-xs text-muted">
-                Ticket range, activation and
-                availability information.
+                Ticket range, activation and availability information.
               </p>
             </div>
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Pack number"
-              value={pack.pack_number}
-            />
+            <DetailsRow label="Pack number" value={pack.pack_number} />
 
-            <DetailsRow
-              label="Lottery game"
-              value={pack.game_name}
-            />
+            <DetailsRow label="Lottery game" value={pack.game_name} />
 
             <DetailsRow
               label="Starting ticket"
-              value={String(
-                pack.start_ticket_no,
-              )}
+              value={String(pack.start_ticket_no)}
             />
 
             <DetailsRow
               label="Ending ticket"
-              value={String(
-                pack.end_ticket_no,
-              )}
+              value={String(pack.end_ticket_no)}
             />
 
-            <DetailsRow
-              label="Total tickets"
-              value={String(
-                totalTickets,
-              )}
-            />
+            <DetailsRow label="Total tickets" value={String(totalTickets)} />
 
             <DetailsRow
               label="Activation"
               value={
                 pack.activated_at
-                  ? formatDate(
-                      pack.activated_at,
-                    )
+                  ? formatDate(pack.activated_at)
                   : "Not activated"
               }
             />
 
-            <DetailsRow
-              label="Location"
-              value={locationName}
-            />
+            <DetailsRow label="Location" value={locationName} />
 
-            <DetailsRow
-              label="Status"
-              value={pack.status}
-            />
+            <DetailsRow label="Status" value={pack.status} />
 
-            <DetailsRow
-              label="Created"
-              value={formatDate(
-                pack.created_at,
-              )}
-            />
+            <DetailsRow label="Created" value={formatDate(pack.created_at)} />
 
             <DetailsRow
               label="Last updated"
-              value={formatDate(
-                pack.updated_at,
-              )}
+              value={formatDate(pack.updated_at)}
             />
           </dl>
         </section>
@@ -342,26 +266,15 @@ export default async function LotteryPackDetailsPage({
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: LotteryPackStatus;
-}) {
-  const colors: Record<
-    LotteryPackStatus,
-    string
-  > = {
-    "In Stock":
-      "bg-blue-50 text-blue-700",
+function StatusBadge({ status }: { status: LotteryPackStatus }) {
+  const colors: Record<LotteryPackStatus, string> = {
+    "In Stock": "bg-blue-50 text-blue-700",
 
-    Active:
-      "bg-emerald-50 text-emerald-700",
+    Active: "bg-emerald-50 text-emerald-700",
 
-    Completed:
-      "bg-purple-50 text-purple-700",
+    Completed: "bg-purple-50 text-purple-700",
 
-    Inactive:
-      "bg-slate-100 text-slate-700",
+    Inactive: "bg-slate-100 text-slate-700",
   };
 
   return (
@@ -410,29 +323,17 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -440,13 +341,9 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium">
-        {value}
-      </dd>
+      <dd className="font-medium">{value}</dd>
     </div>
   );
 }

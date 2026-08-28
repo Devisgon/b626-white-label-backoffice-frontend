@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  UserRound,
-} from "lucide-react";
+import { ArrowLeft, UserRound } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  PayeesList,
-} from "@/features/banking/components";
+import { PayeesList } from "@/features/banking/components";
 
 export default function PayeesPage() {
   return (
@@ -48,8 +43,8 @@ export default function PayeesPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage vendors, suppliers, individuals
-              and utility payment recipients.
+              Manage vendors, suppliers, individuals and utility payment
+              recipients.
             </p>
           </div>
         </section>

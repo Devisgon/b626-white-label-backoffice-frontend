@@ -34,17 +34,12 @@ export const registerSchema = z
 
     password: passwordSchema,
 
-    confirmPassword: z
-      .string()
-      .min(1, "Please confirm your password"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
   })
-  .refine(
-    (data) => data.password === data.confirmPassword,
-    {
-      message: "Passwords do not match",
-      path: ["confirmPassword"],
-    },
-  );
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
 export const verifyEmailSchema = z.object({
   email: emailSchema,
@@ -60,17 +55,12 @@ export const resetPasswordSchema = z
     email: emailSchema,
     otp: otpSchema,
     newPassword: passwordSchema,
-    confirmPassword: z
-      .string()
-      .min(1, "Please confirm your password"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
   })
-  .refine(
-    (data) => data.newPassword === data.confirmPassword,
-    {
-      message: "Passwords do not match",
-      path: ["confirmPassword"],
-    },
-  );
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
 export const createLocationSchema = z.object({
   name: z
@@ -89,22 +79,12 @@ export const createLocationSchema = z.object({
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
 
-export type RegisterFormValues = z.infer<
-  typeof registerSchema
->;
+export type RegisterFormValues = z.infer<typeof registerSchema>;
 
-export type VerifyEmailFormValues = z.infer<
-  typeof verifyEmailSchema
->;
+export type VerifyEmailFormValues = z.infer<typeof verifyEmailSchema>;
 
-export type ForgotPasswordFormValues = z.infer<
-  typeof forgotPasswordSchema
->;
+export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
-export type ResetPasswordFormValues = z.infer<
-  typeof resetPasswordSchema
->;
+export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
-export type CreateLocationFormValues = z.infer<
-  typeof createLocationSchema
->;
+export type CreateLocationFormValues = z.infer<typeof createLocationSchema>;

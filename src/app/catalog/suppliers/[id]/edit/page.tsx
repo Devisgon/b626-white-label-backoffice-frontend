@@ -50,9 +50,7 @@ export default async function EditSupplierPage({
   const { id } = await params;
 
   const supplier =
-    supplierRecords[
-      id as keyof typeof supplierRecords
-    ] ?? supplierRecords["1"];
+    supplierRecords[id as keyof typeof supplierRecords] ?? supplierRecords["1"];
 
   return (
     <AppShell>
@@ -82,8 +80,7 @@ export default async function EditSupplierPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update {supplier.name} and contact
-              information.
+              Update {supplier.name} and contact information.
             </p>
           </div>
         </section>

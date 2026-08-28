@@ -100,9 +100,7 @@ export default async function ProductDetailsPage({
   const { id } = await params;
 
   const currentStatus =
-    id === "4"
-      ? ("Inactive" as const)
-      : sampleProduct.status;
+    id === "4" ? ("Inactive" as const) : sampleProduct.status;
 
   return (
     <AppShell>
@@ -133,19 +131,16 @@ export default async function ProductDetailsPage({
                   {sampleProduct.name}
                 </h1>
 
-                <ProductStatusBadge
-                  status={currentStatus}
-                />
+                <ProductStatusBadge status={currentStatus} />
               </div>
 
               <p className="mt-2 text-sm text-muted">
-                Product ID: {id} ·{" "}
-                {sampleProduct.sku}
+                Product ID: {id} · {sampleProduct.sku}
               </p>
             </div>
           </div>
 
-                    <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <DeleteProductButton
               productId={Number(id)}
               productName={sampleProduct.name}
@@ -171,9 +166,7 @@ export default async function ProductDetailsPage({
         <section className="mt-8 grid gap-4 sm:grid-cols-3">
           <SummaryCard
             label="Retail price"
-            value={formatCurrency(
-              sampleProduct.retail_price,
-            )}
+            value={formatCurrency(sampleProduct.retail_price)}
             helper="Current selling price"
             icon={CircleDollarSign}
             iconStyle="bg-emerald-50 text-emerald-700"
@@ -181,9 +174,7 @@ export default async function ProductDetailsPage({
 
           <SummaryCard
             label="Cost price"
-            value={formatCurrency(
-              sampleProduct.cost,
-            )}
+            value={formatCurrency(sampleProduct.cost)}
             helper="Product acquisition cost"
             icon={Tag}
             iconStyle="bg-blue-50 text-blue-700"
@@ -210,25 +201,13 @@ export default async function ProductDetailsPage({
               icon={Package}
             >
               <div className="grid gap-5 sm:grid-cols-2">
-                <DetailItem
-                  label="Product name"
-                  value={sampleProduct.name}
-                />
+                <DetailItem label="Product name" value={sampleProduct.name} />
 
-                <DetailItem
-                  label="SKU"
-                  value={sampleProduct.sku}
-                />
+                <DetailItem label="SKU" value={sampleProduct.sku} />
 
-                <DetailItem
-                  label="Item code"
-                  value={sampleProduct.item_code}
-                />
+                <DetailItem label="Item code" value={sampleProduct.item_code} />
 
-                <DetailItem
-                  label="PLU code"
-                  value={sampleProduct.plu_code}
-                />
+                <DetailItem label="PLU code" value={sampleProduct.plu_code} />
 
                 <DetailItem
                   label="Barcode"
@@ -236,10 +215,7 @@ export default async function ProductDetailsPage({
                   icon={Barcode}
                 />
 
-                <DetailItem
-                  label="Status"
-                  value={currentStatus}
-                />
+                <DetailItem label="Status" value={currentStatus} />
               </div>
 
               <div className="mt-5 border-t border-border pt-5">
@@ -248,8 +224,7 @@ export default async function ProductDetailsPage({
                 </p>
 
                 <p className="mt-2 text-sm leading-6 text-foreground">
-                  {sampleProduct.description ||
-                    "No description provided."}
+                  {sampleProduct.description || "No description provided."}
                 </p>
               </div>
             </DetailSection>
@@ -262,23 +237,17 @@ export default async function ProductDetailsPage({
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 <DetailItem
                   label="Retail price"
-                  value={formatCurrency(
-                    sampleProduct.retail_price,
-                  )}
+                  value={formatCurrency(sampleProduct.retail_price)}
                 />
 
                 <DetailItem
                   label="Wholesale price"
-                  value={formatCurrency(
-                    sampleProduct.wholesale_price,
-                  )}
+                  value={formatCurrency(sampleProduct.wholesale_price)}
                 />
 
                 <DetailItem
                   label="Cost price"
-                  value={formatCurrency(
-                    sampleProduct.cost,
-                  )}
+                  value={formatCurrency(sampleProduct.cost)}
                 />
 
                 <DetailItem
@@ -286,10 +255,7 @@ export default async function ProductDetailsPage({
                   value={`${sampleProduct.tax ?? 0}%`}
                 />
 
-                <DetailItem
-                  label="Sale type"
-                  value={sampleProduct.sale_type}
-                />
+                <DetailItem label="Sale type" value={sampleProduct.sale_type} />
 
                 <DetailItem
                   label="Unit / Size"
@@ -309,58 +275,41 @@ export default async function ProductDetailsPage({
                 <DetailItem
                   label="Inventory tracking"
                   value={
-                    sampleProduct.inventory_tracking
-                      ? "Enabled"
-                      : "Disabled"
+                    sampleProduct.inventory_tracking ? "Enabled" : "Disabled"
                   }
                 />
 
                 <DetailItem
                   label="Minimum stock"
-                  value={String(
-                    sampleProduct.minimum_stock ?? 0,
-                  )}
+                  value={String(sampleProduct.minimum_stock ?? 0)}
                 />
 
                 <DetailItem
                   label="Maximum stock"
-                  value={String(
-                    sampleProduct.maximum_stock ?? 0,
-                  )}
+                  value={String(sampleProduct.maximum_stock ?? 0)}
                 />
 
                 <DetailItem
                   label="Multi-pack"
-                  value={
-                    sampleProduct.is_multi_pack
-                      ? "Yes"
-                      : "No"
-                  }
+                  value={sampleProduct.is_multi_pack ? "Yes" : "No"}
                 />
 
                 <DetailItem
                   label="Pack size"
                   value={
                     sampleProduct.pack_size
-                      ? String(
-                          sampleProduct.pack_size,
-                        )
+                      ? String(sampleProduct.pack_size)
                       : "Not applicable"
                   }
                 />
 
                 <DetailItem
                   label="Pack type"
-                  value={
-                    sampleProduct.pack_type ??
-                    "Not applicable"
-                  }
+                  value={sampleProduct.pack_type ?? "Not applicable"}
                 />
               </div>
             </DetailSection>
-             <ProductHistory
-              productId={Number(id)}
-            />
+            <ProductHistory productId={Number(id)} />
           </div>
 
           <aside className="space-y-6">
@@ -372,51 +321,36 @@ export default async function ProductDetailsPage({
               <div className="space-y-5">
                 <DetailItem
                   label="Category"
-                  value={
-                    sampleProduct.categories?.name
-                  }
+                  value={sampleProduct.categories?.name}
                 />
 
-                <DetailItem
-                  label="Brand"
-                  value={sampleProduct.brands?.name}
-                />
+                <DetailItem label="Brand" value={sampleProduct.brands?.name} />
 
                 <DetailItem
                   label="Supplier"
-                  value={
-                    sampleProduct.suppliers?.name
-                  }
+                  value={sampleProduct.suppliers?.name}
                   icon={Truck}
                 />
 
                 <DetailItem
                   label="Department"
-                  value={
-                    sampleProduct.departments?.name
-                  }
+                  value={sampleProduct.departments?.name}
                 />
               </div>
             </DetailSection>
 
             <section className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
-              <h2 className="font-bold">
-                Record information
-              </h2>
+              <h2 className="font-bold">Record information</h2>
 
               <div className="mt-5 space-y-4">
                 <DetailItem
                   label="Created"
-                  value={formatDate(
-                    sampleProduct.created_at,
-                  )}
+                  value={formatDate(sampleProduct.created_at)}
                 />
 
                 <DetailItem
                   label="Last updated"
-                  value={formatDate(
-                    sampleProduct.updated_at,
-                  )}
+                  value={formatDate(sampleProduct.updated_at)}
                 />
               </div>
             </section>
@@ -451,17 +385,11 @@ function SummaryCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {label}
-        </p>
+        <p className="text-xs text-muted">{label}</p>
 
-        <p className="mt-1 truncate text-xl font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate text-xl font-bold">{value}</p>
 
-        <p className="mt-1 text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
@@ -490,9 +418,7 @@ function DetailSection({
         <div>
           <h2 className="font-bold">{title}</h2>
 
-          <p className="mt-1 text-xs text-muted">
-            {description}
-          </p>
+          <p className="mt-1 text-xs text-muted">{description}</p>
         </div>
       </div>
 
@@ -507,11 +433,7 @@ interface DetailItemProps {
   icon?: React.ElementType;
 }
 
-function DetailItem({
-  label,
-  value,
-  icon: Icon,
-}: DetailItemProps) {
+function DetailItem({ label, value, icon: Icon }: DetailItemProps) {
   return (
     <div>
       <p className="text-[11px] font-bold uppercase tracking-wider text-muted">
@@ -519,9 +441,7 @@ function DetailItem({
       </p>
 
       <p className="mt-2 flex items-center gap-2 text-sm font-medium">
-        {Icon && (
-          <Icon className="size-3.5 text-muted" />
-        )}
+        {Icon && <Icon className="size-3.5 text-muted" />}
 
         {value || "Not provided"}
       </p>

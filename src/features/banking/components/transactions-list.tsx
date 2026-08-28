@@ -2,13 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import {
-  Ban,
-  Eye,
-  Plus,
-  RotateCcw,
-  Send,
-} from "lucide-react";
+import { Ban, Eye, Plus, RotateCcw, Send } from "lucide-react";
 
 import type {
   BankTransaction,
@@ -16,8 +10,7 @@ import type {
   TransactionStatus,
 } from "@/features/banking/types";
 
-interface TransactionListItem
-  extends BankTransaction {
+interface TransactionListItem extends BankTransaction {
   bankAccountName: string;
   payeeName: string;
   referenceNumber?: string | null;
@@ -30,8 +23,7 @@ const initialTransactions: TransactionListItem[] = [
     transactionType: "deposit",
     direction: "inflow",
     transactionDate: "2026-08-21",
-    bankAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000001",
+    bankAccountId: "1f83751c-54b1-4d50-85cd-100000000001",
     bankAccountName: "HBL Main Operating",
     payeeId: null,
     payeeName: "Store sales",
@@ -47,11 +39,9 @@ const initialTransactions: TransactionListItem[] = [
     transactionType: "payment",
     direction: "outflow",
     transactionDate: "2026-08-20",
-    bankAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000001",
+    bankAccountId: "1f83751c-54b1-4d50-85cd-100000000001",
     bankAccountName: "HBL Main Operating",
-    payeeId:
-      "3e28d5fa-97c2-4fa9-8000-100000000002",
+    payeeId: "3e28d5fa-97c2-4fa9-8000-100000000002",
     payeeName: "Nestle Pakistan",
     referenceNumber: "INV-1029",
     memo: "Supplier invoice payment",
@@ -65,13 +55,10 @@ const initialTransactions: TransactionListItem[] = [
     transactionType: "payment",
     direction: "outflow",
     transactionDate: "2026-08-20",
-    bankAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000001",
+    bankAccountId: "1f83751c-54b1-4d50-85cd-100000000001",
     bankAccountName: "HBL Main Operating",
-    payeeId:
-      "3e28d5fa-97c2-4fa9-8000-100000000003",
-    payeeName:
-      "Lahore Electric Supply Company",
+    payeeId: "3e28d5fa-97c2-4fa9-8000-100000000003",
+    payeeName: "Lahore Electric Supply Company",
     referenceNumber: "LESCO-AUG-26",
     memo: "August electricity bill",
     amount: 48500,
@@ -83,8 +70,7 @@ const initialTransactions: TransactionListItem[] = [
     transactionType: "adjustment",
     direction: "inflow",
     transactionDate: "2026-08-19",
-    bankAccountId:
-      "1f83751c-54b1-4d50-85cd-100000000003",
+    bankAccountId: "1f83751c-54b1-4d50-85cd-100000000003",
     bankAccountName: "Petty Cash",
     payeeId: null,
     payeeName: "Internal adjustment",
@@ -121,91 +107,55 @@ function formatCurrency(value: number) {
 }
 
 function formatLabel(value: string) {
-  return (
-    value.charAt(0).toUpperCase() +
-    value.slice(1)
-  );
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 export function TransactionsList() {
-  const [transactions, setTransactions] =
-    useState(initialTransactions);
+  const [transactions, setTransactions] = useState(initialTransactions);
 
-  const [status, setStatus] =
-    useState<TransactionStatus | "all">("all");
+  const [status, setStatus] = useState<TransactionStatus | "all">("all");
 
-  const [direction, setDirection] =
-    useState<TransactionDirection | "all">(
-      "all",
-    );
+  const [direction, setDirection] = useState<TransactionDirection | "all">(
+    "all",
+  );
 
-  const [bankAccountId, setBankAccountId] =
-    useState("all");
+  const [bankAccountId, setBankAccountId] = useState("all");
 
-  const [dateFrom, setDateFrom] =
-    useState("");
+  const [dateFrom, setDateFrom] = useState("");
 
-  const [dateTo, setDateTo] =
-    useState("");
+  const [dateTo, setDateTo] = useState("");
 
   const filteredTransactions = useMemo(() => {
-    return transactions.filter(
-      (transaction) => {
-        const matchesStatus =
-          status === "all" ||
-          transaction.status === status;
+    return transactions.filter((transaction) => {
+      const matchesStatus = status === "all" || transaction.status === status;
 
-        const matchesDirection =
-          direction === "all" ||
-          transaction.direction === direction;
+      const matchesDirection =
+        direction === "all" || transaction.direction === direction;
 
-        const matchesBankAccount =
-          bankAccountId === "all" ||
-          transaction.bankAccountId ===
-            bankAccountId;
+      const matchesBankAccount =
+        bankAccountId === "all" || transaction.bankAccountId === bankAccountId;
 
-        const matchesDateFrom =
-          !dateFrom ||
-          transaction.transactionDate >=
-            dateFrom;
+      const matchesDateFrom =
+        !dateFrom || transaction.transactionDate >= dateFrom;
 
-        const matchesDateTo =
-          !dateTo ||
-          transaction.transactionDate <=
-            dateTo;
+      const matchesDateTo = !dateTo || transaction.transactionDate <= dateTo;
 
-        return (
-          matchesStatus &&
-          matchesDirection &&
-          matchesBankAccount &&
-          matchesDateFrom &&
-          matchesDateTo
-        );
-      },
-    );
-  }, [
-    transactions,
-    status,
-    direction,
-    bankAccountId,
-    dateFrom,
-    dateTo,
-  ]);
+      return (
+        matchesStatus &&
+        matchesDirection &&
+        matchesBankAccount &&
+        matchesDateFrom &&
+        matchesDateTo
+      );
+    });
+  }, [transactions, status, direction, bankAccountId, dateFrom, dateTo]);
 
   const postedTotal = transactions
-    .filter(
-      (transaction) =>
-        transaction.status === "posted",
-    )
-    .reduce(
-      (total, transaction) =>
-        total + transaction.amount,
-      0,
-    );
+    .filter((transaction) => transaction.status === "posted")
+    .reduce((total, transaction) => total + transaction.amount, 0);
 
   const draftCount = transactions.filter(
-    (transaction) =>
-      transaction.status === "draft",
+    (transaction) => transaction.status === "draft",
   ).length;
 
   function resetFilters() {
@@ -216,9 +166,7 @@ export function TransactionsList() {
     setDateTo("");
   }
 
-  function postTransaction(
-    transactionId: string,
-  ) {
+  function postTransaction(transactionId: string) {
     const confirmed = window.confirm(
       "Post this draft transaction? Posted transactions become immutable.",
     );
@@ -233,17 +181,14 @@ export function TransactionsList() {
           ? {
               ...transaction,
               status: "posted",
-              postedAt:
-                new Date().toISOString(),
+              postedAt: new Date().toISOString(),
             }
           : transaction,
       ),
     );
   }
 
-  function voidTransaction(
-    transactionId: string,
-  ) {
+  function voidTransaction(transactionId: string) {
     const reason = window.prompt(
       "Enter the reason for voiding this transaction:",
     );
@@ -258,8 +203,7 @@ export function TransactionsList() {
           ? {
               ...transaction,
               status: "voided",
-              voidedAt:
-                new Date().toISOString(),
+              voidedAt: new Date().toISOString(),
             }
           : transaction,
       ),
@@ -303,13 +247,10 @@ export function TransactionsList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Transactions
-            </h2>
+            <h2 className="font-bold">Transactions</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Manage deposits, payments and
-              adjustments.
+              Manage deposits, payments and adjustments.
             </p>
           </div>
 
@@ -338,18 +279,12 @@ export function TransactionsList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | TransactionStatus
-                  | "all",
-              )
+              setStatus(event.target.value as TransactionStatus | "all")
             }
             aria-label="Filter by status"
             className={filterClass}
           >
-            <option value="all">
-              All statuses
-            </option>
+            <option value="all">All statuses</option>
             <option value="draft">Draft</option>
             <option value="posted">Posted</option>
             <option value="voided">Voided</option>
@@ -358,94 +293,71 @@ export function TransactionsList() {
           <select
             value={direction}
             onChange={(event) =>
-              setDirection(
-                event.target.value as
-                  | TransactionDirection
-                  | "all",
-              )
+              setDirection(event.target.value as TransactionDirection | "all")
             }
             aria-label="Filter by direction"
             className={filterClass}
           >
-            <option value="all">
-              All directions
-            </option>
-            <option value="inflow">
-              Inflow
-            </option>
-            <option value="outflow">
-              Outflow
-            </option>
+            <option value="all">All directions</option>
+            <option value="inflow">Inflow</option>
+            <option value="outflow">Outflow</option>
           </select>
 
           <select
             value={bankAccountId}
-            onChange={(event) =>
-              setBankAccountId(
-                event.target.value,
-              )
-            }
+            onChange={(event) => setBankAccountId(event.target.value)}
             aria-label="Filter by bank account"
             className={filterClass}
           >
-            <option value="all">
-              All bank accounts
-            </option>
+            <option value="all">All bank accounts</option>
 
             {bankAccounts.map((account) => (
-              <option
-                key={account.id}
-                value={account.id}
-              >
+              <option key={account.id} value={account.id}>
                 {account.name}
               </option>
             ))}
           </select>
 
-        <div>
-  <label
-    htmlFor="dateFrom"
-    className="
+          <div>
+            <label
+              htmlFor="dateFrom"
+              className="
       mb-1.5 block text-[10px] font-bold
       uppercase tracking-wider text-muted
     "
-  >
-    From date
-  </label>
+            >
+              From date
+            </label>
 
-  <input
-    id="dateFrom"
-    type="date"
-    value={dateFrom}
-    onChange={(event) =>
-      setDateFrom(event.target.value)
-    }
-    className={filterClass}
-  />
-</div>
+            <input
+              id="dateFrom"
+              type="date"
+              value={dateFrom}
+              onChange={(event) => setDateFrom(event.target.value)}
+              className={filterClass}
+            />
+          </div>
 
-<div>
-  <label
-    htmlFor="dateTo"
-    className="
+          <div>
+            <label
+              htmlFor="dateTo"
+              className="
       mb-1.5 block text-[10px] font-bold
       uppercase tracking-wider text-muted
     "
-  >
-    To date
-  </label>
+            >
+              To date
+            </label>
 
-  <input
-    id="dateTo"
-    type="date"
-    value={dateTo}
-    min={dateFrom || undefined}
-    onChange={(event) =>
-      setDateTo(event.target.value)
-    }
-    className={filterClass}
-  />
-</div>
+            <input
+              id="dateTo"
+              type="date"
+              value={dateTo}
+              min={dateFrom || undefined}
+              onChange={(event) => setDateTo(event.target.value)}
+              className={filterClass}
+            />
+          </div>
 
           <button
             type="button"
@@ -468,172 +380,128 @@ export function TransactionsList() {
           <table className="w-full min-w-[1100px] text-left">
             <thead className="bg-surface-secondary">
               <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                <th className="px-5 py-4">
-                  Transaction
-                </th>
+                <th className="px-5 py-4">Transaction</th>
 
-                <th className="px-5 py-4">
-                  Date
-                </th>
+                <th className="px-5 py-4">Date</th>
 
-                <th className="px-5 py-4">
-                  Account
-                </th>
+                <th className="px-5 py-4">Account</th>
 
-                <th className="px-5 py-4">
-                  Payee
-                </th>
+                <th className="px-5 py-4">Payee</th>
 
-                <th className="px-5 py-4">
-                  Direction
-                </th>
+                <th className="px-5 py-4">Direction</th>
 
-                <th className="px-5 py-4">
-                  Amount
-                </th>
+                <th className="px-5 py-4">Amount</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-border">
-              {filteredTransactions.map(
-                (transaction) => (
-                  <tr
-                    key={transaction.id}
-                    className="
+              {filteredTransactions.map((transaction) => (
+                <tr
+                  key={transaction.id}
+                  className="
                       text-sm transition
                       hover:bg-surface-secondary/60
                     "
-                  >
-                    <td className="px-5 py-4">
-                      <p className="font-semibold">
-                        {formatLabel(
-                          transaction.transactionType,
-                        )}
-                      </p>
+                >
+                  <td className="px-5 py-4">
+                    <p className="font-semibold">
+                      {formatLabel(transaction.transactionType)}
+                    </p>
 
-                      <p className="mt-1 text-[11px] text-muted">
-                        {transaction.referenceNumber ||
-                          "No reference"}
-                      </p>
-                    </td>
+                    <p className="mt-1 text-[11px] text-muted">
+                      {transaction.referenceNumber || "No reference"}
+                    </p>
+                  </td>
 
-                    <td className="px-5 py-4 text-muted">
-                      {transaction.transactionDate}
-                    </td>
+                  <td className="px-5 py-4 text-muted">
+                    {transaction.transactionDate}
+                  </td>
 
-                    <td className="px-5 py-4">
-                      {transaction.bankAccountName}
-                    </td>
+                  <td className="px-5 py-4">{transaction.bankAccountName}</td>
 
-                    <td className="px-5 py-4 text-muted">
-                      {transaction.payeeName}
-                    </td>
+                  <td className="px-5 py-4 text-muted">
+                    {transaction.payeeName}
+                  </td>
 
-                    <td className="px-5 py-4">
-                      <span
-                        className={`
+                  <td className="px-5 py-4">
+                    <span
+                      className={`
                           inline-flex rounded-full
                           px-2.5 py-1 text-[10px]
                           font-semibold
                           ${
-                            transaction.direction ===
-                            "inflow"
+                            transaction.direction === "inflow"
                               ? "bg-emerald-50 text-emerald-700"
                               : "bg-orange-50 text-orange-700"
                           }
                         `}
+                    >
+                      {formatLabel(transaction.direction)}
+                    </span>
+                  </td>
+
+                  <td className="px-5 py-4 font-bold">
+                    {formatCurrency(transaction.amount)}
+                  </td>
+
+                  <td className="px-5 py-4">
+                    <StatusBadge status={transaction.status} />
+                  </td>
+
+                  <td className="px-5 py-4">
+                    <div className="flex justify-end gap-2">
+                      <Link
+                        href={`/bank/transactions/${transaction.id}`}
+                        aria-label="View transaction"
+                        title="View transaction"
+                        className={actionClass}
                       >
-                        {formatLabel(
-                          transaction.direction,
-                        )}
-                      </span>
-                    </td>
+                        <Eye className="size-4" />
+                      </Link>
 
-                    <td className="px-5 py-4 font-bold">
-                      {formatCurrency(
-                        transaction.amount,
-                      )}
-                    </td>
-
-                    <td className="px-5 py-4">
-                      <StatusBadge
-                        status={
-                          transaction.status
-                        }
-                      />
-                    </td>
-
-                    <td className="px-5 py-4">
-                      <div className="flex justify-end gap-2">
-                        <Link
-                          href={`/bank/transactions/${transaction.id}`}
-                          aria-label="View transaction"
-                          title="View transaction"
+                      {transaction.status === "draft" && (
+                        <button
+                          type="button"
+                          onClick={() => postTransaction(transaction.id)}
+                          aria-label="Post transaction"
+                          title="Post transaction"
                           className={actionClass}
                         >
-                          <Eye className="size-4" />
-                        </Link>
+                          <Send className="size-4" />
+                        </button>
+                      )}
 
-                        {transaction.status ===
-                          "draft" && (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              postTransaction(
-                                transaction.id,
-                              )
-                            }
-                            aria-label="Post transaction"
-                            title="Post transaction"
-                            className={actionClass}
-                          >
-                            <Send className="size-4" />
-                          </button>
-                        )}
-
-                        {transaction.status !==
-                          "voided" && (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              voidTransaction(
-                                transaction.id,
-                              )
-                            }
-                            aria-label="Void transaction"
-                            title="Void transaction"
-                            className={`
+                      {transaction.status !== "voided" && (
+                        <button
+                          type="button"
+                          onClick={() => voidTransaction(transaction.id)}
+                          aria-label="Void transaction"
+                          title="Void transaction"
+                          className={`
                               ${actionClass}
                               hover:border-red-200
                               hover:bg-red-50
                               hover:text-red-600
                             `}
-                          >
-                            <Ban className="size-4" />
-                          </button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ),
-              )}
+                        >
+                          <Ban className="size-4" />
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
         {filteredTransactions.length === 0 && (
           <div className="px-5 py-14 text-center">
-            <p className="font-semibold">
-              No transactions found
-            </p>
+            <p className="font-semibold">No transactions found</p>
 
             <p className="mt-1 text-xs text-muted">
               Try changing or resetting the filters.
@@ -643,9 +511,8 @@ export function TransactionsList() {
 
         <div className="flex items-center justify-between border-t border-border px-5 py-4 text-xs text-muted">
           <span>
-            Showing{" "}
-            {filteredTransactions.length} of{" "}
-            {transactions.length} transactions
+            Showing {filteredTransactions.length} of {transactions.length}{" "}
+            transactions
           </span>
 
           <span>Page 1 of 1</span>
@@ -666,33 +533,20 @@ function SummaryCard({
 }) {
   return (
     <article className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
-      <p className="text-xs text-muted">
-        {label}
-      </p>
+      <p className="text-xs text-muted">{label}</p>
 
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
 
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: TransactionStatus;
-}) {
+function StatusBadge({ status }: { status: TransactionStatus }) {
   const statusClass = {
-    draft:
-      "bg-amber-50 text-amber-700",
-    posted:
-      "bg-emerald-50 text-emerald-700",
-    voided:
-      "bg-slate-100 text-slate-600",
+    draft: "bg-amber-50 text-amber-700",
+    posted: "bg-emerald-50 text-emerald-700",
+    voided: "bg-slate-100 text-slate-600",
   }[status];
 
   return (

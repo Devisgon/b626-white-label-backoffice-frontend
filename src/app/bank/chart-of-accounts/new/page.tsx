@@ -2,9 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  ChartAccountForm,
-} from "@/features/banking/components";
+import { ChartAccountForm } from "@/features/banking/components";
 
 export default function NewChartAccountPage() {
   return (
@@ -35,8 +33,8 @@ export default function NewChartAccountPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Create a new financial account for
-              transaction classification and reporting.
+              Create a new financial account for transaction classification and
+              reporting.
             </p>
           </div>
         </section>

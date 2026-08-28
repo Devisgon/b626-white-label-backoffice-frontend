@@ -43,74 +43,49 @@ export function PayeeForm({
 }: PayeeFormProps) {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
+  const [serverError, setServerError] = useState("");
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
-  } = useForm<
-    PayeeFormInput,
-    unknown,
-    PayeeFormValues
-  >({
+    formState: { errors, isSubmitting },
+  } = useForm<PayeeFormInput, unknown, PayeeFormValues>({
     resolver: zodResolver(payeeSchema),
 
     defaultValues: {
-      payeeName:
-        initialValues?.payeeName ?? "",
+      payeeName: initialValues?.payeeName ?? "",
 
-      payeeType:
-        initialValues?.payeeType ?? "",
+      payeeType: initialValues?.payeeType ?? "",
 
-      email:
-        initialValues?.email ?? "",
+      email: initialValues?.email ?? "",
 
-      phone:
-        initialValues?.phone ?? "",
+      phone: initialValues?.phone ?? "",
 
-      addressLine1:
-        initialValues?.addressLine1 ?? "",
+      addressLine1: initialValues?.addressLine1 ?? "",
 
-      addressLine2:
-        initialValues?.addressLine2 ?? "",
+      addressLine2: initialValues?.addressLine2 ?? "",
 
-      city:
-        initialValues?.city ?? "",
+      city: initialValues?.city ?? "",
 
-      state:
-        initialValues?.state ?? "",
+      state: initialValues?.state ?? "",
 
-      postalCode:
-        initialValues?.postalCode ?? "",
+      postalCode: initialValues?.postalCode ?? "",
 
-      country:
-        initialValues?.country ?? "",
+      country: initialValues?.country ?? "",
 
-      taxId:
-        initialValues?.taxId ?? "",
+      taxId: initialValues?.taxId ?? "",
 
-      defaultAccountId:
-        initialValues?.defaultAccountId ?? "",
+      defaultAccountId: initialValues?.defaultAccountId ?? "",
 
-      notes:
-        initialValues?.notes ?? "",
+      notes: initialValues?.notes ?? "",
 
-      status:
-        initialValues?.status ?? "active",
+      status: initialValues?.status ?? "active",
     },
   });
 
-  async function onSubmit(
-    values: PayeeFormValues,
-  ) {
+  async function onSubmit(values: PayeeFormValues) {
     setServerError("");
     setSuccessMessage("");
 
@@ -119,38 +94,27 @@ export function PayeeForm({
         payeeName: values.payeeName,
         payeeType: values.payeeType,
 
-        email:
-          values.email || undefined,
+        email: values.email || undefined,
 
-        phone:
-          values.phone || undefined,
+        phone: values.phone || undefined,
 
-        addressLine1:
-          values.addressLine1 || undefined,
+        addressLine1: values.addressLine1 || undefined,
 
-        addressLine2:
-          values.addressLine2 || undefined,
+        addressLine2: values.addressLine2 || undefined,
 
-        city:
-          values.city || undefined,
+        city: values.city || undefined,
 
-        state:
-          values.state || undefined,
+        state: values.state || undefined,
 
-        postalCode:
-          values.postalCode || undefined,
+        postalCode: values.postalCode || undefined,
 
-        country:
-          values.country || undefined,
+        country: values.country || undefined,
 
-        taxId:
-          values.taxId || undefined,
+        taxId: values.taxId || undefined,
 
-        defaultAccountId:
-          values.defaultAccountId || undefined,
+        defaultAccountId: values.defaultAccountId || undefined,
 
-        notes:
-          values.notes || undefined,
+        notes: values.notes || undefined,
 
         ...(mode === "edit"
           ? {
@@ -182,9 +146,7 @@ export function PayeeForm({
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the payee. Please try again.",
-      );
+      setServerError("Unable to save the payee. Please try again.");
     }
   }
 
@@ -199,29 +161,16 @@ export function PayeeForm({
       "
     >
       <div>
-        <h2 className="text-lg font-bold">
-          Payee information
-        </h2>
+        <h2 className="text-lg font-bold">Payee information</h2>
 
         <p className="mt-1 text-xs text-muted">
-          Enter the payee, contact, address and
-          payment details.
+          Enter the payee, contact, address and payment details.
         </p>
       </div>
 
-      {serverError && (
-        <Message
-          type="error"
-          message={serverError}
-        />
-      )}
+      {serverError && <Message type="error" message={serverError} />}
 
-      {successMessage && (
-        <Message
-          type="success"
-          message={successMessage}
-        />
-      )}
+      {successMessage && <Message type="success" message={successMessage} />}
 
       <section className="mt-7">
         <SectionTitle
@@ -241,9 +190,7 @@ export function PayeeForm({
               type="text"
               placeholder="Enter payee name"
               {...register("payeeName")}
-              className={getInputClass(
-                Boolean(errors.payeeName),
-              )}
+              className={getInputClass(Boolean(errors.payeeName))}
             />
           </FormField>
 
@@ -256,33 +203,21 @@ export function PayeeForm({
             <select
               id="payeeType"
               {...register("payeeType")}
-              className={getInputClass(
-                Boolean(errors.payeeType),
-              )}
+              className={getInputClass(Boolean(errors.payeeType))}
             >
               <option value="" disabled>
                 Select payee type
               </option>
 
-              <option value="vendor">
-                Vendor
-              </option>
+              <option value="vendor">Vendor</option>
 
-              <option value="supplier">
-                Supplier
-              </option>
+              <option value="supplier">Supplier</option>
 
-              <option value="individual">
-                Individual
-              </option>
+              <option value="individual">Individual</option>
 
-              <option value="utility">
-                Utility
-              </option>
+              <option value="utility">Utility</option>
 
-              <option value="other">
-                Other
-              </option>
+              <option value="other">Other</option>
             </select>
           </FormField>
 
@@ -296,9 +231,7 @@ export function PayeeForm({
               type="email"
               placeholder="Enter email address (optional)"
               {...register("email")}
-              className={getInputClass(
-                Boolean(errors.email),
-              )}
+              className={getInputClass(Boolean(errors.email))}
             />
           </FormField>
 
@@ -312,9 +245,7 @@ export function PayeeForm({
               type="tel"
               placeholder="Enter phone number (optional)"
               {...register("phone")}
-              className={getInputClass(
-                Boolean(errors.phone),
-              )}
+              className={getInputClass(Boolean(errors.phone))}
             />
           </FormField>
         </div>
@@ -331,20 +262,14 @@ export function PayeeForm({
             <FormField
               label="Address line 1"
               htmlFor="addressLine1"
-              error={
-                errors.addressLine1?.message
-              }
+              error={errors.addressLine1?.message}
             >
               <input
                 id="addressLine1"
                 type="text"
                 placeholder="Enter street address (optional)"
                 {...register("addressLine1")}
-                className={getInputClass(
-                  Boolean(
-                    errors.addressLine1,
-                  ),
-                )}
+                className={getInputClass(Boolean(errors.addressLine1))}
               />
             </FormField>
           </div>
@@ -353,37 +278,25 @@ export function PayeeForm({
             <FormField
               label="Address line 2"
               htmlFor="addressLine2"
-              error={
-                errors.addressLine2?.message
-              }
+              error={errors.addressLine2?.message}
             >
               <input
                 id="addressLine2"
                 type="text"
                 placeholder="Enter additional address (optional)"
                 {...register("addressLine2")}
-                className={getInputClass(
-                  Boolean(
-                    errors.addressLine2,
-                  ),
-                )}
+                className={getInputClass(Boolean(errors.addressLine2))}
               />
             </FormField>
           </div>
 
-          <FormField
-            label="City"
-            htmlFor="city"
-            error={errors.city?.message}
-          >
+          <FormField label="City" htmlFor="city" error={errors.city?.message}>
             <input
               id="city"
               type="text"
               placeholder="Enter city (optional)"
               {...register("city")}
-              className={getInputClass(
-                Boolean(errors.city),
-              )}
+              className={getInputClass(Boolean(errors.city))}
             />
           </FormField>
 
@@ -397,9 +310,7 @@ export function PayeeForm({
               type="text"
               placeholder="Enter state (optional)"
               {...register("state")}
-              className={getInputClass(
-                Boolean(errors.state),
-              )}
+              className={getInputClass(Boolean(errors.state))}
             />
           </FormField>
 
@@ -413,9 +324,7 @@ export function PayeeForm({
               type="text"
               placeholder="Enter postal code (optional)"
               {...register("postalCode")}
-              className={getInputClass(
-                Boolean(errors.postalCode),
-              )}
+              className={getInputClass(Boolean(errors.postalCode))}
             />
           </FormField>
 
@@ -429,9 +338,7 @@ export function PayeeForm({
               type="text"
               placeholder="Enter country (optional)"
               {...register("country")}
-              className={getInputClass(
-                Boolean(errors.country),
-              )}
+              className={getInputClass(Boolean(errors.country))}
             />
           </FormField>
         </div>
@@ -454,39 +361,25 @@ export function PayeeForm({
               type="text"
               placeholder="Enter tax ID (optional)"
               {...register("taxId")}
-              className={getInputClass(
-                Boolean(errors.taxId),
-              )}
+              className={getInputClass(Boolean(errors.taxId))}
             />
           </FormField>
 
           <FormField
             label="Default bank account"
             htmlFor="defaultAccountId"
-            error={
-              errors.defaultAccountId?.message
-            }
+            error={errors.defaultAccountId?.message}
           >
             <select
               id="defaultAccountId"
               {...register("defaultAccountId")}
-              className={getInputClass(
-                Boolean(
-                  errors.defaultAccountId,
-                ),
-              )}
+              className={getInputClass(Boolean(errors.defaultAccountId))}
             >
-              <option value="">
-                Select bank account (optional)
-              </option>
+              <option value="">Select bank account (optional)</option>
 
               {bankAccounts.map((account) => (
-                <option
-                  key={account.id}
-                  value={account.id}
-                >
-                  {account.name} ••••{" "}
-                  {account.lastFour}
+                <option key={account.id} value={account.id}>
+                  {account.name} •••• {account.lastFour}
                 </option>
               ))}
             </select>
@@ -502,17 +395,11 @@ export function PayeeForm({
               <select
                 id="status"
                 {...register("status")}
-                className={getInputClass(
-                  Boolean(errors.status),
-                )}
+                className={getInputClass(Boolean(errors.status))}
               >
-                <option value="active">
-                  Active
-                </option>
+                <option value="active">Active</option>
 
-                <option value="inactive">
-                  Inactive
-                </option>
+                <option value="inactive">Inactive</option>
               </select>
             </FormField>
           )}
@@ -529,9 +416,7 @@ export function PayeeForm({
                 placeholder="Enter additional notes (optional)"
                 {...register("notes")}
                 className={`
-                  ${getInputClass(
-                    Boolean(errors.notes),
-                  )}
+                  ${getInputClass(Boolean(errors.notes))}
                   h-auto resize-none py-3
                 `}
               />
@@ -600,13 +485,9 @@ function SectionTitle({
 }) {
   return (
     <div>
-      <h3 className="text-sm font-bold">
-        {title}
-      </h3>
+      <h3 className="text-sm font-bold">{title}</h3>
 
-      <p className="mt-1 text-xs text-muted">
-        {description}
-      </p>
+      <p className="mt-1 text-xs text-muted">{description}</p>
     </div>
   );
 }
@@ -628,26 +509,15 @@ function FormField({
 }: FormFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={htmlFor}
-        className="text-sm font-semibold text-black"
-      >
+      <label htmlFor={htmlFor} className="text-sm font-semibold text-black">
         {label}
 
-        {required && (
-          <span className="ml-1 text-danger">
-            *
-          </span>
-        )}
+        {required && <span className="ml-1 text-danger">*</span>}
       </label>
 
       {children}
 
-      {error && (
-        <p className="mt-1.5 text-xs text-danger">
-          {error}
-        </p>
-      )}
+      {error && <p className="mt-1.5 text-xs text-danger">{error}</p>}
     </div>
   );
 }
@@ -661,11 +531,7 @@ function Message({
 }) {
   return (
     <div
-      role={
-        type === "error"
-          ? "alert"
-          : "status"
-      }
+      role={type === "error" ? "alert" : "status"}
       className={`
         mt-6 rounded-xl border px-4 py-3
         text-sm font-medium
@@ -681,9 +547,7 @@ function Message({
   );
 }
 
-function getInputClass(
-  hasError: boolean,
-) {
+function getInputClass(hasError: boolean) {
   return `
     mt-2 h-11 w-full rounded-xl border
     bg-white px-4 text-sm text-black
@@ -691,10 +555,6 @@ function getInputClass(
     outline-none transition
     focus:border-primary
     focus:ring-4 focus:ring-primary/10
-    ${
-      hasError
-        ? "border-red-300"
-        : "border-border"
-    }
+    ${hasError ? "border-red-300" : "border-border"}
   `;
 }

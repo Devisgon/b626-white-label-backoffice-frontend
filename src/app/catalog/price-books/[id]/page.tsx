@@ -28,14 +28,10 @@ interface PriceBookDetails {
   items: PriceBookManagerItem[];
 }
 
-const priceBooks: Record<
-  string,
-  PriceBookDetails
-> = {
+const priceBooks: Record<string, PriceBookDetails> = {
   "1": {
     name: "Standard Retail Prices",
-    description:
-      "Standard selling prices used for regular retail customers.",
+    description: "Standard selling prices used for regular retail customers.",
     status: "Active",
     createdAt: "17 Aug 2026",
     updatedAt: "20 Aug 2026",
@@ -91,8 +87,7 @@ const priceBooks: Record<
 
   "3": {
     name: "Ramadan Promotion",
-    description:
-      "Special promotional prices available during Ramadan.",
+    description: "Special promotional prices available during Ramadan.",
     status: "Active",
     createdAt: "19 Aug 2026",
     updatedAt: "20 Aug 2026",
@@ -116,8 +111,7 @@ const priceBooks: Record<
 
   "4": {
     name: "Previous Promotion",
-    description:
-      "Prices from the previous promotional campaign.",
+    description: "Prices from the previous promotional campaign.",
     status: "Inactive",
     createdAt: "10 Aug 2026",
     updatedAt: "16 Aug 2026",
@@ -151,13 +145,10 @@ export default async function PriceBookDetailsPage({
               shadow-[var(--shadow-sm)]
             "
           >
-            <h1 className="text-xl font-bold">
-              Price book not found
-            </h1>
+            <h1 className="text-xl font-bold">Price book not found</h1>
 
             <p className="mt-2 text-sm text-muted">
-              The requested price book does not
-              exist.
+              The requested price book does not exist.
             </p>
 
             <Link
@@ -177,8 +168,7 @@ export default async function PriceBookDetailsPage({
     );
   }
 
-  const isActive =
-    priceBook.status === "Active";
+  const isActive = priceBook.status === "Active";
 
   return (
     <AppShell>
@@ -229,9 +219,7 @@ export default async function PriceBookDetailsPage({
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Price Book ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Price Book ID: {id}</p>
             </div>
           </div>
 
@@ -256,27 +244,21 @@ export default async function PriceBookDetailsPage({
             title="Price book"
             value={priceBook.name}
             helper={`Record ID: ${id}`}
-            icon={
-              <BookOpen className="size-5" />
-            }
+            icon={<BookOpen className="size-5" />}
           />
 
           <InfoCard
             title="Products"
             value={`${priceBook.items.length} products`}
             helper="Products with assigned prices"
-            icon={
-              <Package className="size-5" />
-            }
+            icon={<Package className="size-5" />}
           />
 
           <InfoCard
             title="Last updated"
             value={priceBook.updatedAt}
             helper={`Created ${priceBook.createdAt}`}
-            icon={
-              <CalendarDays className="size-5" />
-            }
+            icon={<CalendarDays className="size-5" />}
           />
         </section>
 
@@ -299,42 +281,24 @@ export default async function PriceBookDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Price book information
-              </h2>
+              <h2 className="font-bold">Price book information</h2>
 
               <p className="text-xs text-muted">
-                General information for this price
-                book.
+                General information for this price book.
               </p>
             </div>
           </div>
 
           <dl className="mt-6 divide-y divide-border">
-            <DetailsRow
-              label="Name"
-              value={priceBook.name}
-            />
+            <DetailsRow label="Name" value={priceBook.name} />
 
-            <DetailsRow
-              label="Description"
-              value={priceBook.description}
-            />
+            <DetailsRow label="Description" value={priceBook.description} />
 
-            <DetailsRow
-              label="Status"
-              value={priceBook.status}
-            />
+            <DetailsRow label="Status" value={priceBook.status} />
 
-            <DetailsRow
-              label="Created"
-              value={priceBook.createdAt}
-            />
+            <DetailsRow label="Created" value={priceBook.createdAt} />
 
-            <DetailsRow
-              label="Last updated"
-              value={priceBook.updatedAt}
-            />
+            <DetailsRow label="Last updated" value={priceBook.updatedAt} />
           </dl>
         </section>
 
@@ -356,12 +320,7 @@ interface InfoCardProps {
   icon: React.ReactNode;
 }
 
-function InfoCard({
-  title,
-  value,
-  helper,
-  icon,
-}: InfoCardProps) {
+function InfoCard({ title, value, helper, icon }: InfoCardProps) {
   return (
     <article
       className="
@@ -383,29 +342,17 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function DetailsRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function DetailsRow({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -413,13 +360,9 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
-      <dd className="font-medium text-foreground">
-        {value}
-      </dd>
+      <dd className="font-medium text-foreground">{value}</dd>
     </div>
   );
 }

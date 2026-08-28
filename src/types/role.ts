@@ -5,8 +5,7 @@ export const USER_ROLES = {
   FINANCE_USER: "FINANCE_USER",
 } as const;
 
-export type UserRole =
-  (typeof USER_ROLES)[keyof typeof USER_ROLES];
+export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
 
 export const ROLE_LABELS: Record<UserRole, string> = {
   OWNER_ADMIN: "Owner / Admin",

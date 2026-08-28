@@ -1,14 +1,8 @@
 "use client";
 
-import {
-  useState,
-} from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  RotateCcw,
-  Trash2,
-  X,
-} from "lucide-react";
+import { RotateCcw, Trash2, X } from "lucide-react";
 
 interface LotteryGameActionButtonProps {
   gameId: number;
@@ -23,11 +17,9 @@ export function LotteryGameActionButton({
 }: LotteryGameActionButtonProps) {
   const router = useRouter();
 
-  const [isOpen, setIsOpen] =
-    useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleAction() {
     setIsSubmitting(true);
@@ -49,21 +41,14 @@ export function LotteryGameActionButton({
        * }
        */
 
-      await new Promise<void>(
-        (resolve) => {
-          window.setTimeout(
-            resolve,
-            700,
-          );
-        },
-      );
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, 700);
+      });
 
       console.log({
         gameId,
         gameName,
-        action: deleted
-          ? "restore"
-          : "delete",
+        action: deleted ? "restore" : "delete",
       });
 
       setIsOpen(false);
@@ -74,9 +59,7 @@ export function LotteryGameActionButton({
           : `${gameName} has been prepared for deletion.`,
       );
 
-      router.push(
-        "/lottery/games",
-      );
+      router.push("/lottery/games");
 
       router.refresh();
     } finally {
@@ -88,19 +71,9 @@ export function LotteryGameActionButton({
     <>
       <button
         type="button"
-        onClick={() =>
-          setIsOpen(true)
-        }
-        aria-label={
-          deleted
-            ? `Restore ${gameName}`
-            : `Delete ${gameName}`
-        }
-        title={
-          deleted
-            ? "Restore game"
-            : "Delete game"
-        }
+        onClick={() => setIsOpen(true)}
+        aria-label={deleted ? `Restore ${gameName}` : `Delete ${gameName}`}
+        title={deleted ? "Restore game" : "Delete game"}
         className="
           flex size-9 items-center
           justify-center rounded-xl
@@ -160,12 +133,8 @@ export function LotteryGameActionButton({
 
               <button
                 type="button"
-                onClick={() =>
-                  setIsOpen(false)
-                }
-                disabled={
-                  isSubmitting
-                }
+                onClick={() => setIsOpen(false)}
+                disabled={isSubmitting}
                 aria-label="Close dialog"
                 className="
                   flex size-9 items-center
@@ -179,31 +148,22 @@ export function LotteryGameActionButton({
               </button>
             </div>
 
-            <h2
-              id="game-action-title"
-              className="mt-5 text-lg font-bold"
-            >
-              {deleted
-                ? "Restore lottery game?"
-                : "Delete lottery game?"}
+            <h2 id="game-action-title" className="mt-5 text-lg font-bold">
+              {deleted ? "Restore lottery game?" : "Delete lottery game?"}
             </h2>
 
             <p className="mt-2 text-sm leading-6 text-muted">
               {deleted ? (
                 <>
                   This will restore{" "}
-                  <strong className="text-foreground">
-                    {gameName}
-                  </strong>{" "}
-                  and make it available again.
+                  <strong className="text-foreground">{gameName}</strong> and
+                  make it available again.
                 </>
               ) : (
                 <>
                   This will soft delete{" "}
-                  <strong className="text-foreground">
-                    {gameName}
-                  </strong>
-                  . It can be restored later.
+                  <strong className="text-foreground">{gameName}</strong>. It
+                  can be restored later.
                 </>
               )}
             </p>
@@ -217,12 +177,8 @@ export function LotteryGameActionButton({
             >
               <button
                 type="button"
-                onClick={() =>
-                  setIsOpen(false)
-                }
-                disabled={
-                  isSubmitting
-                }
+                onClick={() => setIsOpen(false)}
+                disabled={isSubmitting}
                 className="
                   inline-flex h-10 items-center
                   justify-center rounded-xl
@@ -240,12 +196,8 @@ export function LotteryGameActionButton({
 
               <button
                 type="button"
-                onClick={
-                  handleAction
-                }
-                disabled={
-                  isSubmitting
-                }
+                onClick={handleAction}
+                disabled={isSubmitting}
                 className={`
                   inline-flex h-10
                   items-center justify-center

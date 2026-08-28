@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Warehouse,
-} from "lucide-react";
+import { ArrowLeft, Warehouse } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { InventoryLocationsList } from "@/features/catalogue/components";
@@ -46,8 +43,7 @@ export default function InventoryLocationsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage warehouses, stock rooms and
-              product storage locations.
+              Manage warehouses, stock rooms and product storage locations.
             </p>
           </div>
         </section>

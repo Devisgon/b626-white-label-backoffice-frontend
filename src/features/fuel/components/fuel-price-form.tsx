@@ -2,10 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  BadgeDollarSign,
-  Save,
-} from "lucide-react";
+import { BadgeDollarSign, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -39,49 +36,32 @@ export function FuelPriceForm({
 }: FuelPriceFormProps) {
   const router = useRouter();
 
-  const [serverError, setServerError] =
-    useState("");
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [serverError, setServerError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
-  } = useForm<
-    FuelPriceFormInput,
-    unknown,
-    FuelPriceFormValues
-  >({
+    formState: { errors, isSubmitting },
+  } = useForm<FuelPriceFormInput, unknown, FuelPriceFormValues>({
     resolver: zodResolver(fuelPriceSchema),
     defaultValues: {
-      fuel_type:
-        initialValues?.fuel_type ?? "",
-      price_per_liter:
-        initialValues?.price_per_liter ?? "",
-      effective_from:
-        initialValues?.effective_from ?? "",
-      location_id:
-        initialValues?.location_id ?? "",
+      fuel_type: initialValues?.fuel_type ?? "",
+      price_per_liter: initialValues?.price_per_liter ?? "",
+      effective_from: initialValues?.effective_from ?? "",
+      location_id: initialValues?.location_id ?? "",
       status: initialValues?.status ?? "",
     },
   });
 
-  async function onSubmit(
-    values: FuelPriceFormValues,
-  ) {
+  async function onSubmit(values: FuelPriceFormValues) {
     setServerError("");
     setSuccessMessage("");
 
     try {
       const payload = {
         ...values,
-        effective_from: new Date(
-          values.effective_from,
-        ).toISOString(),
+        effective_from: new Date(values.effective_from).toISOString(),
       };
 
       /*
@@ -118,9 +98,7 @@ export function FuelPriceForm({
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the fuel price.",
-      );
+      setServerError("Unable to save the fuel price.");
     }
   }
 
@@ -136,9 +114,7 @@ export function FuelPriceForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Price information
-          </h2>
+          <h2 className="text-lg font-bold">Price information</h2>
           <p className="mt-1 text-xs text-muted">
             Enter the fuel price and effective date.
           </p>
@@ -159,50 +135,28 @@ export function FuelPriceForm({
 
       <div className="mt-7 grid gap-5 sm:grid-cols-2">
         <Field>
-          <label
-            htmlFor="fuel_type"
-            className="text-sm font-semibold"
-          >
-            Fuel type{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="fuel_type" className="text-sm font-semibold">
+            Fuel type <span className="text-danger">*</span>
           </label>
 
           <select
             id="fuel_type"
             {...register("fuel_type")}
-            className={inputClass(
-              Boolean(errors.fuel_type),
-            )}
+            className={inputClass(Boolean(errors.fuel_type))}
           >
-            <option value="">
-              Select fuel type
-            </option>
-            <option value="Petrol">
-              Petrol
-            </option>
-            <option value="Diesel">
-              Diesel
-            </option>
-            <option value="Premium Petrol">
-              Premium Petrol
-            </option>
-            <option value="High Speed Diesel">
-              High Speed Diesel
-            </option>
+            <option value="">Select fuel type</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Premium Petrol">Premium Petrol</option>
+            <option value="High Speed Diesel">High Speed Diesel</option>
           </select>
 
-          <ErrorMessage
-            message={errors.fuel_type?.message}
-          />
+          <ErrorMessage message={errors.fuel_type?.message} />
         </Field>
 
         <Field>
-          <label
-            htmlFor="price_per_liter"
-            className="text-sm font-semibold"
-          >
-            Price per litre{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="price_per_liter" className="text-sm font-semibold">
+            Price per litre <span className="text-danger">*</span>
           </label>
 
           <div className="relative">
@@ -217,107 +171,66 @@ export function FuelPriceForm({
               step="0.01"
               placeholder="0.00"
               {...register("price_per_liter")}
-              className={`${inputClass(
-                Boolean(errors.price_per_liter),
-              )} pl-14`}
+              className={`${inputClass(Boolean(errors.price_per_liter))} pl-14`}
             />
           </div>
 
-          <ErrorMessage
-            message={
-              errors.price_per_liter?.message
-            }
-          />
+          <ErrorMessage message={errors.price_per_liter?.message} />
         </Field>
 
         <Field>
-          <label
-            htmlFor="effective_from"
-            className="text-sm font-semibold"
-          >
-            Effective from{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="effective_from" className="text-sm font-semibold">
+            Effective from <span className="text-danger">*</span>
           </label>
 
           <input
             id="effective_from"
             type="datetime-local"
             {...register("effective_from")}
-            className={inputClass(
-              Boolean(errors.effective_from),
-            )}
+            className={inputClass(Boolean(errors.effective_from))}
           />
 
-          <ErrorMessage
-            message={
-              errors.effective_from?.message
-            }
-          />
+          <ErrorMessage message={errors.effective_from?.message} />
         </Field>
 
         <Field>
-          <label
-            htmlFor="location_id"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="location_id" className="text-sm font-semibold">
             Location
           </label>
 
           <select
             id="location_id"
             {...register("location_id")}
-            className={inputClass(
-              Boolean(errors.location_id),
-            )}
+            className={inputClass(Boolean(errors.location_id))}
           >
-            <option value="">
-              Select location
-            </option>
+            <option value="">Select location</option>
 
             {locationOptions.map((location) => (
-              <option
-                key={location.id}
-                value={location.id}
-              >
+              <option key={location.id} value={location.id}>
                 {location.name}
               </option>
             ))}
           </select>
 
-          <ErrorMessage
-            message={errors.location_id?.message}
-          />
+          <ErrorMessage message={errors.location_id?.message} />
         </Field>
 
         <Field>
-          <label
-            htmlFor="status"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="status" className="text-sm font-semibold">
             Status
           </label>
 
           <select
             id="status"
             {...register("status")}
-            className={inputClass(
-              Boolean(errors.status),
-            )}
+            className={inputClass(Boolean(errors.status))}
           >
-            <option value="">
-              Select status
-            </option>
-            <option value="Active">
-              Active
-            </option>
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="">Select status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
           </select>
 
-          <ErrorMessage
-            message={errors.status?.message}
-          />
+          <ErrorMessage message={errors.status?.message} />
         </Field>
       </div>
 
@@ -349,30 +262,14 @@ export function FuelPriceForm({
   );
 }
 
-function Field({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-2">
-      {children}
-    </div>
-  );
+function Field({ children }: { children: React.ReactNode }) {
+  return <div className="space-y-2">{children}</div>;
 }
 
-function ErrorMessage({
-  message,
-}: {
-  message?: string;
-}) {
+function ErrorMessage({ message }: { message?: string }) {
   if (!message) return null;
 
-  return (
-    <p className="text-xs text-danger">
-      {message}
-    </p>
-  );
+  return <p className="text-xs text-danger">{message}</p>;
 }
 
 function inputClass(hasError: boolean) {
@@ -381,10 +278,6 @@ function inputClass(hasError: boolean) {
     px-4 text-sm outline-none transition
     focus:border-primary
     focus:ring-4 focus:ring-primary/10
-    ${
-      hasError
-        ? "border-red-300"
-        : "border-border"
-    }
+    ${hasError ? "border-red-300" : "border-border"}
   `;
 }

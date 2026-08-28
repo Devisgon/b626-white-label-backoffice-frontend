@@ -18,20 +18,13 @@ import { useAuthStore } from "@/store";
 import { USER_ROLES } from "@/types/role";
 
 export default function BankPage() {
-  const user = useAuthStore(
-    (state) => state.user,
-  );
+  const user = useAuthStore((state) => state.user);
 
-  const currentRole =
-    user?.role ?? USER_ROLES.OWNER_ADMIN;
+  const currentRole = user?.role ?? USER_ROLES.OWNER_ADMIN;
 
   const availableModules = useMemo(
     () =>
-      bankModules.filter((module) =>
-        module.allowedRoles.includes(
-          currentRole,
-        ),
-      ),
+      bankModules.filter((module) => module.allowedRoles.includes(currentRole)),
     [currentRole],
   );
 
@@ -73,8 +66,7 @@ export default function BankPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage accounts, transactions,
-              transfers and financial records.
+              Manage accounts, transactions, transfers and financial records.
             </p>
           </div>
         </section>
@@ -87,9 +79,7 @@ export default function BankPage() {
             title="Total balance"
             value="PKR 4,285,600"
             helper="Across all active accounts"
-            icon={
-              <WalletCards className="size-5" />
-            }
+            icon={<WalletCards className="size-5" />}
             color="green"
           />
 
@@ -97,9 +87,7 @@ export default function BankPage() {
             title="Bank accounts"
             value="6 active"
             helper="2 accounts need review"
-            icon={
-              <Building2 className="size-5" />
-            }
+            icon={<Building2 className="size-5" />}
             color="blue"
           />
 
@@ -107,9 +95,7 @@ export default function BankPage() {
             title="This month"
             value="184 transactions"
             helper="12.4% from last month"
-            icon={
-              <ReceiptText className="size-5" />
-            }
+            icon={<ReceiptText className="size-5" />}
             color="orange"
             trend
           />
@@ -118,13 +104,10 @@ export default function BankPage() {
         <section className="mt-10">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-lg font-bold">
-                Financial workspace
-              </h2>
+              <h2 className="text-lg font-bold">Financial workspace</h2>
 
               <p className="mt-1 text-xs text-muted">
-                Quick access based on your role and
-                permissions.
+                Quick access based on your role and permissions.
               </p>
             </div>
 
@@ -136,8 +119,7 @@ export default function BankPage() {
                 text-primary sm:inline-flex
               "
             >
-              {availableModules.length} sections
-              available
+              {availableModules.length} sections available
             </span>
           </div>
 
@@ -151,9 +133,7 @@ export default function BankPage() {
               <BankModuleCard
                 key={module.href}
                 title={module.title}
-                description={
-                  module.description
-                }
+                description={module.description}
                 href={module.href}
                 icon={module.icon}
                 color={module.color}
@@ -182,12 +162,9 @@ function OverviewCard({
   trend?: boolean;
 }) {
   const colorClasses = {
-    green:
-      "bg-emerald-50 text-emerald-700",
-    blue:
-      "bg-blue-50 text-blue-700",
-    orange:
-      "bg-orange-50 text-orange-700",
+    green: "bg-emerald-50 text-emerald-700",
+    blue: "bg-blue-50 text-blue-700",
+    orange: "bg-orange-50 text-orange-700",
   };
 
   return (
@@ -211,28 +188,18 @@ function OverviewCard({
       </span>
 
       <div>
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 text-xl font-bold">
-          {value}
-        </p>
+        <p className="mt-1 text-xl font-bold">{value}</p>
 
         <p
           className={`
             mt-1 flex items-center gap-1
             text-[10px]
-            ${
-              trend
-                ? "font-medium text-success"
-                : "text-muted"
-            }
+            ${trend ? "font-medium text-success" : "text-muted"}
           `}
         >
-          {trend && (
-            <ArrowUpRight className="size-3" />
-          )}
+          {trend && <ArrowUpRight className="size-3" />}
 
           {helper}
         </p>

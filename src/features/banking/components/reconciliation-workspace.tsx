@@ -1,17 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  Check,
-  CheckCircle2,
-  Link2,
-  RotateCcw,
-  Unlink,
-} from "lucide-react";
+import { Check, CheckCircle2, Link2, RotateCcw, Unlink } from "lucide-react";
 
-import type {
-  ReconciliationStatus,
-} from "@/features/banking/types";
+import type { ReconciliationStatus } from "@/features/banking/types";
 
 interface ReconciliationTransaction {
   id: string;
@@ -31,63 +23,61 @@ interface ReconciliationWorkspaceProps {
   statementEndingBalance: number;
 }
 
-const initialMatchedTransactions: ReconciliationTransaction[] =
-  [
-    {
-      id: "c1111111-1111-4111-8111-111111111111",
-      transactionType: "Deposit",
-      referenceNumber: "DEP-2026-0081",
-      transactionDate: "2026-08-05",
-      payee: "Store sales",
-      direction: "inflow",
-      amount: 300000,
-      statementReference: "STMT-4521",
-    },
-    {
-      id: "c2222222-2222-4222-8222-222222222222",
-      transactionType: "Payment",
-      referenceNumber: "PAY-2026-0042",
-      transactionDate: "2026-08-12",
-      payee: "Nestle Pakistan",
-      direction: "outflow",
-      amount: 35000,
-      statementReference: "STMT-4536",
-    },
-    {
-      id: "c3333333-3333-4333-8333-333333333333",
-      transactionType: "Payment",
-      referenceNumber: "PAY-2026-0048",
-      transactionDate: "2026-08-18",
-      payee: "Electricity utility",
-      direction: "outflow",
-      amount: 15000,
-      statementReference: "STMT-4550",
-    },
-  ];
+const initialMatchedTransactions: ReconciliationTransaction[] = [
+  {
+    id: "c1111111-1111-4111-8111-111111111111",
+    transactionType: "Deposit",
+    referenceNumber: "DEP-2026-0081",
+    transactionDate: "2026-08-05",
+    payee: "Store sales",
+    direction: "inflow",
+    amount: 300000,
+    statementReference: "STMT-4521",
+  },
+  {
+    id: "c2222222-2222-4222-8222-222222222222",
+    transactionType: "Payment",
+    referenceNumber: "PAY-2026-0042",
+    transactionDate: "2026-08-12",
+    payee: "Nestle Pakistan",
+    direction: "outflow",
+    amount: 35000,
+    statementReference: "STMT-4536",
+  },
+  {
+    id: "c3333333-3333-4333-8333-333333333333",
+    transactionType: "Payment",
+    referenceNumber: "PAY-2026-0048",
+    transactionDate: "2026-08-18",
+    payee: "Electricity utility",
+    direction: "outflow",
+    amount: 15000,
+    statementReference: "STMT-4550",
+  },
+];
 
-const initialUnmatchedTransactions: ReconciliationTransaction[] =
-  [
-    {
-      id: "c4444444-4444-4444-8444-444444444444",
-      transactionType: "Deposit",
-      referenceNumber: "DEP-2026-0090",
-      transactionDate: "2026-08-22",
-      payee: "Store sales",
-      direction: "inflow",
-      amount: 125000,
-      statementReference: "",
-    },
-    {
-      id: "c5555555-5555-4555-8555-555555555555",
-      transactionType: "Payment",
-      referenceNumber: "PAY-2026-0051",
-      transactionDate: "2026-08-23",
-      payee: "Office supplies",
-      direction: "outflow",
-      amount: 125000,
-      statementReference: "",
-    },
-  ];
+const initialUnmatchedTransactions: ReconciliationTransaction[] = [
+  {
+    id: "c4444444-4444-4444-8444-444444444444",
+    transactionType: "Deposit",
+    referenceNumber: "DEP-2026-0090",
+    transactionDate: "2026-08-22",
+    payee: "Store sales",
+    direction: "inflow",
+    amount: 125000,
+    statementReference: "",
+  },
+  {
+    id: "c5555555-5555-4555-8555-555555555555",
+    transactionType: "Payment",
+    referenceNumber: "PAY-2026-0051",
+    transactionDate: "2026-08-23",
+    payee: "Office supplies",
+    direction: "outflow",
+    amount: 125000,
+    statementReference: "",
+  },
+];
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-PK", {
@@ -111,53 +101,37 @@ export function ReconciliationWorkspace({
   openingSystemBalance,
   statementEndingBalance,
 }: ReconciliationWorkspaceProps) {
-  const [matchedTransactions, setMatchedTransactions] =
-    useState(initialMatchedTransactions);
+  const [matchedTransactions, setMatchedTransactions] = useState(
+    initialMatchedTransactions,
+  );
 
-  const [
-    unmatchedTransactions,
-    setUnmatchedTransactions,
-  ] = useState(initialUnmatchedTransactions);
+  const [unmatchedTransactions, setUnmatchedTransactions] = useState(
+    initialUnmatchedTransactions,
+  );
 
-  const [isCompleting, setIsCompleting] =
-    useState(false);
+  const [isCompleting, setIsCompleting] = useState(false);
 
-  const [isCompleted, setIsCompleted] =
-    useState(status === "completed");
+  const [isCompleted, setIsCompleted] = useState(status === "completed");
 
-  const isEditable =
-    status === "in_progress" && !isCompleted;
+  const isEditable = status === "in_progress" && !isCompleted;
 
   const calculatedSystemBalance = useMemo(
     () =>
-      matchedTransactions.reduce(
-        (balance, transaction) => {
-          if (
-            transaction.direction === "inflow"
-          ) {
-            return balance + transaction.amount;
-          }
+      matchedTransactions.reduce((balance, transaction) => {
+        if (transaction.direction === "inflow") {
+          return balance + transaction.amount;
+        }
 
-          return balance - transaction.amount;
-        },
-        openingSystemBalance,
-      ),
-    [
-      matchedTransactions,
-      openingSystemBalance,
-    ],
+        return balance - transaction.amount;
+      }, openingSystemBalance),
+    [matchedTransactions, openingSystemBalance],
   );
 
-  const difference =
-    statementEndingBalance -
-    calculatedSystemBalance;
+  const difference = statementEndingBalance - calculatedSystemBalance;
 
-  const isBalanced =
-    Math.abs(difference) < 0.01;
+  const isBalanced = Math.abs(difference) < 0.01;
 
-  function handleMatch(
-    transaction: ReconciliationTransaction,
-  ) {
+  function handleMatch(transaction: ReconciliationTransaction) {
     if (!isEditable) {
       return;
     }
@@ -178,15 +152,10 @@ export function ReconciliationWorkspace({
      */
 
     setUnmatchedTransactions((current) =>
-      current.filter(
-        (item) => item.id !== transaction.id,
-      ),
+      current.filter((item) => item.id !== transaction.id),
     );
 
-    setMatchedTransactions((current) => [
-      ...current,
-      transaction,
-    ]);
+    setMatchedTransactions((current) => [...current, transaction]);
 
     console.log({
       reconciliationId,
@@ -195,9 +164,7 @@ export function ReconciliationWorkspace({
     });
   }
 
-  function handleUnmatch(
-    transaction: ReconciliationTransaction,
-  ) {
+  function handleUnmatch(transaction: ReconciliationTransaction) {
     if (!isEditable) {
       return;
     }
@@ -212,15 +179,10 @@ export function ReconciliationWorkspace({
      */
 
     setMatchedTransactions((current) =>
-      current.filter(
-        (item) => item.id !== transaction.id,
-      ),
+      current.filter((item) => item.id !== transaction.id),
     );
 
-    setUnmatchedTransactions((current) => [
-      ...current,
-      transaction,
-    ]);
+    setUnmatchedTransactions((current) => [...current, transaction]);
 
     console.log({
       reconciliationId,
@@ -229,10 +191,7 @@ export function ReconciliationWorkspace({
     });
   }
 
-  function updateStatementReference(
-    transactionId: string,
-    value: string,
-  ) {
+  function updateStatementReference(transactionId: string, value: string) {
     setUnmatchedTransactions((current) =>
       current.map((transaction) =>
         transaction.id === transactionId
@@ -267,9 +226,7 @@ export function ReconciliationWorkspace({
 
       setIsCompleted(true);
 
-      window.alert(
-        "Reconciliation completed successfully.",
-      );
+      window.alert("Reconciliation completed successfully.");
     } finally {
       setIsCompleting(false);
     }
@@ -285,17 +242,13 @@ export function ReconciliationWorkspace({
       >
         <BalanceCard
           title="Statement balance"
-          value={formatCurrency(
-            statementEndingBalance,
-          )}
+          value={formatCurrency(statementEndingBalance)}
           helper="Bank statement closing balance"
         />
 
         <BalanceCard
           title="System balance"
-          value={formatCurrency(
-            calculatedSystemBalance,
-          )}
+          value={formatCurrency(calculatedSystemBalance)}
           helper="Based on matched transactions"
         />
 
@@ -303,22 +256,14 @@ export function ReconciliationWorkspace({
           title="Difference"
           value={formatCurrency(difference)}
           helper={
-            isBalanced
-              ? "Balances are matched"
-              : "Further matching is required"
+            isBalanced ? "Balances are matched" : "Further matching is required"
           }
-          valueClass={
-            isBalanced
-              ? "text-success"
-              : "text-danger"
-          }
+          valueClass={isBalanced ? "text-success" : "text-danger"}
         />
 
         <BalanceCard
           title="Matched transactions"
-          value={String(
-            matchedTransactions.length,
-          )}
+          value={String(matchedTransactions.length)}
           helper={`${unmatchedTransactions.length} transactions unmatched`}
         />
       </section>
@@ -380,11 +325,7 @@ export function ReconciliationWorkspace({
           <button
             type="button"
             onClick={handleComplete}
-            disabled={
-              !isEditable ||
-              !isBalanced ||
-              isCompleting
-            }
+            disabled={!isEditable || !isBalanced || isCompleting}
             className="
               inline-flex h-11 items-center
               justify-center gap-2 rounded-xl
@@ -425,13 +366,10 @@ export function ReconciliationWorkspace({
         "
       >
         <div className="border-b border-border p-5">
-          <h2 className="font-bold">
-            Unmatched transactions
-          </h2>
+          <h2 className="font-bold">Unmatched transactions</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Posted transactions available for this
-            bank statement.
+            Posted transactions available for this bank statement.
           </p>
         </div>
 
@@ -444,98 +382,66 @@ export function ReconciliationWorkspace({
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Transaction
-                </th>
+                <th className="px-5 py-4">Transaction</th>
 
-                <th className="px-5 py-4">
-                  Date
-                </th>
+                <th className="px-5 py-4">Date</th>
 
-                <th className="px-5 py-4">
-                  Payee
-                </th>
+                <th className="px-5 py-4">Payee</th>
 
-                <th className="px-5 py-4">
-                  Amount
-                </th>
+                <th className="px-5 py-4">Amount</th>
 
-                <th className="px-5 py-4">
-                  Statement reference
-                </th>
+                <th className="px-5 py-4">Statement reference</th>
 
-                <th className="px-5 py-4 text-right">
-                  Action
-                </th>
+                <th className="px-5 py-4 text-right">Action</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-border">
-              {unmatchedTransactions.map(
-                (transaction) => (
-                  <tr
-                    key={transaction.id}
-                    className="text-sm"
-                  >
-                    <td className="px-5 py-4">
-                      <p className="font-semibold">
-                        {
-                          transaction.transactionType
-                        }
-                      </p>
+              {unmatchedTransactions.map((transaction) => (
+                <tr key={transaction.id} className="text-sm">
+                  <td className="px-5 py-4">
+                    <p className="font-semibold">
+                      {transaction.transactionType}
+                    </p>
 
-                      <p className="mt-1 text-xs text-muted">
-                        {
-                          transaction.referenceNumber
-                        }
-                      </p>
-                    </td>
+                    <p className="mt-1 text-xs text-muted">
+                      {transaction.referenceNumber}
+                    </p>
+                  </td>
 
-                    <td className="px-5 py-4 text-muted">
-                      {formatDate(
-                        transaction.transactionDate,
-                      )}
-                    </td>
+                  <td className="px-5 py-4 text-muted">
+                    {formatDate(transaction.transactionDate)}
+                  </td>
 
-                    <td className="px-5 py-4">
-                      {transaction.payee}
-                    </td>
+                  <td className="px-5 py-4">{transaction.payee}</td>
 
-                    <td
-                      className={`
+                  <td
+                    className={`
                         px-5 py-4 font-bold
                         ${
-                          transaction.direction ===
-                          "inflow"
+                          transaction.direction === "inflow"
                             ? "text-success"
                             : "text-foreground"
                         }
                       `}
-                    >
-                      {transaction.direction ===
-                      "inflow"
-                        ? "+"
-                        : "−"}{" "}
-                      {formatCurrency(
-                        transaction.amount,
-                      )}
-                    </td>
+                  >
+                    {transaction.direction === "inflow" ? "+" : "−"}{" "}
+                    {formatCurrency(transaction.amount)}
+                  </td>
 
-                    <td className="px-5 py-4">
-                      <input
-                        type="text"
-                        value={
-                          transaction.statementReference
-                        }
-                        onChange={(event) =>
-                          updateStatementReference(
-                            transaction.id,
-                            event.target.value,
-                          )
-                        }
-                        disabled={!isEditable}
-                        placeholder="Optional reference"
-                        className="
+                  <td className="px-5 py-4">
+                    <input
+                      type="text"
+                      value={transaction.statementReference}
+                      onChange={(event) =>
+                        updateStatementReference(
+                          transaction.id,
+                          event.target.value,
+                        )
+                      }
+                      disabled={!isEditable}
+                      placeholder="Optional reference"
+                      className="
                           h-9 w-full rounded-lg border
                           border-border bg-white px-3
                           text-xs outline-none transition
@@ -544,18 +450,16 @@ export function ReconciliationWorkspace({
                           focus:ring-primary/10
                           disabled:bg-surface-secondary
                         "
-                      />
-                    </td>
+                    />
+                  </td>
 
-                    <td className="px-5 py-4">
-                      <div className="flex justify-end">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleMatch(transaction)
-                          }
-                          disabled={!isEditable}
-                          className="
+                  <td className="px-5 py-4">
+                    <div className="flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() => handleMatch(transaction)}
+                        disabled={!isEditable}
+                        className="
                             inline-flex h-9 items-center
                             justify-center gap-2
                             rounded-lg border
@@ -568,28 +472,24 @@ export function ReconciliationWorkspace({
                             disabled:cursor-not-allowed
                             disabled:opacity-50
                           "
-                        >
-                          <Link2 className="size-3.5" />
-                          Match
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ),
-              )}
+                      >
+                        <Link2 className="size-3.5" />
+                        Match
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
         {unmatchedTransactions.length === 0 && (
           <div className="px-5 py-12 text-center">
-            <p className="font-semibold">
-              All transactions are matched
-            </p>
+            <p className="font-semibold">All transactions are matched</p>
 
             <p className="mt-1 text-xs text-muted">
-              There are no unmatched transactions
-              remaining.
+              There are no unmatched transactions remaining.
             </p>
           </div>
         )}
@@ -618,19 +518,11 @@ function BalanceCard({
         bg-white p-5 shadow-[var(--shadow-sm)]
       "
     >
-      <p className="text-xs text-muted">
-        {title}
-      </p>
+      <p className="text-xs text-muted">{title}</p>
 
-      <p
-        className={`mt-2 text-xl font-bold ${valueClass}`}
-      >
-        {value}
-      </p>
+      <p className={`mt-2 text-xl font-bold ${valueClass}`}>{value}</p>
 
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }
@@ -643,9 +535,7 @@ interface TransactionSectionProps {
   actionLabel: string;
   actionIcon: React.ElementType;
   actionDisabled: boolean;
-  onAction: (
-    transaction: ReconciliationTransaction,
-  ) => void;
+  onAction: (transaction: ReconciliationTransaction) => void;
 }
 
 function TransactionSection({
@@ -669,9 +559,7 @@ function TransactionSection({
       <div className="border-b border-border p-5">
         <h2 className="font-bold">{title}</h2>
 
-        <p className="mt-1 text-xs text-muted">
-          {description}
-        </p>
+        <p className="mt-1 text-xs text-muted">{description}</p>
       </div>
 
       <div className="overflow-x-auto">
@@ -683,42 +571,25 @@ function TransactionSection({
                 tracking-wider text-muted
               "
             >
-              <th className="px-5 py-4">
-                Transaction
-              </th>
+              <th className="px-5 py-4">Transaction</th>
 
-              <th className="px-5 py-4">
-                Date
-              </th>
+              <th className="px-5 py-4">Date</th>
 
-              <th className="px-5 py-4">
-                Payee
-              </th>
+              <th className="px-5 py-4">Payee</th>
 
-              <th className="px-5 py-4">
-                Statement reference
-              </th>
+              <th className="px-5 py-4">Statement reference</th>
 
-              <th className="px-5 py-4">
-                Amount
-              </th>
+              <th className="px-5 py-4">Amount</th>
 
-              <th className="px-5 py-4 text-right">
-                Action
-              </th>
+              <th className="px-5 py-4 text-right">Action</th>
             </tr>
           </thead>
 
           <tbody className="divide-y divide-border">
             {transactions.map((transaction) => (
-              <tr
-                key={transaction.id}
-                className="text-sm"
-              >
+              <tr key={transaction.id} className="text-sm">
                 <td className="px-5 py-4">
-                  <p className="font-semibold">
-                    {transaction.transactionType}
-                  </p>
+                  <p className="font-semibold">{transaction.transactionType}</p>
 
                   <p className="mt-1 text-xs text-muted">
                     {transaction.referenceNumber}
@@ -726,37 +597,25 @@ function TransactionSection({
                 </td>
 
                 <td className="px-5 py-4 text-muted">
-                  {formatDate(
-                    transaction.transactionDate,
-                  )}
+                  {formatDate(transaction.transactionDate)}
                 </td>
 
-                <td className="px-5 py-4">
-                  {transaction.payee}
-                </td>
+                <td className="px-5 py-4">{transaction.payee}</td>
 
                 <td className="px-5 py-4 text-muted">
-                  {transaction.statementReference ||
-                    "Not provided"}
+                  {transaction.statementReference || "Not provided"}
                 </td>
 
                 <td className="px-5 py-4 font-bold">
-                  {transaction.direction ===
-                  "inflow"
-                    ? "+"
-                    : "−"}{" "}
-                  {formatCurrency(
-                    transaction.amount,
-                  )}
+                  {transaction.direction === "inflow" ? "+" : "−"}{" "}
+                  {formatCurrency(transaction.amount)}
                 </td>
 
                 <td className="px-5 py-4">
                   <div className="flex justify-end">
                     <button
                       type="button"
-                      onClick={() =>
-                        onAction(transaction)
-                      }
+                      onClick={() => onAction(transaction)}
                       disabled={actionDisabled}
                       className="
                         inline-flex h-9 items-center
@@ -785,9 +644,7 @@ function TransactionSection({
 
       {transactions.length === 0 && (
         <div className="px-5 py-12 text-center">
-          <p className="font-semibold">
-            {emptyMessage}
-          </p>
+          <p className="font-semibold">{emptyMessage}</p>
         </div>
       )}
     </section>

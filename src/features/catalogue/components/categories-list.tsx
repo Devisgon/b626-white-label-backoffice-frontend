@@ -12,10 +12,7 @@ import {
   Trash2,
 } from "lucide-react";
 
-import type {
-  Category,
-  CategoryStatus,
-} from "@/features/catalogue/types";
+import type { Category, CategoryStatus } from "@/features/catalogue/types";
 
 const initialCategories: Category[] = [
   {
@@ -66,12 +63,10 @@ const initialCategories: Category[] = [
 ];
 
 export function CategoriesList() {
-  const [categories, setCategories] =
-    useState<Category[]>(initialCategories);
+  const [categories, setCategories] = useState<Category[]>(initialCategories);
 
   const [search, setSearch] = useState("");
-  const [status, setStatus] =
-    useState<CategoryStatus | "all">("all");
+  const [status, setStatus] = useState<CategoryStatus | "all">("all");
 
   const filteredCategories = useMemo(() => {
     const searchValue = search.trim().toLowerCase();
@@ -79,12 +74,9 @@ export function CategoriesList() {
     return categories.filter((category) => {
       const matchesSearch =
         category.name.toLowerCase().includes(searchValue) ||
-        category.description
-          .toLowerCase()
-          .includes(searchValue);
+        category.description.toLowerCase().includes(searchValue);
 
-      const matchesStatus =
-        status === "all" || category.status === status;
+      const matchesStatus = status === "all" || category.status === status;
 
       return matchesSearch && matchesStatus;
     });
@@ -94,8 +86,7 @@ export function CategoriesList() {
     (category) => category.status === "Active",
   ).length;
 
-  const inactiveCategories =
-    categories.length - activeCategories;
+  const inactiveCategories = categories.length - activeCategories;
 
   function resetFilters() {
     setSearch("");
@@ -112,9 +103,7 @@ export function CategoriesList() {
     }
 
     setCategories((currentCategories) =>
-      currentCategories.filter(
-        (category) => category.id !== id,
-      ),
+      currentCategories.filter((category) => category.id !== id),
     );
   }
 
@@ -155,9 +144,7 @@ export function CategoriesList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Category records
-            </h2>
+            <h2 className="font-bold">Category records</h2>
 
             <p className="mt-1 text-xs text-muted">
               Search, review and manage product categories.
@@ -185,9 +172,7 @@ export function CategoriesList() {
           "
         >
           <label className="relative flex-1">
-            <span className="sr-only">
-              Search categories
-            </span>
+            <span className="sr-only">Search categories</span>
 
             <Search
               className="
@@ -199,9 +184,7 @@ export function CategoriesList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by category name or description..."
               className="
                 h-11 w-full rounded-xl border border-border
@@ -217,11 +200,7 @@ export function CategoriesList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | CategoryStatus
-                  | "all",
-              )
+              setStatus(event.target.value as CategoryStatus | "all")
             }
             aria-label="Filter categories by status"
             className="
@@ -261,29 +240,17 @@ export function CategoriesList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Category
-                </th>
+                <th className="px-5 py-4">Category</th>
 
-                <th className="px-5 py-4">
-                  Description
-                </th>
+                <th className="px-5 py-4">Description</th>
 
-                <th className="px-5 py-4">
-                  Products
-                </th>
+                <th className="px-5 py-4">Products</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4">
-                  Updated
-                </th>
+                <th className="px-5 py-4">Updated</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -308,16 +275,12 @@ export function CategoriesList() {
                         <Tags className="size-4" />
                       </span>
 
-                      <span className="font-semibold">
-                        {category.name}
-                      </span>
+                      <span className="font-semibold">{category.name}</span>
                     </div>
                   </td>
 
                   <td className="max-w-xs px-5 py-4 text-muted">
-                    <p className="truncate">
-                      {category.description}
-                    </p>
+                    <p className="truncate">{category.description}</p>
                   </td>
 
                   <td className="px-5 py-4 font-medium">
@@ -325,14 +288,10 @@ export function CategoriesList() {
                   </td>
 
                   <td className="px-5 py-4">
-                    <CategoryStatusBadge
-                      status={category.status}
-                    />
+                    <CategoryStatusBadge status={category.status} />
                   </td>
 
-                  <td className="px-5 py-4 text-muted">
-                    {category.updatedAt}
-                  </td>
+                  <td className="px-5 py-4 text-muted">{category.updatedAt}</td>
 
                   <td className="px-5 py-4">
                     <div className="flex justify-end gap-2">
@@ -368,9 +327,7 @@ export function CategoriesList() {
 
                       <button
                         type="button"
-                        onClick={() =>
-                          removeCategory(category.id)
-                        }
+                        onClick={() => removeCategory(category.id)}
                         aria-label={`Delete ${category.name}`}
                         className="
                           flex size-9 items-center justify-center
@@ -394,9 +351,7 @@ export function CategoriesList() {
             <div className="px-5 py-14 text-center">
               <Tags className="mx-auto size-8 text-muted-light" />
 
-              <p className="mt-3 text-sm font-semibold">
-                No categories found
-              </p>
+              <p className="mt-3 text-sm font-semibold">No categories found</p>
 
               <p className="mt-1 text-xs text-muted">
                 Try changing your search or status filter.
@@ -413,8 +368,8 @@ export function CategoriesList() {
           "
         >
           <span>
-            Showing {filteredCategories.length} of{" "}
-            {categories.length} categories
+            Showing {filteredCategories.length} of {categories.length}{" "}
+            categories
           </span>
 
           <span>Dummy data for frontend testing</span>
@@ -430,11 +385,7 @@ interface StatCardProps {
   helper: string;
 }
 
-function StatCard({
-  label,
-  value,
-  helper,
-}: StatCardProps) {
+function StatCard({ label, value, helper }: StatCardProps) {
   return (
     <article
       className="
@@ -446,22 +397,14 @@ function StatCard({
     >
       <p className="text-xs text-muted">{label}</p>
 
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
 
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }
 
-function CategoryStatusBadge({
-  status,
-}: {
-  status: CategoryStatus;
-}) {
+function CategoryStatusBadge({ status }: { status: CategoryStatus }) {
   const styles =
     status === "Active"
       ? "bg-emerald-50 text-emerald-700"

@@ -33,8 +33,8 @@ export default function AddProductPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Create a product and configure its pricing,
-              catalogue and inventory settings.
+              Create a product and configure its pricing, catalogue and
+              inventory settings.
             </p>
           </div>
         </section>

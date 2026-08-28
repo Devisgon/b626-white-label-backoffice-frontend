@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ReceiptText,
-} from "lucide-react";
+import { ArrowLeft, ReceiptText } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  TransactionForm,
-} from "@/features/banking/components";
+import { TransactionForm } from "@/features/banking/components";
 
 export default function NewTransactionPage() {
   return (
@@ -48,8 +43,8 @@ export default function NewTransactionPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Create a draft transaction with
-              balanced debit and credit ledger lines.
+              Create a draft transaction with balanced debit and credit ledger
+              lines.
             </p>
           </div>
         </section>

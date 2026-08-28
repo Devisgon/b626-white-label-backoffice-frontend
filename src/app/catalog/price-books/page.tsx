@@ -32,8 +32,7 @@ export default function PriceBooksPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage pricing collections and custom
-              product prices.
+              Manage pricing collections and custom product prices.
             </p>
           </div>
         </section>

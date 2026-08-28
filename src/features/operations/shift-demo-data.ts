@@ -1,5 +1,98 @@
 import { shiftSchema } from "./schemas";
 import type { CrudResourceConfig } from "@/types/crud-resource";
-export const shiftConfig: CrudResourceConfig = { title: "Operations Shifts", singular: "shift", description: "Manage staff shifts, floats and closing cash.", route: "/operations/shifts", endpoint: "/operations/shifts", statuses: ["Open","Closed","Cancelled"], searchKeys: ["staff_name","status"], schema: shiftSchema, fields: [{ key: "staff_name", label: "Staff name", type: "text", required: true, table: true }, { key: "location_id", label: "Location", type: "select", required: false, table: false, options: ["b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d"] }, { key: "opening_float", label: "Opening float", type: "number", required: true, table: true, currency: true }, { key: "closing_cash", label: "Closing cash", type: "number", required: false, table: true, currency: true }, { key: "shift_start", label: "Shift start", type: "datetime-local", required: true, table: true }, { key: "shift_end", label: "Shift end", type: "datetime-local", required: false, table: false }, { key: "status", label: "Status", type: "select", required: true, table: true, options: ["Open","Closed","Cancelled"] }], records: [{"id":1,"staff_name":"Ali Raza","location_id":"b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d","opening_float":5000,"closing_cash":18500,"shift_start":"2026-08-27T08:00:00.000Z","shift_end":"2026-08-27T16:00:00.000Z","status":"Closed","created_at":"2026-08-27T10:00:00.000Z","updated_at":"2026-08-27T10:00:00.000Z","deleted_at":null}, {"id":2,"staff_name":"Sara Khan","location_id":"b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d","opening_float":5000,"closing_cash":null,"shift_start":"2026-08-27T16:00:00.000Z","shift_end":"","status":"Open","created_at":"2026-08-27T10:00:00.000Z","updated_at":"2026-08-27T10:00:00.000Z","deleted_at":null}] };
-export function findDemoShift(id: number) { return shiftConfig.records.find((item) => item.id === id); }
-
+export const shiftConfig: CrudResourceConfig = {
+  title: "Operations Shifts",
+  singular: "shift",
+  description: "Manage staff shifts, floats and closing cash.",
+  route: "/operations/shifts",
+  endpoint: "/operations/shifts",
+  statuses: ["Open", "Closed", "Cancelled"],
+  searchKeys: ["staff_name", "status"],
+  schema: shiftSchema,
+  fields: [
+    {
+      key: "staff_name",
+      label: "Staff name",
+      type: "text",
+      required: true,
+      table: true,
+    },
+    {
+      key: "location_id",
+      label: "Location",
+      type: "select",
+      required: false,
+      table: false,
+      options: ["b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d"],
+    },
+    {
+      key: "opening_float",
+      label: "Opening float",
+      type: "number",
+      required: true,
+      table: true,
+      currency: true,
+    },
+    {
+      key: "closing_cash",
+      label: "Closing cash",
+      type: "number",
+      required: false,
+      table: true,
+      currency: true,
+    },
+    {
+      key: "shift_start",
+      label: "Shift start",
+      type: "datetime-local",
+      required: true,
+      table: true,
+    },
+    {
+      key: "shift_end",
+      label: "Shift end",
+      type: "datetime-local",
+      required: false,
+      table: false,
+    },
+    {
+      key: "status",
+      label: "Status",
+      type: "select",
+      required: true,
+      table: true,
+      options: ["Open", "Closed", "Cancelled"],
+    },
+  ],
+  records: [
+    {
+      id: 1,
+      staff_name: "Ali Raza",
+      location_id: "b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d",
+      opening_float: 5000,
+      closing_cash: 18500,
+      shift_start: "2026-08-27T08:00:00.000Z",
+      shift_end: "2026-08-27T16:00:00.000Z",
+      status: "Closed",
+      created_at: "2026-08-27T10:00:00.000Z",
+      updated_at: "2026-08-27T10:00:00.000Z",
+      deleted_at: null,
+    },
+    {
+      id: 2,
+      staff_name: "Sara Khan",
+      location_id: "b3f1c2e0-1234-4a5b-9c6d-7e8f9a0b1c2d",
+      opening_float: 5000,
+      closing_cash: null,
+      shift_start: "2026-08-27T16:00:00.000Z",
+      shift_end: "",
+      status: "Open",
+      created_at: "2026-08-27T10:00:00.000Z",
+      updated_at: "2026-08-27T10:00:00.000Z",
+      deleted_at: null,
+    },
+  ],
+};
+export function findDemoShift(id: number) {
+  return shiftConfig.records.find((item) => item.id === id);
+}

@@ -19,71 +19,61 @@ import { CatalogueCard } from "@/features/catalogue/components";
 const catalogueSections = [
   {
     title: "Categories",
-    description:
-      "Create and manage product categories and their organization.",
+    description: "Create and manage product categories and their organization.",
     href: "/catalog/categories",
     icon: Tags,
   },
   {
     title: "Brands",
-    description:
-      "Manage product brands available across the store catalogue.",
+    description: "Manage product brands available across the store catalogue.",
     href: "/catalog/brands",
     icon: Building2,
   },
   {
     title: "Suppliers",
-    description:
-      "Manage suppliers and their business information.",
+    description: "Manage suppliers and their business information.",
     href: "/catalog/suppliers",
     icon: Truck,
   },
   {
     title: "Departments",
-    description:
-      "Organize products into store departments.",
+    description: "Organize products into store departments.",
     href: "/catalog/departments",
     icon: Warehouse,
   },
   {
     title: "Units",
-    description:
-      "Manage measurement and packaging units for products.",
+    description: "Manage measurement and packaging units for products.",
     href: "/catalog/units",
     icon: Ruler,
   },
   {
     title: "Price Books",
-    description:
-      "Manage product pricing rules and price book items.",
+    description: "Manage product pricing rules and price book items.",
     href: "/catalog/price-books",
     icon: PackageCheck,
   },
   {
     title: "Inventory Locations",
-    description:
-      "Manage warehouses, shelves and inventory locations.",
+    description: "Manage warehouses, shelves and inventory locations.",
     href: "/catalog/inventory-locations",
     icon: MapPin,
   },
   {
     title: "Carton Mappings",
-    description:
-      "Configure carton quantities and product mappings.",
+    description: "Configure carton quantities and product mappings.",
     href: "/catalog/carton-mappings",
     icon: Boxes,
   },
   {
     title: "Inventory",
-    description:
-      "Manage inventory records, quantities and stock status.",
+    description: "Manage inventory records, quantities and stock status.",
     href: "/catalog/inventory",
     icon: Layers3,
   },
   {
     title: "Product Inventory",
-    description:
-      "Manage product stock assigned to store locations.",
+    description: "Manage product stock assigned to store locations.",
     href: "/catalog/product-inventory",
     icon: ClipboardList,
   },
@@ -118,8 +108,8 @@ export default function CataloguePage() {
             </h1>
 
             <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-              Manage product classifications, suppliers,
-              pricing and inventory configuration.
+              Manage product classifications, suppliers, pricing and inventory
+              configuration.
             </p>
           </div>
         </section>
@@ -127,13 +117,10 @@ export default function CataloguePage() {
         <section className="mt-10">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 className="text-lg font-bold">
-                Catalogue sections
-              </h2>
+              <h2 className="text-lg font-bold">Catalogue sections</h2>
 
               <p className="mt-1 text-xs text-muted">
-                Select a section to view and manage its
-                records.
+                Select a section to view and manage its records.
               </p>
             </div>
 

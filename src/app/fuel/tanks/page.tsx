@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Database,
-} from "lucide-react";
+import { ArrowLeft, Database } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  FuelTanksList,
-} from "@/features/fuel/components";
+import { FuelTanksList } from "@/features/fuel/components";
 
 export default function FuelTanksPage() {
   return (
@@ -34,8 +29,7 @@ export default function FuelTanksPage() {
               Fuel tanks
             </h1>
             <p className="mt-2 text-sm text-muted">
-              Manage tank capacity, fuel stock and
-              availability.
+              Manage tank capacity, fuel stock and availability.
             </p>
           </div>
         </section>

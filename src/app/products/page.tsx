@@ -189,45 +189,27 @@ function formatCurrency(value?: number | null) {
 export default function ProductsPage() {
   const [search, setSearch] = useState("");
 
-  const [status, setStatus] =
-    useState<"all" | ProductStatus>("all");
+  const [status, setStatus] = useState<"all" | ProductStatus>("all");
 
-  const [saleType, setSaleType] =
-    useState<"all" | ProductSaleType>("all");
+  const [saleType, setSaleType] = useState<"all" | ProductSaleType>("all");
 
   const filteredProducts = useMemo(() => {
-    const normalizedSearch =
-      search.trim().toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
 
     return sampleProducts.filter((product) => {
       const matchesSearch =
         !normalizedSearch ||
-        product.name
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        product.sku
-          ?.toLowerCase()
-          .includes(normalizedSearch) ||
-        product.barcode
-          ?.toLowerCase()
-          .includes(normalizedSearch) ||
-        product.item_code
-          ?.toLowerCase()
-          .includes(normalizedSearch);
+        product.name.toLowerCase().includes(normalizedSearch) ||
+        product.sku?.toLowerCase().includes(normalizedSearch) ||
+        product.barcode?.toLowerCase().includes(normalizedSearch) ||
+        product.item_code?.toLowerCase().includes(normalizedSearch);
 
-      const matchesStatus =
-        status === "all" ||
-        product.status === status;
+      const matchesStatus = status === "all" || product.status === status;
 
       const matchesSaleType =
-        saleType === "all" ||
-        product.sale_type === saleType;
+        saleType === "all" || product.sale_type === saleType;
 
-      return (
-        matchesSearch &&
-        matchesStatus &&
-        matchesSaleType
-      );
+      return matchesSearch && matchesStatus && matchesSaleType;
     });
   }, [search, status, saleType]);
 
@@ -237,10 +219,9 @@ export default function ProductsPage() {
     (product) => product.status === "Active",
   ).length;
 
-  const inactiveProducts =
-    sampleProducts.filter(
-      (product) => product.status === "Inactive",
-    ).length;
+  const inactiveProducts = sampleProducts.filter(
+    (product) => product.status === "Inactive",
+  ).length;
 
   function resetFilters() {
     setSearch("");
@@ -262,8 +243,8 @@ export default function ProductsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage product information, pricing,
-              inventory settings and status.
+              Manage product information, pricing, inventory settings and
+              status.
             </p>
           </div>
 
@@ -321,9 +302,7 @@ export default function ProductsPage() {
                 <input
                   type="search"
                   value={search}
-                  onChange={(event) =>
-                    setSearch(event.target.value)
-                  }
+                  onChange={(event) => setSearch(event.target.value)}
                   placeholder="Search by name, SKU, barcode or item code..."
                   className="
                     h-11 w-full rounded-xl border
@@ -338,11 +317,7 @@ export default function ProductsPage() {
               <select
                 value={status}
                 onChange={(event) =>
-                  setStatus(
-                    event.target.value as
-                      | "all"
-                      | ProductStatus,
-                  )
+                  setStatus(event.target.value as "all" | ProductStatus)
                 }
                 aria-label="Filter by product status"
                 className="
@@ -352,27 +327,17 @@ export default function ProductsPage() {
                   focus:ring-4 focus:ring-primary/10
                 "
               >
-                <option value="all">
-                  All statuses
-                </option>
+                <option value="all">All statuses</option>
 
-                <option value="Active">
-                  Active
-                </option>
+                <option value="Active">Active</option>
 
-                <option value="Inactive">
-                  Inactive
-                </option>
+                <option value="Inactive">Inactive</option>
               </select>
 
               <select
                 value={saleType}
                 onChange={(event) =>
-                  setSaleType(
-                    event.target.value as
-                      | "all"
-                      | ProductSaleType,
-                  )
+                  setSaleType(event.target.value as "all" | ProductSaleType)
                 }
                 aria-label="Filter by sale type"
                 className="
@@ -382,21 +347,13 @@ export default function ProductsPage() {
                   focus:ring-4 focus:ring-primary/10
                 "
               >
-                <option value="all">
-                  All sale types
-                </option>
+                <option value="all">All sale types</option>
 
-                <option value="Retail">
-                  Retail
-                </option>
+                <option value="Retail">Retail</option>
 
-                <option value="Wholesale">
-                  Wholesale
-                </option>
+                <option value="Wholesale">Wholesale</option>
 
-                <option value="Both">
-                  Retail &amp; Wholesale
-                </option>
+                <option value="Both">Retail &amp; Wholesale</option>
               </select>
 
               <button
@@ -420,33 +377,19 @@ export default function ProductsPage() {
             <table className="w-full min-w-[1100px] text-left">
               <thead className="bg-surface-secondary">
                 <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                  <th className="px-5 py-4">
-                    Product
-                  </th>
+                  <th className="px-5 py-4">Product</th>
 
-                  <th className="px-5 py-4">
-                    SKU / Barcode
-                  </th>
+                  <th className="px-5 py-4">SKU / Barcode</th>
 
-                  <th className="px-5 py-4">
-                    Category
-                  </th>
+                  <th className="px-5 py-4">Category</th>
 
-                  <th className="px-5 py-4">
-                    Sale type
-                  </th>
+                  <th className="px-5 py-4">Sale type</th>
 
-                  <th className="px-5 py-4">
-                    Retail price
-                  </th>
+                  <th className="px-5 py-4">Retail price</th>
 
-                  <th className="px-5 py-4">
-                    Status
-                  </th>
+                  <th className="px-5 py-4">Status</th>
 
-                  <th className="px-5 py-4 text-right">
-                    Actions
-                  </th>
+                  <th className="px-5 py-4 text-right">Actions</th>
                 </tr>
               </thead>
 
@@ -466,9 +409,7 @@ export default function ProductsPage() {
                         </span>
 
                         <div>
-                          <p className="font-semibold">
-                            {product.name}
-                          </p>
+                          <p className="font-semibold">{product.name}</p>
 
                           <p className="mt-1 text-[11px] text-muted">
                             {product.size || "No size"} ·{" "}
@@ -479,37 +420,27 @@ export default function ProductsPage() {
                     </td>
 
                     <td className="px-5 py-4">
-                      <p className="font-medium">
-                        {product.sku || "—"}
-                      </p>
+                      <p className="font-medium">{product.sku || "—"}</p>
 
                       <p className="mt-1 flex items-center gap-1 text-[11px] text-muted">
                         <Barcode className="size-3" />
 
-                        {product.barcode ||
-                          "No barcode"}
+                        {product.barcode || "No barcode"}
                       </p>
                     </td>
 
                     <td className="px-5 py-4 text-muted">
-                      {product.categories?.name ||
-                        "Uncategorized"}
+                      {product.categories?.name || "Uncategorized"}
                     </td>
 
-                    <td className="px-5 py-4">
-                      {product.sale_type || "—"}
-                    </td>
+                    <td className="px-5 py-4">{product.sale_type || "—"}</td>
 
                     <td className="px-5 py-4 font-semibold">
-                      {formatCurrency(
-                        product.retail_price,
-                      )}
+                      {formatCurrency(product.retail_price)}
                     </td>
 
                     <td className="px-5 py-4">
-                      <ProductStatusBadge
-                        status={product.status}
-                      />
+                      <ProductStatusBadge status={product.status} />
                     </td>
 
                     <td className="px-5 py-4">
@@ -550,17 +481,11 @@ export default function ProductsPage() {
 
                 {filteredProducts.length === 0 && (
                   <tr>
-                    <td
-                      colSpan={7}
-                      className="px-5 py-14 text-center"
-                    >
-                      <p className="font-semibold">
-                        No products found
-                      </p>
+                    <td colSpan={7} className="px-5 py-14 text-center">
+                      <p className="font-semibold">No products found</p>
 
                       <p className="mt-1 text-xs text-muted">
-                        Change or reset the selected
-                        filters.
+                        Change or reset the selected filters.
                       </p>
                     </td>
                   </tr>
@@ -571,8 +496,8 @@ export default function ProductsPage() {
 
           <div className="flex flex-col gap-3 border-t border-border px-5 py-4 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
             <p>
-              Showing {filteredProducts.length} of{" "}
-              {sampleProducts.length} products
+              Showing {filteredProducts.length} of {sampleProducts.length}{" "}
+              products
             </p>
 
             <div className="flex gap-2">
@@ -629,17 +554,11 @@ function SummaryCard({
       </span>
 
       <div>
-        <p className="text-xs text-muted">
-          {label}
-        </p>
+        <p className="text-xs text-muted">{label}</p>
 
-        <p className="mt-1 text-xl font-bold">
-          {value}
-        </p>
+        <p className="mt-1 text-xl font-bold">{value}</p>
 
-        <p className="mt-1 text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );

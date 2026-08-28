@@ -1,12 +1,7 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight, type LucideIcon } from "lucide-react";
 
-import type {
-  FuelModuleColor,
-} from "@/config/fuel-modules";
+import type { FuelModuleColor } from "@/config/fuel-modules";
 
 interface FuelModuleCardProps {
   title: string;
@@ -16,20 +11,12 @@ interface FuelModuleCardProps {
   color: FuelModuleColor;
 }
 
-const colorClasses: Record<
-  FuelModuleColor,
-  string
-> = {
-  green:
-    "bg-emerald-50 text-emerald-700",
-  blue:
-    "bg-blue-50 text-blue-700",
-  purple:
-    "bg-purple-50 text-purple-700",
-  orange:
-    "bg-orange-50 text-orange-700",
-  red:
-    "bg-red-50 text-red-700",
+const colorClasses: Record<FuelModuleColor, string> = {
+  green: "bg-emerald-50 text-emerald-700",
+  blue: "bg-blue-50 text-blue-700",
+  purple: "bg-purple-50 text-purple-700",
+  orange: "bg-orange-50 text-orange-700",
+  red: "bg-red-50 text-red-700",
 };
 
 export function FuelModuleCard({
@@ -96,9 +83,7 @@ export function FuelModuleCard({
           {title}
         </h2>
 
-        <p className="mt-2 text-xs leading-5 text-muted">
-          {description}
-        </p>
+        <p className="mt-2 text-xs leading-5 text-muted">{description}</p>
       </div>
 
       <div

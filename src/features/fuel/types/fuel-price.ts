@@ -1,11 +1,6 @@
-import type {
-  CursorPagination,
-  OffsetPagination,
-} from "./fuel-tank";
+import type { CursorPagination, OffsetPagination } from "./fuel-tank";
 
-export type FuelPriceStatus =
-  | "Active"
-  | "Inactive";
+export type FuelPriceStatus = "Active" | "Inactive";
 
 export type FuelPriceSortField =
   | "id"
@@ -42,8 +37,7 @@ export interface CreateFuelPricePayload {
   status?: FuelPriceStatus;
 }
 
-export type UpdateFuelPricePayload =
-  Partial<CreateFuelPricePayload>;
+export type UpdateFuelPricePayload = Partial<CreateFuelPricePayload>;
 
 export interface FuelPriceFilters {
   search?: string;
@@ -60,9 +54,7 @@ export interface FuelPriceFilters {
 export interface FuelPricesResponse {
   success: boolean;
 
-  pagination:
-    | OffsetPagination
-    | CursorPagination;
+  pagination: OffsetPagination | CursorPagination;
 
   data: FuelPrice[];
 }

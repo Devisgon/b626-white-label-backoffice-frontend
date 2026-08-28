@@ -1,14 +1,7 @@
 export type SaleStatus =
-  | "completed"
-  | "cancelled"
-  | "refunded"
-  | "partially_refunded";
+  "completed" | "cancelled" | "refunded" | "partially_refunded";
 
-export type PaymentMethod =
-  | "cash"
-  | "card"
-  | "bank_transfer"
-  | "mobile_wallet";
+export type PaymentMethod = "cash" | "card" | "bank_transfer" | "mobile_wallet";
 
 export interface SaleProduct {
   id: number;
@@ -111,8 +104,7 @@ export interface CreateSaleRequest {
   items: CreateSaleItem[];
 }
 
-export type UpdateSaleRequest =
-  Partial<CreateSaleRequest>;
+export type UpdateSaleRequest = Partial<CreateSaleRequest>;
 
 export interface RefundSaleItem {
   sale_item_id: number;

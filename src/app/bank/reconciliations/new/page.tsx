@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  CalendarRange,
-} from "lucide-react";
+import { ArrowLeft, CalendarRange } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
-import {
-  ReconciliationForm,
-} from "@/features/banking/components";
+import { ReconciliationForm } from "@/features/banking/components";
 
 export default function NewReconciliationPage() {
   return (
@@ -48,8 +43,8 @@ export default function NewReconciliationPage() {
             </h1>
 
             <p className="mt-2 text-sm leading-6 text-muted">
-              Compare a bank statement with system
-              transactions for the selected period.
+              Compare a bank statement with system transactions for the selected
+              period.
             </p>
           </div>
         </section>

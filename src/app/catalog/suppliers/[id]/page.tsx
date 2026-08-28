@@ -65,9 +65,7 @@ export default async function SupplierDetailsPage({
   const { id } = await params;
 
   const supplierDetails =
-    supplierRecords[
-      id as keyof typeof supplierRecords
-    ] ?? supplierRecords["1"];
+    supplierRecords[id as keyof typeof supplierRecords] ?? supplierRecords["1"];
 
   const statusStyles =
     supplierDetails.status === "Active"
@@ -119,9 +117,7 @@ export default async function SupplierDetailsPage({
                 </span>
               </div>
 
-              <p className="mt-2 text-sm text-muted">
-                Supplier ID: {id}
-              </p>
+              <p className="mt-2 text-sm text-muted">Supplier ID: {id}</p>
             </div>
           </div>
 
@@ -150,9 +146,7 @@ export default async function SupplierDetailsPage({
 
           <InfoCard
             title="Phone"
-            value={
-              supplierDetails.phone || "Not provided"
-            }
+            value={supplierDetails.phone || "Not provided"}
             helper="Primary contact number"
             icon={Phone}
           />
@@ -183,9 +177,7 @@ export default async function SupplierDetailsPage({
             </span>
 
             <div>
-              <h2 className="font-bold">
-                Supplier information
-              </h2>
+              <h2 className="font-bold">Supplier information</h2>
 
               <p className="text-xs text-muted">
                 Contact and business information.
@@ -218,15 +210,9 @@ export default async function SupplierDetailsPage({
               icon={MapPin}
             />
 
-            <DetailsRow
-              label="Status"
-              value={supplierDetails.status}
-            />
+            <DetailsRow label="Status" value={supplierDetails.status} />
 
-            <DetailsRow
-              label="Created"
-              value={supplierDetails.createdAt}
-            />
+            <DetailsRow label="Created" value={supplierDetails.createdAt} />
 
             <DetailsRow
               label="Last updated"
@@ -271,17 +257,11 @@ function InfoCard({
       </span>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 truncate font-bold">
-          {value}
-        </p>
+        <p className="mt-1 truncate font-bold">{value}</p>
 
-        <p className="mt-1 truncate text-[11px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 truncate text-[11px] text-muted">{helper}</p>
       </div>
     </article>
   );
@@ -303,14 +283,10 @@ function DetailsRow({
         sm:grid-cols-[180px_minmax(0,1fr)]
       "
     >
-      <dt className="font-medium text-muted">
-        {label}
-      </dt>
+      <dt className="font-medium text-muted">{label}</dt>
 
       <dd className="flex items-center gap-2 font-medium">
-        {Icon && (
-          <Icon className="size-4 text-muted" />
-        )}
+        {Icon && <Icon className="size-4 text-muted" />}
 
         {value || "Not provided"}
       </dd>

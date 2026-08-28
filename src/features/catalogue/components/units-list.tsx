@@ -12,10 +12,7 @@ import {
   Trash2,
 } from "lucide-react";
 
-import type {
-  Unit,
-  UnitStatus,
-} from "@/features/catalogue/types";
+import type { Unit, UnitStatus } from "@/features/catalogue/types";
 
 const initialUnits: Unit[] = [
   {
@@ -53,13 +50,11 @@ const initialUnits: Unit[] = [
 ];
 
 export function UnitsList() {
-  const [units, setUnits] =
-    useState<Unit[]>(initialUnits);
+  const [units, setUnits] = useState<Unit[]>(initialUnits);
 
   const [search, setSearch] = useState("");
 
-  const [status, setStatus] =
-    useState<UnitStatus | "all">("all");
+  const [status, setStatus] = useState<UnitStatus | "all">("all");
 
   const filteredUnits = useMemo(() => {
     const searchValue = search.trim().toLowerCase();
@@ -67,23 +62,17 @@ export function UnitsList() {
     return units.filter((unit) => {
       const matchesSearch =
         unit.name.toLowerCase().includes(searchValue) ||
-        unit.shortName
-          .toLowerCase()
-          .includes(searchValue);
+        unit.shortName.toLowerCase().includes(searchValue);
 
-      const matchesStatus =
-        status === "all" || unit.status === status;
+      const matchesStatus = status === "all" || unit.status === status;
 
       return matchesSearch && matchesStatus;
     });
   }, [units, search, status]);
 
-  const activeUnits = units.filter(
-    (unit) => unit.status === "Active",
-  ).length;
+  const activeUnits = units.filter((unit) => unit.status === "Active").length;
 
-  const inactiveUnits =
-    units.length - activeUnits;
+  const inactiveUnits = units.length - activeUnits;
 
   function resetFilters() {
     setSearch("");
@@ -99,11 +88,7 @@ export function UnitsList() {
       return;
     }
 
-    setUnits((currentUnits) =>
-      currentUnits.filter(
-        (unit) => unit.id !== id,
-      ),
-    );
+    setUnits((currentUnits) => currentUnits.filter((unit) => unit.id !== id));
   }
 
   return (
@@ -143,13 +128,10 @@ export function UnitsList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Unit records
-            </h2>
+            <h2 className="font-bold">Unit records</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Manage product measurement and packaging
-              units.
+              Manage product measurement and packaging units.
             </p>
           </div>
 
@@ -174,9 +156,7 @@ export function UnitsList() {
           "
         >
           <label className="relative flex-1">
-            <span className="sr-only">
-              Search units
-            </span>
+            <span className="sr-only">Search units</span>
 
             <Search
               className="
@@ -188,9 +168,7 @@ export function UnitsList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by unit name or short name..."
               className="
                 h-11 w-full rounded-xl border
@@ -206,11 +184,7 @@ export function UnitsList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | UnitStatus
-                  | "all",
-              )
+              setStatus(event.target.value as UnitStatus | "all")
             }
             aria-label="Filter units by status"
             className="
@@ -250,25 +224,15 @@ export function UnitsList() {
                   tracking-wider text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Unit
-                </th>
+                <th className="px-5 py-4">Unit</th>
 
-                <th className="px-5 py-4">
-                  Short name
-                </th>
+                <th className="px-5 py-4">Short name</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4">
-                  Updated
-                </th>
+                <th className="px-5 py-4">Updated</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -293,9 +257,7 @@ export function UnitsList() {
                         <Ruler className="size-4" />
                       </span>
 
-                      <span className="font-semibold">
-                        {unit.name}
-                      </span>
+                      <span className="font-semibold">{unit.name}</span>
                     </div>
                   </td>
 
@@ -314,9 +276,7 @@ export function UnitsList() {
                     <StatusBadge status={unit.status} />
                   </td>
 
-                  <td className="px-5 py-4 text-muted">
-                    {unit.updatedAt}
-                  </td>
+                  <td className="px-5 py-4 text-muted">{unit.updatedAt}</td>
 
                   <td className="px-5 py-4">
                     <div className="flex justify-end gap-2">
@@ -352,9 +312,7 @@ export function UnitsList() {
 
                       <button
                         type="button"
-                        onClick={() =>
-                          removeUnit(unit.id)
-                        }
+                        onClick={() => removeUnit(unit.id)}
                         aria-label={`Delete ${unit.name}`}
                         className="
                           flex size-9 items-center justify-center
@@ -378,9 +336,7 @@ export function UnitsList() {
             <div className="px-5 py-14 text-center">
               <Ruler className="mx-auto size-8 text-muted-light" />
 
-              <p className="mt-3 text-sm font-semibold">
-                No units found
-              </p>
+              <p className="mt-3 text-sm font-semibold">No units found</p>
 
               <p className="mt-1 text-xs text-muted">
                 Try changing your search or filters.
@@ -397,8 +353,7 @@ export function UnitsList() {
           "
         >
           <span>
-            Showing {filteredUnits.length} of{" "}
-            {units.length} units
+            Showing {filteredUnits.length} of {units.length} units
           </span>
 
           <span>Dummy data for frontend testing</span>
@@ -428,18 +383,12 @@ function StatCard({
     >
       <p className="text-xs text-muted">{label}</p>
       <p className="mt-2 text-2xl font-bold">{value}</p>
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: UnitStatus;
-}) {
+function StatusBadge({ status }: { status: UnitStatus }) {
   return (
     <span
       className={`

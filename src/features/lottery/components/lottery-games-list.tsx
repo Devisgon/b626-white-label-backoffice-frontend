@@ -10,99 +10,53 @@ import {
   Search,
   Ticket,
 } from "lucide-react";
-import {
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { useMemo, useState, type ReactNode } from "react";
 
-import {
-  LotteryGameActionButton,
-} from "@/features/lottery/components/lottery-game-action-button";
-import {
-  demoLotteryGames,
-} from "@/features/lottery/lottery-demo-data";
-import type {
-  LotteryGameStatus,
-} from "@/features/lottery/types";
+import { LotteryGameActionButton } from "@/features/lottery/components/lottery-game-action-button";
+import { demoLotteryGames } from "@/features/lottery/lottery-demo-data";
+import type { LotteryGameStatus } from "@/features/lottery/types";
 
-const lotteryGames =
-  demoLotteryGames;
+const lotteryGames = demoLotteryGames;
 
-function formatCurrency(
-  value: number,
-) {
-  return new Intl.NumberFormat(
-    "en-PK",
-    {
-      style: "currency",
-      currency: "PKR",
-      maximumFractionDigits: 2,
-    },
-  ).format(value);
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat("en-PK", {
+    style: "currency",
+    currency: "PKR",
+    maximumFractionDigits: 2,
+  }).format(value);
 }
 
 export function LotteryGamesList() {
-  const [search, setSearch] =
-    useState("");
+  const [search, setSearch] = useState("");
 
-  const [status, setStatus] =
-    useState<
-      LotteryGameStatus | "all"
-    >("all");
+  const [status, setStatus] = useState<LotteryGameStatus | "all">("all");
 
   const filteredGames = useMemo(
     () =>
-      lotteryGames.filter(
-        (game) => {
-          const searchValue =
-            search
-              .trim()
-              .toLowerCase();
+      lotteryGames.filter((game) => {
+        const searchValue = search.trim().toLowerCase();
 
-          const matchesSearch =
-            searchValue === "" ||
-            game.name
-              .toLowerCase()
-              .includes(
-                searchValue,
-              ) ||
-            (
-              game.game_number ??
-              ""
-            )
-              .toLowerCase()
-              .includes(
-                searchValue,
-              );
+        const matchesSearch =
+          searchValue === "" ||
+          game.name.toLowerCase().includes(searchValue) ||
+          (game.game_number ?? "").toLowerCase().includes(searchValue);
 
-          const matchesStatus =
-            status === "all" ||
-            game.status === status;
+        const matchesStatus = status === "all" || game.status === status;
 
-          return (
-            matchesSearch &&
-            matchesStatus
-          );
-        },
-      ),
+        return matchesSearch && matchesStatus;
+      }),
     [search, status],
   );
 
-  const totalGames =
-    lotteryGames.length;
+  const totalGames = lotteryGames.length;
 
-  const activeGames =
-    lotteryGames.filter(
-      (game) =>
-        game.status === "Active",
-    ).length;
+  const activeGames = lotteryGames.filter(
+    (game) => game.status === "Active",
+  ).length;
 
-  const inactiveGames =
-    lotteryGames.filter(
-      (game) =>
-        game.status === "Inactive",
-    ).length;
+  const inactiveGames = lotteryGames.filter(
+    (game) => game.status === "Inactive",
+  ).length;
 
   function resetFilters() {
     setSearch("");
@@ -122,9 +76,7 @@ export function LotteryGamesList() {
           title="Total games"
           value={String(totalGames)}
           helper="All lottery game records"
-          icon={
-            <Gamepad2 className="size-5" />
-          }
+          icon={<Gamepad2 className="size-5" />}
           color="purple"
         />
 
@@ -132,21 +84,15 @@ export function LotteryGamesList() {
           title="Active games"
           value={String(activeGames)}
           helper="Currently available for sale"
-          icon={
-            <Ticket className="size-5" />
-          }
+          icon={<Ticket className="size-5" />}
           color="green"
         />
 
         <StatCard
           title="Inactive games"
-          value={String(
-            inactiveGames,
-          )}
+          value={String(inactiveGames)}
           helper="Not currently available"
-          icon={
-            <Gamepad2 className="size-5" />
-          }
+          icon={<Gamepad2 className="size-5" />}
           color="orange"
         />
       </section>
@@ -168,13 +114,10 @@ export function LotteryGamesList() {
           "
         >
           <div>
-            <h2 className="font-bold">
-              Lottery games
-            </h2>
+            <h2 className="font-bold">Lottery games</h2>
 
             <p className="mt-1 text-xs text-muted">
-              Manage games, ticket prices and
-              ticket pack sizes.
+              Manage games, ticket prices and ticket pack sizes.
             </p>
           </div>
 
@@ -212,11 +155,7 @@ export function LotteryGamesList() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(
-                  event.target.value,
-                )
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by game name or number..."
               className="
                 h-11 w-full rounded-xl
@@ -233,11 +172,7 @@ export function LotteryGamesList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | LotteryGameStatus
-                  | "all",
-              )
+              setStatus(event.target.value as LotteryGameStatus | "all")
             }
             aria-label="Filter games by status"
             className="
@@ -250,17 +185,11 @@ export function LotteryGamesList() {
               lg:min-w-44
             "
           >
-            <option value="all">
-              All statuses
-            </option>
+            <option value="all">All statuses</option>
 
-            <option value="Active">
-              Active
-            </option>
+            <option value="Active">Active</option>
 
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           <button
@@ -295,97 +224,91 @@ export function LotteryGamesList() {
                   text-muted
                 "
               >
-                <th className="px-5 py-4">
-                  Game
-                </th>
+                <th className="px-5 py-4">Game</th>
 
-                <th className="px-5 py-4">
-                  Game number
-                </th>
+                <th className="px-5 py-4">Game number</th>
 
-                <th className="px-5 py-4">
-                  Ticket price
-                </th>
+                <th className="px-5 py-4">Ticket price</th>
 
-                <th className="px-5 py-4">
-                  Tickets per pack
-                </th>
+                <th className="px-5 py-4">Tickets per pack</th>
 
-                <th className="px-5 py-4">
-                  Status
-                </th>
+                <th className="px-5 py-4">Status</th>
 
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-border">
-              {filteredGames.map(
-                (game) => (
-                  <tr
-                    key={game.id}
-                    className="
+              {filteredGames.map((game) => (
+                <tr
+                  key={game.id}
+                  className="
                       text-sm transition
                       hover:bg-surface-secondary/60
                     "
-                  >
-                    <td className="px-5 py-4">
-                      <div className="flex items-center gap-3">
-                        <span
-                          className="
+                >
+                  <td className="px-5 py-4">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="
                             flex size-9 shrink-0
                             items-center justify-center
                             rounded-xl bg-purple-50
                             text-purple-700
                           "
-                        >
-                          <Gamepad2 className="size-4" />
-                        </span>
+                      >
+                        <Gamepad2 className="size-4" />
+                      </span>
 
-                        <p className="font-semibold">
-                          {game.name}
-                        </p>
-                      </div>
-                    </td>
+                      <p className="font-semibold">{game.name}</p>
+                    </div>
+                  </td>
 
-                    <td className="px-5 py-4 text-muted">
-                      {game.game_number ??
-                        "Not provided"}
-                    </td>
+                  <td className="px-5 py-4 text-muted">
+                    {game.game_number ?? "Not provided"}
+                  </td>
 
-                    <td className="px-5 py-4 font-semibold">
-                      {formatCurrency(
-                        game.ticket_price,
-                      )}
-                    </td>
+                  <td className="px-5 py-4 font-semibold">
+                    {formatCurrency(game.ticket_price)}
+                  </td>
 
-                    <td className="px-5 py-4">
-                      {game.tickets_per_pack ??
-                        "Not provided"}
-                    </td>
+                  <td className="px-5 py-4">
+                    {game.tickets_per_pack ?? "Not provided"}
+                  </td>
 
-                    <td className="px-5 py-4">
-                      <StatusBadge
-                        status={
-                          game.status
-                        }
-                      />
-                    </td>
+                  <td className="px-5 py-4">
+                    <StatusBadge status={game.status} />
+                  </td>
 
-                    <td className="px-5 py-4">
-                      <div
-                        className="
+                  <td className="px-5 py-4">
+                    <div
+                      className="
                           flex items-center
                           justify-end gap-2
                         "
+                    >
+                      <Link
+                        href={`/lottery/games/${game.id}`}
+                        aria-label={`View ${game.name}`}
+                        title="View game"
+                        className="
+                            flex size-9 items-center
+                            justify-center rounded-xl
+                            border border-border
+                            text-muted transition
+                            hover:border-primary
+                            hover:bg-primary-light
+                            hover:text-primary
+                          "
                       >
-                        <Link
-                          href={`/lottery/games/${game.id}`}
-                          aria-label={`View ${game.name}`}
-                          title="View game"
-                          className="
+                        <Eye className="size-4" />
+                      </Link>
+
+                      <Link
+                        href={`/lottery/games/${game.id}/edit`}
+                        aria-label={`Edit ${game.name}`}
+                        title="Edit game"
+                        className="
                             flex size-9 items-center
                             justify-center rounded-xl
                             border border-border
@@ -394,40 +317,19 @@ export function LotteryGamesList() {
                             hover:bg-primary-light
                             hover:text-primary
                           "
-                        >
-                          <Eye className="size-4" />
-                        </Link>
+                      >
+                        <Pencil className="size-4" />
+                      </Link>
 
-                        <Link
-                          href={`/lottery/games/${game.id}/edit`}
-                          aria-label={`Edit ${game.name}`}
-                          title="Edit game"
-                          className="
-                            flex size-9 items-center
-                            justify-center rounded-xl
-                            border border-border
-                            text-muted transition
-                            hover:border-primary
-                            hover:bg-primary-light
-                            hover:text-primary
-                          "
-                        >
-                          <Pencil className="size-4" />
-                        </Link>
-
-                        <LotteryGameActionButton
-                          gameId={game.id}
-                          gameName={game.name}
-                          deleted={
-                            game.deleted_at !==
-                            null
-                          }
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ),
-              )}
+                      <LotteryGameActionButton
+                        gameId={game.id}
+                        gameName={game.name}
+                        deleted={game.deleted_at !== null}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -440,9 +342,7 @@ export function LotteryGamesList() {
               "
             />
 
-            <p className="mt-3 font-semibold">
-              No lottery games found
-            </p>
+            <p className="mt-3 font-semibold">No lottery games found</p>
 
             <p className="mt-1 text-xs text-muted">
               Change the search or status filter.
@@ -456,8 +356,7 @@ export function LotteryGamesList() {
             px-5 py-4 text-xs text-muted
           "
         >
-          Showing {filteredGames.length} of{" "}
-          {lotteryGames.length} games
+          Showing {filteredGames.length} of {lotteryGames.length} games
         </div>
       </section>
     </div>
@@ -469,26 +368,14 @@ interface StatCardProps {
   value: string;
   helper: string;
   icon: ReactNode;
-  color:
-    | "green"
-    | "purple"
-    | "orange";
+  color: "green" | "purple" | "orange";
 }
 
-function StatCard({
-  title,
-  value,
-  helper,
-  icon,
-  color,
-}: StatCardProps) {
+function StatCard({ title, value, helper, icon, color }: StatCardProps) {
   const colors = {
-    green:
-      "bg-emerald-50 text-emerald-700",
-    purple:
-      "bg-purple-50 text-purple-700",
-    orange:
-      "bg-orange-50 text-orange-700",
+    green: "bg-emerald-50 text-emerald-700",
+    purple: "bg-purple-50 text-purple-700",
+    orange: "bg-orange-50 text-orange-700",
   };
 
   return (
@@ -515,27 +402,17 @@ function StatCard({
       </span>
 
       <div>
-        <p className="text-xs text-muted">
-          {title}
-        </p>
+        <p className="text-xs text-muted">{title}</p>
 
-        <p className="mt-1 text-xl font-bold">
-          {value}
-        </p>
+        <p className="mt-1 text-xl font-bold">{value}</p>
 
-        <p className="mt-1 text-[10px] text-muted">
-          {helper}
-        </p>
+        <p className="mt-1 text-[10px] text-muted">{helper}</p>
       </div>
     </article>
   );
 }
 
-function StatusBadge({
-  status,
-}: {
-  status: LotteryGameStatus;
-}) {
+function StatusBadge({ status }: { status: LotteryGameStatus }) {
   return (
     <span
       className={`

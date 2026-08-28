@@ -1,16 +1,8 @@
 "use client";
 
-import {
-  Building2,
-  CreditCard,
-  Save,
-  WalletCards,
-} from "lucide-react";
+import { Building2, CreditCard, Save, WalletCards } from "lucide-react";
 import { useRouter } from "next/navigation";
-import {
-  type FormEvent,
-  useState,
-} from "react";
+import { type FormEvent, useState } from "react";
 
 import {
   bankAccountSchema,
@@ -30,60 +22,41 @@ export function BankAccountForm({
 }: BankAccountFormProps) {
   const router = useRouter();
 
-  const [accountName, setAccountName] =
-    useState(
-      initialValues?.accountName ?? "",
-    );
-
-  const [institution, setInstitution] =
-    useState(
-      initialValues?.institution ?? "",
-    );
-
-  const [accountType, setAccountType] =
-    useState(
-      initialValues?.accountType ?? "",
-    );
-
-  const [lastFour, setLastFour] =
-    useState(
-      initialValues?.lastFour ?? "",
-    );
-
-  const [
-    openingBalance,
-    setOpeningBalance,
-  ] = useState(
-    String(
-      initialValues?.openingBalance ?? 0,
-    ),
+  const [accountName, setAccountName] = useState(
+    initialValues?.accountName ?? "",
   );
 
-  const [openingDate, setOpeningDate] =
-    useState(
-      initialValues?.openingDate ?? "",
-    );
+  const [institution, setInstitution] = useState(
+    initialValues?.institution ?? "",
+  );
 
-  const [status, setStatus] = useState<
-    "active" | "inactive" | "closed"
-  >(initialValues?.status ?? "active");
+  const [accountType, setAccountType] = useState(
+    initialValues?.accountType ?? "",
+  );
 
-  const [errors, setErrors] = useState<
-    Record<string, string>
-  >({});
+  const [lastFour, setLastFour] = useState(initialValues?.lastFour ?? "");
 
-  const [serverError, setServerError] =
-    useState("");
+  const [openingBalance, setOpeningBalance] = useState(
+    String(initialValues?.openingBalance ?? 0),
+  );
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [openingDate, setOpeningDate] = useState(
+    initialValues?.openingDate ?? "",
+  );
 
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [status, setStatus] = useState<"active" | "inactive" | "closed">(
+    initialValues?.status ?? "active",
+  );
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>,
-  ) {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const [serverError, setServerError] = useState("");
+
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setErrors({});
@@ -95,30 +68,21 @@ export function BankAccountForm({
       institution,
       accountType,
       lastFour,
-      openingBalance: Number(
-        openingBalance,
-      ),
+      openingBalance: Number(openingBalance),
       openingDate,
       status,
     };
 
-    const result =
-      bankAccountSchema.safeParse(values);
+    const result = bankAccountSchema.safeParse(values);
 
     if (!result.success) {
-      const nextErrors: Record<
-        string,
-        string
-      > = {};
+      const nextErrors: Record<string, string> = {};
 
       result.error.issues.forEach((issue) => {
-        const field = String(
-          issue.path[0] ?? "form",
-        );
+        const field = String(issue.path[0] ?? "form");
 
         if (!nextErrors[field]) {
-          nextErrors[field] =
-            issue.message;
+          nextErrors[field] = issue.message;
         }
       });
 
@@ -132,18 +96,12 @@ export function BankAccountForm({
       const payload =
         mode === "create"
           ? {
-              accountName:
-                result.data.accountName,
-              institution:
-                result.data.institution,
-              accountType:
-                result.data.accountType,
-              lastFour:
-                result.data.lastFour,
-              openingBalance:
-                result.data.openingBalance,
-              openingDate:
-                result.data.openingDate,
+              accountName: result.data.accountName,
+              institution: result.data.institution,
+              accountType: result.data.accountType,
+              lastFour: result.data.lastFour,
+              openingBalance: result.data.openingBalance,
+              openingDate: result.data.openingDate,
             }
           : result.data;
 
@@ -183,9 +141,7 @@ export function BankAccountForm({
         router.refresh();
       }, 800);
     } catch {
-      setServerError(
-        "Unable to save the bank account. Please try again.",
-      );
+      setServerError("Unable to save the bank account. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -213,30 +169,17 @@ export function BankAccountForm({
         </span>
 
         <div>
-          <h2 className="text-lg font-bold">
-            Bank account information
-          </h2>
+          <h2 className="text-lg font-bold">Bank account information</h2>
 
           <p className="mt-1 text-xs text-muted">
-            Enter the bank account and opening
-            balance details.
+            Enter the bank account and opening balance details.
           </p>
         </div>
       </div>
 
-      {serverError && (
-        <Message
-          type="error"
-          message={serverError}
-        />
-      )}
+      {serverError && <Message type="error" message={serverError} />}
 
-      {successMessage && (
-        <Message
-          type="success"
-          message={successMessage}
-        />
-      )}
+      {successMessage && <Message type="success" message={successMessage} />}
 
       <div className="mt-6 grid gap-5 sm:grid-cols-2">
         <TextField
@@ -246,9 +189,7 @@ export function BankAccountForm({
           onChange={setAccountName}
           placeholder="For example: Main Operating Account"
           error={errors.accountName}
-          icon={
-            <WalletCards className="size-4" />
-          }
+          icon={<WalletCards className="size-4" />}
         />
 
         <TextField
@@ -258,20 +199,12 @@ export function BankAccountForm({
           onChange={setInstitution}
           placeholder="For example: HBL"
           error={errors.institution}
-          icon={
-            <Building2 className="size-4" />
-          }
+          icon={<Building2 className="size-4" />}
         />
 
         <div>
-          <label
-            htmlFor="account-type"
-            className="text-sm font-semibold"
-          >
-            Account type{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="account-type" className="text-sm font-semibold">
+            Account type <span className="text-danger">*</span>
           </label>
 
           <select
@@ -280,11 +213,7 @@ export function BankAccountForm({
             onChange={(event) =>
               setAccountType(
                 event.target.value as
-                  | ""
-                  | "checking"
-                  | "savings"
-                  | "cash"
-                  | "credit",
+                  "" | "checking" | "savings" | "cash" | "credit",
               )
             }
             className={`
@@ -292,37 +221,21 @@ export function BankAccountForm({
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.accountType
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.accountType ? "border-red-300" : "border-border"}
             `}
           >
-            <option value="">
-              Select account type
-            </option>
+            <option value="">Select account type</option>
 
-            <option value="checking">
-              Checking
-            </option>
+            <option value="checking">Checking</option>
 
-            <option value="savings">
-              Savings
-            </option>
+            <option value="savings">Savings</option>
 
-            <option value="cash">
-              Cash
-            </option>
+            <option value="cash">Cash</option>
 
-            <option value="credit">
-              Credit
-            </option>
+            <option value="credit">Credit</option>
           </select>
 
-          <FieldError
-            message={errors.accountType}
-          />
+          <FieldError message={errors.accountType} />
         </div>
 
         <TextField
@@ -330,30 +243,18 @@ export function BankAccountForm({
           label="Last 4 digits"
           value={lastFour}
           onChange={(value) =>
-            setLastFour(
-              value
-                .replace(/\D/g, "")
-                .slice(0, 4),
-            )
+            setLastFour(value.replace(/\D/g, "").slice(0, 4))
           }
           placeholder="For example: 2343"
           error={errors.lastFour}
-          icon={
-            <CreditCard className="size-4" />
-          }
+          icon={<CreditCard className="size-4" />}
           inputMode="numeric"
           maxLength={4}
         />
 
         <div>
-          <label
-            htmlFor="opening-balance"
-            className="text-sm font-semibold"
-          >
-            Opening balance{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="opening-balance" className="text-sm font-semibold">
+            Opening balance <span className="text-danger">*</span>
           </label>
 
           <div className="relative mt-2">
@@ -374,11 +275,7 @@ export function BankAccountForm({
               min="0"
               step="0.01"
               value={openingBalance}
-              onChange={(event) =>
-                setOpeningBalance(
-                  event.target.value,
-                )
-              }
+              onChange={(event) => setOpeningBalance(event.target.value)}
               className={`
                 h-11 w-full rounded-xl border
                 bg-white pl-14 pr-4 text-sm
@@ -386,68 +283,40 @@ export function BankAccountForm({
                 focus:border-primary
                 focus:ring-4
                 focus:ring-primary/10
-                ${
-                  errors.openingBalance
-                    ? "border-red-300"
-                    : "border-border"
-                }
+                ${errors.openingBalance ? "border-red-300" : "border-border"}
               `}
             />
           </div>
 
-          <FieldError
-            message={errors.openingBalance}
-          />
+          <FieldError message={errors.openingBalance} />
         </div>
 
         <div>
-          <label
-            htmlFor="opening-date"
-            className="text-sm font-semibold"
-          >
-            Opening date{" "}
-            <span className="text-danger">
-              *
-            </span>
+          <label htmlFor="opening-date" className="text-sm font-semibold">
+            Opening date <span className="text-danger">*</span>
           </label>
 
           <input
             id="opening-date"
             type="date"
             value={openingDate}
-            onChange={(event) =>
-              setOpeningDate(
-                event.target.value,
-              )
-            }
+            onChange={(event) => setOpeningDate(event.target.value)}
             className={`
               mt-2 h-11 w-full rounded-xl border
               bg-white px-4 text-sm outline-none
               transition focus:border-primary
               focus:ring-4 focus:ring-primary/10
-              ${
-                errors.openingDate
-                  ? "border-red-300"
-                  : "border-border"
-              }
+              ${errors.openingDate ? "border-red-300" : "border-border"}
             `}
           />
 
-          <FieldError
-            message={errors.openingDate}
-          />
+          <FieldError message={errors.openingDate} />
         </div>
 
         {mode === "edit" && (
           <div className="sm:col-span-2">
-            <label
-              htmlFor="account-status"
-              className="text-sm font-semibold"
-            >
-              Account status{" "}
-              <span className="text-danger">
-                *
-              </span>
+            <label htmlFor="account-status" className="text-sm font-semibold">
+              Account status <span className="text-danger">*</span>
             </label>
 
             <select
@@ -455,10 +324,7 @@ export function BankAccountForm({
               value={status}
               onChange={(event) =>
                 setStatus(
-                  event.target.value as
-                    | "active"
-                    | "inactive"
-                    | "closed",
+                  event.target.value as "active" | "inactive" | "closed",
                 )
               }
               className="
@@ -470,17 +336,11 @@ export function BankAccountForm({
                 focus:ring-primary/10
               "
             >
-              <option value="active">
-                Active
-              </option>
+              <option value="active">Active</option>
 
-              <option value="inactive">
-                Inactive
-              </option>
+              <option value="inactive">Inactive</option>
 
-              <option value="closed">
-                Closed
-              </option>
+              <option value="closed">Closed</option>
             </select>
           </div>
         )}
@@ -562,14 +422,8 @@ function TextField({
 }: TextFieldProps) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="text-sm font-semibold"
-      >
-        {label}{" "}
-        <span className="text-danger">
-          *
-        </span>
+      <label htmlFor={id} className="text-sm font-semibold">
+        {label} <span className="text-danger">*</span>
       </label>
 
       <div className="relative mt-2">
@@ -587,9 +441,7 @@ function TextField({
           id={id}
           type="text"
           value={value}
-          onChange={(event) =>
-            onChange(event.target.value)
-          }
+          onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
           inputMode={inputMode}
           maxLength={maxLength}
@@ -599,11 +451,7 @@ function TextField({
             outline-none transition
             focus:border-primary
             focus:ring-4 focus:ring-primary/10
-            ${
-              error
-                ? "border-red-300"
-                : "border-border"
-            }
+            ${error ? "border-red-300" : "border-border"}
           `}
         />
       </div>
@@ -613,20 +461,12 @@ function TextField({
   );
 }
 
-function FieldError({
-  message,
-}: {
-  message?: string;
-}) {
+function FieldError({ message }: { message?: string }) {
   if (!message) {
     return null;
   }
 
-  return (
-    <p className="mt-1.5 text-xs text-danger">
-      {message}
-    </p>
-  );
+  return <p className="mt-1.5 text-xs text-danger">{message}</p>;
 }
 
 function Message({
@@ -638,11 +478,7 @@ function Message({
 }) {
   return (
     <div
-      role={
-        type === "error"
-          ? "alert"
-          : "status"
-      }
+      role={type === "error" ? "alert" : "status"}
       className={`
         mt-6 rounded-xl border px-4 py-3
         text-sm font-medium

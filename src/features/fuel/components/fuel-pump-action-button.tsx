@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  RotateCcw,
-  Trash2,
-  X,
-} from "lucide-react";
+import { RotateCcw, Trash2, X } from "lucide-react";
 
 interface FuelPumpActionButtonProps {
   pumpId: number;
@@ -24,8 +20,7 @@ export function FuelPumpActionButton({
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] =
-    useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleAction() {
     setIsSubmitting(true);
@@ -47,9 +42,7 @@ export function FuelPumpActionButton({
 
       console.log({
         pumpId,
-        action: deleted
-          ? "restore"
-          : "delete",
+        action: deleted ? "restore" : "delete",
       });
 
       window.alert(
@@ -99,9 +92,7 @@ export function FuelPumpActionButton({
             <div className="flex items-start justify-between gap-4 border-b border-border p-5">
               <div>
                 <h2 className="font-bold">
-                  {deleted
-                    ? "Restore fuel pump"
-                    : "Delete fuel pump"}
+                  {deleted ? "Restore fuel pump" : "Delete fuel pump"}
                 </h2>
 
                 <p className="mt-1 text-xs text-muted">

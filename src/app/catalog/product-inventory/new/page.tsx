@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Warehouse,
-} from "lucide-react";
+import { ArrowLeft, Warehouse } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { ProductInventoryForm } from "@/features/catalogue/components";
@@ -46,8 +43,7 @@ export default function NewProductInventoryPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Assign a product to an inventory
-              location and configure its stock
+              Assign a product to an inventory location and configure its stock
               levels.
             </p>
           </div>

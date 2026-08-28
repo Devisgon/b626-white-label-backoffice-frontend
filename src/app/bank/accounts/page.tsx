@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Building2,
-} from "lucide-react";
+import { ArrowLeft, Building2 } from "lucide-react";
 
 import { AppShell } from "@/components/layout";
 import { BankAccountsList } from "@/features/banking/components";
@@ -40,8 +37,7 @@ export default function BankAccountsPage() {
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Manage company bank accounts, balances
-              and account availability.
+              Manage company bank accounts, balances and account availability.
             </p>
           </div>
         </section>

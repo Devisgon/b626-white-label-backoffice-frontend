@@ -4,10 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import {
-  ArrowLeft,
-  Mail,
-} from "lucide-react";
+import { ArrowLeft, Mail } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -27,10 +24,7 @@ export default function ForgotPasswordPage() {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
@@ -38,9 +32,7 @@ export default function ForgotPasswordPage() {
     },
   });
 
-  async function onSubmit(
-    values: ForgotPasswordFormValues,
-  ) {
+  async function onSubmit(values: ForgotPasswordFormValues) {
     setServerError("");
 
     try {
@@ -58,21 +50,15 @@ export default function ForgotPasswordPage() {
         } else if (typeof message === "string") {
           setServerError(message);
         } else if (!error.response) {
-          setServerError(
-            "Unable to connect to the server. Please try again.",
-          );
+          setServerError("Unable to connect to the server. Please try again.");
         } else {
-          setServerError(
-            "Unable to process your request.",
-          );
+          setServerError("Unable to process your request.");
         }
 
         return;
       }
 
-      setServerError(
-        "Something went wrong. Please try again.",
-      );
+      setServerError("Something went wrong. Please try again.");
     }
   }
 
@@ -100,8 +86,8 @@ export default function ForgotPasswordPage() {
         </h1>
 
         <p className="mt-3 text-sm leading-6 text-muted">
-          Enter your account email and we&apos;ll send you
-          a 6-digit password reset code.
+          Enter your account email and we&apos;ll send you a 6-digit password
+          reset code.
         </p>
       </div>
 

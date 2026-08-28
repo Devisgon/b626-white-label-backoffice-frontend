@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  CheckCircle2,
-  LoaderCircle,
-  Save,
-} from "lucide-react";
+import { CheckCircle2, LoaderCircle, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -28,37 +24,28 @@ export function SupplierForm({
 }: SupplierFormProps) {
   const router = useRouter();
 
-  const [successMessage, setSuccessMessage] =
-    useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<SupplierFormValues>({
     resolver: zodResolver(supplierSchema),
 
-    defaultValues:
-      initialValues ?? {
-        name: "",
-        email: "",
-        phone: "",
-        address: "",
-        status: "Active",
-      },
+    defaultValues: initialValues ?? {
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+      status: "Active",
+    },
   });
 
-  async function onSubmit(
-    values: SupplierFormValues,
-  ) {
+  async function onSubmit(values: SupplierFormValues) {
     setSuccessMessage("");
 
-    await new Promise((resolve) =>
-      setTimeout(resolve, 700),
-    );
+    await new Promise((resolve) => setTimeout(resolve, 700));
 
     if (mode === "edit") {
       console.log("Update supplier:", {
@@ -66,15 +53,11 @@ export function SupplierForm({
         ...values,
       });
 
-      setSuccessMessage(
-        "Supplier updated successfully.",
-      );
+      setSuccessMessage("Supplier updated successfully.");
     } else {
       console.log("Create supplier:", values);
 
-      setSuccessMessage(
-        "Supplier created successfully.",
-      );
+      setSuccessMessage("Supplier created successfully.");
     }
 
     setTimeout(() => {
@@ -93,9 +76,7 @@ export function SupplierForm({
       "
     >
       <div className="border-b border-border p-5 sm:p-6">
-        <h2 className="font-bold">
-          Supplier information
-        </h2>
+        <h2 className="font-bold">Supplier information</h2>
 
         <p className="mt-1 text-xs text-muted">
           Enter supplier details and contact information.
@@ -119,12 +100,8 @@ export function SupplierForm({
         )}
 
         <div>
-          <label
-            htmlFor="supplier-name"
-            className="text-sm font-semibold"
-          >
-            Supplier name{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="supplier-name" className="text-sm font-semibold">
+            Supplier name <span className="text-danger">*</span>
           </label>
 
           <input
@@ -133,22 +110,15 @@ export function SupplierForm({
             placeholder="For example: Nestle Pakistan"
             autoComplete="organization"
             {...register("name")}
-            className={getFieldClass(
-              Boolean(errors.name),
-            )}
+            className={getFieldClass(Boolean(errors.name))}
           />
 
-          {errors.name && (
-            <FieldError message={errors.name.message} />
-          )}
+          {errors.name && <FieldError message={errors.name.message} />}
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label
-              htmlFor="supplier-email"
-              className="text-sm font-semibold"
-            >
+            <label htmlFor="supplier-email" className="text-sm font-semibold">
               Email address
             </label>
 
@@ -158,23 +128,14 @@ export function SupplierForm({
               placeholder="supplier@example.com"
               autoComplete="email"
               {...register("email")}
-              className={getFieldClass(
-                Boolean(errors.email),
-              )}
+              className={getFieldClass(Boolean(errors.email))}
             />
 
-            {errors.email && (
-              <FieldError
-                message={errors.email.message}
-              />
-            )}
+            {errors.email && <FieldError message={errors.email.message} />}
           </div>
 
           <div>
-            <label
-              htmlFor="supplier-phone"
-              className="text-sm font-semibold"
-            >
+            <label htmlFor="supplier-phone" className="text-sm font-semibold">
               Phone number
             </label>
 
@@ -184,24 +145,15 @@ export function SupplierForm({
               placeholder="+92 300 1234567"
               autoComplete="tel"
               {...register("phone")}
-              className={getFieldClass(
-                Boolean(errors.phone),
-              )}
+              className={getFieldClass(Boolean(errors.phone))}
             />
 
-            {errors.phone && (
-              <FieldError
-                message={errors.phone.message}
-              />
-            )}
+            {errors.phone && <FieldError message={errors.phone.message} />}
           </div>
         </div>
 
         <div>
-          <label
-            htmlFor="supplier-address"
-            className="text-sm font-semibold"
-          >
+          <label htmlFor="supplier-address" className="text-sm font-semibold">
             Address
           </label>
 
@@ -225,9 +177,7 @@ export function SupplierForm({
           />
 
           {errors.address ? (
-            <FieldError
-              message={errors.address.message}
-            />
+            <FieldError message={errors.address.message} />
           ) : (
             <p className="mt-2 text-xs text-muted">
               Optional supplier business address.
@@ -236,12 +186,8 @@ export function SupplierForm({
         </div>
 
         <div>
-          <label
-            htmlFor="supplier-status"
-            className="text-sm font-semibold"
-          >
-            Status{" "}
-            <span className="text-danger">*</span>
+          <label htmlFor="supplier-status" className="text-sm font-semibold">
+            Status <span className="text-danger">*</span>
           </label>
 
           <select
@@ -260,8 +206,7 @@ export function SupplierForm({
           </select>
 
           <p className="mt-2 text-xs text-muted">
-            Inactive suppliers will not be available
-            during product selection.
+            Inactive suppliers will not be available during product selection.
           </p>
         </div>
       </div>
@@ -276,9 +221,7 @@ export function SupplierForm({
       >
         <button
           type="button"
-          onClick={() =>
-            router.push("/catalog/suppliers")
-          }
+          onClick={() => router.push("/catalog/suppliers")}
           disabled={isSubmitting}
           className="
             inline-flex h-11 items-center justify-center
@@ -312,9 +255,7 @@ export function SupplierForm({
             <>
               <Save className="size-4" />
 
-              {mode === "edit"
-                ? "Save changes"
-                : "Create supplier"}
+              {mode === "edit" ? "Save changes" : "Create supplier"}
             </>
           )}
         </button>
@@ -337,20 +278,13 @@ function getFieldClass(hasError: boolean) {
   `;
 }
 
-function FieldError({
-  message,
-}: {
-  message?: string;
-}) {
+function FieldError({ message }: { message?: string }) {
   if (!message) {
     return null;
   }
 
   return (
-    <p
-      role="alert"
-      className="mt-2 text-xs font-medium text-danger"
-    >
+    <p role="alert" className="mt-2 text-xs font-medium text-danger">
       {message}
     </p>
   );

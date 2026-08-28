@@ -13,8 +13,7 @@ interface EditDepartmentPageProps {
 const departmentRecords = {
   "1": {
     name: "Grocery",
-    description:
-      "Daily grocery and household products",
+    description: "Daily grocery and household products",
     defaultTaxRate: 5,
     defaultMargin: 18,
     ageRestriction: false,
@@ -25,8 +24,7 @@ const departmentRecords = {
 
   "2": {
     name: "Beverages",
-    description:
-      "Cold drinks, juices and bottled water",
+    description: "Cold drinks, juices and bottled water",
     defaultTaxRate: 8,
     defaultMargin: 20,
     ageRestriction: false,
@@ -37,8 +35,7 @@ const departmentRecords = {
 
   "3": {
     name: "Tobacco",
-    description:
-      "Age-restricted tobacco products",
+    description: "Age-restricted tobacco products",
     defaultTaxRate: 15,
     defaultMargin: 12,
     ageRestriction: true,
@@ -49,8 +46,7 @@ const departmentRecords = {
 
   "4": {
     name: "Seasonal",
-    description:
-      "Seasonal and promotional products",
+    description: "Seasonal and promotional products",
     defaultTaxRate: 5,
     defaultMargin: 25,
     ageRestriction: false,
@@ -66,9 +62,8 @@ export default async function EditDepartmentPage({
   const { id } = await params;
 
   const department =
-    departmentRecords[
-      id as keyof typeof departmentRecords
-    ] ?? departmentRecords["1"];
+    departmentRecords[id as keyof typeof departmentRecords] ??
+    departmentRecords["1"];
 
   return (
     <AppShell>
@@ -97,8 +92,7 @@ export default async function EditDepartmentPage({
             </h1>
 
             <p className="mt-2 text-sm text-muted">
-              Update {department.name} and its POS
-              configuration.
+              Update {department.name} and its POS configuration.
             </p>
           </div>
         </section>

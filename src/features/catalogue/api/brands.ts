@@ -53,9 +53,7 @@ export interface BrandsResult {
   pagination: BrandsResponse["pagination"];
 }
 
-function mapBrand(
-  brand: BackendBrand,
-): Brand {
+function mapBrand(brand: BackendBrand): Brand {
   return {
     id: Number(brand.id),
     name: brand.name,
@@ -69,26 +67,19 @@ function mapBrand(
 export async function getBrands(
   filters: BrandFilters = {},
 ): Promise<BrandsResult> {
-  const response =
-    await apiClient.get<BrandsResponse>(
-      "/catalogue/brands",
-      {
-        params: {
-          search: filters.search || undefined,
+  const response = await apiClient.get<BrandsResponse>("/catalogue/brands", {
+    params: {
+      search: filters.search || undefined,
 
-          status:
-            filters.status === "all"
-              ? undefined
-              : filters.status,
+      status: filters.status === "all" ? undefined : filters.status,
 
-          page: filters.page,
-          cursor: filters.cursor,
-          limit: filters.limit ?? 10,
-          sortBy: filters.sortBy,
-          order: filters.order ?? "asc",
-        },
-      },
-    );
+      page: filters.page,
+      cursor: filters.cursor,
+      limit: filters.limit ?? 10,
+      sortBy: filters.sortBy,
+      order: filters.order ?? "asc",
+    },
+  });
 
   return {
     brands: response.data.data.map(mapBrand),
@@ -96,22 +87,18 @@ export async function getBrands(
   };
 }
 
-export async function getBrand(
-  id: number,
-): Promise<Brand> {
-  const response =
-    await apiClient.get<BrandResponse>(
-      `/catalogue/brands/${id}`,
-    );
+export async function getBrand(id: number): Promise<Brand> {
+  const response = await apiClient.get<BrandResponse>(
+    `/catalogue/brands/${id}`,
+  );
 
   return mapBrand(response.data.data);
 }
 
 export async function getBrandStats(): Promise<BrandStats> {
-  const response =
-    await apiClient.get<BrandStatsResponse>(
-      "/catalogue/brands/stats",
-    );
+  const response = await apiClient.get<BrandStatsResponse>(
+    "/catalogue/brands/stats",
+  );
 
   return {
     total: response.data.data.totalBrands,
@@ -120,14 +107,11 @@ export async function getBrandStats(): Promise<BrandStats> {
   };
 }
 
-export async function createBrand(
-  payload: CreateBrandPayload,
-): Promise<Brand> {
-  const response =
-    await apiClient.post<BrandResponse>(
-      "/catalogue/brands",
-      payload,
-    );
+export async function createBrand(payload: CreateBrandPayload): Promise<Brand> {
+  const response = await apiClient.post<BrandResponse>(
+    "/catalogue/brands",
+    payload,
+  );
 
   return mapBrand(response.data.data);
 }
@@ -136,33 +120,26 @@ export async function updateBrand(
   id: number,
   payload: UpdateBrandPayload,
 ): Promise<Brand> {
-  const response =
-    await apiClient.patch<BrandResponse>(
-      `/catalogue/brands/${id}`,
-      payload,
-    );
+  const response = await apiClient.patch<BrandResponse>(
+    `/catalogue/brands/${id}`,
+    payload,
+  );
 
   return mapBrand(response.data.data);
 }
 
-export async function deleteBrand(
-  id: number,
-): Promise<Brand> {
-  const response =
-    await apiClient.delete<BrandResponse>(
-      `/catalogue/brands/${id}`,
-    );
+export async function deleteBrand(id: number): Promise<Brand> {
+  const response = await apiClient.delete<BrandResponse>(
+    `/catalogue/brands/${id}`,
+  );
 
   return mapBrand(response.data.data);
 }
 
-export async function restoreBrand(
-  id: number,
-): Promise<Brand> {
-  const response =
-    await apiClient.patch<BrandResponse>(
-      `/catalogue/brands/${id}/restore`,
-    );
+export async function restoreBrand(id: number): Promise<Brand> {
+  const response = await apiClient.patch<BrandResponse>(
+    `/catalogue/brands/${id}/restore`,
+  );
 
   return mapBrand(response.data.data);
 }

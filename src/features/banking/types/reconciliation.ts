@@ -1,11 +1,6 @@
-import type {
-  BankTransaction,
-} from "./transaction";
+import type { BankTransaction } from "./transaction";
 
-export type ReconciliationStatus =
-  | "in_progress"
-  | "completed"
-  | "cancelled";
+export type ReconciliationStatus = "in_progress" | "completed" | "cancelled";
 
 export interface BankReconciliation {
   id: string;
@@ -19,10 +14,7 @@ export interface BankReconciliation {
 
   statementEndingBalance: number | string;
 
-  systemBalanceAtCompletion:
-    | number
-    | string
-    | null;
+  systemBalanceAtCompletion: number | string | null;
 
   status: ReconciliationStatus;
 
@@ -48,8 +40,7 @@ export interface ReconciliationLine {
   transaction?: BankTransaction;
 }
 
-export interface ReconciliationDetails
-  extends BankReconciliation {
+export interface ReconciliationDetails extends BankReconciliation {
   lines: ReconciliationLine[];
 }
 

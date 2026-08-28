@@ -4,13 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import {
-  Eye,
-  EyeOff,
-  LockKeyhole,
-  Mail,
-  UserRound,
-} from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, Mail, UserRound } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -31,10 +25,7 @@ export default function RegisterPage() {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -67,35 +58,23 @@ export default function RegisterPage() {
         } else if (typeof message === "string") {
           setServerError(message);
         } else if (!error.response) {
-          setServerError(
-            "Unable to connect to the server. Please try again.",
-          );
+          setServerError("Unable to connect to the server. Please try again.");
         } else {
-          setServerError(
-            "Registration failed. Please check your details.",
-          );
+          setServerError("Registration failed. Please check your details.");
         }
 
         return;
       }
 
-      setServerError(
-        "Something went wrong. Please try again.",
-      );
+      setServerError("Something went wrong. Please try again.");
     }
   }
 
   const passwordToggle = (
     <button
       type="button"
-      onClick={() =>
-        setShowPassword((previous) => !previous)
-      }
-      aria-label={
-        showPassword
-          ? "Hide passwords"
-          : "Show passwords"
-      }
+      onClick={() => setShowPassword((previous) => !previous)}
+      aria-label={showPassword ? "Hide passwords" : "Show passwords"}
       className="
         flex size-8 items-center justify-center
         rounded-lg text-muted transition-colors
@@ -122,8 +101,8 @@ export default function RegisterPage() {
         </h1>
 
         <p className="mt-3 text-sm leading-6 text-muted">
-          Create your organisation and start managing your
-          store from one workspace.
+          Create your organisation and start managing your store from one
+          workspace.
         </p>
       </div>
 

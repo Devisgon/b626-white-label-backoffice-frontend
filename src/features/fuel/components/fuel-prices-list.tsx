@@ -11,28 +11,19 @@ import {
   Search,
 } from "lucide-react";
 
-import {
-  FuelPriceActionButton,
-} from "./fuel-price-action-button";
-import type {
-  FuelPrice,
-  FuelPriceStatus,
-} from "@/features/fuel/types";
+import { FuelPriceActionButton } from "./fuel-price-action-button";
+import type { FuelPrice, FuelPriceStatus } from "@/features/fuel/types";
 
 const prices: FuelPrice[] = [
   {
     id: 1,
     fuel_type: "Petrol",
     price_per_liter: 272.5,
-    effective_from:
-      "2026-08-25T00:00:00.000Z",
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    effective_from: "2026-08-25T00:00:00.000Z",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active",
-    created_at:
-      "2026-08-24T09:00:00.000Z",
-    updated_at:
-      "2026-08-24T09:00:00.000Z",
+    created_at: "2026-08-24T09:00:00.000Z",
+    updated_at: "2026-08-24T09:00:00.000Z",
     deleted_at: null,
     tenant_id: "tenant-1",
   },
@@ -40,15 +31,11 @@ const prices: FuelPrice[] = [
     id: 2,
     fuel_type: "Diesel",
     price_per_liter: 280.25,
-    effective_from:
-      "2026-08-25T00:00:00.000Z",
-    location_id:
-      "11111111-1111-4111-8111-111111111111",
+    effective_from: "2026-08-25T00:00:00.000Z",
+    location_id: "11111111-1111-4111-8111-111111111111",
     status: "Active",
-    created_at:
-      "2026-08-24T09:10:00.000Z",
-    updated_at:
-      "2026-08-24T09:10:00.000Z",
+    created_at: "2026-08-24T09:10:00.000Z",
+    updated_at: "2026-08-24T09:10:00.000Z",
     deleted_at: null,
     tenant_id: "tenant-1",
   },
@@ -56,15 +43,11 @@ const prices: FuelPrice[] = [
     id: 3,
     fuel_type: "Premium Petrol",
     price_per_liter: 295,
-    effective_from:
-      "2026-08-20T00:00:00.000Z",
-    location_id:
-      "22222222-2222-4222-8222-222222222222",
+    effective_from: "2026-08-20T00:00:00.000Z",
+    location_id: "22222222-2222-4222-8222-222222222222",
     status: "Inactive",
-    created_at:
-      "2026-08-19T10:00:00.000Z",
-    updated_at:
-      "2026-08-22T11:20:00.000Z",
+    created_at: "2026-08-19T10:00:00.000Z",
+    updated_at: "2026-08-22T11:20:00.000Z",
     deleted_at: null,
     tenant_id: "tenant-1",
   },
@@ -89,23 +72,16 @@ function formatDate(value: string) {
 
 export function FuelPricesList() {
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState<
-    FuelPriceStatus | "all"
-  >("all");
+  const [status, setStatus] = useState<FuelPriceStatus | "all">("all");
 
   const filteredPrices = useMemo(() => {
     const query = search.trim().toLowerCase();
 
     return prices.filter((price) => {
       const matchesSearch =
-        !query ||
-        price.fuel_type
-          .toLowerCase()
-          .includes(query);
+        !query || price.fuel_type.toLowerCase().includes(query);
 
-      const matchesStatus =
-        status === "all" ||
-        price.status === status;
+      const matchesStatus = status === "all" || price.status === status;
 
       return matchesSearch && matchesStatus;
     });
@@ -116,12 +92,8 @@ export function FuelPricesList() {
   ).length;
 
   const averagePrice =
-    prices.reduce(
-      (total, price) =>
-        total +
-        Number(price.price_per_liter),
-      0,
-    ) / prices.length;
+    prices.reduce((total, price) => total + Number(price.price_per_liter), 0) /
+    prices.length;
 
   function resetFilters() {
     setSearch("");
@@ -153,9 +125,7 @@ export function FuelPricesList() {
       <section className="mt-6 overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-sm)]">
         <div className="flex flex-col justify-between gap-4 border-b border-border p-5 sm:flex-row sm:items-center">
           <div>
-            <h2 className="font-bold">
-              Fuel prices
-            </h2>
+            <h2 className="font-bold">Fuel prices</h2>
             <p className="mt-1 text-xs text-muted">
               Manage prices and effective dates.
             </p>
@@ -176,9 +146,7 @@ export function FuelPricesList() {
 
             <input
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search fuel type..."
               className="h-11 w-full rounded-xl border border-border pl-11 pr-4 text-sm outline-none"
             />
@@ -187,23 +155,13 @@ export function FuelPricesList() {
           <select
             value={status}
             onChange={(event) =>
-              setStatus(
-                event.target.value as
-                  | FuelPriceStatus
-                  | "all",
-              )
+              setStatus(event.target.value as FuelPriceStatus | "all")
             }
             className="h-11 rounded-xl border border-border bg-white px-4 text-sm lg:min-w-44"
           >
-            <option value="all">
-              All statuses
-            </option>
-            <option value="Active">
-              Active
-            </option>
-            <option value="Inactive">
-              Inactive
-            </option>
+            <option value="all">All statuses</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           <button
@@ -220,39 +178,24 @@ export function FuelPricesList() {
           <table className="w-full min-w-[850px] text-left">
             <thead className="bg-surface-secondary">
               <tr className="text-[11px] font-bold uppercase tracking-wider text-muted">
-                <th className="px-5 py-4">
-                  Fuel type
-                </th>
-                <th className="px-5 py-4">
-                  Price per litre
-                </th>
-                <th className="px-5 py-4">
-                  Effective from
-                </th>
-                <th className="px-5 py-4">
-                  Status
-                </th>
-                <th className="px-5 py-4 text-right">
-                  Actions
-                </th>
+                <th className="px-5 py-4">Fuel type</th>
+                <th className="px-5 py-4">Price per litre</th>
+                <th className="px-5 py-4">Effective from</th>
+                <th className="px-5 py-4">Status</th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-border">
               {filteredPrices.map((price) => (
-                <tr
-                  key={price.id}
-                  className="text-sm"
-                >
+                <tr key={price.id} className="text-sm">
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <span className="flex size-9 items-center justify-center rounded-xl bg-primary-light text-primary">
                         <BadgeDollarSign className="size-4" />
                       </span>
                       <div>
-                        <p className="font-semibold">
-                          {price.fuel_type}
-                        </p>
+                        <p className="font-semibold">{price.fuel_type}</p>
                         <p className="text-xs text-muted">
                           Price ID: {price.id}
                         </p>
@@ -261,15 +204,11 @@ export function FuelPricesList() {
                   </td>
 
                   <td className="px-5 py-4 font-bold">
-                    {formatCurrency(
-                      price.price_per_liter,
-                    )}
+                    {formatCurrency(price.price_per_liter)}
                   </td>
 
                   <td className="px-5 py-4 text-muted">
-                    {formatDate(
-                      price.effective_from,
-                    )}
+                    {formatDate(price.effective_from)}
                   </td>
 
                   <td className="px-5 py-4">
@@ -296,9 +235,7 @@ export function FuelPricesList() {
 
                       <FuelPriceActionButton
                         priceId={price.id}
-                        fuelType={
-                          price.fuel_type
-                        }
+                        fuelType={price.fuel_type}
                       />
                     </div>
                   </td>
@@ -309,8 +246,7 @@ export function FuelPricesList() {
         </div>
 
         <div className="border-t border-border px-5 py-4 text-xs text-muted">
-          Showing {filteredPrices.length} of{" "}
-          {prices.length} prices
+          Showing {filteredPrices.length} of {prices.length} prices
         </div>
       </section>
     </div>
@@ -328,15 +264,9 @@ function SummaryCard({
 }) {
   return (
     <article className="rounded-2xl border border-border bg-white p-5 shadow-[var(--shadow-sm)]">
-      <p className="text-xs text-muted">
-        {title}
-      </p>
-      <p className="mt-2 text-2xl font-bold">
-        {value}
-      </p>
-      <p className="mt-1 text-[11px] text-muted">
-        {helper}
-      </p>
+      <p className="text-xs text-muted">{title}</p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
+      <p className="mt-1 text-[11px] text-muted">{helper}</p>
     </article>
   );
 }
