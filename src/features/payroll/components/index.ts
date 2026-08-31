@@ -4,3 +4,5 @@ export * from "./deduction-form";
 export * from "./leave-request-form";
 export * from "./payroll-lists";
 export * from "./payroll-details";
+export * from "./payroll-final-sections";
+export * from "./pay-run-form";

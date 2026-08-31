@@ -2,6 +2,9 @@ import {
   BadgeDollarSign,
   CalendarOff,
   Clock3,
+  FileText,
+  PlayCircle,
+  BarChart3,
   ReceiptText,
   type LucideIcon,
 } from "lucide-react";
@@ -43,5 +46,26 @@ export const payrollModules: PayrollModuleCard[] = [
     href: "/payroll/timesheets",
     icon: Clock3,
     color: "blue",
+  },
+  {
+    title: "Pay Runs",
+    description: "Create, calculate and complete payroll periods",
+    href: "/payroll/pay-runs",
+    icon: PlayCircle,
+    color: "orange",
+  },
+  {
+    title: "Payslips",
+    description: "Employee gross pay, deductions and net pay statements",
+    href: "/payroll/payslips",
+    icon: FileText,
+    color: "purple",
+  },
+  {
+    title: "Reports",
+    description: "Payroll summaries and location-wise cost reporting",
+    href: "/payroll/reports",
+    icon: BarChart3,
+    color: "cyan",
   },
 ];

@@ -24,17 +24,17 @@ export default function PayrollPage() {
             </p>
             <h1 className="mt-2 text-2xl font-bold sm:text-3xl">Payroll</h1>
             <p className="mt-2 text-sm text-muted">
-              Manage employee pay profiles, deductions, leave requests and
-              timesheets.
+              Manage employee pay, attendance, payroll runs, payslips and
+              reports.
             </p>
           </div>
         </section>
         <section className="mt-10">
           <h2 className="text-lg font-bold">Payroll workspace</h2>
           <p className="mt-1 text-xs text-muted">
-            The first four sections aligned with the latest backend.
+            All seven sections are aligned with the latest backend.
           </p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {payrollModules.map((module) => (
               <ModuleCard
                 key={module.href}

@@ -7,6 +7,8 @@ import {
   Ticket,
   Workflow,
   Warehouse,
+  Users,
+  Settings,
   type LucideIcon,
 } from "lucide-react";
 
@@ -99,6 +101,24 @@ export const dashboardModules: DashboardModule[] = [
     icon: BadgeDollarSign,
     color: "green",
     allowedRoles: [OWNER_ADMIN, STORE_MANAGER, FINANCE_USER],
-    actionCount: 4,
+    actionCount: 7,
+  },
+  {
+    title: "Users & Access",
+    description: "Manage staff roles, status and permissions",
+    href: "/users",
+    icon: Users,
+    color: "slate",
+    allowedRoles: [OWNER_ADMIN],
+    actionCount: 2,
+  },
+  {
+    title: "Settings",
+    description: "Configure store, tax, payments, security and integrations",
+    href: "/settings",
+    icon: Settings,
+    color: "slate",
+    allowedRoles: [OWNER_ADMIN],
+    actionCount: 8,
   },
 ];
