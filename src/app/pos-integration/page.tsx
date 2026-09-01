@@ -1,0 +1,102 @@
+import Link from "next/link";
+import {
+  ArrowLeft,
+  ArrowDownToLine,
+  ArrowUpFromLine,
+  Cable,
+  History,
+  PlugZap,
+  Rows3,
+} from "lucide-react";
+import { AppShell } from "@/components/layout";
+import {
+  demoInboundBatches,
+  demoOutboundBatches,
+  demoPosEvents,
+  demoPosMappings,
+} from "@/features/pos-integration/demo-data";
+
+export default function Page() {
+  const cards = [
+    {
+      title: "Connection",
+      description: "Provider, site and connection configuration",
+      href: "/pos-integration/connection",
+      icon: Cable,
+      count: 1,
+    },
+    {
+      title: "Mappings",
+      description: "Internal records mapped to external POS keys",
+      href: "/pos-integration/mappings",
+      icon: Rows3,
+      count: demoPosMappings.length,
+    },
+    {
+      title: "Outbound",
+      description: "Create and send approved outbound batches",
+      href: "/pos-integration/outbound",
+      icon: ArrowUpFromLine,
+      count: demoOutboundBatches.length,
+    },
+    {
+      title: "Inbound",
+      description: "Review batches received from the POS",
+      href: "/pos-integration/inbound",
+      icon: ArrowDownToLine,
+      count: demoInboundBatches.length,
+    },
+    {
+      title: "Events",
+      description: "Connection, mapping and batch activity",
+      href: "/pos-integration/events",
+      icon: History,
+      count: demoPosEvents.length,
+    },
+  ];
+  return (
+    <AppShell>
+      <main className="mx-auto max-w-[1250px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+        <header className="flex items-start gap-4">
+          <Link
+            href="/"
+            className="flex size-10 items-center justify-center rounded-xl border border-border"
+          >
+            <ArrowLeft className="size-4" />
+          </Link>
+          <span className="hidden size-10 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700 sm:flex">
+            <PlugZap className="size-4" />
+          </span>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
+              External systems
+            </p>
+            <h1 className="mt-2 text-3xl font-bold">POS Integration</h1>
+            <p className="mt-2 text-sm text-muted">
+              Manage the active location’s POS connection, mappings and data
+              batches.
+            </p>
+          </div>
+        </header>
+        <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {cards.map(({ icon: Icon, ...card }) => (
+            <Link
+              key={card.href}
+              href={card.href}
+              className="rounded-2xl border border-border bg-white p-6 transition hover:border-primary"
+            >
+              <div className="flex items-center justify-between">
+                <Icon className="size-6 text-primary" />
+                <span className="rounded-full bg-primary-light px-2.5 py-1 text-xs font-semibold text-primary">
+                  {card.count}
+                </span>
+              </div>
+              <h2 className="mt-5 font-bold">{card.title}</h2>
+              <p className="mt-2 text-sm text-muted">{card.description}</p>
+            </Link>
+          ))}
+        </section>
+      </main>
+    </AppShell>
+  );
+}

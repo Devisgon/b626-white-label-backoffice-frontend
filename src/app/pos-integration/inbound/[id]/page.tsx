@@ -1,0 +1,49 @@
+import { notFound } from "next/navigation";
+import { AppShell } from "@/components/layout";
+import { PosHeader } from "@/features/pos-integration";
+import { demoInboundBatches } from "@/features/pos-integration/demo-data";
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const batch = demoInboundBatches.find((item) => item.id === id);
+  if (!batch) notFound();
+  const rows = [
+    ["Status", batch.status],
+    ["Item count", String(batch.itemCount)],
+    ["Received", new Date(batch.createdAt).toLocaleString("en-GB")],
+    ["Reviewed by", batch.reviewedBy ?? "Pending review"],
+    [
+      "Reviewed at",
+      batch.reviewedAt
+        ? new Date(batch.reviewedAt).toLocaleString("en-GB")
+        : "Not reviewed",
+    ],
+  ];
+  return (
+    <AppShell>
+      <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+        <PosHeader
+          title="Inbound Batch Details"
+          description={`Review information for batch ${batch.id.slice(0, 8)}.`}
+          back="/pos-integration/inbound"
+        />
+        <dl className="divide-y divide-border rounded-2xl border border-border bg-white p-6">
+          {rows.map(([label, value]) => (
+            <div
+              key={label}
+              className="grid gap-2 py-4 sm:grid-cols-[180px_1fr]"
+            >
+              <dt className="text-sm text-muted">{label}</dt>
+              <dd className="text-sm font-semibold capitalize">
+                {value.replaceAll("_", " ")}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </main>
+    </AppShell>
+  );
+}

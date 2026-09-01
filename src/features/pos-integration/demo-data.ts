@@ -1,0 +1,128 @@
+import type {
+  PosConnection,
+  PosEvent,
+  PosInboundBatch,
+  PosMapping,
+  PosOutboundBatch,
+} from "./types";
+export const demoPosConnection: PosConnection = {
+  id: "8c52e2ec-8185-4bcc-90c7-7c838cbba701",
+  provider: "verifone_ruby_ci",
+  siteName: "Phoenix Store",
+  serviceId: "SD-32",
+  externalSiteId: "DS-32",
+  connectionMode: "file_xml",
+  commanderRelease: "23.0",
+  notes: "Primary store connection",
+  isEnabled: true,
+  disabledReason: null,
+  createdAt: "2026-08-20T08:00:00Z",
+  updatedAt: "2026-08-30T08:00:00Z",
+};
+export const demoPosMappings: PosMapping[] = [
+  {
+    id: "11111111-1111-4111-8111-111111111111",
+    internalEntityType: "product",
+    internalEntityId: "12",
+    externalEntityType: "pos_item",
+    externalEntityKey: "ITEM-00231",
+    externalParentKey: "DEPT-05",
+    externalDisplayName: "Coca Cola 1.5L",
+    status: "mapped",
+    isRequired: true,
+    createdAt: "2026-08-25T08:00:00Z",
+    updatedAt: "2026-08-25T08:00:00Z",
+  },
+  {
+    id: "22222222-2222-4222-8222-222222222222",
+    internalEntityType: "product",
+    internalEntityId: "28",
+    externalEntityType: "pos_item",
+    externalEntityKey: "ITEM-00412",
+    externalParentKey: "DEPT-07",
+    externalDisplayName: "Mineral Water",
+    status: "partial",
+    isRequired: true,
+    createdAt: "2026-08-26T08:00:00Z",
+    updatedAt: "2026-08-26T08:00:00Z",
+  },
+  {
+    id: "33333333-3333-4333-8333-333333333333",
+    internalEntityType: "tax",
+    internalEntityId: "tax-001",
+    externalEntityType: "tax_code",
+    externalEntityKey: "TAX-17",
+    externalParentKey: null,
+    externalDisplayName: "Standard GST",
+    status: "mapped",
+    isRequired: false,
+    createdAt: "2026-08-27T08:00:00Z",
+    updatedAt: "2026-08-27T08:00:00Z",
+  },
+];
+export const demoOutboundBatches: PosOutboundBatch[] = [
+  {
+    id: "44444444-4444-4444-8444-444444444444",
+    status: "pending",
+    itemCount: 2,
+    sentAt: null,
+    errorMessage: null,
+    createdAt: "2026-08-30T10:00:00Z",
+    items: [
+      {
+        id: "obi-1",
+        mappingId: demoPosMappings[0].id,
+        payload: { externalEntityKey: "ITEM-00231" },
+      },
+    ],
+  },
+  {
+    id: "55555555-5555-4555-8555-555555555555",
+    status: "sent",
+    itemCount: 3,
+    sentAt: "2026-08-29T11:00:00Z",
+    errorMessage: null,
+    createdAt: "2026-08-29T10:00:00Z",
+  },
+];
+export const demoInboundBatches: PosInboundBatch[] = [
+  {
+    id: "66666666-6666-4666-8666-666666666666",
+    status: "pending_review",
+    itemCount: 4,
+    reviewedBy: null,
+    reviewedAt: null,
+    createdAt: "2026-08-31T07:30:00Z",
+  },
+  {
+    id: "77777777-7777-4777-8777-777777777777",
+    status: "approved",
+    itemCount: 2,
+    reviewedBy: "Owner Admin",
+    reviewedAt: "2026-08-30T09:00:00Z",
+    createdAt: "2026-08-30T08:00:00Z",
+  },
+];
+export const demoPosEvents: PosEvent[] = [
+  {
+    id: "event-1",
+    eventType: "connection_created",
+    description: "Connection profile created for Phoenix Store",
+    performedBy: "Owner Admin",
+    createdAt: "2026-08-20T08:00:00Z",
+  },
+  {
+    id: "event-2",
+    eventType: "mapping_created",
+    description: "Product mapping created",
+    performedBy: "Owner Admin",
+    createdAt: "2026-08-25T08:00:00Z",
+  },
+  {
+    id: "event-3",
+    eventType: "batch_sent",
+    description: "Outbound batch marked sent",
+    performedBy: "Finance User",
+    createdAt: "2026-08-29T11:00:00Z",
+  },
+];

@@ -9,6 +9,7 @@ import {
   Warehouse,
   Users,
   Settings,
+  PlugZap,
   type LucideIcon,
 } from "lucide-react";
 
@@ -120,5 +121,14 @@ export const dashboardModules: DashboardModule[] = [
     color: "slate",
     allowedRoles: [OWNER_ADMIN],
     actionCount: 8,
+  },
+  {
+    title: "POS Integration",
+    description: "Manage POS connection, mappings and data batches",
+    href: "/pos-integration",
+    icon: PlugZap,
+    color: "cyan",
+    allowedRoles: [OWNER_ADMIN, STORE_MANAGER, INVENTORY_USER],
+    actionCount: 5,
   },
 ];
