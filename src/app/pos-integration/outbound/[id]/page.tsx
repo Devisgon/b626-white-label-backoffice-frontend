@@ -2,51 +2,5 @@ import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout";
 import { PosHeader } from "@/features/pos-integration";
 import { demoOutboundBatches } from "@/features/pos-integration/demo-data";
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const batch = demoOutboundBatches.find((item) => item.id === id);
-  if (!batch) notFound();
-  return (
-    <AppShell>
-      <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
-        <PosHeader
-          title="Outbound Batch Details"
-          description={`Batch ${batch.id.slice(0, 8)} contains ${batch.itemCount} item(s).`}
-          back="/pos-integration/outbound"
-        />
-        <Details
-          rows={[
-            ["Status", batch.status],
-            ["Item count", String(batch.itemCount)],
-            ["Created", new Date(batch.createdAt).toLocaleString("en-GB")],
-            [
-              "Sent",
-              batch.sentAt
-                ? new Date(batch.sentAt).toLocaleString("en-GB")
-                : "Not sent",
-            ],
-            ["Error", batch.errorMessage ?? "None"],
-          ]}
-        />
-      </main>
-    </AppShell>
-  );
-}
-function Details({ rows }: { rows: string[][] }) {
-  return (
-    <dl className="divide-y divide-border rounded-2xl border border-border bg-white p-6">
-      {rows.map(([label, value]) => (
-        <div key={label} className="grid gap-2 py-4 sm:grid-cols-[180px_1fr]">
-          <dt className="text-sm text-muted">{label}</dt>
-          <dd className="text-sm font-semibold capitalize">
-            {value.replaceAll("_", " ")}
-          </dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
+export default async function Page({ params }: { params: Promise<{ id: string }> }) { const { id } = await params; const batch = demoOutboundBatches.find((item) => item.id === id); if (!batch) notFound(); return <AppShell><main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10"><PosHeader title="Outbound Batch Details" description={`Batch ${batch.id.slice(0, 8)} contains ${batch.itemCount} item(s).`} back="/pos-integration/outbound" /><Details rows={[["Status", batch.status], ["Item count", String(batch.itemCount)], ["Created", new Date(batch.createdAt).toLocaleString("en-GB")], ["Sent", batch.sentAt ? new Date(batch.sentAt).toLocaleString("en-GB") : "Not sent"], ["Error", batch.errorMessage ?? "None"]]} /></main></AppShell>; }
+function Details({ rows }: { rows: string[][] }) { return <dl className="divide-y divide-border rounded-2xl border border-border bg-white p-6">{rows.map(([label, value]) => <div key={label} className="grid gap-2 py-4 sm:grid-cols-[180px_1fr]"><dt className="text-sm text-muted">{label}</dt><dd className="text-sm font-semibold capitalize">{value.replaceAll("_", " ")}</dd></div>)}</dl>; }

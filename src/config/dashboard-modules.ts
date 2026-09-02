@@ -10,6 +10,7 @@ import {
   Users,
   Settings,
   PlugZap,
+  Send,
   type LucideIcon,
 } from "lucide-react";
 
@@ -130,5 +131,14 @@ export const dashboardModules: DashboardModule[] = [
     color: "cyan",
     allowedRoles: [OWNER_ADMIN, STORE_MANAGER, INVENTORY_USER],
     actionCount: 5,
+  },
+  {
+    title: "Send to POS",
+    description: "Preview, send and review POS publishing batches",
+    href: "/send-to-pos",
+    icon: Send,
+    color: "cyan",
+    allowedRoles: [OWNER_ADMIN, STORE_MANAGER, INVENTORY_USER],
+    actionCount: 3,
   },
 ];
