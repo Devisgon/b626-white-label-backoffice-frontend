@@ -54,6 +54,11 @@ function VerifyEmailForm() {
     try {
       const response = await verifyEmail(values);
 
+      if (!response.user || !response.accessToken || !response.refreshToken) {
+        router.push("/login?emailVerified=true");
+        return;
+      }
+
       setSession({
         user: response.user,
         accessToken: response.accessToken,

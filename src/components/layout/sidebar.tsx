@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { LayoutDashboard, LogOut, X } from "lucide-react";
+import { useState } from "react";
 
 import { dashboardModules } from "@/config/dashboard-modules";
+import { logoutUser } from "@/features/auth/api";
 import { useAuthStore } from "@/store";
 import { ROLE_LABELS, type UserRole } from "@/types/role";
 import { cn } from "@/utils";
@@ -17,8 +19,26 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose, role }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const user = useAuthStore((state) => state.user);
+  const clearAuth = useAuthStore((state) => state.clearAuth);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  async function handleLogout() {
+    setIsLoggingOut(true);
+
+    try {
+      await logoutUser();
+    } catch {
+      // Local session is still cleared if the server session already expired.
+    } finally {
+      clearAuth();
+      onClose();
+      router.replace("/login");
+      setIsLoggingOut(false);
+    }
+  }
 
   const availableModules = dashboardModules.filter((module) =>
     module.allowedRoles.includes(role),
@@ -170,11 +190,14 @@ export function Sidebar({ isOpen, onClose, role }: SidebarProps) {
 
             <button
               type="button"
+              onClick={handleLogout}
+              disabled={isLoggingOut}
               aria-label="Log out"
               className="
                 flex size-9 items-center justify-center
                 rounded-lg text-muted transition-colors
                 hover:bg-red-50 hover:text-danger
+                disabled:cursor-not-allowed disabled:opacity-50
               "
             >
               <LogOut className="size-[17px]" />

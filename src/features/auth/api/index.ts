@@ -1,5 +1,6 @@
 export {
   createOnboardingLocation,
+  disableMfa,
   forgotPassword,
   getCurrentUser,
   getMyLocations,
@@ -9,5 +10,7 @@ export {
   resendOtp,
   resetPassword,
   setActiveLocation,
+  setupMfa,
+  verifyMfa,
   verifyEmail,
 } from "./auth.api";

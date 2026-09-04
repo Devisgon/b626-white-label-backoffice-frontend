@@ -1,5 +1,9 @@
 import { AppShell } from "@/components/layout";
-import { SecuritySettingsForm, SettingsPageHeader } from "@/features/settings";
+import {
+  MfaSettingsCard,
+  SecuritySettingsForm,
+  SettingsPageHeader,
+} from "@/features/settings";
 export default function Page() {
   return (
     <AppShell>
@@ -9,6 +13,7 @@ export default function Page() {
           description="Manage password rules, session timeout and 2FA."
         />
         <SecuritySettingsForm />
+        <MfaSettingsCard />
       </main>
     </AppShell>
   );

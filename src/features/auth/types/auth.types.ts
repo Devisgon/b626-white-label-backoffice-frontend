@@ -15,11 +15,22 @@ export interface AuthUser {
   activeLocationId: string | null;
   createdAt: string;
   updatedAt: string;
+  mfaEnabled?: boolean;
 }
 
 export interface LoginRequest {
   email: string;
   password: string;
+  mfaCode?: string;
+}
+
+export interface MfaCodeRequest {
+  code: string;
+}
+
+export interface MfaSetupResponse {
+  message: string;
+  qrCode: string;
 }
 
 export interface RegisterRequest {
@@ -70,6 +81,9 @@ export interface Location {
 export interface CreateLocationRequest {
   name: string;
   address?: string;
+  disabledModules?: Array<
+    "AUTH" | "CATALOGUE" | "BANKING" | "SALES" | "PAYROLL" | "SETTINGS"
+  >;
 }
 
 export interface ActiveLocationRequest {

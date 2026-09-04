@@ -7,6 +7,7 @@ import { Topbar } from "./topbar";
 
 import { useAuthStore } from "@/store";
 import { USER_ROLES } from "@/types/role";
+import { AuthGuard } from "@/components/shared";
 
 interface AppShellProps {
   children: ReactNode;
@@ -20,7 +21,8 @@ export function AppShell({ children }: AppShellProps) {
   const currentRole = user?.role ?? USER_ROLES.OWNER_ADMIN;
 
   return (
-    <main className="min-h-screen bg-background">
+    <AuthGuard>
+      <main className="min-h-screen bg-background">
       <Topbar onMenuClick={() => setIsSidebarOpen(true)} />
 
       <Sidebar
@@ -30,6 +32,7 @@ export function AppShell({ children }: AppShellProps) {
       />
 
       {children}
-    </main>
+      </main>
+    </AuthGuard>
   );
 }

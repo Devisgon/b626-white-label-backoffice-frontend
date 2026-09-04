@@ -11,6 +11,7 @@ import {
   Settings,
   PlugZap,
   Send,
+  MapPinned,
   type LucideIcon,
 } from "lucide-react";
 
@@ -140,5 +141,14 @@ export const dashboardModules: DashboardModule[] = [
     color: "cyan",
     allowedRoles: [OWNER_ADMIN, STORE_MANAGER, INVENTORY_USER],
     actionCount: 3,
+  },
+  {
+    title: "Locations",
+    description: "View accessible stores and switch active location",
+    href: "/locations",
+    icon: MapPinned,
+    color: "green",
+    allowedRoles: [OWNER_ADMIN, STORE_MANAGER, INVENTORY_USER, FINANCE_USER],
+    actionCount: 2,
   },
 ];

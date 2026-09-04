@@ -3,7 +3,7 @@ import { useAuthStore } from "@/store";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
+import { Eye, EyeOff, KeyRound, LockKeyhole, Mail } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -19,6 +19,7 @@ export default function LoginPage() {
   const setSession = useAuthStore((state) => state.setSession);
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [mfaRequired, setMfaRequired] = useState(false);
 
   const {
     register,
@@ -29,6 +30,7 @@ export default function LoginPage() {
     defaultValues: {
       email: "",
       password: "",
+      mfaCode: "",
     },
   });
 
@@ -53,6 +55,27 @@ export default function LoginPage() {
     } catch (error) {
       if (axios.isAxiosError<ApiErrorResponse>(error)) {
         const message = error.response?.data?.message;
+
+        if (
+          error.response?.status === 403 &&
+          (error.response.data?.step === "MFA_REQUIRED" ||
+            message === "MFA code required")
+        ) {
+          setMfaRequired(true);
+          setServerError(
+            "Enter the 6-digit code from your authenticator app.",
+          );
+          return;
+        }
+
+        if (
+          error.response?.status === 403 &&
+          (error.response.data?.step === "EMAIL_VERIFICATION" ||
+            message === "Please verify your email before logging in")
+        ) {
+          router.push(`/verify-email?email=${encodeURIComponent(values.email)}`);
+          return;
+        }
 
         if (Array.isArray(message)) {
           setServerError(message[0]);
@@ -147,6 +170,28 @@ export default function LoginPage() {
           }
           {...register("password")}
         />
+
+        {mfaRequired && (
+          <Input
+            id="mfaCode"
+            type="text"
+            inputMode="numeric"
+            label="Authenticator code"
+            placeholder="000000"
+            autoComplete="one-time-code"
+            maxLength={6}
+            required
+            leftIcon={<KeyRound className="size-4" />}
+            error={errors.mfaCode?.message}
+            {...register("mfaCode", {
+              required: "Enter your 6-digit authenticator code",
+              pattern: {
+                value: /^\d{6}$/,
+                message: "Enter a valid 6-digit code",
+              },
+            })}
+          />
+        )}
 
         <div className="flex items-center justify-between gap-4">
           <label className="flex items-center gap-2 text-xs text-muted">

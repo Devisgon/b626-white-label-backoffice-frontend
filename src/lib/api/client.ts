@@ -1,13 +1,19 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
 
 export interface ApiErrorResponse {
+  success?: false;
   message?: string | string[];
   error?: string;
   statusCode?: number;
+  step?: "EMAIL_VERIFICATION" | "MFA_REQUIRED";
+  path?: string;
+  timestamp?: string;
 }
 
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseURL:
+    process.env.NEXT_PUBLIC_API_BASE_URL ??
+    "https://b626-white-label-backoffice-production.up.railway.app",
   timeout: 15000,
   headers: {
     "Content-Type": "application/json",
@@ -38,6 +44,7 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && typeof window !== "undefined") {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      window.dispatchEvent(new Event("auth:unauthorized"));
     }
 
     return Promise.reject(error);

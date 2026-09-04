@@ -7,6 +7,8 @@ export type {
   Location,
   LoginRequest,
   MessageResponse,
+  MfaCodeRequest,
+  MfaSetupResponse,
   OnboardingStatus,
   RegisterRequest,
   ResendOtpRequest,

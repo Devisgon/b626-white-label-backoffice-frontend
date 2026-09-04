@@ -19,6 +19,7 @@ const otpSchema = z
 export const loginSchema = z.object({
   email: emailSchema,
   password: passwordSchema,
+  mfaCode: z.string().optional(),
 });
 
 export const registerSchema = z

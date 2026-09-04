@@ -9,6 +9,8 @@ import type {
   Location,
   LoginRequest,
   MessageResponse,
+  MfaCodeRequest,
+  MfaSetupResponse,
   RegisterRequest,
   ResendOtpRequest,
   ResetPasswordRequest,
@@ -78,6 +80,36 @@ export async function loginUser(data: LoginRequest): Promise<AuthResponse> {
 export async function logoutUser(): Promise<MessageResponse> {
   const response = await apiClient.post<MessageResponse>(
     `${AUTH_ENDPOINT}/logout`,
+  );
+
+  return response.data;
+}
+
+export async function setupMfa(): Promise<MfaSetupResponse> {
+  const response = await apiClient.post<MfaSetupResponse>(
+    `${AUTH_ENDPOINT}/mfa/setup`,
+  );
+
+  return response.data;
+}
+
+export async function verifyMfa(
+  data: MfaCodeRequest,
+): Promise<MessageResponse> {
+  const response = await apiClient.post<MessageResponse>(
+    `${AUTH_ENDPOINT}/mfa/verify`,
+    data,
+  );
+
+  return response.data;
+}
+
+export async function disableMfa(
+  data: MfaCodeRequest,
+): Promise<MessageResponse> {
+  const response = await apiClient.post<MessageResponse>(
+    `${AUTH_ENDPOINT}/mfa/disable`,
+    data,
   );
 
   return response.data;

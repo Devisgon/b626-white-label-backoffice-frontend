@@ -13,6 +13,7 @@ import { dashboardModules } from "@/config/dashboard-modules";
 import { ModuleCard } from "@/features/dashboard/components";
 import { useAuthStore } from "@/store";
 import { USER_ROLES } from "@/types/role";
+import { AuthGuard } from "@/components/shared";
 
 export default function DashboardPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -30,7 +31,8 @@ export default function DashboardPage() {
   );
 
   return (
-    <main className="min-h-screen bg-background">
+    <AuthGuard>
+      <main className="min-h-screen bg-background">
       <Topbar onMenuClick={() => setIsSidebarOpen(true)} />
 
       <Sidebar
@@ -189,6 +191,7 @@ export default function DashboardPage() {
           </div>
         </section>
       </div>
-    </main>
+      </main>
+    </AuthGuard>
   );
 }

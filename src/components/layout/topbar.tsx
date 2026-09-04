@@ -1,8 +1,9 @@
 "use client";
 
-import { ChevronDown, Clock3, Menu, Store } from "lucide-react";
+import { Clock3, Menu } from "lucide-react";
 
 import { Button } from "@/components/ui";
+import { LocationSwitcher } from "@/features/locations";
 
 interface TopbarProps {
   onMenuClick: () => void;
@@ -58,33 +59,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
           Clock In
         </Button>
 
-        <button
-          type="button"
-          className="
-            flex items-center gap-3 rounded-xl border border-border
-            bg-white p-2 pr-3 text-left
-            transition-colors hover:bg-surface-secondary
-          "
-        >
-          <span
-            className="
-              flex size-9 items-center justify-center rounded-lg
-              bg-primary-light text-primary
-            "
-          >
-            <Store className="size-[18px]" />
-          </span>
-
-          <span className="hidden md:flex md:flex-col">
-            <strong className="text-xs font-semibold">Phoenix Store</strong>
-
-            <small className="mt-0.5 text-[10px] text-muted">
-              55756 · Punjab
-            </small>
-          </span>
-
-          <ChevronDown className="hidden size-4 text-muted md:block" />
-        </button>
+        <LocationSwitcher />
 
         <button
           type="button"
